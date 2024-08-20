@@ -7,14 +7,12 @@ const RootLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <>
-      <CssBaseline />
-      <html lang="en">
-        <body>
-          <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
-        </body>
-      </html>
-    </>
+    <html lang="en">
+      <body>
+        <CssBaseline />
+        <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
+      </body>
+    </html>
   );
 };
 
