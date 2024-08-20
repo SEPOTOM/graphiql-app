@@ -1,6 +1,6 @@
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 
-import './globals.scss';
+import '@/styles/index.scss';
 
 const RootLayout = ({
   children,
