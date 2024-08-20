@@ -1,10 +1,10 @@
-import { Inter } from "next/font/google";
+import { Inter } from 'next/font/google';
 
-import "./globals.css";
+import './globals.css';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
-const  RootLayout = ({
+const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -14,6 +14,6 @@ const  RootLayout = ({
       <body className={inter.className}>{children}</body>
     </html>
   );
-}
+};
 
 export default RootLayout;
