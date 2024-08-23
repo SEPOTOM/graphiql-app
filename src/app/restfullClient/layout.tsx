@@ -1,4 +1,4 @@
-import RestfullClient from '@/components/restfullClient/restfullClient';
+import { RestfullClient } from '@/components';
 import { Container } from '@mui/material';
 
 const RestLayout = ({
