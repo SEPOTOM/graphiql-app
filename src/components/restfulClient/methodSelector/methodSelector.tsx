@@ -4,18 +4,26 @@ import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { Method } from '@/types/enum';
 import styles from './methodSelector.module.scss';
+import { usePathname } from 'next/navigation';
+import { useState } from 'react';
+import { getNewMethodPath } from '@/services';
 
-interface MethodSelectorProps {
-  method: string;
-  handleSelect: (event: SelectChangeEvent) => void;
-}
+export default function MethodSelector() {
+  const [method, setMethod] = useState('');
+  const pathname = usePathname();
+  const methods = Object.values(Method) as string[];
 
-export default function MethodSelector({ method, handleSelect }: MethodSelectorProps) {
+  const handleSelect = (event: SelectChangeEvent) => {
+    const selectedMethod = event.target.value;
+    setMethod(selectedMethod);
+    const newPath = getNewMethodPath(pathname, selectedMethod, methods);
+    window.history.replaceState(null, '', newPath);
+  };
   return (
     <FormControl sx={{ width: 200 }}>
       <InputLabel id="select-method-label">Method</InputLabel>
       <Select labelId="select-method-label" id="select-method" value={method} label="Method" onChange={handleSelect}>
-        {Object.values(Method).map((method) => (
+        {methods.map((method) => (
           <MenuItem key={method} value={method}>
             {method}
           </MenuItem>

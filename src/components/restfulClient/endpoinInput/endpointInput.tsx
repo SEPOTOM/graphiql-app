@@ -1,19 +1,24 @@
 'use clent';
 
+import { getNewURLPath } from '@/services';
 import TextField from '@mui/material/TextField';
+import { usePathname } from 'next/navigation';
 import { ChangeEvent } from 'react';
 
-interface EndpointInputProps {
-  handleChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-}
+export default function EndpointInput() {
+  const pathname = usePathname();
 
-export default function EndpointInput({ handleChange }: EndpointInputProps) {
+  const handleEndpointChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const encodeEndpoint = btoa(event.target.value);
+    const newPath = getNewURLPath(pathname, encodeEndpoint);
+    window.history.replaceState(null, '', newPath);
+  };
   return (
     <TextField
       id="outlined-basic"
       label="URL"
       variant="outlined"
-      onChange={handleChange}
+      onChange={handleEndpointChange}
       placeholder="Enter URL"
       fullWidth
     />
