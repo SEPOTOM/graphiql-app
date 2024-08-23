@@ -1,4 +1,4 @@
 import { auth } from '@/utils/auth/firebase';
-import { registerWithEmailAndPassword } from '@/utils/auth/auth';
+import { loginWithEmailAndPassword, registerWithEmailAndPassword } from '@/utils/auth/auth';
 
-export { auth, registerWithEmailAndPassword };
+export { auth, registerWithEmailAndPassword, loginWithEmailAndPassword };
