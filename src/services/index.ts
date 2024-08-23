@@ -1,17 +1,3 @@
-export const getNewMethodPath = (currentPath: string, newSegment: string, methods: string[]) => {
-  const currentUrlSegments = currentPath.split('/');
-  const methodIndex = currentUrlSegments.findIndex((segment) => methods.includes(segment));
-  if (methodIndex > 0) {
-    currentUrlSegments.splice(methodIndex, 1, newSegment);
-  } else {
-    currentUrlSegments.splice(2, 0, newSegment);
-  }
+import { getNewMethodPath, getNewURLPath } from './getNewPath';
 
-  return currentUrlSegments.join('/');
-};
-
-export const getNewURLPath = (currentPath: string, newSegment: string) => {
-  const currentUrlSegments = currentPath.split('/');
-  currentUrlSegments.splice(3, 1, newSegment);
-  return currentUrlSegments.join('/');
-};
+export { getNewMethodPath, getNewURLPath };

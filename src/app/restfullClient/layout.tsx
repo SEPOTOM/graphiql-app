@@ -1,5 +1,5 @@
-import RestfullClient from '@/components/restfulClient/restfullClient';
-import { Container, Box } from '@mui/material';
+import RestfullClient from '@/components/restfullClient/restfullClient';
+import { Container } from '@mui/material';
 
 const RestLayout = ({
   children,

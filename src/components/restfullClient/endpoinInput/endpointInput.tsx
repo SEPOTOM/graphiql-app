@@ -1,4 +1,4 @@
-'use clent';
+'use client';
 
 import { getNewURLPath } from '@/services';
 import TextField from '@mui/material/TextField';
@@ -9,8 +9,8 @@ export default function EndpointInput() {
   const pathname = usePathname();
 
   const handleEndpointChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const encodeEndpoint = btoa(event.target.value);
-    const newPath = getNewURLPath(pathname, encodeEndpoint);
+    const encodedEndpoint = btoa(event.target.value);
+    const newPath = getNewURLPath(pathname, encodedEndpoint);
     window.history.replaceState(null, '', newPath);
   };
   return (

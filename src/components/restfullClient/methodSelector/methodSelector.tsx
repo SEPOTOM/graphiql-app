@@ -3,15 +3,18 @@
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { Method } from '@/types/enum';
-import styles from './methodSelector.module.scss';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getNewMethodPath } from '@/services';
 
 export default function MethodSelector() {
-  const [method, setMethod] = useState('');
+  const [method, setMethod] = useState<string>(Method.Get);
   const pathname = usePathname();
   const methods = Object.values(Method) as string[];
+
+  useEffect(() => {
+    window.history.replaceState(null, '', `${pathname}/${method}`);
+  }, []);
 
   const handleSelect = (event: SelectChangeEvent) => {
     const selectedMethod = event.target.value;
