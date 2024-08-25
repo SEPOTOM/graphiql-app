@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useEffect, useState } from 'react';
+import { onIdTokenChanged, signInWithEmailAndPassword } from 'firebase/auth';
 
 import { auth, registerWithEmailAndPassword } from '@/services';
 
@@ -11,6 +11,18 @@ import { AuthProviderProps, AuthStatus, SignInFunc, SignOutFunc, SignUpFunc } fr
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const [status, setStatus] = useState<AuthStatus>('loading');
+
+  useEffect(() => {
+    const unsubscribe = onIdTokenChanged(auth, async (user) => {
+      if (user) {
+        setStatus('authenticated');
+      } else {
+        setStatus('unauthenticated');
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const signUp: SignUpFunc = async (username: string, email: string, password: string) => {
     try {
