@@ -6,7 +6,7 @@ import { auth, registerWithEmailAndPassword } from '@/services';
 
 import { AuthContext } from '@/contexts/AuthContext/AuthContext';
 
-import { AuthProviderProps, AuthStatus, SignUpFunc } from '@/contexts/AuthContext/types';
+import { AuthProviderProps, AuthStatus, SignOutFunc, SignUpFunc } from '@/contexts/AuthContext/types';
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const [status, setStatus] = useState<AuthStatus>('loading');
@@ -27,13 +27,21 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
+  const signOut: SignOutFunc = async () => {
+    setStatus('loading');
+
+    await auth.signOut();
+
+    setStatus('unauthenticated');
+  };
+
   return (
     <AuthContext.Provider
       value={{
         status,
         signUp,
+        signOut,
         user: auth.currentUser,
-        signOut: async () => {},
         signIn: async () => {},
       }}
     >
