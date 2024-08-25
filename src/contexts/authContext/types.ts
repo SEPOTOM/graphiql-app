@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { User } from 'firebase/auth';
 
 export type AuthStatus = 'authenticated' | 'unauthenticated' | 'loading';
@@ -14,4 +15,8 @@ export interface AuthData {
   signUp: SignUpFunc;
   signOut: SignOutFunc;
   signIn: SignInFunc;
+}
+
+export interface AuthProviderProps {
+  children: ReactNode;
 }
