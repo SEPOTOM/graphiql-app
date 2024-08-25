@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { onIdTokenChanged, signInWithEmailAndPassword } from 'firebase/auth';
 
 import { auth, registerWithEmailAndPassword } from '@/services';
@@ -11,6 +12,7 @@ import { AuthProviderProps, AuthStatus, SignInFunc, SignOutFunc, SignUpFunc } fr
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const [status, setStatus] = useState<AuthStatus>('loading');
+  const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = onIdTokenChanged(auth, async (user) => {
@@ -18,11 +20,15 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         setStatus('authenticated');
       } else {
         setStatus('unauthenticated');
+
+        if (status === 'authenticated') {
+          router.push('/');
+        }
       }
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [router, status]);
 
   const signUp: SignUpFunc = async (username: string, email: string, password: string) => {
     try {
