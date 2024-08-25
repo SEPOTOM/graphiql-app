@@ -13,7 +13,3 @@ export const registerWithEmailAndPassword = async (signUpData: SignUpData) => {
 
   await signInWithCustomToken(auth, token);
 };
-
-export const loginWithEmailAndPassword = async (email: string, password: string) => {
-  await signInWithEmailAndPassword(auth, email, password);
-};
