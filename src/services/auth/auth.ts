@@ -1,13 +1,17 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
+import { signInWithCustomToken, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
 import { auth } from '@/services/auth/firebase';
 
-export const registerWithEmailAndPassword = async (name: string, email: string, password: string) => {
-  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+import { SignUpData, TokenRes } from '@/types';
 
-  await updateProfile(userCredential.user, {
-    displayName: name,
+export const registerWithEmailAndPassword = async (signUpData: SignUpData) => {
+  const res = await fetch('/sign-up/api', {
+    method: 'POST',
+    body: JSON.stringify(signUpData),
   });
+  const { token }: TokenRes = await res.json();
+
+  await signInWithCustomToken(auth, token);
 };
 
 export const loginWithEmailAndPassword = async (email: string, password: string) => {
