@@ -12,19 +12,19 @@ import { SignUpData } from '@/types';
 import { AuthProviderProps, AuthStatus, SignInFunc, SignOutFunc, SignUpFunc } from '@/contexts/AuthContext/types';
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [status, setStatus] = useState<AuthStatus>('loading');
+  const [status, setStatus] = useState<AuthStatus>('init');
   const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = onIdTokenChanged(auth, async (user) => {
-      if (user) {
+      if (user && status === 'init') {
         setStatus('authenticated');
-      } else {
+      } else if (status === 'init') {
         setStatus('unauthenticated');
+      }
 
-        if (status === 'authenticated') {
-          router.push('/');
-        }
+      if (!user && status === 'authenticated') {
+        router.push('/');
       }
     });
 

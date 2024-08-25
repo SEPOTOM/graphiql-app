@@ -3,7 +3,7 @@ import { User } from 'firebase/auth';
 
 import { SignUpData } from '@/types';
 
-export type AuthStatus = 'authenticated' | 'unauthenticated' | 'loading';
+export type AuthStatus = 'authenticated' | 'unauthenticated' | 'loading' | 'init';
 
 export type SignUpFunc = (signUpData: SignUpData) => Promise<void>;
 
