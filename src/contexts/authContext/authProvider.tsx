@@ -48,7 +48,15 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const signOut: SignOutFunc = async () => {
-    await trackState(() => auth.signOut());
+    try {
+      setStatus('loading');
+
+      await auth.signOut();
+
+      setStatus('unauthenticated');
+    } catch (err) {
+      setStatus('authenticated');
+    }
   };
 
   const signIn: SignInFunc = async (email: string, password: string) => {
