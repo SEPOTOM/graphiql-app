@@ -1,4 +1,4 @@
-import { signInWithCustomToken, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { signInWithCustomToken, signInWithEmailAndPassword } from 'firebase/auth';
 
 import { auth } from '@/services/auth/firebase';
 
@@ -16,8 +16,4 @@ export const registerWithEmailAndPassword = async (signUpData: SignUpData) => {
 
 export const loginWithEmailAndPassword = async (email: string, password: string) => {
   await signInWithEmailAndPassword(auth, email, password);
-};
-
-export const logout = () => {
-  signOut(auth);
 };
