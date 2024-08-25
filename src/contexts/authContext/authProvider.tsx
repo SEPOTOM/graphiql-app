@@ -30,40 +30,34 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     return () => unsubscribe();
   }, [router, status]);
 
-  const signUp: SignUpFunc = async (username: string, email: string, password: string) => {
+  const trackState = async (callback: () => Promise<unknown>) => {
     try {
       setStatus('loading');
 
-      await registerWithEmailAndPassword({
+      await callback();
+
+      setStatus('authenticated');
+    } catch (err) {
+      setStatus('unauthenticated');
+    }
+  };
+
+  const signUp: SignUpFunc = async (username: string, email: string, password: string) => {
+    await trackState(() =>
+      registerWithEmailAndPassword({
         email,
         password,
         displayName: username,
-      });
-
-      setStatus('authenticated');
-    } catch (err) {
-      setStatus('unauthenticated');
-    }
+      })
+    );
   };
 
   const signOut: SignOutFunc = async () => {
-    setStatus('loading');
-
-    await auth.signOut();
-
-    setStatus('unauthenticated');
+    await trackState(() => auth.signOut());
   };
 
   const signIn: SignInFunc = async (email: string, password: string) => {
-    try {
-      setStatus('loading');
-
-      await signInWithEmailAndPassword(auth, email, password);
-
-      setStatus('authenticated');
-    } catch (err) {
-      setStatus('unauthenticated');
-    }
+    await trackState(() => signInWithEmailAndPassword(auth, email, password));
   };
 
   return (
