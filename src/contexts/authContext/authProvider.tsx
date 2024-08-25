@@ -8,6 +8,7 @@ import { auth, registerWithEmailAndPassword } from '@/services';
 
 import { AuthContext } from '@/contexts/AuthContext/AuthContext';
 
+import { SignUpData } from '@/types';
 import { AuthProviderProps, AuthStatus, SignInFunc, SignOutFunc, SignUpFunc } from '@/contexts/AuthContext/types';
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
@@ -42,14 +43,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
-  const signUp: SignUpFunc = async (username: string, email: string, password: string) => {
-    await trackState(() =>
-      registerWithEmailAndPassword({
-        email,
-        password,
-        displayName: username,
-      })
-    );
+  const signUp: SignUpFunc = async (signUpData: SignUpData) => {
+    await trackState(() => registerWithEmailAndPassword(signUpData));
   };
 
   const signOut: SignOutFunc = async () => {

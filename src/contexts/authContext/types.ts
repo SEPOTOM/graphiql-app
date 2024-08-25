@@ -1,9 +1,11 @@
 import { ReactNode } from 'react';
 import { User } from 'firebase/auth';
 
+import { SignUpData } from '@/types';
+
 export type AuthStatus = 'authenticated' | 'unauthenticated' | 'loading';
 
-export type SignUpFunc = (username: string, email: string, password: string) => Promise<void>;
+export type SignUpFunc = (signUpData: SignUpData) => Promise<void>;
 
 export type SignOutFunc = () => Promise<void>;
 
