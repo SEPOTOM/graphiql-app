@@ -1,4 +1,4 @@
-import { signInWithCustomToken, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithCustomToken } from 'firebase/auth';
 
 import { auth } from '@/services/auth/firebase';
 
