@@ -1,8 +1,8 @@
 'use client';
 
-import MethodSelector from '@/components/restfullClient/methodSelector/methodSelector';
 import { Box } from '@mui/material';
-import EndpointInput from './endpoinInput/endpointInput';
+import EndpointInput from './endpoinInput/EndpointInput';
+import MethodSelector from './methodSelector/MethodSelector';
 
 export default function RestfullClient() {
   return (

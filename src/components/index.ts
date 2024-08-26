@@ -1,3 +1,3 @@
-import RestfullClient from './restfullClient/restfullClient';
+import RestfullClient from './restfullClient/RestfullClient';
 
 export { RestfullClient };

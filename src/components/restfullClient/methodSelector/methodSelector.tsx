@@ -4,7 +4,7 @@ import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { Method } from '@/types/enum';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { getNewMethodPath } from '@/services';
 
 export default function MethodSelector() {
@@ -12,16 +12,13 @@ export default function MethodSelector() {
   const pathname = usePathname();
   const methods = Object.values(Method) as string[];
 
-  useEffect(() => {
-    window.history.replaceState(null, '', `${pathname}/${method}`);
-  }, []);
-
   const handleSelect = (event: SelectChangeEvent) => {
     const selectedMethod = event.target.value;
     setMethod(selectedMethod);
     const newPath = getNewMethodPath(pathname, selectedMethod, methods);
     window.history.replaceState(null, '', newPath);
   };
+
   return (
     <FormControl sx={{ width: 200 }}>
       <InputLabel id="select-method-label">Method</InputLabel>

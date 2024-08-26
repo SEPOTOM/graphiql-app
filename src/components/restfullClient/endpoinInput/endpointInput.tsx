@@ -13,9 +13,10 @@ export default function EndpointInput() {
     const newPath = getNewURLPath(pathname, encodedEndpoint);
     window.history.replaceState(null, '', newPath);
   };
+
   return (
     <TextField
-      id="outlined-basic"
+      id="url-input"
       label="URL"
       variant="outlined"
       onChange={handleEndpointChange}
