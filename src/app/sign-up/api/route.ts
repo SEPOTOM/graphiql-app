@@ -17,15 +17,12 @@ const serviceAccount = {
   universe_domain: process.env.ADMIN_FIREBASE_UNIVERSE_DOMAIN,
 };
 
-const getFirebaseApp = () => {
-  if (admin.apps.length === 0) {
-    return admin.initializeApp({
+const getFirebaseApp = () =>
+  admin.apps.length === 0 ?
+    admin.initializeApp({
       credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
-    });
-  } else {
-    return admin.app();
-  }
-};
+    })
+  : admin.app();
 
 export const POST = async (req: NextRequest) => {
   const auth = getFirebaseApp().auth();
