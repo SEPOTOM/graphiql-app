@@ -8,9 +8,11 @@ import { useState } from 'react';
 import { getNewMethodPath } from '@/services';
 
 export default function MethodSelector() {
-  const [method, setMethod] = useState<string>(Method.Get);
   const pathname = usePathname();
   const methods = Object.values(Method) as string[];
+  const pathNameMethod = pathname.split('/')[2];
+  const currentMethod = methods.includes(pathNameMethod) ? pathNameMethod : Method.Get;
+  const [method, setMethod] = useState<string>(currentMethod);
 
   const handleSelect = (event: SelectChangeEvent) => {
     const selectedMethod = event.target.value;

@@ -7,6 +7,7 @@ import { ChangeEvent } from 'react';
 
 export default function EndpointInput() {
   const pathname = usePathname();
+  const currentEndpoint = pathname.split('/')[3] || '';
 
   const handleEndpointChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const encodedEndpoint = btoa(event.target.value);
@@ -16,6 +17,7 @@ export default function EndpointInput() {
 
   return (
     <TextField
+      value={atob(currentEndpoint)}
       id="url-input"
       label="URL"
       variant="outlined"
