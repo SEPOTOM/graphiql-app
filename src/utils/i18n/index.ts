@@ -3,7 +3,7 @@ import resourcesToBackend from 'i18next-resources-to-backend';
 import { initReactI18next } from 'react-i18next/initReactI18next';
 import { UseTranslationOptions } from 'react-i18next';
 
-import { defaultNS, getOptions } from '@/utils/i18n/settings';
+import { defaultNS, getI18nOptions } from '@/utils/i18n/settings';
 
 const initI18next = async (lng: string, ns: string): Promise<i18n> => {
   const i18nInstance = createInstance();
@@ -11,7 +11,7 @@ const initI18next = async (lng: string, ns: string): Promise<i18n> => {
   await i18nInstance
     .use(initReactI18next)
     .use(resourcesToBackend((language: string, namespace: string) => import(`./locales/${language}/${namespace}.json`)))
-    .init(getOptions(lng, ns));
+    .init(getI18nOptions(lng, ns));
 
   return i18nInstance;
 };
