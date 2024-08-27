@@ -1,7 +1,7 @@
 'use client';
 
 import { Box } from '@mui/material';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Method } from '@/types/enum';
 import { useEffect } from 'react';
 import EndpointInput from './endpoinInput/endpointInput';
@@ -9,12 +9,18 @@ import MethodSelector from './methodSelector/methodSelector';
 
 export default function RestfullClient() {
   const pathname = usePathname();
-  const method = pathname.split('/')[2];
+  const segments = pathname.split('/');
+  const router = useRouter();
 
   useEffect(() => {
+    const method = segments[2];
     if (!method) {
       const newPath = `${pathname}/${Method.Get}`;
-      window.history.replaceState(null, '', newPath);
+      router.replace(newPath);
+    } else if (!(Object.values(Method) as string[]).includes(method)) {
+      segments.splice(2, 0, Method.Get);
+      const newPath = segments.join('/');
+      router.replace(newPath);
     }
   }, []);
 
