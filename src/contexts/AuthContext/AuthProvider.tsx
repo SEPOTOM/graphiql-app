@@ -17,10 +17,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     const unsubscribe = onIdTokenChanged(auth, async (user) => {
-      if (user && status === 'init') {
-        setStatus('authenticated');
-      } else if (status === 'init') {
-        setStatus('unauthenticated');
+      if (status === 'init') {
+        user ? setStatus('authenticated') : setStatus('unauthenticated');
       }
 
       if (!user && status === 'authenticated') {
