@@ -9,10 +9,12 @@ import { auth, registerWithEmailAndPassword } from '@/services';
 import { AuthContext } from '@/contexts/AuthContext/AuthContext';
 
 import { SignUpData } from '@/types';
-import { AuthProviderProps, AuthStatus, SignInFunc, SignOutFunc, SignUpFunc } from '@/contexts/AuthContext/types';
+import { AuthProviderProps, SignInFunc, SignOutFunc, SignUpFunc } from '@/contexts/AuthContext/types';
+
+import { AuthStatuses } from '@/contexts/AuthContext/consts';
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [status, setStatus] = useState<AuthStatus>('init');
+  const [status, setStatus] = useState(AuthStatuses.init);
   const router = useRouter();
 
   useEffect(() => {
