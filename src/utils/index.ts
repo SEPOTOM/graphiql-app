@@ -1,3 +1,4 @@
+import { getTranslation } from '@/utils/i18n';
 import { defaultNS, fallbackLng, i18nCookieName, languages } from '@/utils/i18n/settings';
 
-export { fallbackLng, languages, i18nCookieName, defaultNS };
+export { fallbackLng, languages, i18nCookieName, defaultNS, getTranslation };
