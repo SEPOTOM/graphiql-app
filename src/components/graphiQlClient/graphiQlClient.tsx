@@ -1,9 +1,8 @@
 'use client';
 
 import { Box } from '@mui/material';
-import EndpointForm from './endpointForm/endpointForm';
-import SDLForm from './sdlForm/sdlForm';
 import MenuTab from './menuTab/menuTab';
+import EndpointsForm from './endpointsForm/endpointsForm';
 
 export default function GraphiQlClient() {
   return (
@@ -17,8 +16,7 @@ export default function GraphiQlClient() {
         paddingTop: '20px',
       }}
     >
-      <SDLForm />
-      <EndpointForm />
+      <EndpointsForm />
       <Box display="flex" width="100%" height="200px" border={1}>
         Query editor will be here
       </Box>
