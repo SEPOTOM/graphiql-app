@@ -1,17 +1,12 @@
 import { RestfullClient } from '@/components';
 import { Container } from '@mui/material';
 
-const RestLayout = ({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) => {
+const RestfullClientPage = () => {
   return (
     <Container>
       <RestfullClient />
-      {children}
     </Container>
   );
 };
 
-export default RestLayout;
+export default RestfullClientPage;

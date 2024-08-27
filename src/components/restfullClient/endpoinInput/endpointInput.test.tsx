@@ -1,8 +1,8 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { usePathname } from 'next/navigation';
 import { Mock } from 'vitest';
 import * as services from '@/services';
-import EndpointInput from './endpointInput';
+import EndpointInput from './EndpointInput';
 
 const mockReplaceState = vi.fn();
 window.history.replaceState = mockReplaceState;
@@ -14,7 +14,7 @@ describe('EndpointInput component', () => {
     expect(screen.getByLabelText('URL')).toHaveValue('qwerty');
   });
 
-  it('selecting a different method updates URL', async () => {
+  it('selecting a different method updates URL', () => {
     (usePathname as Mock).mockReturnValue('/restfullClient/GET');
     const mockGetNewURLPath = vi.spyOn(services, 'getNewURLPath');
     render(<EndpointInput />);

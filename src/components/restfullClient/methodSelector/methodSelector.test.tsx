@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import MethodSelector from './methodSelector';
+import MethodSelector from './MethodSelector';
 import { usePathname } from 'next/navigation';
 import { Mock } from 'vitest';
 import * as services from '@/services';

@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import { usePathname, useRouter } from 'next/navigation';
 import { Mock } from 'vitest';
-import RestfullClient from './restfullClient';
+import RestfullClient from './RestfullClient';
 
 const replace = vi.fn();
 (useRouter as Mock).mockImplementation(() => ({
