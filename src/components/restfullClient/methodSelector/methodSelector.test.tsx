@@ -14,14 +14,16 @@ describe('MethodSelector component', () => {
     render(<MethodSelector />);
     expect(screen.getByText(Method.Patch)).toBeInTheDocument();
   });
+
   it('component handles cases where the pathname does not contain a method segment', () => {
     (usePathname as Mock).mockReturnValue('/restfullClient');
     render(<MethodSelector />);
     expect(screen.getByText(Method.Get)).toBeInTheDocument();
   });
+
   it('selecting a different method updates the state and URL', async () => {
     (usePathname as Mock).mockReturnValue('/restfullClient/GET');
-    const mockGetNewMethodPath = vi.spyOn(services, 'getNewMethodPath').mockReturnValue('/restfullClient/POST');
+    const mockGetNewMethodPath = vi.spyOn(services, 'getNewMethodPath');
     const newMethod = Method.Post;
     render(<MethodSelector />);
     expect(screen.getByText(Method.Get)).toBeInTheDocument();
