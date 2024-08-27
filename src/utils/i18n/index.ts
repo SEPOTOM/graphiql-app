@@ -28,6 +28,7 @@ export const getTranslation = async (
   }
 
   const i18nextInstance = await initI18next(lng, namespace);
+
   return {
     t: i18nextInstance.getFixedT(lng, namespace, options.keyPrefix),
     i18n: i18nextInstance,
