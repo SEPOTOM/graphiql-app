@@ -2,6 +2,8 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import CssBaseline from '@mui/material/CssBaseline';
 import { dir } from 'i18next';
 
+import { MUIThemeProvider } from '@/components';
+
 import { LngParam } from '@/types';
 
 const RootLayout = ({
@@ -17,7 +19,9 @@ const RootLayout = ({
     <html lang={lng} dir={dir(lng)}>
       <body>
         <CssBaseline />
-        <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
+        <AppRouterCacheProvider>
+          <MUIThemeProvider lng={lng}>{children}</MUIThemeProvider>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );
