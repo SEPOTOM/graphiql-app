@@ -10,7 +10,6 @@ export const makeGraphQLRequest = async (query: string, url: string, headers: He
     }
     const data = await response.json();
     console.log(data);
-    // return data;
   } catch (error) {
     console.log('Here not schema');
     console.log(error);

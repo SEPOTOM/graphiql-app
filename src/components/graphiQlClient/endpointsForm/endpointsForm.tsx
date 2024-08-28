@@ -1,33 +1,26 @@
 'use client';
 
-import { getNewURLPath } from '@/services/getNewPath';
+import { getNewURLPath, makeGraphQLRequest } from '@/services';
 import { Box, Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { usePathname, useRouter } from 'next/navigation';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { makeGraphQLRequest } from '@/services/makeGraphQlRequests';
 import { graphQLSchemaQuery, headersGraphQLSchema } from '@/constants/constants';
 
 export default function EndpointsForm() {
   const pathname = usePathname();
   const currentEndpoint = pathname.split('/').splice(2).join('/') || '';
 
-  const [sdlPath, setSdlPath] = useState('');
+  const [sdlPath, setSdlPath] = useState(atob(currentEndpoint));
 
   const handleEndpointUrlChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const encodedEndPoint = btoa(event.target.value);
+    console.log(pathname);
     const newPath = getNewURLPath(pathname, encodedEndPoint);
     window.history.replaceState(null, '', newPath);
+
     setSdlPath(event.target.value);
     makeGraphQLRequest(graphQLSchemaQuery, event.target.value, headersGraphQLSchema);
-  };
-
-  const handleEndpointSdlFocus = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    event.target.value = sdlPath;
-  };
-
-  const handleEndpointSdlFBlur = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    event.target.value = '';
   };
 
   const handleEndpointSdlChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -51,11 +44,10 @@ export default function EndpointsForm() {
       </Box>
       <Box display="flex" width="100%">
         <TextField
+          value={sdlPath}
           id="sdl-url"
           label="SDL URL"
           variant="outlined"
-          onFocus={handleEndpointSdlFocus}
-          onBlur={handleEndpointSdlFBlur}
           onChange={handleEndpointSdlChange}
           placeholder="Enter SDL URL"
           fullWidth

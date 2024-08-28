@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Button, Tab, Tabs } from '@mui/material';
+import { Box } from '@mui/material';
 
 interface TabPanelProps {
   children?: React.ReactNode;

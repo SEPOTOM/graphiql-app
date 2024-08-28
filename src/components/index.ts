@@ -1,3 +1,3 @@
-import GraphQlClient from './graphiQlClient/graphQlClient';
+import GraphQlClient from './graphiQlClient/GraphQlClient';
 
 export { GraphQlClient };

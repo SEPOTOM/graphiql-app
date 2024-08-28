@@ -1,10 +1,9 @@
 'use client';
 
 import { Box, Tab, Tabs } from '@mui/material';
-import CustomTabPanel from './menuTabPanel';
+import CustomTabPanel from './MenuTabPanel';
 import React from 'react';
 import { MenuTabs } from '@/types/enum';
-import styles from './menuTab.module.scss';
 
 export default function MenuTab() {
   const tabs = Object.values(MenuTabs) as string[];

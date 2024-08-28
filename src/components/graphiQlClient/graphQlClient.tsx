@@ -1,8 +1,8 @@
 'use client';
 
 import { Box } from '@mui/material';
-import MenuTab from './menuTab/menuTab';
-import EndpointsForm from './endpointsForm/endpointsForm';
+import MenuTab from './menuTab/MenuTab';
+import EndpointsForm from './endpointsForm/EndpointsForm';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { makeGraphQLRequest } from '@/services/makeGraphQlRequests';
@@ -14,14 +14,9 @@ export default function GraphQlClient() {
   const router = useRouter();
 
   useEffect(() => {
-    if (currentEndpoint === '') {
-      const newPath = `${pathname}`;
-      router.replace(newPath);
-    } else {
-      router.replace(pathname);
-    }
+    router.replace(pathname);
     makeGraphQLRequest(graphQLSchemaQuery, atob(currentEndpoint), headersGraphQLSchema);
-  }, []);
+  });
 
   return (
     <Box
