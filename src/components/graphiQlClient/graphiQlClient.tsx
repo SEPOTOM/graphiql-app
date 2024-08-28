@@ -17,9 +17,6 @@ export default function GraphiQlClient() {
       }}
     >
       <EndpointsForm />
-      <Box display="flex" width="100%" height="200px" border={1}>
-        Query editor will be here
-      </Box>
       <MenuTab />
     </Box>
   );
