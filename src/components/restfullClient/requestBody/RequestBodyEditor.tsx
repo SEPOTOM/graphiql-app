@@ -8,6 +8,7 @@ import { Box } from '@mui/material';
 export default function RequestBodyEditor() {
   const [bodyType, setBodyType] = useState('none');
   const [mode, setMode] = useState('JSON');
+
   const handleBodyTypeChange = (e: React.MouseEvent<HTMLElement>, newBodyType: string | null) => {
     if (newBodyType !== null) {
       setBodyType(newBodyType);
