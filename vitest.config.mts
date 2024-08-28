@@ -12,7 +12,7 @@ export default defineConfig({
     passWithNoTests: true,
     dir: './src',
     coverage: {
-      exclude: ['next.config.mjs', ...coverageConfigDefaults.exclude],
+      exclude: ['next.config.js', ...coverageConfigDefaults.exclude],
     },
   },
 });
