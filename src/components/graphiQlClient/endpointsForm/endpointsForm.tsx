@@ -3,16 +3,15 @@
 import { getNewURLPath } from '@/services/getNewPath';
 import { Box, Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import { usePathname } from 'next/navigation';
-import { ChangeEvent, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { makeGraphQLRequest } from '@/services/makeGraphQlRequests';
 import { graphQLSchemaQuery, headersGraphQLSchema } from '@/constants/constants';
 
 export default function EndpointsForm() {
   const pathname = usePathname();
-  const currentEndpoint = pathname.split('/')[2] || '';
-  console.log('currentEndpoint');
-  console.log(currentEndpoint);
+  const currentEndpoint = pathname.split('/').splice(2).join('/') || '';
+
   const [sdlPath, setSdlPath] = useState('');
 
   const handleEndpointUrlChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
