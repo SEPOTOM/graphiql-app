@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 import MenuTab from './menuTab/menuTab';
 import EndpointsForm from './endpointsForm/endpointsForm';
 
-export default function GraphiQlClient() {
+export default function GraphQlClient() {
   return (
     <Box
       sx={{

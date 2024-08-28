@@ -8,8 +8,11 @@ import { ChangeEvent, useState } from 'react';
 import { makeGraphQLRequest } from '@/services/makeGraphQlRequests';
 import { graphQLSchemaQuery, headersGraphQLSchema } from '@/constants/constants';
 
-export default function EndpointForm() {
+export default function EndpointsForm() {
   const pathname = usePathname();
+  const currentEndpoint = pathname.split('/')[2] || '';
+  console.log('currentEndpoint');
+  console.log(currentEndpoint);
   const [sdlPath, setSdlPath] = useState('');
 
   const handleEndpointUrlChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -37,6 +40,7 @@ export default function EndpointForm() {
     <Box display="flex" flexDirection="column" alignItems="center" width="100%" gap={1}>
       <Box display="flex" width="100%" gap={1}>
         <TextField
+          value={atob(currentEndpoint)}
           id="endpoint-url"
           label="Endpoint URL"
           variant="outlined"
