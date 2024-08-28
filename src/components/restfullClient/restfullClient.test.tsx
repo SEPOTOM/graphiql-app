@@ -20,7 +20,7 @@ describe('RestfullClient component', () => {
 
     expect(replace).toHaveBeenCalledWith('/restfullClient/GET');
   });
-  it('should replace an invalid ыупьуте with GET', () => {
+  it('should replace an invalid segment with GET', () => {
     const encodedSegment = btoa('qwerty');
     (usePathname as Mock).mockReturnValue(`/restfullClient/${encodedSegment}`);
 
