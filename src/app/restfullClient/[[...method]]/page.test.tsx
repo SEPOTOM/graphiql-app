@@ -10,7 +10,9 @@ describe('RestfullClientPage', () => {
     (useRouter as Mock).mockImplementation(() => ({
       replace,
     }));
+
     render(<RestfullClientPage />);
+
     expect(screen.getByLabelText('Method')).toBeInTheDocument();
     expect(screen.getByLabelText('URL')).toBeInTheDocument();
   });

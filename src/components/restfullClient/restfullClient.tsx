@@ -22,7 +22,7 @@ export default function RestfullClient() {
       const newPath = segments.join('/');
       router.replace(newPath);
     }
-  }, []);
+  }, [pathname, router, segments]);
 
   return (
     <Box display="flex" gap={4} paddingTop={4}>
