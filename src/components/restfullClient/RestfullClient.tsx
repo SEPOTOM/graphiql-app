@@ -6,6 +6,7 @@ import { Method } from '@/types/enum';
 import { useEffect } from 'react';
 import EndpointInput from './endpoinInput/EndpointInput';
 import MethodSelector from './methodSelector/MethodSelector';
+import MenuTab from '../menuTab/menuTab';
 
 export default function RestfullClient() {
   const pathname = usePathname();
@@ -25,9 +26,12 @@ export default function RestfullClient() {
   }, [pathname, router, segments]);
 
   return (
-    <Box display="flex" gap={4} paddingTop={4}>
-      <MethodSelector />
-      <EndpointInput />
+    <Box display="flex" flexDirection={'column'} gap={2}>
+      <Box display="flex" gap={4} paddingTop={4}>
+        <MethodSelector />
+        <EndpointInput />
+      </Box>
+      <MenuTab />
     </Box>
   );
 }

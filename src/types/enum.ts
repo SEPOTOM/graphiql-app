@@ -7,3 +7,9 @@ export enum Method {
   Head = 'HEAD',
   Options = 'OPTIONS',
 }
+
+export enum MenuTabsRest {
+  Variables = 'Variables',
+  Headers = 'Headers',
+  Body = 'Body',
+}

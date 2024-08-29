@@ -20,7 +20,7 @@ export default function RequestBodyEditor() {
   };
 
   return (
-    <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }} p={10}>
+    <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
       <RequestBodyToggle bodyType={bodyType} handleChange={handleBodyTypeChange} />
       {bodyType === 'raw' && <RequestModeSelector mode={mode} handleChange={handleModeChange} />}
     </Box>
