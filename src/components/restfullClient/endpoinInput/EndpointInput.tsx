@@ -7,7 +7,7 @@ import { ChangeEvent } from 'react';
 
 export default function EndpointInput() {
   const pathname = usePathname();
-  const currentEndpoint = pathname.split('/')[3] || '';
+  const currentEndpoint = pathname.split('/')[4] || '';
 
   const handleEndpointChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const encodedEndpoint = btoa(event.target.value);

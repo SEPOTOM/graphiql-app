@@ -13,12 +13,12 @@ export default function RestfullClient() {
   const router = useRouter();
 
   useEffect(() => {
-    const method = segments[2];
+    const method = segments[3];
     if (!method) {
       const newPath = `${pathname}/${Method.Get}`;
       router.replace(newPath);
     } else if (!(Object.values(Method) as string[]).includes(method)) {
-      segments.splice(2, 0, Method.Get);
+      segments.splice(3, 0, Method.Get);
       const newPath = segments.join('/');
       router.replace(newPath);
     }
