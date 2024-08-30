@@ -3,7 +3,8 @@ import Editor from '@monaco-editor/react';
 import { useEffect, useRef, useState } from 'react';
 import * as monaco from 'monaco-editor';
 import { PlaceHolder } from '@/types/enum';
-import { encodeToBase64 } from '@/services';
+import { encodeToBase64, getNewBodyPath } from '@/services';
+import { usePathname } from 'next/navigation';
 
 export interface RequestBodyEditorProps {
   mode: string;
@@ -11,6 +12,7 @@ export interface RequestBodyEditorProps {
 
 export default function RequestBodyEditor({ mode }: RequestBodyEditorProps) {
   const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
+  const pathname = usePathname();
 
   const [value, setValue] = useState<string>('');
 
@@ -44,7 +46,8 @@ export default function RequestBodyEditor({ mode }: RequestBodyEditorProps) {
       } else {
         encodedValue = encodeToBase64(value);
       }
-      console.log('Encoded Value:', encodedValue);
+      const newPath = getNewBodyPath(pathname, encodedValue);
+      window.history.replaceState(null, '', newPath);
     } catch (e) {
       if (e instanceof Error) console.error('Invalid JSON:', e.message);
     }

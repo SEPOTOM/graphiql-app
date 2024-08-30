@@ -12,3 +12,13 @@ export const getNewURLPath = (currentPath: string, newSegment: string) => {
 
   return currentUrlSegments.join('/');
 };
+
+export const getNewBodyPath = (currentPath: string, newSegment: string) => {
+  const currentUrlSegments = currentPath.split('/');
+  if (currentUrlSegments.length < 5) {
+    currentUrlSegments.splice(4, 1, '');
+  }
+  currentUrlSegments.splice(5, 1, newSegment);
+
+  return currentUrlSegments.join('/');
+};
