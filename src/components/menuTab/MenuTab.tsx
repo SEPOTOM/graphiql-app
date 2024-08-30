@@ -3,8 +3,8 @@
 import { Box, Tab, Tabs } from '@mui/material';
 import React from 'react';
 import { MenuTabsRest } from '@/types/enum';
-import CustomTabPanel from './menuTabPanel';
-import RequestBodyEditor from '../restfullClient/requestBody/RequestBodyEditor';
+import CustomTabPanel from './MenuTabPanel';
+import RequestBody from '../restfullClient/requestBody/RequestBody';
 
 export default function MenuTab() {
   const tabs = Object.values(MenuTabsRest) as string[];
@@ -16,7 +16,7 @@ export default function MenuTab() {
   };
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" width="100%" gap={1}>
+    <Box display="flex" flexDirection="column" alignItems="flex-start" width="100%" gap={1}>
       <Box display="flex" width="100%" gap={1}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs">
           {tabs.map((tab) => (
@@ -31,7 +31,7 @@ export default function MenuTab() {
         Headers
       </CustomTabPanel>
       <CustomTabPanel index={2} value={value}>
-        <RequestBodyEditor />
+        <RequestBody />
       </CustomTabPanel>
     </Box>
   );
