@@ -13,3 +13,8 @@ export enum MenuTabsRest {
   Headers = 'Headers',
   Body = 'Body',
 }
+
+export enum PlaceHolder {
+  json = 'Enter JSON here...',
+  text = 'Enter the text here...',
+}

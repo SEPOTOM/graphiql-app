@@ -1,28 +1,68 @@
-'use client';
+import Paper from '@mui/material/Paper';
+import Editor from '@monaco-editor/react';
+import { useEffect, useRef, useState } from 'react';
+import * as monaco from 'monaco-editor';
+import { PlaceHolder } from '@/types/enum';
 
-import { ChangeEvent, useState } from 'react';
-import RequestBodyToggle from './RequestBodyToggle';
-import RequestModeSelector from './RequestModeSelector ';
-import { Box } from '@mui/material';
+export interface RequestBodyEditorProps {
+  mode: string;
+}
 
-export default function RequestBodyEditor() {
-  const [bodyType, setBodyType] = useState('none');
-  const [mode, setMode] = useState('JSON');
+export default function RequestBodyEditor({ mode }: RequestBodyEditorProps) {
+  const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
 
-  const handleBodyTypeChange = (e: React.MouseEvent<HTMLElement>, newBodyType: string | null) => {
-    if (newBodyType !== null) {
-      setBodyType(newBodyType);
+  const [value, setValue] = useState<string>('');
+
+  useEffect(() => {
+    const editor = editorRef.current;
+    setValue(PlaceHolder[mode as keyof typeof PlaceHolder]);
+    if (editor) {
+      editor.focus();
+    }
+  }, [mode]);
+
+  useEffect(() => {
+    const editor = editorRef.current;
+    let dispose: monaco.IDisposable | undefined;
+    if (editor) {
+      dispose = editor.onDidBlurEditorWidget(onBlur);
+    }
+    return () => {
+      if (dispose) {
+        dispose.dispose();
+      }
+    };
+  }, [value]);
+
+  const onBlur = () => {
+    try {
+      let encodedValue: string;
+      if (mode === 'json') {
+        const parsedValue = JSON.parse(value);
+        encodedValue = btoa(JSON.stringify(parsedValue));
+      } else {
+        encodedValue = btoa(value);
+      }
+      console.log('Encoded Value:', encodedValue);
+    } catch (e) {
+      if (e instanceof Error) console.error('Invalid JSON:', e.message);
     }
   };
 
-  const handleModeChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setMode(event.target.value);
+  const handleEditorDidMount = (editor: monaco.editor.IStandaloneCodeEditor) => {
+    editorRef.current = editor;
+    editor.focus();
+  };
+
+  const handleChange = (value: string | undefined) => {
+    if (value) {
+      setValue(value);
+    }
   };
 
   return (
-    <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-      <RequestBodyToggle bodyType={bodyType} handleChange={handleBodyTypeChange} />
-      {bodyType === 'raw' && <RequestModeSelector mode={mode} handleChange={handleModeChange} />}
-    </Box>
+    <Paper sx={{ width: '100%', minHeight: '60svh' }}>
+      <Editor language={mode} height="65vh" value={value} onChange={handleChange} onMount={handleEditorDidMount} />
+    </Paper>
   );
 }

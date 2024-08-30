@@ -11,8 +11,8 @@ export default function RequestModeSelector({ mode, handleChange }: RequestModeS
     <Box sx={{ width: 120 }}>
       <FormControl fullWidth>
         <NativeSelect value={mode} onChange={handleChange} inputProps={{ 'aria-label': 'Reques body mode' }}>
-          <option value={'JSON'}>JSON</option>
-          <option value={'Text'}>Text</option>
+          <option value={'json'}>JSON</option>
+          <option value={'text'}>Text</option>
         </NativeSelect>
       </FormControl>
     </Box>
