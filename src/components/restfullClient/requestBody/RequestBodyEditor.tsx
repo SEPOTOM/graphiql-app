@@ -3,6 +3,7 @@ import Editor from '@monaco-editor/react';
 import { useEffect, useRef, useState } from 'react';
 import * as monaco from 'monaco-editor';
 import { PlaceHolder } from '@/types/enum';
+import { encodeToBase64 } from '@/services';
 
 export interface RequestBodyEditorProps {
   mode: string;
@@ -39,9 +40,9 @@ export default function RequestBodyEditor({ mode }: RequestBodyEditorProps) {
       let encodedValue: string;
       if (mode === 'json') {
         const parsedValue = JSON.parse(value);
-        encodedValue = btoa(JSON.stringify(parsedValue));
+        encodedValue = encodeToBase64(JSON.stringify(parsedValue));
       } else {
-        encodedValue = btoa(value);
+        encodedValue = encodeToBase64(value);
       }
       console.log('Encoded Value:', encodedValue);
     } catch (e) {

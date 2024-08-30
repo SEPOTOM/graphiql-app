@@ -1,6 +1,6 @@
 'use client';
 
-import { getNewURLPath } from '@/services';
+import { decodeFromBase64, encodeToBase64, getNewURLPath } from '@/services';
 import TextField from '@mui/material/TextField';
 import { usePathname } from 'next/navigation';
 import { ChangeEvent } from 'react';
@@ -10,14 +10,14 @@ export default function EndpointInput() {
   const currentEndpoint = pathname.split('/')[4] || '';
 
   const handleEndpointChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const encodedEndpoint = btoa(event.target.value);
+    const encodedEndpoint = encodeToBase64(event.target.value);
     const newPath = getNewURLPath(pathname, encodedEndpoint);
     window.history.replaceState(null, '', newPath);
   };
 
   return (
     <TextField
-      value={atob(currentEndpoint)}
+      value={decodeFromBase64(currentEndpoint)}
       id="url-input"
       label="URL"
       variant="outlined"
