@@ -5,20 +5,31 @@ import { Box, Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { usePathname } from 'next/navigation';
 import { ChangeEvent, useState } from 'react';
-import { graphQLSchemaQuery, headersGraphQLSchema } from '@/constants/constants';
+import { graphQLSchemaQuery, headersGraphQLSchema } from '@/utils/constants/constants';
+import { useTranslation } from '@/hooks';
 
 export default function EndpointsForm() {
   const pathname = usePathname();
-  const currentEndpoint = pathname.split('/').splice(2).join('/') || '';
+  const currentEndpoint = pathname.split('/').splice(3).join('/') || '';
+  const lng = pathname.split('/').splice(1, 1)[0];
+  const { t } = useTranslation(lng);
 
-  const [sdlPath, setSdlPath] = useState(atob(currentEndpoint));
+  const [inputPath, setInputPath] = useState(atob(currentEndpoint));
+  const [sdlPath, setSdlPath] = useState(inputPath);
 
-  const handleEndpointUrlChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleEndpointUrlChange = async (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const encodedEndPoint = btoa(event.target.value);
     const newPath = getNewURLPath(pathname, encodedEndPoint);
-    window.history.replaceState(null, '', newPath);
-
-    setSdlPath(event.target.value);
+    setInputPath(event.target.value);
+    window.history.replaceState(
+      {
+        ...window.history.state,
+        as: newPath,
+        url: newPath,
+      },
+      '',
+      newPath
+    );
     makeGraphQLRequest(graphQLSchemaQuery, event.target.value, headersGraphQLSchema);
   };
 
@@ -27,28 +38,34 @@ export default function EndpointsForm() {
     makeGraphQLRequest(graphQLSchemaQuery, event.target.value, headersGraphQLSchema);
   };
 
+  const handleEndpointSdlSelect = () => {
+    setSdlPath(inputPath);
+  };
+
   return (
     <Box display="flex" flexDirection="column" alignItems="center" width="100%" gap={1}>
       <Box display="flex" width="100%" gap={1}>
         <TextField
-          value={atob(currentEndpoint)}
+          data-testid="endpoint-url"
+          value={inputPath}
           id="endpoint-url"
-          label="Endpoint URL"
+          label={t('graphQlEndpointInputLabel')}
           variant="outlined"
           onChange={handleEndpointUrlChange}
-          placeholder="Enter Endpoint URL"
+          placeholder={t('graphQlEndpointInputPlaceholder')}
           fullWidth
         />
-        <Button variant="outlined">Send</Button>
+        <Button variant="outlined">{t('graphQlSendButton')}</Button>
       </Box>
       <Box display="flex" width="100%">
         <TextField
           value={sdlPath}
           id="sdl-url"
-          label="SDL URL"
+          label={t('graphQlSDLInputLabel')}
           variant="outlined"
           onChange={handleEndpointSdlChange}
-          placeholder="Enter SDL URL"
+          onSelect={handleEndpointSdlSelect}
+          placeholder={t('graphQlSDLInputPlaceholder')}
           fullWidth
         />
       </Box>

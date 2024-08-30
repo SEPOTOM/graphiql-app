@@ -5,7 +5,7 @@ import GraphQlClientPage from './page';
 
 describe('GraphQlClientPage', () => {
   it('should  render page correctly', () => {
-    (usePathname as Mock).mockReturnValue('/GRAPHQL');
+    (usePathname as Mock).mockReturnValue('en/GRAPHQL');
     const replace = vi.fn();
     (useRouter as Mock).mockImplementation(() => ({
       replace,

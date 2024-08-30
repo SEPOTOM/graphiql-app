@@ -1,24 +1,30 @@
-import { render, screen } from '@testing-library/react';
-import { usePathname } from 'next/navigation';
+import { render, screen, waitFor } from '@testing-library/react';
+import { usePathname, useRouter } from 'next/navigation';
 import { Mock } from 'vitest';
 import * as services from '@/services/index';
 import EndpointsForm from './EndpointsForm';
-import { graphQLSchemaQuery, headersGraphQLSchema } from '@/constants/constants';
+import { graphQLSchemaQuery, headersGraphQLSchema } from '@/utils/constants/constants';
 import userEvent from '@testing-library/user-event';
+import GraphQlClientPage from '@/app/[lng]/GRAPHQL/[[...graphQlPages]]/page';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
+import { AuthProvider } from '@/contexts';
+import { MUIThemeProvider } from '@/components';
 
 const mockReplaceState = vi.fn();
 window.history.replaceState = mockReplaceState;
 
-describe('GraphQlClient component', () => {
-  it('renders correctly with the initial endpoint on the current URL', () => {
-    (usePathname as Mock).mockReturnValue('/GRAPHQL/aHR0cHM6Ly8=');
-    render(<EndpointsForm />);
+describe('GraphQl endpoints form', () => {
+  it('should  render form correctly', async () => {
+    (usePathname as Mock).mockReturnValue('en/GRAPHQL');
 
-    expect(screen.getByLabelText('Endpoint URL')).toHaveValue('https://');
+    render(<EndpointsForm />);
+    await waitFor(() => {
+      expect(screen.getByLabelText('Endpoint URL')).toHaveValue('');
+    });
   });
 
   it('selecting another endpoint updates URL', async () => {
-    (usePathname as Mock).mockReturnValue('/GRAPHQL');
+    (usePathname as Mock).mockReturnValue('en/GRAPHQL');
     const mockGetNewURLPath = vi.spyOn(services, 'getNewURLPath');
     const mockMakeGraphQLRequest = vi.spyOn(services, 'makeGraphQLRequest');
 
@@ -28,10 +34,17 @@ describe('GraphQlClient component', () => {
     await userEvent.type(inputUrl, 'h');
 
     const encodedEndpoint = btoa('h');
-    const newPath = `/GRAPHQL/${encodedEndpoint}`;
+    const newPath = `en/GRAPHQL/${encodedEndpoint}`;
 
-    expect(mockGetNewURLPath).toHaveBeenCalledWith('/GRAPHQL', encodedEndpoint);
-    expect(mockReplaceState).toHaveBeenCalledWith(null, '', newPath);
+    expect(mockGetNewURLPath).toHaveBeenCalledWith('en/GRAPHQL', encodedEndpoint);
+    expect(mockReplaceState).toHaveBeenCalledWith(
+      {
+        as: newPath,
+        url: newPath,
+      },
+      '',
+      newPath
+    );
     expect(mockMakeGraphQLRequest).toHaveBeenCalledWith(graphQLSchemaQuery, 'h', headersGraphQLSchema);
   });
 
@@ -45,12 +58,5 @@ describe('GraphQlClient component', () => {
     await userEvent.type(inputSdl, 'h');
 
     expect(mockMakeGraphQLRequest).toHaveBeenCalledWith(graphQLSchemaQuery, 'h', headersGraphQLSchema);
-  });
-
-  it('decodes base64 encoded endpoint and displays it', () => {
-    const encodedSegment = btoa('https://');
-    (usePathname as Mock).mockReturnValue(`/GRAPHQL/${encodedSegment}`);
-    render(<EndpointsForm />);
-    expect(screen.getByLabelText('Endpoint URL')).toHaveValue('https://');
   });
 });

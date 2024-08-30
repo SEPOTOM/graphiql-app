@@ -1,3 +1,5 @@
-import GraphQlClient from './graphiQlClient/GraphQlClient';
+import GraphQlClient from './graphQlClient/GraphQlClient';
+import RestfullClient from './restfullClient/RestfullClient';
+import MUIThemeProvider from '@/components/MUIThemeProvider/MUIThemeProvider';
 
-export { GraphQlClient };
+export { MUIThemeProvider, RestfullClient, GraphQlClient };

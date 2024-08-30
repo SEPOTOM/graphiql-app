@@ -1,0 +1,10 @@
+{
+  "graphQlEndpointInputLabel": "Endpoint URL",
+  "graphQlEndpointInputPlaceholder": "Enter Endpoint URL",
+  "graphQlSDLInputLabel": "SDL URL",
+  "graphQlSDLInputPlaceholder": "Enter SDL URL",
+  "graphQlSendButton": "Send",
+  "graphQlMenuTabHeaders": "Headers",
+  "graphQlMenuTabVariables": "Variables",
+  "graphQllMenuTaSchema": "Schema"
+}

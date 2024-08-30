@@ -1,0 +1,10 @@
+{
+  "graphQlEndpointInputLabel": "Конечный URL-адрес",
+  "graphQlEndpointInputPlaceholder": "Введите конечный URL-адрес",
+  "graphQlSDLInputLabel": "Конечный URL-адрес схемы",
+  "graphQlSDLInputPlaceholder": "Введите конечный URL-адрес схемы",
+  "graphQlSendButton": "Отправить",
+  "graphQlMenuTabHeaders": "Заголовки",
+  "graphQlMenuTabVariables": "Переменные",
+  "graphQllMenuTaSchema": "Схема"
+}
