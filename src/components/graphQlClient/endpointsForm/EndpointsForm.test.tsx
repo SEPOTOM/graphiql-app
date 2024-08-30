@@ -5,10 +5,6 @@ import * as services from '@/services/index';
 import EndpointsForm from './EndpointsForm';
 import { graphQLSchemaQuery, headersGraphQLSchema } from '@/utils/constants/constants';
 import userEvent from '@testing-library/user-event';
-import GraphQlClientPage from '@/app/[lng]/GRAPHQL/[[...graphQlPages]]/page';
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
-import { AuthProvider } from '@/contexts';
-import { MUIThemeProvider } from '@/components';
 
 const mockReplaceState = vi.fn();
 window.history.replaceState = mockReplaceState;
@@ -25,7 +21,7 @@ describe('GraphQl endpoints form', () => {
 
   it('selecting another endpoint updates URL', async () => {
     (usePathname as Mock).mockReturnValue('en/GRAPHQL');
-    const mockGetNewURLPath = vi.spyOn(services, 'getNewURLPath');
+    const mockGetNewGraphQlURLPath = vi.spyOn(services, 'getNewGraphQlURLPath');
     const mockMakeGraphQLRequest = vi.spyOn(services, 'makeGraphQLRequest');
 
     render(<EndpointsForm />);
@@ -36,15 +32,8 @@ describe('GraphQl endpoints form', () => {
     const encodedEndpoint = btoa('h');
     const newPath = `en/GRAPHQL/${encodedEndpoint}`;
 
-    expect(mockGetNewURLPath).toHaveBeenCalledWith('en/GRAPHQL', encodedEndpoint);
-    expect(mockReplaceState).toHaveBeenCalledWith(
-      {
-        as: newPath,
-        url: newPath,
-      },
-      '',
-      newPath
-    );
+    expect(mockGetNewGraphQlURLPath).toHaveBeenCalledWith('en/GRAPHQL', encodedEndpoint);
+    expect(mockReplaceState).toHaveBeenCalledWith(null, '', newPath);
     expect(mockMakeGraphQLRequest).toHaveBeenCalledWith(graphQLSchemaQuery, 'h', headersGraphQLSchema);
   });
 
