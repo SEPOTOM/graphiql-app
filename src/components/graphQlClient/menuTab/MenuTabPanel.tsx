@@ -11,7 +11,6 @@ interface TabPanelProps {
 
 export default function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, content, ...other } = props;
-
   return (
     <Box
       role="tabpanel"

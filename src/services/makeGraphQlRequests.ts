@@ -1,8 +1,8 @@
-export const makeGraphQLRequest = async (query: string, url: string, headers: HeadersInit | undefined) => {
+export const makeGraphQLRequest = async (query: string, url: string, headers: HeadersInit) => {
   try {
     const response = await fetch(url, {
       method: 'POST',
-      headers: headers,
+      headers,
       body: JSON.stringify({ query }),
     });
     if (!response.ok) {
