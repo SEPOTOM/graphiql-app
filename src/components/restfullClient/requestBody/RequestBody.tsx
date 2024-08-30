@@ -2,7 +2,7 @@
 
 import { ChangeEvent, useState } from 'react';
 import RequestBodyToggle from './RequestBodyToggle';
-import RequestModeSelector from './RequestModeSelector ';
+import RequestModeSelector from './RequestModeSelector';
 import { Box } from '@mui/material';
 import RequestBodyEditor from './RequestBodyEditor';
 
