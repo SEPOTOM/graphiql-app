@@ -1,4 +1,3 @@
-import { Container } from '@mui/material';
 import { GraphQlClient } from '@/components';
 import Box from '@mui/material/Box';
 

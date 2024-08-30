@@ -16,7 +16,7 @@ export default function GraphQlClient() {
   useEffect(() => {
     router.replace(pathname);
     makeGraphQLRequest(graphQLSchemaQuery, atob(currentEndpoint), headersGraphQLSchema);
-  });
+  }, []);
 
   return (
     <Box

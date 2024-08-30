@@ -3,8 +3,8 @@
 import { getNewURLPath, makeGraphQLRequest } from '@/services';
 import { Box, Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import { usePathname, useRouter } from 'next/navigation';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { ChangeEvent, useState } from 'react';
 import { graphQLSchemaQuery, headersGraphQLSchema } from '@/constants/constants';
 
 export default function EndpointsForm() {
@@ -15,7 +15,6 @@ export default function EndpointsForm() {
 
   const handleEndpointUrlChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const encodedEndPoint = btoa(event.target.value);
-    console.log(pathname);
     const newPath = getNewURLPath(pathname, encodedEndPoint);
     window.history.replaceState(null, '', newPath);
 

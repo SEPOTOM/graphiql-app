@@ -9,9 +9,7 @@ export const makeGraphQLRequest = async (query: string, url: string, headers: He
       throw new Error('Network response was not ok boom');
     }
     const data = await response.json();
-    console.log(data);
   } catch (error) {
-    console.log('Here not schema');
-    console.log(error);
+    throw error;
   }
 };
