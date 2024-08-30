@@ -10,7 +10,7 @@ window.history.replaceState = mockReplaceState;
 
 describe('EndpointInput component', () => {
   it('renders correctly with the initial endpoint selected based on the current URL', () => {
-    (usePathname as Mock).mockReturnValue('/restfullClient/PATCH/cXdlcnR5');
+    (usePathname as Mock).mockReturnValue('/restfullClient/ru/PATCH/cXdlcnR5');
 
     render(<EndpointInput />);
 
@@ -18,7 +18,7 @@ describe('EndpointInput component', () => {
   });
 
   it('updates URL when a new endpoint is entered', async () => {
-    (usePathname as Mock).mockReturnValue('/restfullClient/GET');
+    (usePathname as Mock).mockReturnValue('/restfullClient/ru/GET');
     const mockGetNewURLPath = vi.spyOn(services, 'getNewURLPath');
     const user = userEvent.setup();
 
@@ -30,9 +30,9 @@ describe('EndpointInput component', () => {
 
     endpoint.split('').forEach((letter) => {
       const encodedEndpoint = btoa(letter);
-      const newPath = `/restfullClient/GET/${encodedEndpoint}`;
+      const newPath = `/restfullClient/ru/GET/${encodedEndpoint}`;
       expect(mockReplaceState).toHaveBeenCalledWith(null, '', newPath);
-      expect(mockGetNewURLPath).toHaveBeenCalledWith('/restfullClient/GET', encodedEndpoint);
+      expect(mockGetNewURLPath).toHaveBeenCalledWith('/restfullClient/ru/GET', encodedEndpoint);
     });
 
     mockGetNewURLPath.mockRestore();
@@ -40,7 +40,7 @@ describe('EndpointInput component', () => {
 
   it('decodes base64 encoded endpoint and displays it', () => {
     const encodedSegment = btoa('encodedEndpoint');
-    (usePathname as Mock).mockReturnValue(`/restfullClient/GET/${encodedSegment}`);
+    (usePathname as Mock).mockReturnValue(`/restfullClient/ru/GET/${encodedSegment}`);
 
     render(<EndpointInput />);
 

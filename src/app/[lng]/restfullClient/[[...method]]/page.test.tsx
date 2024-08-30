@@ -5,7 +5,7 @@ import RestfullClientPage from './page';
 
 describe('RestfullClientPage', () => {
   it('should  render component correctly', () => {
-    (usePathname as Mock).mockReturnValue('/restfullClient');
+    (usePathname as Mock).mockReturnValue('/restfullClient/ru');
     const replace = vi.fn();
     (useRouter as Mock).mockImplementation(() => ({
       replace,

@@ -11,7 +11,7 @@ window.history.replaceState = mockReplaceState;
 
 describe('MethodSelector component', () => {
   it('renders correctly with the initial method selected based on the current URL', () => {
-    (usePathname as Mock).mockReturnValue('/restfullClient/PATCH');
+    (usePathname as Mock).mockReturnValue('/restfullClient/ru/PATCH');
 
     render(<MethodSelector />);
 
@@ -19,7 +19,7 @@ describe('MethodSelector component', () => {
   });
 
   it('component handles cases where the pathname does not contain a method segment', () => {
-    (usePathname as Mock).mockReturnValue('/restfullClient');
+    (usePathname as Mock).mockReturnValue('/restfullClient/ru');
 
     render(<MethodSelector />);
 
@@ -27,7 +27,7 @@ describe('MethodSelector component', () => {
   });
 
   it('selecting a different method updates the state and URL', async () => {
-    (usePathname as Mock).mockReturnValue('/restfullClient/GET');
+    (usePathname as Mock).mockReturnValue('/restfullClient/ru/GET');
     const mockGetNewMethodPath = vi.spyOn(services, 'getNewMethodPath');
     const newMethod = Method.Post;
     const user = userEvent.setup();
@@ -44,8 +44,8 @@ describe('MethodSelector component', () => {
     await waitFor(() => {
       expect(screen.getByText(newMethod)).toBeInTheDocument();
     });
-    expect(mockReplaceState).toHaveBeenCalledWith(null, '', '/restfullClient/POST');
-    expect(mockGetNewMethodPath).toHaveBeenCalledWith('/restfullClient/GET', newMethod, Object.values(Method));
+    expect(mockReplaceState).toHaveBeenCalledWith(null, '', '/restfullClient/ru/POST');
+    expect(mockGetNewMethodPath).toHaveBeenCalledWith('/restfullClient/ru/GET', newMethod, Object.values(Method));
     mockGetNewMethodPath.mockRestore();
   });
 });
