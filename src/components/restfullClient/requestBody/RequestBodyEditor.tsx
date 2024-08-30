@@ -13,7 +13,6 @@ export interface RequestBodyEditorProps {
 export default function RequestBodyEditor({ mode }: RequestBodyEditorProps) {
   const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
   const pathname = usePathname();
-
   const [value, setValue] = useState<string>('');
 
   useEffect(() => {
@@ -49,6 +48,7 @@ export default function RequestBodyEditor({ mode }: RequestBodyEditorProps) {
       const newPath = getNewBodyPath(pathname, encodedValue);
       window.history.replaceState(null, '', newPath);
     } catch (e) {
+      // TODO add a component to display the error
       if (e instanceof Error) console.error('Invalid JSON:', e.message);
     }
   };

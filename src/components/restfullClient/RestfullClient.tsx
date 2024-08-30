@@ -6,7 +6,7 @@ import { Method } from '@/types/enum';
 import { useEffect } from 'react';
 import EndpointInput from './endpoinInput/EndpointInput';
 import MethodSelector from './methodSelector/MethodSelector';
-import MenuTab from '../menuTab/menuTab';
+import MenuTab from '../menuTab/MenuTab';
 
 export default function RestfullClient() {
   const pathname = usePathname();

@@ -8,7 +8,6 @@ import RequestBody from '../restfullClient/requestBody/RequestBody';
 
 export default function MenuTab() {
   const tabs = Object.values(MenuTabsRest) as string[];
-
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
