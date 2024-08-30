@@ -10,7 +10,7 @@ import { getNewMethodPath } from '@/services';
 export default function MethodSelector() {
   const pathname = usePathname();
   const methods = Object.values(Method) as string[];
-  const pathNameMethod = pathname.split('/')[2];
+  const pathNameMethod = pathname.split('/')[3];
   const currentMethod = methods.includes(pathNameMethod) ? pathNameMethod : Method.Get;
   const [method, setMethod] = useState<string>(currentMethod);
 
