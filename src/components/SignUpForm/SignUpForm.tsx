@@ -5,13 +5,13 @@ import { Box, Button, TextField, Typography } from '@mui/material';
 
 import { useAuth } from '@/contexts';
 
-import { SignUpData } from './types';
+import { SignUpFormData } from './types';
 
 const SignUpForm = () => {
   const { signUp } = useAuth();
-  const { handleSubmit, register } = useForm<SignUpData>();
+  const { handleSubmit, register } = useForm<SignUpFormData>();
 
-  const onSubmit: SubmitHandler<SignUpData> = async ({ username, email, password }) => {
+  const onSubmit: SubmitHandler<SignUpFormData> = async ({ username, email, password }) => {
     await signUp({
       email,
       password,
