@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Box, Button, TextField, Typography } from '@mui/material';
 
 import { useAuth } from '@/contexts';
-import { Notification } from '@/components';
+import { Notification, PasswordField } from '@/components';
 
 import { SignUpFormData } from './types';
 
@@ -38,14 +38,8 @@ const SignUpForm = () => {
         </Typography>
         <TextField label="Username" {...register('username')} disabled={isSending} required />
         <TextField label="Email" {...register('email')} type="email" disabled={isSending} required />
-        <TextField label="Password" {...register('password')} type="password" disabled={isSending} required />
-        <TextField
-          label="Confirm Password"
-          {...register('confirmPassword')}
-          type="password"
-          disabled={isSending}
-          required
-        />
+        <PasswordField label="Password" {...register('password')} disabled={isSending} required />
+        <PasswordField label="Confirm Password" {...register('confirmPassword')} disabled={isSending} required />
         <Button variant="contained" color="primary" type="submit">
           Sign Up
         </Button>
