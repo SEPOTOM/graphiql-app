@@ -4,9 +4,8 @@ import { GitHub as GitHubIcon } from '@mui/icons-material';
 
 import { getTranslation } from '@/utils';
 
-import { FooterProps } from '@/components/Footer/types';
-
-import { authors, reactCourseUrl } from '@/components/Footer/consts';
+import { FooterProps } from './types';
+import { authors, reactCourseUrl } from './consts';
 
 const Footer = async ({ lng }: FooterProps) => {
   const { t } = await getTranslation(lng);
