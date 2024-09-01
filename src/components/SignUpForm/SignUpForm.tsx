@@ -3,15 +3,19 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Box, Button, TextField, Typography } from '@mui/material';
 
-import { registerWithEmailAndPassword } from '@/utils';
-
 import { SignUpData } from '@/components/SignUpForm/types';
+import { useAuth } from '@/contexts';
 
 const SignUpForm = () => {
+  const { signUp } = useAuth();
   const { handleSubmit, register } = useForm<SignUpData>();
 
   const onSubmit: SubmitHandler<SignUpData> = async ({ username, email, password }) => {
-    await registerWithEmailAndPassword(username, email, password);
+    await signUp({
+      email,
+      password,
+      displayName: username,
+    });
   };
 
   return (
