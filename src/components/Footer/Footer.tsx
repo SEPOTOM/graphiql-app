@@ -38,7 +38,7 @@ const Footer = async ({ lng }: FooterProps) => {
             <ListItem key={index} sx={{ width: 'auto', padding: 0 }}>
               <Link
                 component="a"
-                href={author.github}
+                href={author.profileLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 color="inherit"
