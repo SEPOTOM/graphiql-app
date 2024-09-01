@@ -6,7 +6,7 @@ import { getTranslation } from '@/utils';
 
 import { FooterProps } from '@/components/Footer/types';
 
-import { authors } from '@/components/Footer/consts';
+import { authors, reactCourseUrl } from '@/components/Footer/consts';
 
 const Footer = async ({ lng }: FooterProps) => {
   const { t } = await getTranslation(lng);
@@ -67,7 +67,7 @@ const Footer = async ({ lng }: FooterProps) => {
         >
           <Typography variant="body1">©2024</Typography>
 
-          <Link href="https://rs.school/courses/reactjs" target="_blank" rel="noopener noreferrer">
+          <Link href={reactCourseUrl} target="_blank" rel="noopener noreferrer">
             <Image src="/rss-logo.svg" alt={t('footer.rss')} width={50} height={50} />
           </Link>
         </Box>
