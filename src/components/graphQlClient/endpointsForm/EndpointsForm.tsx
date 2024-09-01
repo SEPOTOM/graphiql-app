@@ -1,6 +1,6 @@
 'use client';
 
-import { getNewGraphQlURLPath, getNewURLPath, makeGraphQLRequest } from '@/services';
+import { getNewGraphQlURLPath, makeGraphQLRequest } from '@/services';
 import { Box, Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { usePathname } from 'next/navigation';

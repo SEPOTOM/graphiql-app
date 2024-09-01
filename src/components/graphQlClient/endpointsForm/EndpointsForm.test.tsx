@@ -25,24 +25,6 @@ describe('GraphQl endpoints form', () => {
     });
   });
 
-  // it('selecting another endpoint updates URL', async () => {
-  //   (usePathname as Mock).mockReturnValue('en/GRAPHQL');
-  //   const mockGetNewGraphQlURLPath = vi.spyOn(services, 'getNewGraphQlURLPath');
-  //   const mockMakeGraphQLRequest = vi.spyOn(services, 'makeGraphQLRequest');
-
-  //   render(<EndpointsForm />);
-
-  //   const inputUrl = screen.getByLabelText('Endpoint URL');
-  //   await userEvent.type(inputUrl, 'h');
-
-  //   const encodedEndpoint = btoa('h');
-  //   const newPath = `en/GRAPHQL/${encodedEndpoint}`;
-
-  //   expect(mockGetNewGraphQlURLPath).toHaveBeenCalledWith('en/GRAPHQL', encodedEndpoint);
-  //   expect(mockReplaceState).toHaveBeenCalledWith(null, '', newPath);
-  //   expect(mockMakeGraphQLRequest).toHaveBeenCalledWith(graphQLSchemaQuery, 'h', headersGraphQLSchema);
-  // });
-
   it('selecting another endpoint updates URL', async () => {
     (usePathname as Mock).mockReturnValue('en/GRAPHQL');
 
