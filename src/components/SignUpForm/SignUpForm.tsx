@@ -10,7 +10,7 @@ import { Notification } from '@/components';
 import { SignUpFormData } from './types';
 
 const SignUpForm = () => {
-  const { signUp } = useAuth();
+  const { signUp, status } = useAuth();
   const { handleSubmit, register } = useForm<SignUpFormData>();
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -24,6 +24,8 @@ const SignUpForm = () => {
     setIsSuccess(true);
   };
 
+  const isSending = status === 'loading';
+
   return (
     <>
       <Box
@@ -34,10 +36,16 @@ const SignUpForm = () => {
         <Typography variant="h3" component="h1" gutterBottom>
           Sign Up
         </Typography>
-        <TextField label="Username" {...register('username')} required />
-        <TextField label="Email" {...register('email')} type="email" required />
-        <TextField label="Password" {...register('password')} type="password" required />
-        <TextField label="Confirm Password" {...register('confirmPassword')} type="password" required />
+        <TextField label="Username" {...register('username')} disabled={isSending} required />
+        <TextField label="Email" {...register('email')} type="email" disabled={isSending} required />
+        <TextField label="Password" {...register('password')} type="password" disabled={isSending} required />
+        <TextField
+          label="Confirm Password"
+          {...register('confirmPassword')}
+          type="password"
+          disabled={isSending}
+          required
+        />
         <Button variant="contained" color="primary" type="submit">
           Sign Up
         </Button>
