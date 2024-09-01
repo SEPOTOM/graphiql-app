@@ -3,8 +3,9 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Box, Button, TextField, Typography } from '@mui/material';
 
-import { SignUpData } from '@/components/SignUpForm/types';
 import { useAuth } from '@/contexts';
+
+import { SignUpData } from './types';
 
 const SignUpForm = () => {
   const { signUp } = useAuth();
