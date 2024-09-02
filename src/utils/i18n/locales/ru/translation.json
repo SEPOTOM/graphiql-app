@@ -1,1 +1,14 @@
-{}
+{
+  "RestfullClientMenuTabVariables": "Переменные",
+  "RestfullClientMenuTabHeaders": "Заголовки",
+  "RestfullClientMenuTabBody": "Тело запроса",
+  "BodyTypeJsonPlaceholder": "Введите JSON здесь...",
+  "BodyTypeTextPlaceholder": "Введите текст запроса здесь...",
+  "BodyTypeText": "Текст",
+  "BodyModeNone": "Без данных",
+  "BodyModeRaw": "Необработанный",
+  "BodyModeNoneText": "У этого запроса нет тела",
+  "EditorLoading": "Загрузка...",
+  "EndpointPlaceholder": "Введите конечный URL-адрес",
+  "MethodLabel": "Метод"
+}

@@ -1,6 +1,8 @@
-import { BodyType } from '@/types/enum';
+import { BodyType, SegmentIndex } from '@/types/enum';
 import { Box, FormControl, NativeSelect } from '@mui/material';
+import { usePathname } from 'next/navigation';
 import { ChangeEvent } from 'react';
+import { useTranslation } from '@/hooks';
 
 export interface RequestModeSelectorProps {
   mode: string;
@@ -8,9 +10,12 @@ export interface RequestModeSelectorProps {
 }
 
 export default function RequestModeSelector({ mode, handleChange }: RequestModeSelectorProps) {
+  const pathname = usePathname();
+  const lng = pathname.split('/')[SegmentIndex.Languague];
+  const { t } = useTranslation(lng);
   const options = [
     { value: BodyType.json, label: 'JSON' },
-    { value: BodyType.text, label: 'Text' },
+    { value: BodyType.text, label: t('BodyTypeText') },
   ];
 
   return (

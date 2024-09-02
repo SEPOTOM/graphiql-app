@@ -1,5 +1,7 @@
-import { BodyMode } from '@/types/enum';
+import { useTranslation } from '@/hooks';
+import { BodyMode, SegmentIndex } from '@/types/enum';
 import { ToggleButtonGroup, ToggleButton } from '@mui/material';
+import { usePathname } from 'next/navigation';
 import { MouseEvent } from 'react';
 
 export interface RequestBodyToggleProps {
@@ -8,9 +10,13 @@ export interface RequestBodyToggleProps {
 }
 
 export default function RequestBodyToggle({ bodyType, handleChange }: RequestBodyToggleProps) {
+  const pathname = usePathname();
+  const lng = pathname.split('/')[SegmentIndex.Languague];
+  const { t } = useTranslation(lng);
+
   const toggleButtonData = [
-    { value: BodyMode.None, label: 'no request body', text: BodyMode.None },
-    { value: BodyMode.Raw, label: 'raw request body', text: BodyMode.Raw },
+    { value: BodyMode.None, label: 'no request body', text: t('BodyModeNone') },
+    { value: BodyMode.Raw, label: 'raw request body', text: t('BodyModeRaw') },
   ];
 
   return (

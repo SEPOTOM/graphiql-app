@@ -1,1 +1,14 @@
-{}
+{
+  "RestfullClientMenuTabVariables": "Variables",
+  "RestfullClientMenuTabHeaders": "Headers",
+  "RestfullClientMenuTabBody": "Request Body",
+  "BodyTypeJsonPlaceholder": "Enter JSON here...",
+  "BodyTypeTextPlaceholder": "Enter the text here...",
+  "BodyTypeText": "Text",
+  "BodyModeNone": "None",
+  "BodyModeRaw": "Raw",
+  "BodyModeNoneText": "This request does not have a body",
+  "EditorLoading": "Loading...",
+  "EndpointPlaceholder": "Enter endpoint-URL",
+  "MethodLabel": "Method"
+}

@@ -9,9 +9,9 @@ export enum Method {
 }
 
 export enum MenuTabsRest {
-  Variables = 'Variables',
-  Headers = 'Headers',
-  Body = 'Body',
+  Variables = 'RestfullClientMenuTabVariables',
+  Headers = 'RestfullClientMenuTabHeaders',
+  Body = 'RestfullClientMenuTabBody',
 }
 
 export enum BodyType {
@@ -20,11 +20,12 @@ export enum BodyType {
 }
 
 export enum PlaceHolder {
-  json = 'Enter JSON here...',
-  text = 'Enter the text here...',
+  json = 'BodyTypeJsonPlaceholder',
+  text = 'BodyTypeTextPlaceholder',
 }
 
 export enum SegmentIndex {
+  Languague = 1,
   Method = 3,
   Endpoint = 4,
   Body = 5,

@@ -6,9 +6,12 @@ import { Method, SegmentIndex } from '@/types/enum';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { getNewMethodPath } from '@/services';
+import { useTranslation } from '@/hooks';
 
 export default function MethodSelector() {
   const pathname = usePathname();
+  const lng = pathname.split('/')[SegmentIndex.Languague];
+  const { t } = useTranslation(lng);
   const methods = Object.values(Method) as string[];
   const pathNameMethod = pathname.split('/')[SegmentIndex.Method];
   const currentMethod = methods.includes(pathNameMethod) ? pathNameMethod : Method.Get;
@@ -23,7 +26,7 @@ export default function MethodSelector() {
 
   return (
     <FormControl sx={{ width: 200 }}>
-      <InputLabel id="select-method-label">Method</InputLabel>
+      <InputLabel id="select-method-label">{t('MethodLabel')}</InputLabel>
       <Select labelId="select-method-label" id="select-method" value={method} label="Method" onChange={handleSelect}>
         {methods.map((method) => (
           <MenuItem key={method} value={method}>

@@ -2,9 +2,10 @@ import Paper from '@mui/material/Paper';
 import Editor from '@monaco-editor/react';
 import { useEffect, useRef, useState } from 'react';
 import * as monaco from 'monaco-editor';
-import { PlaceHolder } from '@/types/enum';
+import { PlaceHolder, SegmentIndex } from '@/types/enum';
 import { encodeToBase64, getNewBodyPath } from '@/services';
 import { usePathname } from 'next/navigation';
+import { useTranslation } from '@/hooks';
 
 export interface RequestBodyEditorProps {
   mode: string;
@@ -13,6 +14,8 @@ export interface RequestBodyEditorProps {
 export default function RequestBodyEditor({ mode }: RequestBodyEditorProps) {
   const editorRef = useRef<Nullable<monaco.editor.IStandaloneCodeEditor>>(null);
   const pathname = usePathname();
+  const lng = pathname.split('/')[SegmentIndex.Languague];
+  const { t } = useTranslation(lng);
   const [value, setValue] = useState<string>('');
   const onBlur = () => {
     try {
@@ -33,7 +36,7 @@ export default function RequestBodyEditor({ mode }: RequestBodyEditorProps) {
 
   useEffect(() => {
     const editor = editorRef.current;
-    setValue(PlaceHolder[mode as keyof typeof PlaceHolder]);
+    setValue(t(`${PlaceHolder[mode as keyof typeof PlaceHolder]}`));
     if (editor) {
       editor.focus();
     }
@@ -65,7 +68,14 @@ export default function RequestBodyEditor({ mode }: RequestBodyEditorProps) {
 
   return (
     <Paper sx={{ width: '100%', minHeight: '60svh' }}>
-      <Editor language={mode} height="65vh" value={value} onChange={handleChange} onMount={handleEditorDidMount} />
+      <Editor
+        language={mode}
+        height="65vh"
+        value={value}
+        onChange={handleChange}
+        onMount={handleEditorDidMount}
+        loading={t('EditorLoading')}
+      />
     </Paper>
   );
 }

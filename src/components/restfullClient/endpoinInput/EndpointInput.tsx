@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslation } from '@/hooks';
 import { decodeFromBase64, encodeToBase64, getNewURLPath } from '@/services';
 import { SegmentIndex } from '@/types/enum';
 import TextField from '@mui/material/TextField';
@@ -8,6 +9,8 @@ import { ChangeEvent } from 'react';
 
 export default function EndpointInput() {
   const pathname = usePathname();
+  const lng = pathname.split('/')[SegmentIndex.Languague];
+  const { t } = useTranslation(lng);
   const currentEndpoint = pathname.split('/')[SegmentIndex.Endpoint] || '';
 
   const handleEndpointChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -23,7 +26,7 @@ export default function EndpointInput() {
       label="URL"
       variant="outlined"
       onChange={handleEndpointChange}
-      placeholder="Enter URL"
+      placeholder={t('EndpointPlaceholder')}
       fullWidth
     />
   );
