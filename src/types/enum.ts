@@ -29,6 +29,7 @@ export enum SegmentIndex {
   Method = 3,
   Endpoint = 4,
   Body = 5,
+  LastElement = 6,
 }
 
 export enum BodyMode {
