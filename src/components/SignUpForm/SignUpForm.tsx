@@ -13,8 +13,8 @@ import { SignUpFormData, SignUpFormProps } from './types';
 const SignUpForm = ({ lng }: SignUpFormProps) => {
   const { signUp, status } = useAuth();
   const { handleSubmit, register } = useForm<SignUpFormData>();
-  const [isSuccess, setIsSuccess] = useState(false);
   const { t } = useTranslation(lng);
+  const [isSuccess, setIsSuccess] = useState(false);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -41,6 +41,7 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
         <Typography variant={isSmallScreen ? 'h3' : 'h2'} component="h1" gutterBottom>
           {t('signUp.title')}
         </Typography>
+
         <TextField
           label={t('signUp.username')}
           {...register('username')}
@@ -48,6 +49,7 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
           required
           size={inputSize}
         />
+
         <TextField
           label={t('signUp.email')}
           {...register('email')}
@@ -56,6 +58,7 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
           required
           size={inputSize}
         />
+
         <PasswordField
           label={t('signUp.password')}
           {...register('password')}
@@ -64,6 +67,7 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
           lng={lng}
           size={inputSize}
         />
+
         <PasswordField
           label={t('signUp.confirmPassword')}
           {...register('confirmPassword')}
@@ -72,10 +76,12 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
           lng={lng}
           size={inputSize}
         />
+
         <Button variant="contained" color="primary" type="submit">
           {t('signUp.submitButton')}
         </Button>
       </Box>
+
       <Notification open={isSuccess} onClose={() => setIsSuccess(false)}>
         {t('signUp.successMsg')}
       </Notification>
