@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, Button, TextField, Typography, useMediaQuery, useTheme } from '@mui/material';
 
 import { useAuth } from '@/contexts';
 import { useTranslation } from '@/hooks';
@@ -15,6 +15,8 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
   const { handleSubmit, register } = useForm<SignUpFormData>();
   const [isSuccess, setIsSuccess] = useState(false);
   const { t } = useTranslation(lng);
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const onSubmit: SubmitHandler<SignUpFormData> = async ({ username, email, password }) => {
     await signUp({
@@ -27,6 +29,7 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
   };
 
   const isSending = status === 'loading';
+  const inputSize = isSmallScreen ? 'small' : 'medium';
 
   return (
     <>
@@ -35,18 +38,39 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
         onSubmit={handleSubmit(onSubmit)}
         sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}
       >
-        <Typography variant="h3" component="h1" gutterBottom>
+        <Typography variant={isSmallScreen ? 'h3' : 'h2'} component="h1" gutterBottom>
           {t('signUp.title')}
         </Typography>
-        <TextField label={t('signUp.username')} {...register('username')} disabled={isSending} required />
-        <TextField label={t('signUp.email')} {...register('email')} type="email" disabled={isSending} required />
-        <PasswordField label={t('signUp.password')} {...register('password')} disabled={isSending} required lng={lng} />
+        <TextField
+          label={t('signUp.username')}
+          {...register('username')}
+          disabled={isSending}
+          required
+          size={inputSize}
+        />
+        <TextField
+          label={t('signUp.email')}
+          {...register('email')}
+          type="email"
+          disabled={isSending}
+          required
+          size={inputSize}
+        />
+        <PasswordField
+          label={t('signUp.password')}
+          {...register('password')}
+          disabled={isSending}
+          required
+          lng={lng}
+          size={inputSize}
+        />
         <PasswordField
           label={t('signUp.confirmPassword')}
           {...register('confirmPassword')}
           disabled={isSending}
           required
           lng={lng}
+          size={inputSize}
         />
         <Button variant="contained" color="primary" type="submit">
           {t('signUp.submitButton')}
