@@ -40,12 +40,13 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
         </Typography>
         <TextField label={t('signUp.username')} {...register('username')} disabled={isSending} required />
         <TextField label={t('signUp.email')} {...register('email')} type="email" disabled={isSending} required />
-        <PasswordField label={t('signUp.password')} {...register('password')} disabled={isSending} required />
+        <PasswordField label={t('signUp.password')} {...register('password')} disabled={isSending} required lng={lng} />
         <PasswordField
           label={t('signUp.confirmPassword')}
           {...register('confirmPassword')}
           disabled={isSending}
           required
+          lng={lng}
         />
         <Button variant="contained" color="primary" type="submit">
           {t('signUp.submitButton')}

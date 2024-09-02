@@ -11,5 +11,9 @@
     "confirmPassword": "Confirm Password",
     "submitButton": "Sign Up",
     "successMsg": "Successfully signed up"
+  },
+  "pwdField": {
+    "hide": "Hide password",
+    "show": "Show password"
   }
 }

@@ -1,3 +1,5 @@
 import { TextFieldProps } from '@mui/material';
 
-export type PasswordFieldProps = Omit<TextFieldProps, 'type'>;
+export interface PasswordFieldProps extends Omit<TextFieldProps, 'type'> {
+  lng: string;
+}

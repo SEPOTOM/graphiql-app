@@ -4,13 +4,16 @@ import { ForwardedRef, forwardRef, useState } from 'react';
 import { TextField, IconButton, InputAdornment } from '@mui/material';
 import { Visibility as VisibilityIcon, VisibilityOff as VisibilityOffIcon } from '@mui/icons-material';
 
+import { useTranslation } from '@/hooks';
+
 import { PasswordFieldProps } from './types';
 
 const PasswordField = forwardRef(function PasswordField(
-  props: PasswordFieldProps,
+  { lng, ...props }: PasswordFieldProps,
   ref: ForwardedRef<HTMLInputElement>
 ) {
   const [showPassword, setShowPassword] = useState(false);
+  const { t } = useTranslation(lng);
 
   const handleClickTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -26,7 +29,7 @@ const PasswordField = forwardRef(function PasswordField(
         endAdornment: (
           <InputAdornment position="end" sx={{ mr: 1 }}>
             <IconButton
-              aria-label={showPassword ? 'Hide password' : 'Show password'}
+              aria-label={showPassword ? t('pwdField.hide') : t('pwdField.show')}
               onClick={handleClickTogglePassword}
               edge="end"
               disabled={props.disabled}
