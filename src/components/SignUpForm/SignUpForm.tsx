@@ -5,14 +5,16 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Box, Button, TextField, Typography } from '@mui/material';
 
 import { useAuth } from '@/contexts';
+import { useTranslation } from '@/hooks';
 import { Notification, PasswordField } from '@/components';
 
-import { SignUpFormData } from './types';
+import { SignUpFormData, SignUpFormProps } from './types';
 
-const SignUpForm = () => {
+const SignUpForm = ({ lng }: SignUpFormProps) => {
   const { signUp, status } = useAuth();
   const { handleSubmit, register } = useForm<SignUpFormData>();
   const [isSuccess, setIsSuccess] = useState(false);
+  const { t } = useTranslation(lng);
 
   const onSubmit: SubmitHandler<SignUpFormData> = async ({ username, email, password }) => {
     await signUp({
@@ -34,18 +36,23 @@ const SignUpForm = () => {
         sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}
       >
         <Typography variant="h3" component="h1" gutterBottom>
-          Sign Up
+          {t('signUp.title')}
         </Typography>
-        <TextField label="Username" {...register('username')} disabled={isSending} required />
-        <TextField label="Email" {...register('email')} type="email" disabled={isSending} required />
-        <PasswordField label="Password" {...register('password')} disabled={isSending} required />
-        <PasswordField label="Confirm Password" {...register('confirmPassword')} disabled={isSending} required />
+        <TextField label={t('signUp.username')} {...register('username')} disabled={isSending} required />
+        <TextField label={t('signUp.email')} {...register('email')} type="email" disabled={isSending} required />
+        <PasswordField label={t('signUp.password')} {...register('password')} disabled={isSending} required />
+        <PasswordField
+          label={t('signUp.confirmPassword')}
+          {...register('confirmPassword')}
+          disabled={isSending}
+          required
+        />
         <Button variant="contained" color="primary" type="submit">
-          Sign Up
+          {t('signUp.submitButton')}
         </Button>
       </Box>
       <Notification open={isSuccess} onClose={() => setIsSuccess(false)}>
-        Successfully signed up
+        {t('signUp.successMsg')}
       </Notification>
     </>
   );

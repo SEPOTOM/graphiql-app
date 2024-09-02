@@ -2,5 +2,14 @@
   "footer": {
     "github": "GitHub профиль пользователя",
     "rss": "Логотип RSSchool"
+  },
+  "signUp": {
+    "title": "Регистрация",
+    "username": "Имя пользователя",
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "confirmPassword": "Подтвердите пароль",
+    "submitButton": "Зарегистрироваться",
+    "successMsg": "Успешная регистрация"
   }
 }

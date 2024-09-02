@@ -2,5 +2,14 @@
   "footer": {
     "github": "GitHub profile of",
     "rss": "RSSchool logo"
+  },
+  "signUp": {
+    "title": "Sign Up",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "submitButton": "Sign Up",
+    "successMsg": "Successfully signed up"
   }
 }
