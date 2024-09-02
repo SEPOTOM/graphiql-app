@@ -2,15 +2,13 @@
 
 import { Box } from '@mui/material';
 
-interface TabPanelProps {
+interface RequestBodyMenuTabsProps {
   children?: React.ReactNode;
   index: number;
   value: number;
 }
 
-export default function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
+export default function RequestBodyMenuTabs({ children, value, index, ...other }: RequestBodyMenuTabsProps) {
   return (
     <Box
       sx={{ width: '100%' }}

@@ -2,7 +2,7 @@
 
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
-import { Method } from '@/types/enum';
+import { Method, SegmentIndex } from '@/types/enum';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { getNewMethodPath } from '@/services';
@@ -10,7 +10,7 @@ import { getNewMethodPath } from '@/services';
 export default function MethodSelector() {
   const pathname = usePathname();
   const methods = Object.values(Method) as string[];
-  const pathNameMethod = pathname.split('/')[3];
+  const pathNameMethod = pathname.split('/')[SegmentIndex.Method];
   const currentMethod = methods.includes(pathNameMethod) ? pathNameMethod : Method.Get;
   const [method, setMethod] = useState<string>(currentMethod);
 

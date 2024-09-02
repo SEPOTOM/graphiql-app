@@ -1,16 +1,17 @@
 'use client';
 
-import { ChangeEvent, useState } from 'react';
-import RequestBodyToggle from './RequestBodyToggle';
-import RequestModeSelector from './RequestModeSelector';
+import { ChangeEvent, useState, MouseEvent } from 'react';
 import { Box } from '@mui/material';
-import RequestBodyEditor from './RequestBodyEditor';
+import RequestBodyEditor from './BodyEditor/RequestBodyEditor';
+import RequestBodyToggle from './BodyTypeToggle/RequestBodyToggle';
+import RequestModeSelector from './BodyModeSelector/RequestModeSelector';
+import { BodyMode, BodyType } from '@/types/enum';
 
 export default function RequestBody() {
-  const [bodyType, setBodyType] = useState('none');
-  const [mode, setMode] = useState('json');
+  const [bodyType, setBodyType] = useState<string>(BodyMode.None);
+  const [mode, setMode] = useState<string>(BodyType.json);
 
-  const handleBodyTypeChange = (e: React.MouseEvent<HTMLElement>, newBodyType: string | null) => {
+  const handleBodyTypeChange = (e: MouseEvent<HTMLElement>, newBodyType: Nullable<string>) => {
     if (newBodyType !== null) {
       setBodyType(newBodyType);
     }

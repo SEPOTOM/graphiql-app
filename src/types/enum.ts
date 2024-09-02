@@ -14,7 +14,23 @@ export enum MenuTabsRest {
   Body = 'Body',
 }
 
+export enum BodyType {
+  json = 'json',
+  text = 'text',
+}
+
 export enum PlaceHolder {
   json = 'Enter JSON here...',
   text = 'Enter the text here...',
+}
+
+export enum SegmentIndex {
+  Method = 3,
+  Endpoint = 4,
+  Body = 5,
+}
+
+export enum BodyMode {
+  None = 'none',
+  Raw = 'raw',
 }

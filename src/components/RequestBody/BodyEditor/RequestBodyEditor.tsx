@@ -11,9 +11,25 @@ export interface RequestBodyEditorProps {
 }
 
 export default function RequestBodyEditor({ mode }: RequestBodyEditorProps) {
-  const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
+  const editorRef = useRef<Nullable<monaco.editor.IStandaloneCodeEditor>>(null);
   const pathname = usePathname();
   const [value, setValue] = useState<string>('');
+  const onBlur = () => {
+    try {
+      let encodedValue: string;
+      if (mode === 'json') {
+        const parsedValue = JSON.parse(value);
+        encodedValue = encodeToBase64(JSON.stringify(parsedValue));
+      } else {
+        encodedValue = encodeToBase64(value);
+      }
+      const newPath = getNewBodyPath(pathname, encodedValue);
+      window.history.replaceState(null, '', newPath);
+    } catch (e) {
+      // TODO add a component to display the error
+      if (e instanceof Error) console.error('Invalid JSON:', e.message);
+    }
+  };
 
   useEffect(() => {
     const editor = editorRef.current;
@@ -34,31 +50,14 @@ export default function RequestBodyEditor({ mode }: RequestBodyEditorProps) {
         dispose.dispose();
       }
     };
-  }, [value]);
-
-  const onBlur = () => {
-    try {
-      let encodedValue: string;
-      if (mode === 'json') {
-        const parsedValue = JSON.parse(value);
-        encodedValue = encodeToBase64(JSON.stringify(parsedValue));
-      } else {
-        encodedValue = encodeToBase64(value);
-      }
-      const newPath = getNewBodyPath(pathname, encodedValue);
-      window.history.replaceState(null, '', newPath);
-    } catch (e) {
-      // TODO add a component to display the error
-      if (e instanceof Error) console.error('Invalid JSON:', e.message);
-    }
-  };
+  }, [onBlur]);
 
   const handleEditorDidMount = (editor: monaco.editor.IStandaloneCodeEditor) => {
     editorRef.current = editor;
     editor.focus();
   };
 
-  const handleChange = (value: string | undefined) => {
+  const handleChange = (value?: string) => {
     if (value) {
       setValue(value);
     }

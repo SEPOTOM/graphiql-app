@@ -1,18 +1,24 @@
 'use client';
 
 import { Box, Tab, Tabs } from '@mui/material';
-import React from 'react';
 import { MenuTabsRest } from '@/types/enum';
-import CustomTabPanel from './MenuTabPanel';
-import RequestBody from '../restfullClient/requestBody/RequestBody';
+import RequestBodyMenuTabs from './RequestBodyMenuTabs';
+import { useState } from 'react';
+import { RequestBody } from '@/components';
 
-export default function MenuTab() {
+export default function BodyMenuTab() {
   const tabs = Object.values(MenuTabsRest) as string[];
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
+  const tabPanels = [
+    { label: 'Variables', content: 'Variables' },
+    { label: 'Headers', content: 'Headers' },
+    { label: 'RequestBody', content: <RequestBody /> },
+  ];
 
   return (
     <Box display="flex" flexDirection="column" alignItems="flex-start" width="100%" gap={1}>
@@ -23,15 +29,11 @@ export default function MenuTab() {
           ))}
         </Tabs>
       </Box>
-      <CustomTabPanel index={0} value={value}>
-        Variables
-      </CustomTabPanel>
-      <CustomTabPanel index={1} value={value}>
-        Headers
-      </CustomTabPanel>
-      <CustomTabPanel index={2} value={value}>
-        <RequestBody />
-      </CustomTabPanel>
+      {tabPanels.map(({ label, content }, index) => (
+        <RequestBodyMenuTabs key={label} index={index} value={value}>
+          {content}
+        </RequestBodyMenuTabs>
+      ))}
     </Box>
   );
 }

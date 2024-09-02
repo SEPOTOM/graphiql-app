@@ -2,11 +2,11 @@
 
 import { Box } from '@mui/material';
 import { usePathname, useRouter } from 'next/navigation';
-import { Method } from '@/types/enum';
+import { Method, SegmentIndex } from '@/types/enum';
 import { useEffect } from 'react';
-import EndpointInput from './endpoinInput/EndpointInput';
-import MethodSelector from './methodSelector/MethodSelector';
-import MenuTab from '../menuTab/MenuTab';
+import EndpointInput from './EndpoinInput/EndpointInput';
+import MethodSelector from './MethodSelector/MethodSelector';
+import { BodyMenuTab } from '@/components';
 
 export default function RestfullClient() {
   const pathname = usePathname();
@@ -14,12 +14,12 @@ export default function RestfullClient() {
   const router = useRouter();
 
   useEffect(() => {
-    const method = segments[3];
+    const method = segments[SegmentIndex.Method];
     if (!method) {
       const newPath = `${pathname}/${Method.Get}`;
       router.replace(newPath);
     } else if (!(Object.values(Method) as string[]).includes(method)) {
-      segments.splice(3, 0, Method.Get);
+      segments.splice(SegmentIndex.Method, 0, Method.Get);
       const newPath = segments.join('/');
       router.replace(newPath);
     }
@@ -31,7 +31,7 @@ export default function RestfullClient() {
         <MethodSelector />
         <EndpointInput />
       </Box>
-      <MenuTab />
+      <BodyMenuTab />
     </Box>
   );
 }

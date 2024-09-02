@@ -1,10 +1,10 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import MethodSelector from './MethodSelector';
 import { usePathname } from 'next/navigation';
 import { Mock } from 'vitest';
 import * as services from '@/services';
 import { Method } from '@/types/enum';
+import MethodSelector from './MethodSelector';
 
 const mockReplaceState = vi.fn();
 window.history.replaceState = mockReplaceState;
