@@ -10,20 +10,20 @@ const mockReplaceState = vi.fn();
 window.history.replaceState = mockReplaceState;
 
 describe('MethodSelector component', () => {
-  it('renders correctly with the initial method selected based on the current URL', () => {
+  it('renders correctly with the initial method selected based on the current URL', async () => {
     (usePathname as Mock).mockReturnValue('/restfullClient/ru/PATCH');
 
     render(<MethodSelector />);
 
-    expect(screen.getByText(Method.Patch)).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText(Method.Patch)).toBeInTheDocument());
   });
 
-  it('component handles cases where the pathname does not contain a method segment', () => {
-    (usePathname as Mock).mockReturnValue('/restfullClient/ru');
+  it('component handles cases where the pathname does not contain a method segment', async () => {
+    (usePathname as Mock).mockReturnValue('/restfullClient/en');
 
     render(<MethodSelector />);
 
-    expect(screen.getByText(Method.Get)).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText(Method.Get)).toBeInTheDocument());
   });
 
   it('selecting a different method updates the state and URL', async () => {
@@ -34,7 +34,9 @@ describe('MethodSelector component', () => {
 
     render(<MethodSelector />);
 
-    expect(screen.getByText(Method.Get)).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText(Method.Get)).toBeInTheDocument();
+    });
 
     user.click(screen.getByLabelText('Method'));
     await waitFor(() => {
