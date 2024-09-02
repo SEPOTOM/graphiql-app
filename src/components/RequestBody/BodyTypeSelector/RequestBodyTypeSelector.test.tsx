@@ -1,16 +1,16 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import RequestModeSelector, { RequestModeSelectorProps } from './RequestModeSelector';
+import RequestBodyTypeSelector, { RequestBodyTypeSelectorProps } from './RequestBodyTypeSelector';
 
-describe('RequestModeSelector', () => {
-  const setup = (props: Partial<RequestModeSelectorProps> = {}) => {
-    const defaultProps: RequestModeSelectorProps = {
+describe('RequestBodyTypeSelector', () => {
+  const setup = (props: Partial<RequestBodyTypeSelectorProps> = {}) => {
+    const defaultProps: RequestBodyTypeSelectorProps = {
       mode: 'json',
       handleChange: vi.fn(),
       ...props,
     };
 
-    return render(<RequestModeSelector {...defaultProps} />);
+    return render(<RequestBodyTypeSelector {...defaultProps} />);
   };
 
   it('renders with the correct mode selected', () => {

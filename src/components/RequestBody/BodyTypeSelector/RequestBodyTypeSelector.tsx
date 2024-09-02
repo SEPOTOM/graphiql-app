@@ -4,12 +4,12 @@ import { usePathname } from 'next/navigation';
 import { ChangeEvent } from 'react';
 import { useTranslation } from '@/hooks';
 
-export interface RequestModeSelectorProps {
-  mode: string;
+export interface RequestBodyTypeSelectorProps {
+  bodytype: string;
   handleChange: (event: ChangeEvent<HTMLSelectElement>) => void;
 }
 
-export default function RequestModeSelector({ mode, handleChange }: RequestModeSelectorProps) {
+export default function RequestBodyTypeSelector({ bodytype, handleChange }: RequestBodyTypeSelectorProps) {
   const pathname = usePathname();
   const lng = pathname.split('/')[SegmentIndex.Languague];
   const { t } = useTranslation(lng);
@@ -21,7 +21,7 @@ export default function RequestModeSelector({ mode, handleChange }: RequestModeS
   return (
     <Box sx={{ width: 120 }}>
       <FormControl fullWidth>
-        <NativeSelect value={mode} onChange={handleChange} inputProps={{ 'aria-label': 'Request body mode' }}>
+        <NativeSelect value={bodytype} onChange={handleChange} inputProps={{ 'aria-label': 'Request body mode' }}>
           {options.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}

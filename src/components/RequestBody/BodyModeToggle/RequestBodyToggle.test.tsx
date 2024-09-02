@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import RequestBodyToggle, { RequestBodyToggleProps } from './RequestBodyToggle';
 
-describe('RequestModeSelector', () => {
+describe('RequestBodyTypeSelector', () => {
   const setup = (props: Partial<RequestBodyToggleProps> = {}) => {
     const defaultProps: RequestBodyToggleProps = {
       bodyType: 'none',
