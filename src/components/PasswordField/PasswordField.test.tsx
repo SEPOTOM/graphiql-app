@@ -18,4 +18,13 @@ describe('PasswordField', () => {
 
     expect(getByLabelText('password')).toHaveAttribute('type', 'text');
   });
+
+  it('hides the password by pressing the toggle button again', async () => {
+    const { user, findByRole, getByLabelText, getByRole } = renderWithUser(<PasswordField lng="en" label="password" />);
+
+    await user.click(await findByRole('button', { name: /show/i }));
+    await user.click(getByRole('button', { name: /hide/i }));
+
+    expect(getByLabelText('password')).toHaveAttribute('type', 'password');
+  });
 });
