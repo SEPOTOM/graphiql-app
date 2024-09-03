@@ -31,4 +31,27 @@ describe('SignUpForm', () => {
 
     expect(await findByRole('alert')).toHaveTextContent(/success/i);
   });
+
+  it('disables form widgets while the form is submitting', async () => {
+    const { user, getByRole, getByLabelText, getAllByRole } = renderWithUser(
+      <AuthProvider>
+        <SignUpForm lng="en" />
+      </AuthProvider>
+    );
+    const pwdInput = getByLabelText(/^password/i);
+    const confirmPwdInput = getByLabelText(/confirm password/i);
+    const otherWidgets = [...getAllByRole('textbox'), ...getAllByRole('button')];
+
+    await user.type(getByRole('textbox', { name: /username/i }), 'Mark');
+    await user.type(getByRole('textbox', { name: /email/i }), 'mark@email.com');
+    await user.type(pwdInput, 'mark12345678');
+    await user.type(confirmPwdInput, 'mark12345678');
+    await user.click(getByRole('button', { name: /sign up/i }));
+
+    expect(pwdInput).toBeDisabled();
+    expect(confirmPwdInput).toBeDisabled();
+    otherWidgets.forEach((widget) => {
+      expect(widget).toBeDisabled();
+    });
+  });
 });
