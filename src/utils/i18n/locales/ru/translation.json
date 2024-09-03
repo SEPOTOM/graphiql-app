@@ -6,5 +6,7 @@
   "graphQlSendButton": "Отправить",
   "graphQlMenuTabHeaders": "Заголовки",
   "graphQlMenuTabVariables": "Переменные",
-  "graphQllMenuTaSchema": "Схема"
+  "graphQllMenuTaSchema": "Схема",
+  "dataEditorKeyHeading": "КЛЮЧ",
+  "dataEditorValueHeading": "ЗНАЧЕНИЕ"
 }
