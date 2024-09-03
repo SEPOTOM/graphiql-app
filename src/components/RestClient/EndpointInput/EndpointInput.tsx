@@ -2,7 +2,7 @@
 
 import { useTranslation } from '@/hooks';
 import { decodeFromBase64, encodeToBase64, getNewURLPath } from '@/services';
-import { SegmentIndex } from '@/types/enum';
+import { SegmentIndex } from '@/types';
 import TextField from '@mui/material/TextField';
 import { usePathname } from 'next/navigation';
 import { ChangeEvent } from 'react';

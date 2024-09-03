@@ -1,4 +1,4 @@
-import { SegmentIndex } from '@/types/enum';
+import { SegmentIndex } from '@/types';
 
 export const getNewMethodPath = (currentPath: string, newSegment: string, methods: string[]) => {
   const currentUrlSegments = currentPath.split('/');

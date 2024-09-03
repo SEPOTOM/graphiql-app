@@ -1,4 +1,4 @@
-import { BodyType, SegmentIndex } from '@/types/enum';
+import { BodyType, SegmentIndex } from '@/types';
 import { Box, FormControl, NativeSelect } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import { ChangeEvent } from 'react';

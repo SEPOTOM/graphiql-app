@@ -2,7 +2,7 @@
 
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
-import { Method, SegmentIndex } from '@/types/enum';
+import { Method, SegmentIndex } from '@/types';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { getNewMethodPath } from '@/services';

@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { usePathname } from 'next/navigation';
 import { Mock } from 'vitest';
 import * as services from '@/services';
-import { Method } from '@/types/enum';
+import { Method } from '@/types';
 import RequestMethodSelector from './RequestMethodSelector';
 
 const mockReplaceState = vi.fn();

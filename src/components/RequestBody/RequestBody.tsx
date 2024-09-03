@@ -4,7 +4,7 @@ import { ChangeEvent, useState, MouseEvent, useEffect } from 'react';
 import { Box } from '@mui/material';
 import RequestBodyEditor from './BodyEditor/RequestBodyEditor';
 import RequestBodyToggle from './BodyModeToggle/RequestBodyToggle';
-import { BodyMode, BodyType, SegmentIndex } from '@/types/enum';
+import { BodyMode, BodyType, SegmentIndex } from '@/types';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
 import RequestBodyTypeSelector from './BodyTypeSelector/RequestBodyTypeSelector';

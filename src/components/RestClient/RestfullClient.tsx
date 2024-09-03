@@ -2,7 +2,7 @@
 
 import { Box } from '@mui/material';
 import { usePathname, useRouter } from 'next/navigation';
-import { Method, SegmentIndex } from '@/types/enum';
+import { Method, SegmentIndex } from '@/types';
 import { useEffect } from 'react';
 import { BodyMenuTab } from '@/components';
 import EndpointInput from './EndpointInput/EndpointInput';

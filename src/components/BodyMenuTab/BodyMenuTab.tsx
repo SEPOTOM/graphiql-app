@@ -1,7 +1,7 @@
 'use client';
 
 import { Box, Tab, Tabs } from '@mui/material';
-import { MenuTabsRest, SegmentIndex } from '@/types/enum';
+import { MenuTabsRest, SegmentIndex } from '@/types';
 import RequestBodyMenuTabs from './RequestBodyMenuTabs';
 import { useState } from 'react';
 import { RequestBody } from '@/components';

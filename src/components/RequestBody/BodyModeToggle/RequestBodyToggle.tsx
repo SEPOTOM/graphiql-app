@@ -1,5 +1,5 @@
 import { useTranslation } from '@/hooks';
-import { BodyMode, SegmentIndex } from '@/types/enum';
+import { BodyMode, SegmentIndex } from '@/types';
 import { ToggleButtonGroup, ToggleButton } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import { MouseEvent } from 'react';

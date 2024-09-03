@@ -2,7 +2,7 @@ import Paper from '@mui/material/Paper';
 import Editor from '@monaco-editor/react';
 import { useEffect, useRef, useState } from 'react';
 import * as monaco from 'monaco-editor';
-import { PlaceHolder, SegmentIndex } from '@/types/enum';
+import { PlaceHolder, SegmentIndex } from '@/types';
 import { encodeToBase64, getNewBodyPath } from '@/services';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
