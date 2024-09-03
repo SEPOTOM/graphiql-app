@@ -2,10 +2,9 @@
 
 import EditorTable from '@/components/EditorTable/EditorTable';
 import { GraphQlDataContext } from '@/contexts/GraphQLContext/GraphQLContext';
-import { DataItem } from '@/contexts/GraphQLContext/types';
 import { GraphQlHeadersEditor, GraphQlVariablesEditor } from '@/types/enum';
 import { Box } from '@mui/material';
-import { SetStateAction, useContext } from 'react';
+import { useContext } from 'react';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -16,8 +15,8 @@ interface TabPanelProps {
 
 export default function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, content, ...other } = props;
-
   const { paramData, setParamData, headerData, setHeaderData } = useContext(GraphQlDataContext);
+
   const headerEditors = Object.values(GraphQlHeadersEditor) as string[];
   const variablesEditors = Object.values(GraphQlVariablesEditor) as string[];
   const editors = headerEditors.concat(variablesEditors);
