@@ -7,11 +7,11 @@ const SignUpPage = ({ params }: { params: LngParam }) => {
   const { lng } = params;
 
   return (
-    <Container>
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+    <Box display="flex" justifyContent="center" alignItems="center" flexGrow={1}>
+      <Container>
         <SignUpForm lng={lng} />
-      </Box>
-    </Container>
+      </Container>
+    </Box>
   );
 };
 
