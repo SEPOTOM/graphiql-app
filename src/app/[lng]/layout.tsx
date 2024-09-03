@@ -1,6 +1,7 @@
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import CssBaseline from '@mui/material/CssBaseline';
 import { dir } from 'i18next';
+import './layout.scss';
 
 import { MUIThemeProvider, Footer } from '@/components';
 import { AuthProvider } from '@/contexts';
