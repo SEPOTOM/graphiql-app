@@ -4,16 +4,16 @@ import { usePathname } from 'next/navigation';
 import { Mock } from 'vitest';
 import * as services from '@/services';
 import { Method } from '@/types/enum';
-import MethodSelector from './MethodSelector';
+import RequestMethodSelector from './RequestMethodSelector';
 
 const mockReplaceState = vi.fn();
 window.history.replaceState = mockReplaceState;
 
-describe('MethodSelector component', () => {
+describe('RequestMethodSelector component', () => {
   it('renders correctly with the initial method selected based on the current URL', async () => {
     (usePathname as Mock).mockReturnValue('/restfullClient/ru/PATCH');
 
-    render(<MethodSelector />);
+    render(<RequestMethodSelector />);
 
     await waitFor(() => expect(screen.getByText(Method.Patch)).toBeInTheDocument());
   });
@@ -21,7 +21,7 @@ describe('MethodSelector component', () => {
   it('component handles cases where the pathname does not contain a method segment', async () => {
     (usePathname as Mock).mockReturnValue('/restfullClient/en');
 
-    render(<MethodSelector />);
+    render(<RequestMethodSelector />);
 
     await waitFor(() => expect(screen.getByText(Method.Get)).toBeInTheDocument());
   });
@@ -32,7 +32,7 @@ describe('MethodSelector component', () => {
     const newMethod = Method.Post;
     const user = userEvent.setup();
 
-    render(<MethodSelector />);
+    render(<RequestMethodSelector />);
 
     await waitFor(() => {
       expect(screen.getByText(Method.Get)).toBeInTheDocument();

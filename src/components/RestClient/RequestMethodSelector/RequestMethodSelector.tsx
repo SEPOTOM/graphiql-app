@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { getNewMethodPath } from '@/services';
 import { useTranslation } from '@/hooks';
 
-export default function MethodSelector() {
+export default function RequestMethodSelector() {
   const pathname = usePathname();
   const lng = pathname.split('/')[SegmentIndex.Languague];
   const { t } = useTranslation(lng);

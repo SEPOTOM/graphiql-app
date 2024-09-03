@@ -6,7 +6,7 @@ import { Method, SegmentIndex } from '@/types/enum';
 import { useEffect } from 'react';
 import { BodyMenuTab } from '@/components';
 import EndpointInput from './EndpointInput/EndpointInput';
-import MethodSelector from './MethodSelector/MethodSelector';
+import RequestMethodSelector from './RequestMethodSelector/RequestMethodSelector';
 
 export default function RestfullClient() {
   const pathname = usePathname();
@@ -28,7 +28,7 @@ export default function RestfullClient() {
   return (
     <Box display="flex" flexDirection={'column'} gap={2}>
       <Box display="flex" gap={4} paddingTop={4}>
-        <MethodSelector />
+        <RequestMethodSelector />
         <EndpointInput />
       </Box>
       <BodyMenuTab />
