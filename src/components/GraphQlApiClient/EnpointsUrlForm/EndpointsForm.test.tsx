@@ -2,11 +2,12 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { usePathname } from 'next/navigation';
 import { Mock } from 'vitest';
 import * as services from '@/services/index';
-import EndpointsForm from './EndpointsForm';
+
 import { graphQLSchemaQuery, headersGraphQLSchema } from '@/utils/constants';
 
 import { server } from '@/tests/mocks/server';
 import userEvent from '@testing-library/user-event';
+import EndpointsForm from './EndpointsForm';
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
@@ -34,13 +35,21 @@ describe('GraphQl endpoints form', () => {
       const mockGetNewGraphQlURLPath = vi.spyOn(services, 'getNewGraphQlURLPath');
       const mockMakeGraphQLRequest = vi.spyOn(services, 'makeGraphQLRequest');
       const inputUrl = screen.getByLabelText('Endpoint URL');
-      await userEvent.type(inputUrl, 'h');
+      fireEvent.change(inputUrl, { target: { value: 'h' } });
 
       const encodedEndpoint = btoa('h');
       const newPath = `en/GRAPHQL/${encodedEndpoint}`;
-
-      expect(mockGetNewGraphQlURLPath).toHaveBeenCalledWith('en/GRAPHQL', encodedEndpoint);
-      expect(mockReplaceState).toHaveBeenCalledWith(null, '', newPath);
+      await waitFor(() => {
+        expect(mockGetNewGraphQlURLPath).toHaveBeenCalledWith('en/GRAPHQL', encodedEndpoint);
+      });
+      expect(mockReplaceState).toHaveBeenCalledWith(
+        {
+          as: newPath,
+          url: newPath,
+        },
+        '',
+        newPath
+      );
       expect(mockMakeGraphQLRequest).toHaveBeenCalledWith(graphQLSchemaQuery, 'h', headersGraphQLSchema);
     });
   });

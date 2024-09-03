@@ -10,15 +10,16 @@ import { useTranslation } from '@/hooks';
 
 export default function EndpointsForm() {
   const pathname = usePathname();
-  const currentEndpoint = pathname.split('/')[3] || '';
   const lng = pathname.split('/').splice(1, 1)[0];
   const { t } = useTranslation(lng);
+  const [urlPath, setUrlPath] = useState('');
   const [sdlPath, setSdlPath] = useState('');
 
   const handleEndpointChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const encodedEndpoint = btoa(event.target.value);
     const newPath = getNewGraphQlURLPath(pathname, encodedEndpoint);
-    window.history.replaceState(null, '', newPath);
+    window.history.replaceState({ ...window.history.state, as: newPath, url: newPath }, '', newPath);
+    setUrlPath(event.target.value);
     setSdlPath(event.target.value);
     makeGraphQLRequest(graphQLSchemaQuery, event.target.value, headersGraphQLSchema);
   };
@@ -32,7 +33,7 @@ export default function EndpointsForm() {
     <Box display="flex" flexDirection="column" alignItems="center" width="100%" gap={1}>
       <Box display="flex" width="100%" gap={1}>
         <TextField
-          value={atob(currentEndpoint)}
+          value={urlPath}
           id="url-input"
           label={t('graphQlEndpointInputLabel')}
           variant="outlined"

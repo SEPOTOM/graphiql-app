@@ -1,11 +1,11 @@
 'use client';
 
 import { Box, Tab, Tabs } from '@mui/material';
-import CustomTabPanel from './MenuTabPanel';
 import { SyntheticEvent, useState } from 'react';
 import { GraphQlMenuTabs } from '@/types/enum';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
+import CustomTabPanel from './MenuTabPanel';
 
 export default function MenuTab() {
   const tabs = Object.values(GraphQlMenuTabs) as string[];

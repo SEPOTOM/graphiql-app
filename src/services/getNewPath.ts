@@ -15,6 +15,5 @@ export const getNewURLPath = (currentPath: string, newSegment: string) => {
 export const getNewGraphQlURLPath = (currentPath: string, newSegment: string) => {
   const currentUrlSegments = currentPath.split('/');
   currentUrlSegments.splice(3, 1, newSegment);
-  console.log(currentUrlSegments);
   return currentUrlSegments.join('/');
 };
