@@ -1,7 +1,7 @@
 export enum GraphQlMenuTabs {
-  Variables = 'graphQlMenuTabVariables',
-  Headers = 'graphQlMenuTabHeaders',
-  Schema = 'graphQllMenuTaSchema',
+  Variables = 'graphQl_menu_tab_variables',
+  Headers = 'graphQl_menu_tab_headers',
+  Schema = 'graphQl_menu_tab_schema',
 }
 
 export enum Method {

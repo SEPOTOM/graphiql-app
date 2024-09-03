@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { usePathname } from 'next/navigation';
 import { Mock } from 'vitest';
@@ -30,7 +30,8 @@ describe('GraphQl endpoints form', () => {
       const mockGetNewGraphQlURLPath = vi.spyOn(services, 'getNewGraphQlURLPath');
       const mockMakeGraphQLRequest = vi.spyOn(services, 'makeGraphQLRequest');
       const inputUrl = screen.getByLabelText('Endpoint URL');
-      await userEvent.type(inputUrl, 'h');
+      const user = userEvent.setup();
+      await user.type(inputUrl, 'h');
       const encodedEndpoint = btoa('h');
       const newPath = `en/GRAPHQL/${encodedEndpoint}`;
       await waitFor(() => {
@@ -56,7 +57,8 @@ describe('GraphQl endpoints form', () => {
     await waitFor(async () => {
       const mockMakeGraphQLRequest = vi.spyOn(services, 'makeGraphQLRequest');
       const inputSdl = screen.getByLabelText('SDL URL');
-      await userEvent.type(inputSdl, 'h');
+      const user = userEvent.setup();
+      await user.type(inputSdl, 'h');
       expect(mockMakeGraphQLRequest).toHaveBeenCalledWith(graphQLSchemaQuery, 'h', headersGraphQLSchema);
     });
   });

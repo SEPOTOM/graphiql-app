@@ -37,22 +37,22 @@ export default function EndpointsForm() {
         <TextField
           value={urlPath}
           id="url-input"
-          label={t('graphQlEndpointInputLabel')}
+          label={t('graphQl_endpoint_input_label')}
           variant="outlined"
           onChange={handleEndpointChange}
-          placeholder={t('graphQlEndpointInputPlaceholder')}
+          placeholder={t('graphQl_endpoint_input_placeholder')}
           fullWidth
         />
-        <Button variant="outlined">{t('graphQlSendButton')}</Button>
+        <Button variant="outlined">{t('graphQl_send_button')}</Button>
       </Box>
       <Box display="flex" width="100%">
         <TextField
           value={sdlPath}
           id="sdl-url"
-          label={t('graphQlSDLInputLabel')}
+          label={t('graphQl_SDL_input_label')}
           variant="outlined"
           onChange={handleEndpointSdlChange}
-          placeholder={t('graphQlSDLInputPlaceholder')}
+          placeholder={t('graphQl_SDL_input_placeholder')}
           fullWidth
         />
       </Box>
