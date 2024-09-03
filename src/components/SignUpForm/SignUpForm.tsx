@@ -39,11 +39,11 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
         sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}
       >
         <Typography variant={isSmallScreen ? 'h3' : 'h2'} component="h1" gutterBottom>
-          {t('signUp.title')}
+          {t('sign_up.title')}
         </Typography>
 
         <TextField
-          label={t('signUp.username')}
+          label={t('sign_up.username')}
           {...register('username')}
           disabled={isSending}
           required
@@ -51,7 +51,7 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
         />
 
         <TextField
-          label={t('signUp.email')}
+          label={t('sign_up.email')}
           {...register('email')}
           type="email"
           disabled={isSending}
@@ -60,7 +60,7 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
         />
 
         <PasswordField
-          label={t('signUp.password')}
+          label={t('sign_up.password')}
           {...register('password')}
           disabled={isSending}
           required
@@ -69,7 +69,7 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
         />
 
         <PasswordField
-          label={t('signUp.confirmPassword')}
+          label={t('sign_up.confirm_password')}
           {...register('confirmPassword')}
           disabled={isSending}
           required
@@ -78,12 +78,12 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
         />
 
         <Button variant="contained" color="primary" type="submit">
-          {t('signUp.submitButton')}
+          {t('sign_up.submit_button')}
         </Button>
       </Box>
 
       <Notification open={isSuccess} onClose={() => setIsSuccess(false)}>
-        {t('signUp.successMsg')}
+        {t('sign_up.success_msg')}
       </Notification>
     </>
   );

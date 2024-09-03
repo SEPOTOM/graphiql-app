@@ -3,16 +3,16 @@
     "github": "GitHub профиль пользователя",
     "rss": "Логотип RSSchool"
   },
-  "signUp": {
+  "sign_up": {
     "title": "Регистрация",
     "username": "Имя пользователя",
     "email": "Электронная почта",
     "password": "Пароль",
-    "confirmPassword": "Подтвердите пароль",
-    "submitButton": "Зарегистрироваться",
-    "successMsg": "Успешная регистрация"
+    "confirm_password": "Подтвердите пароль",
+    "submit_button": "Зарегистрироваться",
+    "success_msg": "Успешная регистрация"
   },
-  "pwdField": {
+  "pwd_field": {
     "hide": "Скрыть пароль",
     "show": "Показать пароль"
   }

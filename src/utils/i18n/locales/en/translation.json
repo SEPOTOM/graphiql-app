@@ -3,16 +3,16 @@
     "github": "GitHub profile of",
     "rss": "RSSchool logo"
   },
-  "signUp": {
+  "sign_up": {
     "title": "Sign Up",
     "username": "Username",
     "email": "Email",
     "password": "Password",
-    "confirmPassword": "Confirm Password",
-    "submitButton": "Sign Up",
-    "successMsg": "Successfully signed up"
+    "confirm_password": "Confirm Password",
+    "submit_button": "Sign Up",
+    "success_msg": "Successfully signed up"
   },
-  "pwdField": {
+  "pwd_field": {
     "hide": "Hide password",
     "show": "Show password"
   }

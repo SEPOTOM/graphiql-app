@@ -29,7 +29,7 @@ const PasswordField = forwardRef(function PasswordField(
         endAdornment: (
           <InputAdornment position="end" sx={{ mr: 1 }}>
             <IconButton
-              aria-label={showPassword ? t('pwdField.hide') : t('pwdField.show')}
+              aria-label={showPassword ? t('pwd_field.hide') : t('pwd_field.show')}
               onClick={handleClickTogglePassword}
               edge="end"
               disabled={props.disabled}
