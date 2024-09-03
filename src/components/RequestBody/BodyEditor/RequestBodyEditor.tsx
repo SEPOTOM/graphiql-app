@@ -6,6 +6,7 @@ import { PlaceHolder, SegmentIndex } from '@/types/enum';
 import { encodeToBase64, getNewBodyPath } from '@/services';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
+import { ErrorsMessage } from '@/components';
 
 export interface RequestBodyEditorProps {
   mode: string;
@@ -14,9 +15,13 @@ export interface RequestBodyEditorProps {
 export default function RequestBodyEditor({ mode }: RequestBodyEditorProps) {
   const editorRef = useRef<Nullable<monaco.editor.IStandaloneCodeEditor>>(null);
   const pathname = usePathname();
-  const lng = pathname.split('/')[SegmentIndex.Languague];
+  const pathSegments = pathname.split('/');
+  const lng = pathSegments[SegmentIndex.Languague];
   const { t } = useTranslation(lng);
   const [value, setValue] = useState<string>('');
+  const [showErrorsPopover, setshowErrorsPopover] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
   const onBlur = () => {
     try {
       let encodedValue: string;
@@ -29,10 +34,26 @@ export default function RequestBodyEditor({ mode }: RequestBodyEditorProps) {
       const newPath = getNewBodyPath(pathname, encodedValue);
       window.history.replaceState(null, '', newPath);
     } catch (e) {
-      // TODO add a component to display the error
-      if (e instanceof Error) console.error('Invalid JSON:', e.message);
+      if (e instanceof Error) {
+        const newSegments = pathSegments.slice(0, SegmentIndex.Body);
+        window.history.replaceState(null, '', newSegments.join('/'));
+        setErrorMessage(`Invalid JSON:${e.message}`);
+        setshowErrorsPopover(true);
+      }
     }
   };
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (showErrorsPopover) {
+      timer = setTimeout(() => {
+        setshowErrorsPopover(false);
+      }, 2500);
+    }
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [showErrorsPopover]);
 
   useEffect(() => {
     const editor = editorRef.current;
@@ -62,12 +83,14 @@ export default function RequestBodyEditor({ mode }: RequestBodyEditorProps) {
 
   const handleChange = (value?: string) => {
     if (value) {
+      setshowErrorsPopover(false);
       setValue(value);
     }
   };
 
   return (
-    <Paper sx={{ width: '100%', minHeight: '60svh' }}>
+    <Paper sx={{ width: '100%', minHeight: '60svh', position: 'relative' }}>
+      {showErrorsPopover && <ErrorsMessage errorMessage={errorMessage} />}
       <Editor
         language={mode}
         height="65vh"
