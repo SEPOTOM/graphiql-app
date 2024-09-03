@@ -11,7 +11,7 @@ export default function MenuTab() {
   const tabs = Object.values(GraphQlMenuTabs) as string[];
   const pathname = usePathname();
   const [value, setValue] = useState(0);
-  const lng = pathname.split('/').splice(1, 1)[0];
+  const [lng] = pathname.split('/').splice(1, 1);
   const { t } = useTranslation(lng);
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {

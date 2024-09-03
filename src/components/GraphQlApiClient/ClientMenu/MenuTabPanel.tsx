@@ -9,8 +9,7 @@ interface TabPanelProps {
   content: string;
 }
 
-export default function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, content, ...other } = props;
+export default function CustomTabPanel({ children, value, index, content, ...other }: TabPanelProps) {
   return (
     <Box
       role="tabpanel"
@@ -19,7 +18,7 @@ export default function CustomTabPanel(props: TabPanelProps) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      <p>{content} will be here ...</p>
+      <p>{content}</p>
     </Box>
   );
 }

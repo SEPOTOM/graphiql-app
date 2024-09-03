@@ -1,17 +1,12 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { usePathname } from 'next/navigation';
 import { Mock } from 'vitest';
 import * as services from '@/services/index';
 
 import { graphQLSchemaQuery, headersGraphQLSchema } from '@/utils/constants';
 
-import { server } from '@/tests/mocks/server';
-import userEvent from '@testing-library/user-event';
 import EndpointsForm from './EndpointsForm';
-
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
 
 const mockReplaceState = vi.fn();
 window.history.replaceState = mockReplaceState;
@@ -35,8 +30,7 @@ describe('GraphQl endpoints form', () => {
       const mockGetNewGraphQlURLPath = vi.spyOn(services, 'getNewGraphQlURLPath');
       const mockMakeGraphQLRequest = vi.spyOn(services, 'makeGraphQLRequest');
       const inputUrl = screen.getByLabelText('Endpoint URL');
-      fireEvent.change(inputUrl, { target: { value: 'h' } });
-
+      await userEvent.type(inputUrl, 'h');
       const encodedEndpoint = btoa('h');
       const newPath = `en/GRAPHQL/${encodedEndpoint}`;
       await waitFor(() => {
@@ -55,19 +49,15 @@ describe('GraphQl endpoints form', () => {
   });
 
   it('selecting another SDL endpoint gets schema', async () => {
-    (usePathname as Mock).mockReturnValue('en/GRAPHQL');
+    (usePathname as Mock).mockReturnValue('en/GRAPHQL/h');
 
     render(<EndpointsForm />);
 
-    await waitFor(() => {
+    await waitFor(async () => {
       const mockMakeGraphQLRequest = vi.spyOn(services, 'makeGraphQLRequest');
       const inputSdl = screen.getByLabelText('SDL URL');
-      fireEvent.change(inputSdl, { target: { value: 'https://rickandmortyapi.com/graphql' } });
-      expect(mockMakeGraphQLRequest).toHaveBeenCalledWith(
-        graphQLSchemaQuery,
-        'https://rickandmortyapi.com/graphql',
-        headersGraphQLSchema
-      );
+      await userEvent.type(inputSdl, 'h');
+      expect(mockMakeGraphQLRequest).toHaveBeenCalledWith(graphQLSchemaQuery, 'h', headersGraphQLSchema);
     });
   });
 });
