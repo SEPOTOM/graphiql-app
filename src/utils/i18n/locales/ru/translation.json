@@ -1,12 +1,12 @@
 {
-  "graphQlEndpointInputLabel": "Конечный URL-адрес",
-  "graphQlEndpointInputPlaceholder": "Введите конечный URL-адрес",
-  "graphQlSDLInputLabel": "Конечный URL-адрес схемы",
-  "graphQlSDLInputPlaceholder": "Введите конечный URL-адрес схемы",
-  "graphQlSendButton": "Отправить",
-  "graphQlMenuTabHeaders": "Заголовки",
-  "graphQlMenuTabVariables": "Переменные",
-  "graphQllMenuTaSchema": "Схема",
-  "dataEditorKeyHeading": "КЛЮЧ",
-  "dataEditorValueHeading": "ЗНАЧЕНИЕ"
+  "graphQl_endpoint_input_label": "Конечный URL-адрес",
+  "graphQl_endpoint_input_placeholder": "Введите конечный URL-адрес",
+  "graphQl_SDL_input_label": "Конечный URL-адрес схемы",
+  "graphQl_SDL_input_placeholder": "Введите конечный URL-адрес схемы",
+  "graphQl_send_button": "Отправить",
+  "graphQl_menu_tab_headers": "Заголовки",
+  "graphQl_menu_tab_variables": "Переменные",
+  "graphQl_menu_tab_schema": "Схема",
+  "data_editor_key_heading": "КЛЮЧ",
+  "data_editor_value_heading": "ЗНАЧЕНИЕ"
 }

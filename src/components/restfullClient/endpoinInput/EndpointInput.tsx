@@ -1,6 +1,5 @@
 'use client';
 
-import { useTranslation } from '@/hooks';
 import { getNewURLPath } from '@/services';
 import TextField from '@mui/material/TextField';
 import { usePathname } from 'next/navigation';

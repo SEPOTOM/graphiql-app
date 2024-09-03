@@ -1,16 +1,12 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { usePathname } from 'next/navigation';
 import { Mock } from 'vitest';
 import * as services from '@/services/index';
-import EndpointsForm from './EndpointsForm';
+
 import { graphQLSchemaQuery, headersGraphQLSchema } from '@/utils/constants';
 
-import { server } from '@/tests/mocks/server';
-import userEvent from '@testing-library/user-event';
-
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
+import EndpointsForm from './EndpointsForm';
 
 const mockReplaceState = vi.fn();
 window.history.replaceState = mockReplaceState;
@@ -34,31 +30,36 @@ describe('GraphQl endpoints form', () => {
       const mockGetNewGraphQlURLPath = vi.spyOn(services, 'getNewGraphQlURLPath');
       const mockMakeGraphQLRequest = vi.spyOn(services, 'makeGraphQLRequest');
       const inputUrl = screen.getByLabelText('Endpoint URL');
-      await userEvent.type(inputUrl, 'h');
-
+      const user = userEvent.setup();
+      await user.type(inputUrl, 'h');
       const encodedEndpoint = btoa('h');
       const newPath = `en/GRAPHQL/${encodedEndpoint}`;
-
-      expect(mockGetNewGraphQlURLPath).toHaveBeenCalledWith('en/GRAPHQL', encodedEndpoint);
-      expect(mockReplaceState).toHaveBeenCalledWith(null, '', newPath);
+      await waitFor(() => {
+        expect(mockGetNewGraphQlURLPath).toHaveBeenCalledWith('en/GRAPHQL', encodedEndpoint);
+      });
+      expect(mockReplaceState).toHaveBeenCalledWith(
+        {
+          as: newPath,
+          url: newPath,
+        },
+        '',
+        newPath
+      );
       expect(mockMakeGraphQLRequest).toHaveBeenCalledWith(graphQLSchemaQuery, 'h', headersGraphQLSchema);
     });
   });
 
   it('selecting another SDL endpoint gets schema', async () => {
-    (usePathname as Mock).mockReturnValue('en/GRAPHQL');
+    (usePathname as Mock).mockReturnValue('en/GRAPHQL/h');
 
     render(<EndpointsForm />);
 
-    await waitFor(() => {
+    await waitFor(async () => {
       const mockMakeGraphQLRequest = vi.spyOn(services, 'makeGraphQLRequest');
       const inputSdl = screen.getByLabelText('SDL URL');
-      fireEvent.change(inputSdl, { target: { value: 'https://rickandmortyapi.com/graphql' } });
-      expect(mockMakeGraphQLRequest).toHaveBeenCalledWith(
-        graphQLSchemaQuery,
-        'https://rickandmortyapi.com/graphql',
-        headersGraphQLSchema
-      );
+      const user = userEvent.setup();
+      await user.type(inputSdl, 'h');
+      expect(mockMakeGraphQLRequest).toHaveBeenCalledWith(graphQLSchemaQuery, 'h', headersGraphQLSchema);
     });
   });
 });

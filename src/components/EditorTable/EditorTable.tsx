@@ -28,8 +28,8 @@ export default function EditorTable(props: EditorTableProps) {
         <TableHead>
           <TableRow>
             <TableCell className={styles.edit_row__cell}></TableCell>
-            <TableCell className={styles.edit_row__cell}>{t('dataEditorKeyHeading')}</TableCell>
-            <TableCell className={styles.edit_row__cell}>{t('dataEditorValueHeading')}</TableCell>
+            <TableCell className={styles.edit_row__cell}>{t('data_editor_key_heading')}</TableCell>
+            <TableCell className={styles.edit_row__cell}>{t('data_editor_value_heading')}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

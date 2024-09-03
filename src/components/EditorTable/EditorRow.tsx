@@ -12,8 +12,7 @@ interface EditorRowProps {
   setData: Dispatch<SetStateAction<DataItem[]>>;
 }
 
-export default function EditorRow(props: EditorRowProps) {
-  const { addRows, rowId, data, setData } = props;
+export default function EditorRow({ addRows, rowId, data, setData }: EditorRowProps) {
   const [checkCheckbox, setCheckCheckbox] = useState(false);
 
   const handleEditRowCheckboxChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

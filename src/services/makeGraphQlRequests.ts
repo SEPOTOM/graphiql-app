@@ -1,9 +1,11 @@
 'use server';
 
+import { Method } from '@/types/enum';
+
 export const makeGraphQLRequest = async (query: string, url: string, headers: HeadersInit) => {
   try {
     const response = await fetch(url, {
-      method: 'POST',
+      method: Method.Post,
       headers,
       body: JSON.stringify({ query }),
     });
@@ -11,8 +13,8 @@ export const makeGraphQLRequest = async (query: string, url: string, headers: He
       throw new Error('Network response was not ok boom');
     }
     const data = await response.json();
+    return data;
   } catch {
-    const resultStr = 'Your query is mot wrong';
-    return JSON.stringify(resultStr);
+    return 'Your query is not wrong';
   }
 };

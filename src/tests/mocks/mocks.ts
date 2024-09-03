@@ -1932,4 +1932,4 @@ export const mockedGraphQlSchema = {
   },
 };
 
-export const mockedGraphQlError = JSON.stringify('Your query is mot wrong');
+export const mockedGraphQlError = 'Your query is not wrong';

@@ -1,12 +1,12 @@
 {
-  "graphQlEndpointInputLabel": "Endpoint URL",
-  "graphQlEndpointInputPlaceholder": "Enter Endpoint URL",
-  "graphQlSDLInputLabel": "SDL URL",
-  "graphQlSDLInputPlaceholder": "Enter SDL URL",
-  "graphQlSendButton": "Send",
-  "graphQlMenuTabHeaders": "Headers",
-  "graphQlMenuTabVariables": "Variables",
-  "graphQllMenuTaSchema": "Schema",
-  "dataEditorKeyHeading": "KEY",
-  "dataEditorValueHeading": "VALUE"
+  "graphQl_endpoint_input_label": "Endpoint URL",
+  "graphQl_endpoint_input_placeholder": "Enter Endpoint URL",
+  "graphQl_SDL_input_label": "SDL URL",
+  "graphQl_SDL_input_placeholder": "Enter SDL URL",
+  "graphQl_send_button": "Send",
+  "graphQl_menu_tab_headers": "Headers",
+  "graphQl_menu_tab_variables": "Variables",
+  "graphQl_menu_tab_schema": "Schema",
+  "data_editor_key_heading": "KEY",
+  "data_editor_value_heading": "VALUE"
 }
