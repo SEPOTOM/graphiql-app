@@ -4,9 +4,9 @@ import { Box } from '@mui/material';
 import { usePathname, useRouter } from 'next/navigation';
 import { Method, SegmentIndex } from '@/types/enum';
 import { useEffect } from 'react';
+import { BodyMenuTab } from '@/components';
 import EndpointInput from './EndpoinInput/EndpointInput';
 import MethodSelector from './MethodSelector/MethodSelector';
-import { BodyMenuTab } from '@/components';
 
 export default function RestfullClient() {
   const pathname = usePathname();
