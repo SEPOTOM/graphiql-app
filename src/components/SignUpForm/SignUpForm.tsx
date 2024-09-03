@@ -77,7 +77,7 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
           size={inputSize}
         />
 
-        <Button variant="contained" color="primary" type="submit">
+        <Button variant="contained" color="primary" type="submit" disabled={isSending}>
           {t('sign_up.submit_button')}
         </Button>
       </Box>
