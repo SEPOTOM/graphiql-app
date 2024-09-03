@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { Method, SegmentIndex } from '@/types/enum';
 import { useEffect } from 'react';
 import { BodyMenuTab } from '@/components';
-import EndpointInput from './EndpoinInput/EndpointInput';
+import EndpointInput from './EndpointInput/EndpointInput';
 import MethodSelector from './MethodSelector/MethodSelector';
 
 export default function RestfullClient() {
