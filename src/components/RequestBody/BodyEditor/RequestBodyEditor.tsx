@@ -69,6 +69,7 @@ export default function RequestBodyEditor({ mode }: RequestBodyEditorProps) {
     if (editor) {
       dispose = editor.onDidBlurEditorWidget(onBlur);
     }
+
     return () => {
       if (dispose) {
         dispose.dispose();
