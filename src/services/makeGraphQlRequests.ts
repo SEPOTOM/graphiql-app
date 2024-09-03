@@ -1,3 +1,5 @@
+'use server';
+
 export const makeGraphQLRequest = async (query: string, url: string, headers: HeadersInit) => {
   try {
     const response = await fetch(url, {

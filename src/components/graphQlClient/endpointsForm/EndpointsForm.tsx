@@ -5,7 +5,7 @@ import { Box, Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { usePathname } from 'next/navigation';
 import { ChangeEvent, useState } from 'react';
-import { graphQLSchemaQuery, headersGraphQLSchema } from '@/utils/constants/constants';
+import { graphQLSchemaQuery, headersGraphQLSchema } from '@/utils/constants';
 import { useTranslation } from '@/hooks';
 
 export default function EndpointsForm() {

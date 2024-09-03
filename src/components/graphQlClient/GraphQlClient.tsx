@@ -1,8 +1,8 @@
 'use client';
 
 import { Box } from '@mui/material';
-import MenuTab from './menuTab/MenuTab';
-import EndpointsForm from './endpointsForm/EndpointsForm';
+import EndpointsForm from './EndpointsForm/EndpointsForm';
+import MenuTab from './MenuTab/MenuTab';
 
 export default function GraphQlClient() {
   return (

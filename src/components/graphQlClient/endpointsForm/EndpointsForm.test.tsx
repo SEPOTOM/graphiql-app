@@ -3,7 +3,7 @@ import { usePathname } from 'next/navigation';
 import { Mock } from 'vitest';
 import * as services from '@/services/index';
 import EndpointsForm from './EndpointsForm';
-import { graphQLSchemaQuery, headersGraphQLSchema } from '@/utils/constants/constants';
+import { graphQLSchemaQuery, headersGraphQLSchema } from '@/utils/constants';
 
 import { server } from '@/tests/mocks/server';
 import userEvent from '@testing-library/user-event';
