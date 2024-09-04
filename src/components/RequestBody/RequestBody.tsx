@@ -14,7 +14,7 @@ export default function RequestBody() {
   const [bodyType, setBodyType] = useState<string>(BodyType.json);
   const pathname = usePathname();
   const pathSegments = pathname.split('/');
-  const lng = pathSegments[SegmentIndex.Languague];
+  const lng = pathSegments.at(SegmentIndex.Languague) || 'en';
   const { t } = useTranslation(lng);
 
   const handleBodyTypeChange = (e: MouseEvent<HTMLElement>, newBodyType: Nullable<string>) => {
@@ -33,15 +33,15 @@ export default function RequestBody() {
       const newSegments = pathSegments.slice(0, SegmentIndex.Body);
       window.history.replaceState(null, '', newSegments.join('/'));
     }
-  }, [bodyMode]);
+  }, [bodyMode, pathSegments]);
 
   return (
     <Box display={'flex'} flexDirection={'column'} gap={3}>
       <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
         <RequestBodyToggle bodyType={bodyMode} handleChange={handleBodyTypeChange} />
-        {bodyMode === 'raw' && <RequestBodyTypeSelector bodytype={bodyType} handleChange={handleModeChange} />}
+        {bodyMode === BodyMode.Raw && <RequestBodyTypeSelector bodytype={bodyType} handleChange={handleModeChange} />}
       </Box>
-      {bodyMode === 'none' ?
+      {bodyMode === BodyMode.None ?
         <p>{t('BodyModeNoneText')}</p>
       : <RequestBodyEditor mode={bodyType} />}
     </Box>

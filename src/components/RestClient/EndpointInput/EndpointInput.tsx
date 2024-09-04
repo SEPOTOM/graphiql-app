@@ -9,9 +9,9 @@ import { ChangeEvent } from 'react';
 
 export default function EndpointInput() {
   const pathname = usePathname();
-  const lng = pathname.split('/')[SegmentIndex.Languague];
+  const lng = pathname.split('/').at(SegmentIndex.Languague) || 'en';
   const { t } = useTranslation(lng);
-  const currentEndpoint = pathname.split('/')[SegmentIndex.Endpoint] || '';
+  const currentEndpoint = pathname.split('/').at(SegmentIndex.Endpoint) || '';
 
   const handleEndpointChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const encodedEndpoint = encodeToBase64(event.target.value);

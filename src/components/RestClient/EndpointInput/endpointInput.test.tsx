@@ -1,8 +1,7 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { usePathname } from 'next/navigation';
 import { Mock } from 'vitest';
-import * as services from '@/services';
 import EndpointInput from './EndpointInput';
 
 const mockReplaceState = vi.fn();
@@ -14,6 +13,7 @@ describe('EndpointInput component', () => {
     render(<EndpointInput />);
     expect(screen.getByLabelText('URL')).toHaveValue('qwerty');
   });
+
   it('updates URL when a new endpoint is entered', async () => {
     (usePathname as Mock).mockReturnValue('/restfullClient/en/GET');
     const user = userEvent.setup();
@@ -31,6 +31,7 @@ describe('EndpointInput component', () => {
       expect(mockReplaceState).toHaveBeenCalledWith(null, '', newPath);
     });
   });
+
   it('decodes base64 encoded endpoint and displays it', () => {
     const encodedSegment = btoa('encodedEndpoint');
     (usePathname as Mock).mockReturnValue(`/restfullClient/en/GET/${encodedSegment}`);

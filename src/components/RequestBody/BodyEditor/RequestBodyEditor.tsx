@@ -1,8 +1,10 @@
+'use client';
+
 import Paper from '@mui/material/Paper';
 import Editor from '@monaco-editor/react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import * as monaco from 'monaco-editor';
-import { PlaceHolder, SegmentIndex } from '@/types';
+import { BodyType, PlaceHolder, SegmentIndex } from '@/types';
 import { encodeToBase64, getNewBodyPath } from '@/services';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
@@ -16,16 +18,16 @@ export default function RequestBodyEditor({ mode }: RequestBodyEditorProps) {
   const editorRef = useRef<Nullable<monaco.editor.IStandaloneCodeEditor>>(null);
   const pathname = usePathname();
   const pathSegments = pathname.split('/');
-  const lng = pathSegments[SegmentIndex.Languague];
+  const lng = pathSegments.at(SegmentIndex.Languague) || 'en';
   const { t } = useTranslation(lng);
   const [value, setValue] = useState<string>('');
-  const [showErrorsPopover, setshowErrorsPopover] = useState(false);
+  const [showErrorsPopover, setShowErrorsPopover] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const onBlur = () => {
+  const onBlur = useCallback(() => {
     try {
       let encodedValue: string;
-      if (mode === 'json') {
+      if (mode === BodyType.json) {
         const parsedValue = JSON.parse(value);
         encodedValue = encodeToBase64(JSON.stringify(parsedValue));
       } else {
@@ -37,17 +39,17 @@ export default function RequestBodyEditor({ mode }: RequestBodyEditorProps) {
       if (e instanceof Error) {
         const newSegments = pathSegments.slice(0, SegmentIndex.Body);
         window.history.replaceState(null, '', newSegments.join('/'));
-        setErrorMessage(`Invalid JSON:${e.message}`);
-        setshowErrorsPopover(true);
+        setErrorMessage(`Invalid JSON: ${e.message}`);
+        setShowErrorsPopover(true);
       }
     }
-  };
+  }, [mode, value, pathname, pathSegments]);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
     if (showErrorsPopover) {
       timer = setTimeout(() => {
-        setshowErrorsPopover(false);
+        setShowErrorsPopover(false);
       }, 2500);
     }
     return () => {
@@ -61,7 +63,7 @@ export default function RequestBodyEditor({ mode }: RequestBodyEditorProps) {
     if (editor) {
       editor.focus();
     }
-  }, [mode]);
+  }, [mode, t]);
 
   useEffect(() => {
     const editor = editorRef.current;
@@ -84,7 +86,7 @@ export default function RequestBodyEditor({ mode }: RequestBodyEditorProps) {
 
   const handleChange = (value?: string) => {
     if (value) {
-      setshowErrorsPopover(false);
+      setShowErrorsPopover(false);
       setValue(value);
     }
   };

@@ -1,3 +1,5 @@
+'use client';
+
 import { BodyType, SegmentIndex } from '@/types';
 import { Box, FormControl, NativeSelect } from '@mui/material';
 import { usePathname } from 'next/navigation';
@@ -11,7 +13,7 @@ export interface RequestBodyTypeSelectorProps {
 
 export default function RequestBodyTypeSelector({ bodytype, handleChange }: RequestBodyTypeSelectorProps) {
   const pathname = usePathname();
-  const lng = pathname.split('/')[SegmentIndex.Languague];
+  const lng = pathname.split('/').at(SegmentIndex.Languague) || 'en';
   const { t } = useTranslation(lng);
   const options = [
     { value: BodyType.json, label: 'JSON' },

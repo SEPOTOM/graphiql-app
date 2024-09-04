@@ -1,3 +1,5 @@
+'use client';
+
 import { useTranslation } from '@/hooks';
 import { BodyMode, SegmentIndex } from '@/types';
 import { ToggleButtonGroup, ToggleButton } from '@mui/material';
@@ -11,7 +13,7 @@ export interface RequestBodyToggleProps {
 
 export default function RequestBodyToggle({ bodyType, handleChange }: RequestBodyToggleProps) {
   const pathname = usePathname();
-  const lng = pathname.split('/')[SegmentIndex.Languague];
+  const lng = pathname.split('/').at(SegmentIndex.Languague) || 'en';
   const { t } = useTranslation(lng);
 
   const toggleButtonData = [
