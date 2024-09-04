@@ -13,7 +13,7 @@ export interface RequestBodyTypeSelectorProps {
 
 export default function RequestBodyTypeSelector({ bodytype, handleChange }: RequestBodyTypeSelectorProps) {
   const pathname = usePathname();
-  const lng = pathname.split('/').at(SegmentIndex.Languague) || 'en';
+  const lng = pathname.split('/').at(SegmentIndex.Languague) ?? 'en';
   const { t } = useTranslation(lng);
   const options = [
     { value: BodyType.json, label: 'JSON' },
