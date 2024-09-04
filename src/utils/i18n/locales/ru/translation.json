@@ -6,5 +6,9 @@
   "graphQl_send_button": "Отправить",
   "graphQl_menu_tab_headers": "Заголовки",
   "graphQl_menu_tab_variables": "Переменные",
-  "graphQl_menu_tab_schema": "Схема"
+  "graphQl_menu_tab_schema": "Схема",
+  "footer": {
+    "github": "GitHub профиль пользователя",
+    "rss": "Логотип RSSchool"
+  }
 }

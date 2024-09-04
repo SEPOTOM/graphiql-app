@@ -6,5 +6,9 @@
   "graphQl_send_button": "Send",
   "graphQl_menu_tab_headers": "Headers",
   "graphQl_menu_tab_variables": "Variables",
-  "graphQl_menu_tab_schema": "Schema"
+  "graphQl_menu_tab_schema": "Schema",
+  "footer": {
+    "github": "GitHub profile of",
+    "rss": "RSSchool logo"
+  }
 }
