@@ -17,7 +17,7 @@ export default function RequestBodyTypeSelector({ bodytype, handleChange }: Requ
   const { t } = useTranslation(lng);
   const options = [
     { value: BodyType.json, label: 'JSON' },
-    { value: BodyType.text, label: t('BodyTypeText') },
+    { value: BodyType.text, label: t('Body_Type_Text') },
   ];
 
   return (

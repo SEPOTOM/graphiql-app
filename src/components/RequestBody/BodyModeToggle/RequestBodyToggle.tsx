@@ -17,8 +17,8 @@ export default function RequestBodyToggle({ bodyType, handleChange }: RequestBod
   const { t } = useTranslation(lng);
 
   const toggleButtonData = [
-    { value: BodyMode.None, label: 'no request body', text: t('BodyModeNone') },
-    { value: BodyMode.Raw, label: 'raw request body', text: t('BodyModeRaw') },
+    { value: BodyMode.None, label: 'no request body', text: t('Body_Mode_None') },
+    { value: BodyMode.Raw, label: 'raw request body', text: t('Body_Mode_Raw') },
   ];
 
   return (

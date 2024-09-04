@@ -100,7 +100,7 @@ export default function RequestBodyEditor({ mode }: RequestBodyEditorProps) {
         value={value}
         onChange={handleChange}
         onMount={handleEditorDidMount}
-        loading={t('EditorLoading')}
+        loading={t('Editor_Loading')}
       />
     </Paper>
   );
