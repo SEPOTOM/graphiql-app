@@ -1,14 +1,14 @@
 {
-  "Restfull_Client_Menu_Tab_Variables": "Переменные",
-  "Restfull_Client_Menu_Tab_Headers": "Заголовки",
-  "Restfull_Client_Menu_Tab_Body": "Тело запроса",
-  "Body_Type_Json_Placeholder": "Введите JSON здесь...",
-  "Body_Type_Text_Placeholder": "Введите текст запроса здесь...",
-  "Body_Type_Text": "Текст",
   "Body_Mode_None": "Без данных",
-  "Body_Mode_Raw": "Необработанный",
   "Body_Mode_None_Text": "У этого запроса нет тела",
+  "Body_Mode_Raw": "Необработанный",
+  "Body_Type_Json_Placeholder": "Введите JSON здесь...",
+  "Body_Type_Text": "Текст",
+  "Body_Type_Text_Placeholder": "Введите текст запроса здесь...",
   "Editor_Loading": "Загрузка...",
   "Endpoint_Placeholder": "Введите конечный URL-адрес",
-  "Method_Label": "Метод"
+  "Method_Label": "Метод",
+  "Restfull_Client_Menu_Tab_Body": "Тело запроса",
+  "Restfull_Client_Menu_Tab_Headers": "Заголовки",
+  "Restfull_Client_Menu_Tab_Variables": "Переменные"
 }
