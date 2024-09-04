@@ -14,10 +14,9 @@ interface EditorTableProps {
   setData: Dispatch<SetStateAction<DataItem[]>>;
 }
 
-export default function EditorTable(props: EditorTableProps) {
-  const { heading, data, setData } = props;
+export default function EditorTable({ heading, data, setData }: EditorTableProps) {
   const pathname = usePathname();
-  const lng = pathname.split('/').splice(1, 1)[0];
+  const [lng] = pathname.split('/').splice(1, 1);
   const { t } = useTranslation(lng);
   const [rows, addRows] = useState([0]);
 

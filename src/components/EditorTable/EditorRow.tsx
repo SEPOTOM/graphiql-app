@@ -4,6 +4,8 @@ import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import styles from './EditorTable.module.scss';
 import { Checkbox, TableCell, TableRow, TextField } from '@mui/material';
 import { DataItem } from '@/contexts/GraphQLContext/types';
+import { usePathname } from 'next/navigation';
+import { useTranslation } from '@/hooks';
 
 interface EditorRowProps {
   addRows: Dispatch<SetStateAction<number[]>>;
@@ -14,6 +16,12 @@ interface EditorRowProps {
 
 export default function EditorRow({ addRows, rowId, data, setData }: EditorRowProps) {
   const [checkCheckbox, setCheckCheckbox] = useState(false);
+  const pathname = usePathname();
+  const [lng] = pathname.split('/').splice(1, 1);
+  const { t } = useTranslation(lng);
+
+  console.log(rowId);
+  console.log(data);
 
   const handleEditRowCheckboxChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     let result = data.filter((entry) => entry.id === Number(event.target.name))[0];
@@ -64,10 +72,20 @@ export default function EditorRow({ addRows, rowId, data, setData }: EditorRowPr
         />
       </TableCell>
       <TableCell className={styles.edit_row__cell}>
-        <TextField className={styles.edit_row__cell_textfield} name="key" onChange={handleEditRowTextFieldChange} />
+        <TextField
+          className={styles.edit_row__cell_textfield}
+          placeholder={t('data_editor_key_heading')}
+          name="key"
+          onChange={handleEditRowTextFieldChange}
+        />
       </TableCell>
       <TableCell className={styles.edit_row__cell}>
-        <TextField className={styles.edit_row__cell_textfield} name="value" onChange={handleEditRowTextFieldChange} />
+        <TextField
+          className={styles.edit_row__cell_textfield}
+          placeholder={t('data_editor_value_heading')}
+          name="value"
+          onChange={handleEditRowTextFieldChange}
+        />
       </TableCell>
     </TableRow>
   );
