@@ -26,7 +26,7 @@ export default function RequestMethodSelector() {
 
   return (
     <FormControl sx={{ width: 200 }}>
-      <InputLabel id="select-method-label">{t('Method_Label')}</InputLabel>
+      <InputLabel id="select-method-label">{t('method_label')}</InputLabel>
       <Select labelId="select-method-label" id="select-method" value={method} label="Method" onChange={handleSelect}>
         {methods.map((method) => (
           <MenuItem key={method} value={method}>

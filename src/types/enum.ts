@@ -9,9 +9,9 @@ export enum Method {
 }
 
 export enum MenuTabsRest {
-  Variables = 'Restfull_Client_Menu_Tab_Variables',
-  Headers = 'Restfull_Client_Menu_Tab_Headers',
-  Body = 'Restfull_Client_Menu_Tab_Body',
+  Variables = 'restfull_client_menu_tab_variables',
+  Headers = 'restfull_client_menu_tab_headers',
+  Body = 'restfull_client_menu_tab_body',
 }
 
 export enum BodyType {
@@ -20,8 +20,8 @@ export enum BodyType {
 }
 
 export enum PlaceHolder {
-  json = 'Body_Type_Json_Placeholder',
-  text = 'Body_Type_Text_Placeholder',
+  json = 'body_type_json_placeholder',
+  text = 'body_type_text_placeholder',
 }
 
 export enum SegmentIndex {

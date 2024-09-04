@@ -42,7 +42,7 @@ export default function RequestBody() {
         {bodyMode === BodyMode.Raw && <RequestBodyTypeSelector bodytype={bodyType} handleChange={handleModeChange} />}
       </Box>
       {bodyMode === BodyMode.None ?
-        <p>{t('Body_Mode_None_Text')}</p>
+        <p>{t('body_mode_none_text')}</p>
       : <RequestBodyEditor mode={bodyType} />}
     </Box>
   );

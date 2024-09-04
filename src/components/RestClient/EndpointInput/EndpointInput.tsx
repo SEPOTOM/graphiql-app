@@ -26,7 +26,7 @@ export default function EndpointInput() {
       label="URL"
       variant="outlined"
       onChange={handleEndpointChange}
-      placeholder={t('Endpoint_Placeholder')}
+      placeholder={t('endpoint_placeholder')}
       fullWidth
     />
   );

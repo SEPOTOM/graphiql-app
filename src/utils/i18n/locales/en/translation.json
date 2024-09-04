@@ -1,14 +1,14 @@
 {
-  "Body_Mode_None": "None",
-  "Body_Mode_None_Text": "This request does not have a body",
-  "Body_Mode_Raw": "Raw",
-  "Body_Type_Json_Placeholder": "Enter JSON here...",
-  "Body_Type_Text": "Text",
-  "Body_Type_Text_Placeholder": "Enter the text here...",
-  "Editor_Loading": "Loading...",
-  "Endpoint_Placeholder": "Enter endpoint-URL",
-  "Method_Label": "Method",
-  "Restfull_Client_Menu_Tab_Body": "Request Body",
-  "Restfull_Client_Menu_Tab_Headers": "Headers",
-  "Restfull_Client_Menu_Tab_Variables": "Variables"
+  "body_mode_none": "None",
+  "body_mode_none_text": "This request does not have a body",
+  "body_mode_raw": "Raw",
+  "body_type_json_placeholder": "Enter JSON here...",
+  "body_type_text": "Text",
+  "body_type_text_placeholder": "Enter the text here...",
+  "editor_loading": "Loading...",
+  "endpoint_placeholder": "Enter endpoint-URL",
+  "method_label": "Method",
+  "restfull_client_menu_tab_body": "Request Body",
+  "restfull_client_menu_tab_headers": "Headers",
+  "restfull_client_menu_tab_variables": "Variables"
 }
