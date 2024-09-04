@@ -8,5 +8,9 @@
   "graphQl_menu_tab_variables": "Variables",
   "graphQl_menu_tab_schema": "Schema",
   "data_editor_key_heading": "KEY",
-  "data_editor_value_heading": "VALUE"
+  "data_editor_value_heading": "VALUE",
+  "footer": {
+    "github": "GitHub profile of",
+    "rss": "RSSchool logo"
+  }
 }

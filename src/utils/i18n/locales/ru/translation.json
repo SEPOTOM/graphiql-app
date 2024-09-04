@@ -8,5 +8,9 @@
   "graphQl_menu_tab_variables": "Переменные",
   "graphQl_menu_tab_schema": "Схема",
   "data_editor_key_heading": "КЛЮЧ",
-  "data_editor_value_heading": "ЗНАЧЕНИЕ"
+  "data_editor_value_heading": "ЗНАЧЕНИЕ",
+  "footer": {
+    "github": "GitHub профиль пользователя",
+    "rss": "Логотип RSSchool"
+  }
 }
