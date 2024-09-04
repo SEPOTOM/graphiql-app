@@ -2,8 +2,10 @@
 
 import EditorTable from '@/components/EditorTable/EditorTable';
 import { GraphQlDataContext } from '@/contexts/GraphQLContext/GraphQLContext';
+import { useTranslation } from '@/hooks';
 import { GraphQlHeadersEditor, GraphQlVariablesEditor } from '@/types/enum';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import { usePathname } from 'next/navigation';
 import { useContext } from 'react';
 
 interface TabPanelProps {
@@ -13,9 +15,11 @@ interface TabPanelProps {
   content: string;
 }
 
-export default function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, content, ...other } = props;
+export default function CustomTabPanel({ children, value, index, content, ...other }: TabPanelProps) {
   const { paramData, setParamData, headerData, setHeaderData } = useContext(GraphQlDataContext);
+  const pathname = usePathname();
+  const [lng] = pathname.split('/').splice(1, 1);
+  const { t } = useTranslation(lng);
 
   const headerEditors = Object.values(GraphQlHeadersEditor) as string[];
   const variablesEditors = Object.values(GraphQlVariablesEditor) as string[];
@@ -36,7 +40,7 @@ export default function CustomTabPanel(props: TabPanelProps) {
           data={variablesEditors.includes(content) ? paramData : headerData}
           setData={variablesEditors.includes(content) ? setParamData : setHeaderData}
         />
-      : <p>Here not be editor</p>}
+      : <Typography>{t('graphQl_menu_tab_empty_message')}</Typography>}
     </Box>
   );
 }

@@ -7,6 +7,7 @@
   "graphQl_menu_tab_headers": "Headers",
   "graphQl_menu_tab_variables": "Variables",
   "graphQl_menu_tab_schema": "Schema",
+  "graphQl_menu_tab_empty_message": "Here will be something else",
   "data_editor_key_heading": "KEY",
   "data_editor_value_heading": "VALUE",
   "footer": {
