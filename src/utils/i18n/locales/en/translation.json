@@ -7,6 +7,18 @@
   "graphQl_menu_tab_headers": "Headers",
   "graphQl_menu_tab_variables": "Variables",
   "graphQl_menu_tab_schema": "Schema",
+  "body_mode_none": "None",
+  "body_mode_none_text": "This request does not have a body",
+  "body_mode_raw": "Raw",
+  "body_type_json_placeholder": "Enter JSON here...",
+  "body_type_text": "Text",
+  "body_type_text_placeholder": "Enter the text here...",
+  "editor_loading": "Loading...",
+  "endpoint_placeholder": "Enter endpoint-URL",
+  "method_label": "Method",
+  "restfull_client_menu_tab_body": "Request Body",
+  "restfull_client_menu_tab_headers": "Headers",
+  "restfull_client_menu_tab_variables": "Variables",
   "footer": {
     "github": "GitHub profile of",
     "rss": "RSSchool logo"

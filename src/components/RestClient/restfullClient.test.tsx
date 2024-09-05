@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import { usePathname, useRouter } from 'next/navigation';
 import { Mock } from 'vitest';
-import RestfullClient from './RestfullClient';
+import { RestfullClient } from '@/components';
 
 const replace = vi.fn();
 (useRouter as Mock).mockImplementation(() => ({
@@ -22,14 +22,14 @@ describe('RestfullClient component', () => {
   });
   it('should replace an invalid segment with GET', () => {
     const encodedSegment = btoa('qwerty');
-    (usePathname as Mock).mockReturnValue(`/restfullClient/${encodedSegment}`);
+    (usePathname as Mock).mockReturnValue(`/restfullClient/ru/${encodedSegment}`);
 
     render(<RestfullClient />);
 
-    expect(replace).toHaveBeenCalledWith(`/restfullClient/GET/${encodedSegment}`);
+    expect(replace).toHaveBeenCalledWith(`/restfullClient/ru/GET/${encodedSegment}`);
   });
   it('should not change the URL if a valid method is present', () => {
-    (usePathname as Mock).mockReturnValue('/restfullClient/GET');
+    (usePathname as Mock).mockReturnValue('/restfullClient/ru/GET');
 
     render(<RestfullClient />);
 
