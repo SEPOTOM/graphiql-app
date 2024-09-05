@@ -16,7 +16,7 @@ const PasswordField = forwardRef(function PasswordField(
   const { t } = useTranslation(lng);
 
   const handleClickTogglePassword = () => {
-    setShowPassword(!showPassword);
+    setShowPassword((prev) => !prev);
   };
 
   return (
