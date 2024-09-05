@@ -1,17 +1,14 @@
 'use client';
 
 import { Box, Tab, Tabs } from '@mui/material';
-import { MenuTabsRest, SegmentIndex } from '@/types/enum';
+import { MenuTabsRest } from '@/types/enum';
 import RequestBodyMenuTabs from './RequestBodyMenuTabs';
 import { useState, SyntheticEvent } from 'react';
 import { RequestBody } from '@/components';
-import { usePathname } from 'next/navigation';
-import { useTranslation } from '@/hooks';
-import { fallbackLng } from '@/utils';
+import { useLanguage, useTranslation } from '@/hooks';
 
 export default function BodyMenuTab() {
-  const pathname = usePathname();
-  const lng = pathname.split('/').at(SegmentIndex.Language) ?? fallbackLng;
+  const { lng } = useLanguage();
   const { t } = useTranslation(lng);
   const tabs = Object.values(MenuTabsRest) as string[];
   const [value, setValue] = useState(0);

@@ -7,7 +7,7 @@ import * as monaco from 'monaco-editor';
 import { BodyType, PlaceHolder, SegmentIndex, EditorOptions } from '@/types';
 import { encodeToBase64, getNewBodyPath } from '@/services';
 import { usePathname } from 'next/navigation';
-import { useTranslation } from '@/hooks';
+import { useLanguage, useTranslation } from '@/hooks';
 import { ErrorsMessage } from '@/components';
 import { fallbackLng } from '@/utils';
 
@@ -21,7 +21,7 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
   const editorRef = useRef<Nullable<monaco.editor.IStandaloneCodeEditor>>(null);
   const pathname = usePathname();
   const pathSegments = pathname.split('/');
-  const lng = pathSegments.at(SegmentIndex.Language) ?? fallbackLng;
+  const { lng } = useLanguage();
   const { t } = useTranslation(lng);
   const [value, setValue] = useState<string>(initialValue ?? '');
   const [showErrorsPopover, setShowErrorsPopover] = useState(false);

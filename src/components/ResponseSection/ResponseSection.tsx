@@ -1,11 +1,9 @@
 'use client';
 
 import { RequestBodyEditor } from '@/components';
-import { useTranslation } from '@/hooks';
-import { BodyType, SegmentIndex } from '@/types';
-import { fallbackLng } from '@/utils';
+import { useLanguage, useTranslation } from '@/hooks';
+import { BodyType } from '@/types/enum';
 import { Box, Typography } from '@mui/material';
-import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { tabSize } from './consts';
 
@@ -16,8 +14,7 @@ export interface ResponseSectionProps {
 }
 
 export default function ResponseSection({ responseBody, responseCode, responseStatus }: ResponseSectionProps) {
-  const pathname = usePathname();
-  const lng = pathname.split('/').at(SegmentIndex.Language) ?? fallbackLng;
+  const { lng } = useLanguage();
   const { t } = useTranslation(lng);
   const [formattedJson, setFormattedJson] = useState<string>('');
 

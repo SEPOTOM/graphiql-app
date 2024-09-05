@@ -3,7 +3,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { dir } from 'i18next';
 
 import { MUIThemeProvider, Footer } from '@/components';
-import { AuthProvider } from '@/contexts';
+import { AuthProvider, LanguageProvider } from '@/contexts';
 
 import { LngParam } from '@/types';
 import './layout.scss';
@@ -24,8 +24,10 @@ const RootLayout = ({
         <AppRouterCacheProvider>
           <AuthProvider>
             <MUIThemeProvider lng={lng}>
-              {children}
-              <Footer lng={lng} />
+              <LanguageProvider lang={lng}>
+                {children}
+                <Footer lng={lng} />
+              </LanguageProvider>
             </MUIThemeProvider>
           </AuthProvider>
         </AppRouterCacheProvider>
