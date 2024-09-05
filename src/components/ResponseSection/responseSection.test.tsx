@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { usePathname } from 'next/navigation';
 import { Mock } from 'vitest';
 import { ResponseSection } from '@/components';

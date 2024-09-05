@@ -4,12 +4,12 @@ import Paper from '@mui/material/Paper';
 import Editor from '@monaco-editor/react';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import * as monaco from 'monaco-editor';
-import { BodyType, PlaceHolder, SegmentIndex } from '@/types';
+import { BodyType, PlaceHolder, SegmentIndex, EditorOptions } from '@/types';
 import { encodeToBase64, getNewBodyPath } from '@/services';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
 import { ErrorsMessage } from '@/components';
-import { EditorOptions } from '@/types';
+import { fallbackLng } from '@/utils';
 
 export interface RequestBodyEditorProps {
   mode: string;
@@ -21,7 +21,7 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
   const editorRef = useRef<Nullable<monaco.editor.IStandaloneCodeEditor>>(null);
   const pathname = usePathname();
   const pathSegments = pathname.split('/');
-  const lng = pathSegments.at(SegmentIndex.Language) || 'en';
+  const lng = pathSegments.at(SegmentIndex.Language) ?? fallbackLng;
   const { t } = useTranslation(lng);
   const [value, setValue] = useState<string>(initialValue || '');
   const [showErrorsPopover, setShowErrorsPopover] = useState(false);
@@ -51,7 +51,7 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
         setShowErrorsPopover(true);
       }
     }
-  }, [mode, value, pathname, pathSegments]);
+  }, [mode, value, pathname, pathSegments, options.readOnly]);
 
   useEffect(() => {
     if (options.readOnly) return;
@@ -64,7 +64,7 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
     return () => {
       clearTimeout(timer);
     };
-  }, [showErrorsPopover]);
+  }, [showErrorsPopover, options.readOnly]);
 
   useEffect(() => {
     if (options.readOnly) return;
@@ -73,7 +73,7 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
     if (editor) {
       editor.focus();
     }
-  }, [mode, t]);
+  }, [mode, t, options.readOnly]);
 
   useEffect(() => {
     if (options.readOnly) return;
@@ -88,7 +88,7 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
         dispose.dispose();
       }
     };
-  }, [onBlur]);
+  }, [onBlur, options.readOnly]);
 
   const handleEditorDidMount = (editor: monaco.editor.IStandaloneCodeEditor) => {
     if (options.readOnly) return;
@@ -97,7 +97,6 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
   };
 
   const handleChange = (value?: string) => {
-    // if (options.readOnly) return;
     if (value) {
       setShowErrorsPopover(false);
       setValue(value);

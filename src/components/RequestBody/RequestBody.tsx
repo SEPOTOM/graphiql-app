@@ -8,13 +8,14 @@ import { BodyMode, BodyType, SegmentIndex } from '@/types';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
 import RequestBodyTypeSelector from './BodyTypeSelector/RequestBodyTypeSelector';
+import { fallbackLng } from '@/utils';
 
 export default function RequestBody() {
   const [bodyMode, setBodyMode] = useState<string>(BodyMode.None);
   const [bodyType, setBodyType] = useState<string>(BodyType.json);
   const pathname = usePathname();
   const pathSegments = pathname.split('/');
-  const lng = pathSegments.at(SegmentIndex.Language) ?? 'en';
+  const lng = pathSegments.at(SegmentIndex.Language) ?? fallbackLng;
   const { t } = useTranslation(lng);
 
   const handleBodyTypeChange = (e: MouseEvent<HTMLElement>, newBodyType: Nullable<string>) => {
@@ -42,7 +43,7 @@ export default function RequestBody() {
         {bodyMode === 'raw' && <RequestBodyTypeSelector bodytype={bodyType} handleChange={handleModeChange} />}
       </Box>
       {bodyMode === 'none' ?
-        <p>{t('BodyModeNoneText')}</p>
+        <p>{t('body_mode_none_text')}</p>
       : <RequestBodyEditor mode={bodyType} options={{ readOnly: false }} />}
     </Box>
   );
