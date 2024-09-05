@@ -8,15 +8,14 @@ import Footer from '@/components/Footer/Footer';
 import RequestBodyEditor from './BodyEditor/RequestBodyEditor';
 import ResponseSection from './ResponseSection/ResponseSection';
 
-
 export {
   MUIThemeProvider,
   RestfullClient,
-  GraphQlClient
+  GraphQlClient,
   Footer,
   RequestBody,
   BodyMenuTab,
   ErrorsMessage,
   RequestBodyEditor,
-  ResponseSection
+  ResponseSection,
 };
