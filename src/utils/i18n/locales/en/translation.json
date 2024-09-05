@@ -1,4 +1,12 @@
 {
+  "graphQl_endpoint_input_label": "Endpoint URL",
+  "graphQl_endpoint_input_placeholder": "Enter Endpoint URL",
+  "graphQl_SDL_input_label": "SDL URL",
+  "graphQl_SDL_input_placeholder": "Enter SDL URL",
+  "graphQl_send_button": "Send",
+  "graphQl_menu_tab_headers": "Headers",
+  "graphQl_menu_tab_variables": "Variables",
+  "graphQl_menu_tab_schema": "Schema",
   "body_mode_none": "None",
   "body_mode_none_text": "This request does not have a body",
   "body_mode_raw": "Raw",
@@ -15,5 +23,4 @@
     "github": "GitHub profile of",
     "rss": "RSSchool logo"
   }
-
 }
