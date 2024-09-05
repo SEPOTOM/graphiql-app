@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { usePathname, useRouter } from 'next/navigation';
 import { Mock } from 'vitest';
 import RestfullClientPage from './page';
+import { LanguageProvider } from '@/contexts';
 
 describe('RestfullClientPage', () => {
   it('should  render component correctly', () => {
@@ -11,7 +12,11 @@ describe('RestfullClientPage', () => {
       replace,
     }));
 
-    render(<RestfullClientPage />);
+    render(
+      <LanguageProvider lang="en">
+        <RestfullClientPage />
+      </LanguageProvider>
+    );
 
     expect(screen.getByLabelText('Method')).toBeInTheDocument();
     expect(screen.getByLabelText('URL')).toBeInTheDocument();
