@@ -10,3 +10,9 @@ export interface JSONError {
   column: number;
   message: string;
 }
+
+export type EditorOptions = {
+  readOnly: boolean;
+  automaticLayout?: boolean;
+  minimap?: { enabled: boolean };
+};

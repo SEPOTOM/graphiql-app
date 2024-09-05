@@ -14,7 +14,7 @@ export default function RequestBody() {
   const [bodyType, setBodyType] = useState<string>(BodyType.json);
   const pathname = usePathname();
   const pathSegments = pathname.split('/');
-  const lng = pathSegments.at(SegmentIndex.Language) || 'en';
+  const lng = pathSegments.at(SegmentIndex.Language) ?? 'en';
   const { t } = useTranslation(lng);
 
   const handleBodyTypeChange = (e: MouseEvent<HTMLElement>, newBodyType: Nullable<string>) => {
@@ -39,11 +39,11 @@ export default function RequestBody() {
     <Box display={'flex'} flexDirection={'column'} gap={3}>
       <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
         <RequestBodyToggle bodyType={bodyMode} handleChange={handleBodyTypeChange} />
-        {bodyMode === BodyMode.Raw && <RequestBodyTypeSelector bodytype={bodyType} handleChange={handleModeChange} />}
+        {bodyMode === 'raw' && <RequestBodyTypeSelector bodytype={bodyType} handleChange={handleModeChange} />}
       </Box>
-      {bodyMode === BodyMode.None ?
-        <p>{t('body_mode_none_text')}</p>
-      : <RequestBodyEditor mode={bodyType} />}
+      {bodyMode === 'none' ?
+        <p>{t('BodyModeNoneText')}</p>
+      : <RequestBodyEditor mode={bodyType} options={{ readOnly: false }} />}
     </Box>
   );
 }
