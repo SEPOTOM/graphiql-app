@@ -10,7 +10,7 @@ import { useTranslation } from '@/hooks';
 
 export default function RequestMethodSelector() {
   const pathname = usePathname();
-  const lng = pathname.split('/').at(SegmentIndex.Languague) ?? 'en';
+  const lng = pathname.split('/').at(SegmentIndex.Language) ?? 'en';
   const { t } = useTranslation(lng);
   const methods = Object.values(Method) as string[];
   const pathNameMethod = pathname.split('/')[SegmentIndex.Method];

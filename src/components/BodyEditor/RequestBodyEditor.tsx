@@ -18,7 +18,7 @@ export default function RequestBodyEditor({ mode }: RequestBodyEditorProps) {
   const editorRef = useRef<Nullable<monaco.editor.IStandaloneCodeEditor>>(null);
   const pathname = usePathname();
   const pathSegments = pathname.split('/');
-  const lng = pathSegments.at(SegmentIndex.Languague) || 'en';
+  const lng = pathSegments.at(SegmentIndex.Language) || 'en';
   const { t } = useTranslation(lng);
   const [value, setValue] = useState<string>('');
   const [showErrorsPopover, setShowErrorsPopover] = useState(false);

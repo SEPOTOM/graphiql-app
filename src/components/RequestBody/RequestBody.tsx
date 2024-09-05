@@ -14,7 +14,7 @@ export default function RequestBody() {
   const [bodyType, setBodyType] = useState<string>(BodyType.json);
   const pathname = usePathname();
   const pathSegments = pathname.split('/');
-  const lng = pathSegments.at(SegmentIndex.Languague) || 'en';
+  const lng = pathSegments.at(SegmentIndex.Language) || 'en';
   const { t } = useTranslation(lng);
 
   const handleBodyTypeChange = (e: MouseEvent<HTMLElement>, newBodyType: Nullable<string>) => {

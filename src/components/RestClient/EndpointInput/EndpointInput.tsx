@@ -9,7 +9,7 @@ import { ChangeEvent } from 'react';
 
 export default function EndpointInput() {
   const pathname = usePathname();
-  const lng = pathname.split('/').at(SegmentIndex.Languague) ?? 'en';
+  const lng = pathname.split('/').at(SegmentIndex.Language) ?? 'en';
   const { t } = useTranslation(lng);
   const currentEndpoint = pathname.split('/').at(SegmentIndex.Endpoint) || '';
 

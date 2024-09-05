@@ -10,7 +10,7 @@ import { useTranslation } from '@/hooks';
 
 export default function BodyMenuTab() {
   const pathname = usePathname();
-  const lng = pathname.split('/').at(SegmentIndex.Languague) ?? 'en';
+  const lng = pathname.split('/').at(SegmentIndex.Language) ?? 'en';
   const { t } = useTranslation(lng);
   const tabs = Object.values(MenuTabsRest) as string[];
   const [value, setValue] = useState(0);

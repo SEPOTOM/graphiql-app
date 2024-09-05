@@ -13,7 +13,7 @@ export interface RequestBodyToggleProps {
 
 export default function RequestBodyToggle({ bodyType, handleChange }: RequestBodyToggleProps) {
   const pathname = usePathname();
-  const lng = pathname.split('/').at(SegmentIndex.Languague) ?? 'en';
+  const lng = pathname.split('/').at(SegmentIndex.Language) ?? 'en';
   const { t } = useTranslation(lng);
 
   const toggleButtonData = [
