@@ -10,6 +10,18 @@
   "graphQl_menu_tab_empty_message": "Тут будет что-то еще",
   "data_editor_key_heading": "КЛЮЧ",
   "data_editor_value_heading": "ЗНАЧЕНИЕ",
+  "body_mode_none": "Без данных",
+  "body_mode_none_text": "У этого запроса нет тела",
+  "body_mode_raw": "Необработанный",
+  "body_type_json_placeholder": "Введите JSON здесь...",
+  "body_type_text": "Текст",
+  "body_type_text_placeholder": "Введите текст запроса здесь...",
+  "editor_loading": "Загрузка...",
+  "endpoint_placeholder": "Введите конечный URL-адрес",
+  "method_label": "Метод",
+  "restfull_client_menu_tab_body": "Тело запроса",
+  "restfull_client_menu_tab_headers": "Заголовки",
+  "restfull_client_menu_tab_variables": "Переменные",
   "footer": {
     "github": "GitHub профиль пользователя",
     "rss": "Логотип RSSchool"
