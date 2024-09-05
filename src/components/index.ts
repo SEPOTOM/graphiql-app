@@ -5,5 +5,15 @@ import BodyMenuTab from './BodyMenuTab/BodyMenuTab';
 import RestfullClient from './RestClient/RestfullClient';
 import Footer from '@/components/Footer/Footer';
 import RequestBodyEditor from './BodyEditor/RequestBodyEditor';
+import ResponseSection from './ResponseSection/ResponseSection';
 
-export { MUIThemeProvider, RestfullClient, Footer, RequestBody, BodyMenuTab, ErrorsMessage, RequestBodyEditor };
+export {
+  MUIThemeProvider,
+  RestfullClient,
+  Footer,
+  RequestBody,
+  BodyMenuTab,
+  ErrorsMessage,
+  RequestBodyEditor,
+  ResponseSection,
+};
