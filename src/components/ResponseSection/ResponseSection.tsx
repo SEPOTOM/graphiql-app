@@ -16,32 +16,34 @@ export interface ResponseSectionProps {
 export default function ResponseSection({ responseBody, responseCode, responseStatus }: ResponseSectionProps) {
   const { lng } = useLanguage();
   const { t } = useTranslation(lng);
-  const [formattedJson, setFormattedJson] = useState<string>('');
+  const [responseData, setResponseData] = useState<string>('');
 
   useEffect(() => {
-    try {
-      const parsedJson = JSON.parse(responseBody);
-      setFormattedJson(JSON.stringify(parsedJson, null, tabSize));
-    } catch {
-      setFormattedJson(responseBody);
-    }
+    setResponseData(responseBody);
   }, [responseBody]);
 
   return (
     <Box display="flex" flexDirection="column" gap={2} paddingTop={4}>
       <Typography variant="h4">{t('response_header')}</Typography>
-      <Typography variant="h6">
-        {t('http_response')}: {responseCode} {responseStatus}
-      </Typography>
-      <RequestBodyEditor
-        mode={BodyType.json}
-        options={{
-          readOnly: true,
-          automaticLayout: true,
-          minimap: { enabled: false },
-        }}
-        initialValue={formattedJson}
-      />
+      {Boolean(responseCode) && (
+        <Typography variant="h6">
+          {t('http_response')}: {responseCode} {responseStatus}
+        </Typography>
+      )}
+      {responseData ?
+        <RequestBodyEditor
+          mode={BodyType.json}
+          options={{
+            readOnly: true,
+            automaticLayout: true,
+            minimap: { enabled: false },
+          }}
+          initialValue={responseData}
+        />
+      : <Typography variant="body1" paragraph sx={{ textAlign: 'center' }}>
+          {t('response_placeholder')}
+        </Typography>
+      }
     </Box>
   );
 }

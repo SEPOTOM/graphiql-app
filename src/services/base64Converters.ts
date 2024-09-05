@@ -4,11 +4,11 @@ export function encodeToBase64(input: string) {
     .map((byte) => String.fromCharCode(byte))
     .join('');
 
-  return btoa(latin1String);
+  return encodeURIComponent(btoa(latin1String));
 }
 
 export function decodeFromBase64(encodedString: string) {
-  const latin1String = atob(encodedString);
+  const latin1String = atob(decodeURIComponent(encodedString));
   const utf8Bytes = new Uint8Array(latin1String.split('').map((char) => char.charCodeAt(0)));
 
   return new TextDecoder().decode(utf8Bytes);
