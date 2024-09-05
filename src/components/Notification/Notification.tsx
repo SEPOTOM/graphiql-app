@@ -7,16 +7,16 @@ const SlideTransition = (props: SlideProps) => {
   return <Slide {...props} direction="left" />;
 };
 
-const Notification = ({ children, ...props }: NotificationProps) => {
+const Notification = ({ children, TransitionComponent = SlideTransition, ...props }: NotificationProps) => {
   return (
     <Snackbar
       {...props}
+      TransitionComponent={TransitionComponent}
       autoHideDuration={3000}
       anchorOrigin={{
         vertical: 'bottom',
         horizontal: 'right',
       }}
-      TransitionComponent={SlideTransition}
     >
       <SnackbarContent
         message={
