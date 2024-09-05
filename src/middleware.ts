@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cookies, headers } from 'next/headers';
 import acceptLanguage from 'accept-language';
 
-import { fallbackLng, languages, i18nCookieName } from '@/utils';
+import { fallbackLng, languages, i18nCookieName, isImagePath } from '@/utils';
 
 acceptLanguage.languages(languages);
 
@@ -11,6 +11,10 @@ export const config = {
 };
 
 export const middleware = (req: NextRequest) => {
+  if (isImagePath(req.nextUrl.pathname)) {
+    return NextResponse.next();
+  }
+
   let lng;
 
   const i18nCookie = cookies().get(i18nCookieName);

@@ -3,5 +3,7 @@ import MUIThemeProvider from '@/components/MUIThemeProvider/MUIThemeProvider';
 import RequestBody from './RequestBody/RequestBody';
 import BodyMenuTab from './BodyMenuTab/BodyMenuTab';
 import RestfullClient from './RestClient/RestfullClient';
+import Footer from '@/components/Footer/Footer';
 
-export { MUIThemeProvider, RestfullClient, RequestBody, BodyMenuTab, ErrorsMessage };
+export { MUIThemeProvider, RestfullClient, Footer, RequestBody, BodyMenuTab, ErrorsMessage };
+
