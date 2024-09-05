@@ -20,9 +20,6 @@ export default function EditorRow({ addRows, rowId, data, setData }: EditorRowPr
   const [lng] = pathname.split('/').splice(1, 1);
   const { t } = useTranslation(lng);
 
-  console.log(rowId);
-  console.log(data);
-
   const handleEditRowCheckboxChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     let result = data.filter((entry) => entry.id === Number(event.target.name))[0];
 
