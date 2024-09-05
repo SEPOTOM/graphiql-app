@@ -10,7 +10,7 @@
   "method_label": "Метод",
   "restfull_client_menu_tab_body": "Тело запроса",
   "restfull_client_menu_tab_headers": "Заголовки",
-  "restfull_client_menu_tab_variables": "Переменные"
+  "restfull_client_menu_tab_variables": "Переменные",
   "footer": {
     "github": "GitHub профиль пользователя",
     "rss": "Логотип RSSchool"
