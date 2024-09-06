@@ -21,7 +21,7 @@ export default function MenuTab() {
   return (
     <Box display="flex" flexDirection="column" alignItems="center" width="100%" gap={1}>
       <Box display="flex" width="100%" gap={1}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+        <Tabs value={value} onChange={handleChange}>
           {tabs.map((tab) => (
             <Tab key={tab} label={t(`${tab}`)} />
           ))}

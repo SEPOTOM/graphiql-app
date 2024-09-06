@@ -1,12 +1,11 @@
 'use client';
 
 import EditorTable from '@/components/EditorTable/EditorTable';
-import { GraphQlDataContext } from '@/contexts/GraphQLContext/GraphQLContext';
+import { useGraphQl } from '@/contexts';
 import { useTranslation } from '@/hooks';
 import { GraphQlHeadersEditor, GraphQlVariablesEditor } from '@/types/enum';
 import { Box, Typography } from '@mui/material';
 import { usePathname } from 'next/navigation';
-import { useContext } from 'react';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -16,7 +15,7 @@ interface TabPanelProps {
 }
 
 export default function CustomTabPanel({ children, value, index, content, ...other }: TabPanelProps) {
-  const { paramData, setParamData, headerData, setHeaderData } = useContext(GraphQlDataContext);
+  const { paramData, setParamData, headerData, setHeaderData } = useGraphQl();
   const pathname = usePathname();
   const [lng] = pathname.split('/').splice(1, 1);
   const { t } = useTranslation(lng);
@@ -37,8 +36,8 @@ export default function CustomTabPanel({ children, value, index, content, ...oth
       {editors.includes(content) ?
         <EditorTable
           heading={content}
-          data={variablesEditors.includes(content) ? paramData : headerData}
-          setData={variablesEditors.includes(content) ? setParamData : setHeaderData}
+          currentEditorData={variablesEditors.includes(content) ? paramData : headerData}
+          setCurrentEditorData={variablesEditors.includes(content) ? setParamData : setHeaderData}
         />
       : <Typography>{t('graphQl_menu_tab_empty_message')}</Typography>}
     </Box>

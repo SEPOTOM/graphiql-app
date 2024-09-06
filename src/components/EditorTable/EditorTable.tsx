@@ -1,20 +1,20 @@
 'use client';
 
 import { Box, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
-import EditorRow from './EditorRow';
+import EditorRow from './EditorRow/EditorRow';
 import styles from './EditorTable.module.scss';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
 import { Dispatch, SetStateAction, useState } from 'react';
-import { DataItem } from '@/contexts/GraphQLContext/types';
+import { HeadersAndVariablesEditorRowDataItem } from '@/types/types';
 
 interface EditorTableProps {
   heading: string;
-  data: DataItem[];
-  setData: Dispatch<SetStateAction<DataItem[]>>;
+  currentEditorData: HeadersAndVariablesEditorRowDataItem[];
+  setCurrentEditorData: Dispatch<SetStateAction<HeadersAndVariablesEditorRowDataItem[]>>;
 }
 
-export default function EditorTable({ heading, data, setData }: EditorTableProps) {
+export default function EditorTable({ heading, currentEditorData, setCurrentEditorData }: EditorTableProps) {
   const pathname = usePathname();
   const [lng] = pathname.split('/').splice(1, 1);
   const { t } = useTranslation(lng);
@@ -23,7 +23,7 @@ export default function EditorTable({ heading, data, setData }: EditorTableProps
   return (
     <Box display="flex" flexDirection="column" width="100%">
       <Typography>{heading}</Typography>
-      <Table sx={{ minWidth: '100%', border: '1px solid rgba(224, 224, 224, 1)' }} aria-label="simple table">
+      <Table sx={{ minWidth: '100%', border: '1px solid rgba(224, 224, 224, 1)' }}>
         <TableHead>
           <TableRow>
             <TableCell className={styles.edit_row__cell}></TableCell>
@@ -33,7 +33,15 @@ export default function EditorTable({ heading, data, setData }: EditorTableProps
         </TableHead>
         <TableBody>
           {rows.map((_, index) => {
-            return <EditorRow key={index} rowId={index} addRows={addRows} data={data} setData={setData} />;
+            return (
+              <EditorRow
+                key={index}
+                rowId={index}
+                addRows={addRows}
+                currentEditorData={currentEditorData}
+                setCurrentEditorData={setCurrentEditorData}
+              />
+            );
           })}
         </TableBody>
       </Table>

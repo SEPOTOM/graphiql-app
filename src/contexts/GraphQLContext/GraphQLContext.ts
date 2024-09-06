@@ -2,7 +2,7 @@
 
 import { createContext, useContext } from 'react';
 
-import { GraphQLData } from '@/contexts/GraphQLContext/types';
+import { GraphQLData } from './types';
 
 const GraphQlDataContext = createContext<GraphQLData>({
   paramData: [],

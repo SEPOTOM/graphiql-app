@@ -3,25 +3,26 @@
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import styles from './EditorTable.module.scss';
 import { Checkbox, TableCell, TableRow, TextField } from '@mui/material';
-import { DataItem } from '@/contexts/GraphQLContext/types';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
+import { HeadersAndVariablesEditorRowDataItem } from '@/types/types';
 
 interface EditorRowProps {
   addRows: Dispatch<SetStateAction<number[]>>;
   rowId: number;
-  data: DataItem[];
-  setData: Dispatch<SetStateAction<DataItem[]>>;
+  currentEditorData: HeadersAndVariablesEditorRowDataItem[];
+  setCurrentEditorData: Dispatch<SetStateAction<HeadersAndVariablesEditorRowDataItem[]>>;
 }
 
-export default function EditorRow({ addRows, rowId, data, setData }: EditorRowProps) {
+export default function EditorRow({ addRows, rowId, currentEditorData, setCurrentEditorData }: EditorRowProps) {
   const [checkCheckbox, setCheckCheckbox] = useState(false);
   const pathname = usePathname();
   const [lng] = pathname.split('/').splice(1, 1);
   const { t } = useTranslation(lng);
 
   const handleEditRowCheckboxChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    let result = data.filter((entry) => entry.id === Number(event.target.name))[0];
+    const currentId = event.target.name;
+    let result = currentEditorData.filter((entry) => entry.id === Number(currentId))[0];
 
     if (checkCheckbox) {
       setCheckCheckbox(false);
@@ -31,30 +32,30 @@ export default function EditorRow({ addRows, rowId, data, setData }: EditorRowPr
       addRows((oldArr) => [...oldArr, rowId]);
       result = { ...result, id: rowId, check: true };
     }
-    let index = data.findIndex((value) => value.id === Number(event.target.name));
+    let index = currentEditorData.findIndex((value) => value.id === Number(currentId));
     if (index === -1) {
-      setData((oldArr) => [...oldArr, result]);
+      setCurrentEditorData((oldArr) => [...oldArr, result]);
     } else {
-      const newArray = Object.assign([...data], {
+      const newArray = Object.assign([...currentEditorData], {
         [index]: result,
       });
-      setData(newArray);
+      setCurrentEditorData(newArray);
     }
   };
 
   const handleEditRowTextFieldChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    let result = data.filter((entry) => entry.id === rowId)[0];
+    let result = currentEditorData.filter((entry) => entry.id === rowId)[0];
     result = { ...result, id: rowId, [event.target.name]: event.target.value };
 
-    let index = data.findIndex((value) => value.id === rowId);
+    let index = currentEditorData.findIndex((value) => value.id === rowId);
 
     if (index === -1) {
-      setData((oldArr) => [...oldArr, result]);
+      setCurrentEditorData((oldArr) => [...oldArr, result]);
     } else {
-      const newArray = Object.assign([...data], {
+      const newArray = Object.assign([...currentEditorData], {
         [index]: result,
       });
-      setData(newArray);
+      setCurrentEditorData(newArray);
     }
   };
 

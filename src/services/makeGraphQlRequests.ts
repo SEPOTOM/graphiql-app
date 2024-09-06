@@ -1,6 +1,6 @@
 'use server';
 
-import { Method } from '@/types/enum';
+import { Method } from '@/types';
 
 export const makeGraphQLRequest = async (query: string, url: string, headers: HeadersInit) => {
   try {
