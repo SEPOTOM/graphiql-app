@@ -26,7 +26,7 @@ const LngSelect = ({ lng }: LngSelectProps) => {
   };
 
   return (
-    <FormControl sx={{ width: 150, flexDirection: 'row' }} size="small">
+    <FormControl sx={{ flexDirection: 'row', width: 150, mr: 2 }} size="small">
       <Select
         labelId="switch-lng-label"
         id="switch-lng"

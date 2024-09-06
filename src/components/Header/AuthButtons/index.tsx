@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Box, Button } from '@mui/material';
+import { Box, Button, SxProps } from '@mui/material';
 
 import { useAuth } from '@/contexts';
 
@@ -13,14 +13,14 @@ const AuthButtons = () => {
   return (
     <Box>
       {status === 'authenticated' ?
-        <Button onClick={signOut} disabled={isLoading}>
+        <Button onClick={signOut} disabled={isLoading} variant="contained">
           Sign Out
         </Button>
       : <>
-          <Button component={Link} href="/sign-in" sx={{ ml: 2 }} disabled={isLoading}>
+          <Button component={Link} href="/sign-in" disabled={isLoading} variant="outlined" sx={{ mr: 1 }}>
             Sign In
           </Button>
-          <Button component={Link} href="/sign-up" sx={{ ml: 2 }} disabled={isLoading}>
+          <Button component={Link} href="/sign-up" disabled={isLoading} variant="contained">
             Sign Up
           </Button>
         </>

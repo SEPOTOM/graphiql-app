@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { AppBar, Container, Toolbar, Typography, useScrollTrigger } from '@mui/material';
+import { AppBar, Container, SxProps, Toolbar, Typography, useScrollTrigger } from '@mui/material';
 
 import AuthButtons from './AuthButtons';
 import LngSelect from './LngSelect';
@@ -13,21 +13,25 @@ const Header = ({ lng }: HeaderProps) => {
     threshold: 50,
   });
 
+  const headerSx: SxProps = {
+    display: 'flex',
+    justifyContent: 'center',
+    height: isSticky ? 64 : 100,
+    backgroundColor: 'transparent',
+    transition: 'all 0.3s ease 0s',
+  };
+  const logoSx: SxProps = {
+    mr: 'auto',
+    textDecoration: 'none',
+    color: 'black',
+  };
+
   return (
-    <AppBar
-      position="sticky"
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        transition: 'all 0.3s ease 0s',
-        backgroundColor: isSticky ? 'primary.main' : 'transparent',
-        height: isSticky ? 64 : 80,
-      }}
-    >
+    <AppBar position="sticky" sx={headerSx}>
       <Container>
         <Toolbar>
-          <Typography variant="h5">
-            <Link href="/">GraphiQL</Link>
+          <Typography variant="h4" sx={logoSx} component={Link} href="/">
+            GraphiQL
           </Typography>
           <LngSelect lng={lng} />
           <AuthButtons />
