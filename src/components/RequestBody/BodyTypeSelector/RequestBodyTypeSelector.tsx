@@ -5,6 +5,7 @@ import { Box, FormControl, NativeSelect } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import { ChangeEvent } from 'react';
 import { useTranslation } from '@/hooks';
+import { fallbackLng } from '@/utils';
 
 export interface RequestBodyTypeSelectorProps {
   bodytype: string;
@@ -13,7 +14,7 @@ export interface RequestBodyTypeSelectorProps {
 
 export default function RequestBodyTypeSelector({ bodytype, handleChange }: RequestBodyTypeSelectorProps) {
   const pathname = usePathname();
-  const lng = pathname.split('/').at(SegmentIndex.Languague) ?? 'en';
+  const lng = pathname.split('/').at(SegmentIndex.Language) ?? fallbackLng;
   const { t } = useTranslation(lng);
   const options = [
     { value: BodyType.json, label: 'JSON' },

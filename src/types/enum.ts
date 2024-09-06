@@ -31,7 +31,7 @@ export enum PlaceHolder {
 }
 
 export enum SegmentIndex {
-  Languague = 1,
+  Language = 1,
   Method = 3,
   Endpoint = 4,
   Body = 5,

@@ -7,10 +7,11 @@ import { useState, SyntheticEvent } from 'react';
 import { RequestBody } from '@/components';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
+import { fallbackLng } from '@/utils';
 
 export default function BodyMenuTab() {
   const pathname = usePathname();
-  const lng = pathname.split('/').at(SegmentIndex.Languague) ?? 'en';
+  const lng = pathname.split('/').at(SegmentIndex.Language) ?? fallbackLng;
   const { t } = useTranslation(lng);
   const tabs = Object.values(MenuTabsRest) as string[];
   const [value, setValue] = useState(0);

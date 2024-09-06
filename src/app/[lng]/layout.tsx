@@ -6,6 +6,7 @@ import { MUIThemeProvider, Footer } from '@/components';
 import { AuthProvider } from '@/contexts';
 
 import { LngParam } from '@/types';
+import './layout.scss';
 
 const RootLayout = ({
   children,

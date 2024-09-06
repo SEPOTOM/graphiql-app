@@ -2,6 +2,7 @@
 
 import { useTranslation } from '@/hooks';
 import { BodyMode, SegmentIndex } from '@/types';
+import { fallbackLng } from '@/utils';
 import { ToggleButtonGroup, ToggleButton } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import { MouseEvent } from 'react';
@@ -13,7 +14,7 @@ export interface RequestBodyToggleProps {
 
 export default function RequestBodyToggle({ bodyType, handleChange }: RequestBodyToggleProps) {
   const pathname = usePathname();
-  const lng = pathname.split('/').at(SegmentIndex.Languague) ?? 'en';
+  const lng = pathname.split('/').at(SegmentIndex.Language) ?? fallbackLng;
   const { t } = useTranslation(lng);
 
   const toggleButtonData = [
