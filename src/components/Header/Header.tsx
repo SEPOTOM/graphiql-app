@@ -4,8 +4,10 @@ import Link from 'next/link';
 import { AppBar, Container, Toolbar, Typography, useScrollTrigger } from '@mui/material';
 
 import AuthButtons from './AuthButtons';
+import LngSelect from './LngSelect';
+import { HeaderProps } from './types';
 
-const Header = () => {
+const Header = ({ lng }: HeaderProps) => {
   const isSticky = useScrollTrigger({
     disableHysteresis: true,
     threshold: 50,
@@ -27,6 +29,7 @@ const Header = () => {
           <Typography variant="h5">
             <Link href="/">GraphiQL</Link>
           </Typography>
+          <LngSelect lng={lng} />
           <AuthButtons />
         </Toolbar>
       </Container>

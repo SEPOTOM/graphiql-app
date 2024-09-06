@@ -25,7 +25,7 @@ const RootLayout = ({
         <AppRouterCacheProvider>
           <AuthProvider>
             <MUIThemeProvider lng={lng}>
-              <Header />
+              <Header lng={lng} />
               {children}
               <Footer lng={lng} />
             </MUIThemeProvider>
