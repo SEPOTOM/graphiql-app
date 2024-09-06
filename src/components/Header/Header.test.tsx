@@ -29,4 +29,13 @@ describe('Header', () => {
 
     expect(await findByRole('button', { name: /sign out/i })).toBeInTheDocument();
   });
+
+  it('displays the "Sign In" and "Sign Up" links for unauthenticated users', () => {
+    (useAuth as Mock).mockImplementation(() => ({ status: 'unauthenticated' }));
+
+    const { getByRole } = render(<Header lng="en" />);
+
+    expect(getByRole('link', { name: /sign in/i })).toBeInTheDocument();
+    expect(getByRole('link', { name: /sign up/i })).toBeInTheDocument();
+  });
 });
