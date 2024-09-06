@@ -3,7 +3,7 @@ import { Container } from '@mui/material';
 
 const RestfullClientPage = () => {
   return (
-    <Container>
+    <Container sx={{ flexGrow: '1' }}>
       <RestfullClient />
     </Container>
   );

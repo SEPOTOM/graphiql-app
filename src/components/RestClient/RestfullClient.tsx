@@ -4,9 +4,10 @@ import { Box } from '@mui/material';
 import { usePathname, useRouter } from 'next/navigation';
 import { Method, SegmentIndex } from '@/types';
 import { useEffect } from 'react';
-import { BodyMenuTab } from '@/components';
+import { BodyMenuTab, ResponseSection } from '@/components';
 import EndpointInput from './EndpointInput/EndpointInput';
 import RequestMethodSelector from './RequestMethodSelector/RequestMethodSelector';
+import mockRequestData from '@/tests/mocks/responseData';
 
 export default function RestfullClient() {
   const pathname = usePathname();
@@ -32,6 +33,7 @@ export default function RestfullClient() {
         <EndpointInput />
       </Box>
       <BodyMenuTab />
+      <ResponseSection responseBody={JSON.stringify(mockRequestData)} responseCode={200} responseStatus={'ok'} />
     </Box>
   );
 }

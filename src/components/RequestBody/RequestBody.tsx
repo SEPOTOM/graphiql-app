@@ -2,19 +2,20 @@
 
 import { ChangeEvent, useState, MouseEvent, useEffect } from 'react';
 import { Box } from '@mui/material';
-import RequestBodyEditor from './BodyEditor/RequestBodyEditor';
+import { RequestBodyEditor } from '@/components';
 import RequestBodyToggle from './BodyModeToggle/RequestBodyToggle';
 import { BodyMode, BodyType, SegmentIndex } from '@/types';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
 import RequestBodyTypeSelector from './BodyTypeSelector/RequestBodyTypeSelector';
+import { fallbackLng } from '@/utils';
 
 export default function RequestBody() {
   const [bodyMode, setBodyMode] = useState<string>(BodyMode.None);
   const [bodyType, setBodyType] = useState<string>(BodyType.json);
   const pathname = usePathname();
   const pathSegments = pathname.split('/');
-  const lng = pathSegments.at(SegmentIndex.Languague) || 'en';
+  const lng = pathSegments.at(SegmentIndex.Language) ?? fallbackLng;
   const { t } = useTranslation(lng);
 
   const handleBodyTypeChange = (e: MouseEvent<HTMLElement>, newBodyType: Nullable<string>) => {
@@ -43,7 +44,7 @@ export default function RequestBody() {
       </Box>
       {bodyMode === BodyMode.None ?
         <p>{t('body_mode_none_text')}</p>
-      : <RequestBodyEditor mode={bodyType} />}
+      : <RequestBodyEditor mode={bodyType} options={{ readOnly: false }} />}
     </Box>
   );
 }
