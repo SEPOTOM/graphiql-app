@@ -44,7 +44,7 @@ const Header = ({ lng }: HeaderProps) => {
     display: 'flex',
     justifyContent: 'center',
     height: isSticky ? 64 : staticHeight,
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
     transition: 'all 0.3s ease 0s',
   };
   const logoSx: SxProps = {
