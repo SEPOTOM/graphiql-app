@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
+import { Box, Button, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
 import EditorRow from './EditorRow/EditorRow';
 import styles from './EditorTable.module.scss';
 import { usePathname } from 'next/navigation';
@@ -20,13 +20,23 @@ export default function EditorTable({ heading, currentEditorData, setCurrentEdit
   const { t } = useTranslation(lng);
   const [rows, addRows] = useState([0]);
 
+  console.log(currentEditorData);
+
+  const handleClick = () => {
+    addRows((oldArr) => [...oldArr, +1]);
+  };
+
   return (
-    <Box display="flex" flexDirection="column" width="100%">
+    <Box display="flex" gap={1} flexDirection="column" width="100%">
       <Typography>{heading}</Typography>
       <Table sx={{ minWidth: '100%', border: '1px solid rgba(224, 224, 224, 1)' }}>
         <TableHead>
           <TableRow>
-            <TableCell className={styles.edit_row__cell}></TableCell>
+            <TableCell className={styles.edit_row__cell}>
+              <Button variant="outlined" onClick={handleClick} fullWidth>
+                +
+              </Button>
+            </TableCell>
             <TableCell className={styles.edit_row__cell}>{t('data_editor_key_heading')}</TableCell>
             <TableCell className={styles.edit_row__cell}>{t('data_editor_value_heading')}</TableCell>
           </TableRow>
@@ -37,7 +47,6 @@ export default function EditorTable({ heading, currentEditorData, setCurrentEdit
               <EditorRow
                 key={index}
                 rowId={index}
-                addRows={addRows}
                 currentEditorData={currentEditorData}
                 setCurrentEditorData={setCurrentEditorData}
               />

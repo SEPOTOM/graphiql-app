@@ -1,20 +1,19 @@
 'use client';
 
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
-import styles from './EditorTable.module.scss';
+import styles from '../EditorTable.module.scss';
 import { Checkbox, TableCell, TableRow, TextField } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
 import { HeadersAndVariablesEditorRowDataItem } from '@/types/types';
 
 interface EditorRowProps {
-  addRows: Dispatch<SetStateAction<number[]>>;
   rowId: number;
   currentEditorData: HeadersAndVariablesEditorRowDataItem[];
   setCurrentEditorData: Dispatch<SetStateAction<HeadersAndVariablesEditorRowDataItem[]>>;
 }
 
-export default function EditorRow({ addRows, rowId, currentEditorData, setCurrentEditorData }: EditorRowProps) {
+export default function EditorRow({ rowId, currentEditorData, setCurrentEditorData }: EditorRowProps) {
   const [checkCheckbox, setCheckCheckbox] = useState(false);
   const pathname = usePathname();
   const [lng] = pathname.split('/').splice(1, 1);
@@ -29,7 +28,6 @@ export default function EditorRow({ addRows, rowId, currentEditorData, setCurren
       result = { ...result, id: rowId, check: false };
     } else {
       setCheckCheckbox(true);
-      addRows((oldArr) => [...oldArr, rowId]);
       result = { ...result, id: rowId, check: true };
     }
     let index = currentEditorData.findIndex((value) => value.id === Number(currentId));
