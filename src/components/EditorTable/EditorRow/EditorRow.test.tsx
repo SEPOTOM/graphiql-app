@@ -4,13 +4,12 @@ import { usePathname } from 'next/navigation';
 import { Mock } from 'vitest';
 import EditorRow from './EditorRow';
 
-const mockAddRows = vi.fn();
 const mockSetData = vi.fn();
 
 describe('Editors row', () => {
   it('should  render editors row', async () => {
     (usePathname as Mock).mockReturnValue('en/GRAPHQL/https://rickandmortyapi.com/graphql');
-    render(<EditorRow addRows={mockAddRows} rowId={0} data={[]} setData={mockSetData} />);
+    render(<EditorRow rowId={0} currentEditorData={[]} setCurrentEditorData={mockSetData} />);
 
     await waitFor(() => {
       const keyInput = screen.getByPlaceholderText('KEY');
@@ -26,7 +25,7 @@ describe('Editors row', () => {
 
   it('Inputs should be worked good', async () => {
     (usePathname as Mock).mockReturnValue('en/GRAPHQL/https://rickandmortyapi.com/graphql');
-    render(<EditorRow addRows={mockAddRows} rowId={0} data={[]} setData={mockSetData} />);
+    render(<EditorRow rowId={0} currentEditorData={[]} setCurrentEditorData={mockSetData} />);
     await waitFor(async () => {
       const user = userEvent.setup();
       const keyInput = screen.getByPlaceholderText('KEY');
@@ -44,13 +43,12 @@ describe('Editors row', () => {
 
   it('Checkbox should be worked good', async () => {
     (usePathname as Mock).mockReturnValue('en/GRAPHQL/https://rickandmortyapi.com/graphql');
-    render(<EditorRow addRows={mockAddRows} rowId={0} data={[]} setData={mockSetData} />);
+    render(<EditorRow rowId={0} currentEditorData={[]} setCurrentEditorData={mockSetData} />);
     await waitFor(async () => {
       const user = userEvent.setup();
       const checkBox = screen.getByRole('checkbox');
       await user.click(checkBox);
       await waitFor(async () => {
-        expect(mockAddRows).toHaveBeenCalled();
         expect(mockSetData).toHaveBeenCalled();
       });
     });
