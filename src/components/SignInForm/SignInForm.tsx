@@ -12,12 +12,13 @@ const SignInForm = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const { handleSubmit, register } = useForm<SignInFormData>();
-  const { signIn } = useAuth();
+  const { signIn, status } = useAuth();
 
   const onSubmit: SubmitHandler<SignInFormData> = async ({ email, password }) => {
     await signIn(email, password);
   };
 
+  const isSending = status === 'loading';
   const inputSize = isSmallScreen ? 'small' : 'medium';
 
   return (
@@ -30,10 +31,18 @@ const SignInForm = () => {
         Sign In
       </Typography>
 
-      <TextField label="Email" {...register('email')} required size={inputSize} />
-      <PasswordField label="Password" {...register('password')} required lng="en" size={inputSize} />
+      <TextField label="Email" {...register('email')} required size={inputSize} disabled={isSending} />
 
-      <Button variant="contained" color="primary" type="submit">
+      <PasswordField
+        label="Password"
+        {...register('password')}
+        required
+        lng="en"
+        size={inputSize}
+        disabled={isSending}
+      />
+
+      <Button variant="contained" color="primary" type="submit" disabled={isSending}>
         Sign In
       </Button>
     </Box>
