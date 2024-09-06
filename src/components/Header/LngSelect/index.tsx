@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import { Language as LanguageIcon } from '@mui/icons-material';
 
+import { useTranslation } from '@/hooks';
 import { languages } from '@/utils';
 
 import { LanguagesMap, LngSelectProps } from './types';
@@ -26,6 +27,7 @@ const LngSelect = ({ lng }: LngSelectProps) => {
   const router = useRouter();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const { t } = useTranslation(lng);
 
   const handleLngChange = (e: SelectChangeEvent) => {
     const newLng = e.target.value;
@@ -44,7 +46,7 @@ const LngSelect = ({ lng }: LngSelectProps) => {
         id="switch-lng"
         value={lng}
         onChange={handleLngChange}
-        aria-label="Select language"
+        aria-label={t('header.lng_switcher_label')}
         input={<OutlinedInput sx={{ width }} startAdornment={<LanguageIcon sx={{ mr: 1 }} />} />}
       >
         {languages.map((language) => (

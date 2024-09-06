@@ -37,5 +37,11 @@
     "success_msg": "Успешная регистрация",
     "title": "Регистрация",
     "username": "Имя пользователя"
+  },
+  "header": {
+    "sign_up_btn": "Регистрация",
+    "sign_in_btn": "Вход",
+    "sign_out_btn": "Выход",
+    "lng_switcher_label": "Выберите язык"
   }
 }

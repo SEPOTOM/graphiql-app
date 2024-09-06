@@ -67,7 +67,7 @@ const Header = ({ lng }: HeaderProps) => {
             </IconButton>
           : <>
               <LngSelect lng={lng} />
-              <AuthButtons />
+              <AuthButtons lng={lng} />
             </>
           }
 
@@ -76,7 +76,7 @@ const Header = ({ lng }: HeaderProps) => {
               <LngSelect lng={lng} />
             </MenuItem>
             <MenuItem onClick={handleMenuClose}>
-              <AuthButtons />
+              <AuthButtons lng={lng} />
             </MenuItem>
           </Menu>
         </Toolbar>
