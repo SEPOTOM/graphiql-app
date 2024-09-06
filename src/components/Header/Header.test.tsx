@@ -7,7 +7,7 @@ import Header from './Header';
 
 beforeAll(() => {
   vi.mock('@/contexts', () => ({
-    useAuth: vi.fn(),
+    useAuth: vi.fn(() => ({})),
   }));
 });
 
@@ -16,10 +16,10 @@ afterAll(() => {
 });
 
 describe('Header', () => {
-  it('renders the language switcher', () => {
-    const { getByLabelText } = render(<Header lng="en" />);
+  it('renders the language switcher', async () => {
+    const { findByLabelText } = render(<Header lng="en" />);
 
-    expect(getByLabelText(/language/i)).toBeInTheDocument();
+    expect(await findByLabelText(/language/i)).toBeInTheDocument();
   });
 
   it('displays the "Sign Out" button for authenticated users', async () => {
