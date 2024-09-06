@@ -7,6 +7,7 @@ import { fallbackLng } from '@/utils';
 import { Box, Typography } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { tabSize } from './consts';
 
 export interface ResponseSectionProps {
   responseBody: string;
@@ -23,7 +24,7 @@ export default function ResponseSection({ responseBody, responseCode, responseSt
   useEffect(() => {
     try {
       const parsedJson = JSON.parse(responseBody);
-      setFormattedJson(JSON.stringify(parsedJson, null, 2));
+      setFormattedJson(JSON.stringify(parsedJson, null, tabSize));
     } catch {
       setFormattedJson(responseBody);
     }

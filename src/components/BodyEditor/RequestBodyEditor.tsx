@@ -23,7 +23,7 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
   const pathSegments = pathname.split('/');
   const lng = pathSegments.at(SegmentIndex.Language) ?? fallbackLng;
   const { t } = useTranslation(lng);
-  const [value, setValue] = useState<string>(initialValue || '');
+  const [value, setValue] = useState<string>(initialValue ?? '');
   const [showErrorsPopover, setShowErrorsPopover] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 

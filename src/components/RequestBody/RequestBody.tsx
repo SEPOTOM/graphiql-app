@@ -40,9 +40,9 @@ export default function RequestBody() {
     <Box display={'flex'} flexDirection={'column'} gap={3}>
       <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
         <RequestBodyToggle bodyType={bodyMode} handleChange={handleBodyTypeChange} />
-        {bodyMode === 'raw' && <RequestBodyTypeSelector bodytype={bodyType} handleChange={handleModeChange} />}
+        {bodyMode === BodyMode.Raw && <RequestBodyTypeSelector bodytype={bodyType} handleChange={handleModeChange} />}
       </Box>
-      {bodyMode === 'none' ?
+      {bodyMode === BodyMode.None ?
         <p>{t('body_mode_none_text')}</p>
       : <RequestBodyEditor mode={bodyType} options={{ readOnly: false }} />}
     </Box>
