@@ -7,6 +7,9 @@ import GraphQlClient from '@/components/GraphQlApiClient/GraphQlClient';
 import Footer from '@/components/Footer/Footer';
 import RequestBodyEditor from './BodyEditor/RequestBodyEditor';
 import ResponseSection from './ResponseSection/ResponseSection';
+import SignUpForm from '@/components/SignUpForm/SignUpForm';
+import Notification from '@/components/Notification/Notification';
+import PasswordField from '@/components/PasswordField/PasswordField';
 
 export {
   MUIThemeProvider,
@@ -18,4 +21,7 @@ export {
   ErrorsMessage,
   RequestBodyEditor,
   ResponseSection,
+  SignUpForm,
+  Notification,
+  PasswordField,
 };

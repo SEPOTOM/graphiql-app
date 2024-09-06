@@ -24,5 +24,18 @@
   "footer": {
     "github": "GitHub profile of",
     "rss": "RSSchool logo"
+  },
+  "pwd_field": {
+    "hide": "Hide password",
+    "show": "Show password"
+  },
+  "sign_up": {
+    "confirm_password": "Confirm Password",
+    "email": "Email",
+    "password": "Password",
+    "submit_button": "Sign Up",
+    "success_msg": "Successfully signed up",
+    "title": "Sign Up",
+    "username": "Username"
   }
 }
