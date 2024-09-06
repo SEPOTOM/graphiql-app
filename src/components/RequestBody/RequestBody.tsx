@@ -9,14 +9,17 @@ import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
 import RequestBodyTypeSelector from './BodyTypeSelector/RequestBodyTypeSelector';
 import { fallbackLng } from '@/utils';
+import { decodeFromBase64 } from '@/services';
 
 export default function RequestBody() {
   const [bodyMode, setBodyMode] = useState<string>(BodyMode.None);
   const [bodyType, setBodyType] = useState<string>(BodyType.json);
   const pathname = usePathname();
   const pathSegments = pathname.split('/');
+  const bodySegment = pathSegments.at(SegmentIndex.Body);
   const lng = pathSegments.at(SegmentIndex.Language) ?? fallbackLng;
   const { t } = useTranslation(lng);
+  const [decodedBody, setDecodedBody] = useState('');
 
   const handleBodyTypeChange = (e: MouseEvent<HTMLElement>, newBodyType: Nullable<string>) => {
     if (newBodyType !== null) {
@@ -29,12 +32,25 @@ export default function RequestBody() {
   };
 
   useEffect(() => {
+    if (bodySegment) {
+      const decodedValue = decodeFromBase64(bodySegment);
+      setBodyMode(BodyMode.Raw);
+      setDecodedBody(decodedValue);
+      try {
+        JSON.parse(decodedValue);
+      } catch (e) {
+        setBodyType(BodyType.text);
+      }
+    }
+  }, [bodySegment]);
+
+  useEffect(() => {
     const segmentsCount = pathSegments.length;
     if (bodyMode === BodyMode.None && segmentsCount >= SegmentIndex.LastElement) {
       const newSegments = pathSegments.slice(0, SegmentIndex.Body);
       window.history.replaceState(null, '', newSegments.join('/'));
     }
-  }, [bodyMode, pathSegments]);
+  }, [bodyMode, pathSegments, bodySegment]);
 
   return (
     <Box display={'flex'} flexDirection={'column'} gap={3}>
@@ -44,7 +60,7 @@ export default function RequestBody() {
       </Box>
       {bodyMode === BodyMode.None ?
         <p>{t('body_mode_none_text')}</p>
-      : <RequestBodyEditor mode={bodyType} options={{ readOnly: false }} />}
+      : <RequestBodyEditor mode={bodyType} options={{ readOnly: false }} initialValue={decodedBody} />}
     </Box>
   );
 }
