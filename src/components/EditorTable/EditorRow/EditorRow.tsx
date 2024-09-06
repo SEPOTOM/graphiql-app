@@ -20,20 +20,16 @@ export default function EditorRow({ rowId, currentEditorData, setCurrentEditorDa
   const { t } = useTranslation(lng);
 
   const handleEditRowCheckboxChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const currentId = event.target.name;
-    let result = currentEditorData.filter((entry) => entry.id === Number(currentId))[0];
+    const currentRowId = Number(event.target.name);
+    const index = currentEditorData.findIndex((value) => value.id === currentRowId);
+    let result: HeadersAndVariablesEditorRowDataItem = { id: rowId, check: !checkCheckbox };
 
-    if (checkCheckbox) {
-      setCheckCheckbox(false);
-      result = { ...result, id: rowId, check: false };
-    } else {
-      setCheckCheckbox(true);
-      result = { ...result, id: rowId, check: true };
-    }
-    let index = currentEditorData.findIndex((value) => value.id === Number(currentId));
+    setCheckCheckbox((prev) => !prev);
+
     if (index === -1) {
       setCurrentEditorData((oldArr) => [...oldArr, result]);
     } else {
+      result = { ...currentEditorData[index], check: !checkCheckbox };
       const newArray = Object.assign([...currentEditorData], {
         [index]: result,
       });
@@ -42,14 +38,18 @@ export default function EditorRow({ rowId, currentEditorData, setCurrentEditorDa
   };
 
   const handleEditRowTextFieldChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    let result = currentEditorData.filter((entry) => entry.id === rowId)[0];
-    result = { ...result, id: rowId, [event.target.name]: event.target.value };
+    let result: HeadersAndVariablesEditorRowDataItem = {
+      check: checkCheckbox,
+      id: rowId,
+      [event.target.name]: event.target.value,
+    };
 
-    let index = currentEditorData.findIndex((value) => value.id === rowId);
+    const index = currentEditorData.findIndex((value) => value.id === rowId);
 
     if (index === -1) {
       setCurrentEditorData((oldArr) => [...oldArr, result]);
     } else {
+      result = { ...currentEditorData[index], [event.target.name]: event.target.value };
       const newArray = Object.assign([...currentEditorData], {
         [index]: result,
       });

@@ -20,8 +20,6 @@ export default function EditorTable({ heading, currentEditorData, setCurrentEdit
   const { t } = useTranslation(lng);
   const [rows, addRows] = useState([0]);
 
-  console.log(currentEditorData);
-
   const handleClick = () => {
     addRows((oldArr) => [...oldArr, +1]);
   };
