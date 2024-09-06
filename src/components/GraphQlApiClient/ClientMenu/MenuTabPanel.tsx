@@ -1,9 +1,9 @@
 'use client';
 
-import EditorTable from '@/components/EditorTable/EditorTable';
+import { EditorTable } from '@/components';
 import { useGraphQl } from '@/contexts';
 import { useTranslation } from '@/hooks';
-import { GraphQlHeadersEditor, GraphQlVariablesEditor } from '@/types/enum';
+import { GraphQlHeadersEditor, GraphQlVariablesEditor } from '@/types';
 import { Box, Typography } from '@mui/material';
 import { usePathname } from 'next/navigation';
 

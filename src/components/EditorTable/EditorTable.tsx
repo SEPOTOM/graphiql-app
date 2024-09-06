@@ -14,7 +14,7 @@ interface EditorTableProps {
   setCurrentEditorData: Dispatch<SetStateAction<HeadersAndVariablesEditorRowDataItem[]>>;
 }
 
-export default function EditorTable({ heading, currentEditorData, setCurrentEditorData }: EditorTableProps) {
+export default function EditorTableItem({ heading, currentEditorData, setCurrentEditorData }: EditorTableProps) {
   const pathname = usePathname();
   const [lng] = pathname.split('/').splice(1, 1);
   const { t } = useTranslation(lng);

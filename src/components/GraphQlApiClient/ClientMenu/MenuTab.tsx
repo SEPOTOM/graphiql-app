@@ -2,7 +2,7 @@
 
 import { Box, Tab, Tabs } from '@mui/material';
 import { SyntheticEvent, useState } from 'react';
-import { GraphQlMenuTabs } from '@/types/enum';
+import { GraphQlMenuTabs } from '@/types';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
 import CustomTabPanel from './MenuTabPanel';

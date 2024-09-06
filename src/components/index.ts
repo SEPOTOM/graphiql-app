@@ -7,6 +7,7 @@ import GraphQlClient from '@/components/GraphQlApiClient/GraphQlClient';
 import Footer from '@/components/Footer/Footer';
 import RequestBodyEditor from './BodyEditor/RequestBodyEditor';
 import ResponseSection from './ResponseSection/ResponseSection';
+import EditorTable from './EditorTable/EditorTable';
 
 export {
   MUIThemeProvider,
@@ -18,4 +19,5 @@ export {
   ErrorsMessage,
   RequestBodyEditor,
   ResponseSection,
+  EditorTable,
 };
