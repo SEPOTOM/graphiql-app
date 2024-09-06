@@ -3,6 +3,7 @@
 import { Box, Button, TextField, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
+import { useAuth } from '@/contexts';
 import { PasswordField } from '@/components';
 
 import { SignInFormData } from './types';
@@ -11,9 +12,10 @@ const SignInForm = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const { handleSubmit, register } = useForm<SignInFormData>();
+  const { signIn } = useAuth();
 
-  const onSubmit: SubmitHandler<SignInFormData> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<SignInFormData> = async ({ email, password }) => {
+    await signIn(email, password);
   };
 
   const inputSize = isSmallScreen ? 'small' : 'medium';
