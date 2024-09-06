@@ -42,7 +42,6 @@ const LngSelect = ({ lng }: LngSelectProps) => {
   return (
     <FormControl sx={{ flexDirection: 'row', width, mr: isSmallScreen ? 0 : 2 }} size="small">
       <Select
-        labelId="switch-lng-label"
         id="switch-lng"
         value={lng}
         onChange={handleLngChange}

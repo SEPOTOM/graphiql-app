@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Box, Button, SxProps } from '@mui/material';
+import { Box, Button } from '@mui/material';
 
 import { useAuth } from '@/contexts';
 import { useTranslation } from '@/hooks';
