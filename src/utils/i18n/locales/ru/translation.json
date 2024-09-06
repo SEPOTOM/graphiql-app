@@ -16,6 +16,7 @@
   "editor_loading": "Загрузка...",
   "empty_response": "Пустой ответ",
   "endpoint_placeholder": "Введите конечный URL-адрес",
+  "error_empty_endpoint": "Конечный URL адрес должен быть заполнен",
   "http_response": "Статус",
   "method_label": "Метод",
   "response_header": "Ответ",

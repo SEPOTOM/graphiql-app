@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Button } from '@mui/material';
+import { Alert, Box, Button, Snackbar } from '@mui/material';
 import { usePathname, useRouter } from 'next/navigation';
 import { Method, SegmentIndex } from '@/types';
 import { useEffect, useState, useTransition } from 'react';
@@ -20,6 +20,8 @@ export default function RestfullClient() {
   const [status, setStatus] = useState(0);
   const [statusText, setStatusText] = useState('');
   const [resData, setResData] = useState('');
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const method = segments[SegmentIndex.Method];
@@ -34,11 +36,15 @@ export default function RestfullClient() {
   }, [pathname, router, segments]);
 
   const handleSubmit = async () => {
-    const method = segments[SegmentIndex.Method];
-    const endpoint = decodeFromBase64(segments[SegmentIndex.Endpoint]);
-    const body = segments[SegmentIndex.Body] ? decodeFromBase64(segments[SegmentIndex.Body]) : null;
-
     try {
+      const method = segments[SegmentIndex.Method];
+      const endpoint = decodeFromBase64(segments.at(SegmentIndex.Endpoint) ?? '');
+      const body = segments[SegmentIndex.Body] ? decodeFromBase64(segments[SegmentIndex.Body]) : null;
+
+      if (!endpoint || endpoint.trim() === '') {
+        throw new Error(t('error_empty_endpoint'));
+      }
+
       const response = await fetch(`/restfullClient/api`, {
         method: 'POST',
         body: JSON.stringify({ method, endpoint, body }),
@@ -51,17 +57,22 @@ export default function RestfullClient() {
         setResData(`${t('empty_response')}`);
         return;
       }
+
       let data;
+      const text = await response.text();
+
       try {
-        data = await response.json();
-      } catch (e) {
-        data = await response.text();
+        data = JSON.parse(text);
+      } catch {
+        data = text;
       }
 
       setResData(typeof data === 'string' ? data : JSON.stringify(data, null, 2));
     } catch (error) {
-      //TO DO add notification
-      console.error(error);
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+      }
+      setShowError(true);
       setStatus(0);
       setStatusText('');
       setResData('');
@@ -79,6 +90,16 @@ export default function RestfullClient() {
       </Box>
       <BodyMenuTab />
       <ResponseSection responseBody={resData} responseCode={status} responseStatus={statusText} />
+      <Snackbar
+        open={showError}
+        autoHideDuration={4000}
+        onClose={() => setShowError(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      >
+        <Alert onClose={() => setShowError(false)} severity="error">
+          {errorMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

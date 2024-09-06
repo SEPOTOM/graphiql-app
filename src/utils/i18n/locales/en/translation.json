@@ -16,6 +16,7 @@
   "editor_loading": "Loading...",
   "empty_response": "Empty response",
   "endpoint_placeholder": "Enter endpoint-URL",
+  "error_empty_endpoint": "Endpoint URL must be filled in",
   "http_response": "Status",
   "method_label": "Method",
   "response_header": "Response",
