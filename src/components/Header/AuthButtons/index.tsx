@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Box, Button } from '@mui/material';
+import { Box, Button, useMediaQuery, useTheme } from '@mui/material';
 
 import { useAuth } from '@/contexts';
 import { useTranslation } from '@/hooks';
@@ -11,13 +11,16 @@ import { AuthButtonsProps } from './types';
 const AuthButtons = ({ lng }: AuthButtonsProps) => {
   const { status, signOut } = useAuth();
   const { t } = useTranslation(lng);
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const isLoading = status === 'loading' || status === 'init';
+  const isAuthenticated = status === 'authenticated';
 
   return (
-    <Box>
-      {status === 'authenticated' ?
-        <Button onClick={signOut} disabled={isLoading} variant="contained">
+    <Box sx={{ width: isAuthenticated && isSmallScreen ? '100%' : 'auto' }}>
+      {isAuthenticated ?
+        <Button onClick={signOut} disabled={isLoading} variant="contained" fullWidth>
           {t('header.sign_out_btn')}
         </Button>
       : <>
