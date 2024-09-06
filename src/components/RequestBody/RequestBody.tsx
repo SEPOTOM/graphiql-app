@@ -9,7 +9,7 @@ import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
 import RequestBodyTypeSelector from './BodyTypeSelector/RequestBodyTypeSelector';
 import { fallbackLng } from '@/utils';
-import { decodeFromBase64 } from '@/services';
+import { decodeFromBase64, encodeToBase64, getNewBodyPath } from '@/services';
 
 export default function RequestBody() {
   const [bodyMode, setBodyMode] = useState<string>(BodyMode.None);
@@ -46,11 +46,16 @@ export default function RequestBody() {
 
   useEffect(() => {
     const segmentsCount = pathSegments.length;
+
     if (bodyMode === BodyMode.None && segmentsCount >= SegmentIndex.LastElement) {
       const newSegments = pathSegments.slice(0, SegmentIndex.Body);
       window.history.replaceState(null, '', newSegments.join('/'));
+    } else if (bodyMode === BodyMode.Raw && decodedBody) {
+      const encodedBody = encodeToBase64(decodedBody);
+      const newPath = getNewBodyPath(pathname, encodedBody);
+      window.history.replaceState(null, '', newPath);
     }
-  }, [bodyMode, pathSegments, bodySegment]);
+  }, [bodyMode, pathSegments]);
 
   return (
     <Box display={'flex'} flexDirection={'column'} gap={3}>
