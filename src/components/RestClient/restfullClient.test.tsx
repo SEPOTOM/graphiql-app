@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { usePathname, useRouter } from 'next/navigation';
 import { Mock } from 'vitest';
 import { RestfullClient } from '@/components';
@@ -14,7 +14,7 @@ afterEach(() => {
 });
 
 describe('RestfullClient component', () => {
-  it('should set the method to GET if the URL has no method', () => {
+  it('should set the method to GET if the URL has no method', async () => {
     (usePathname as Mock).mockReturnValue('/restfullClient');
 
     render(
@@ -23,9 +23,9 @@ describe('RestfullClient component', () => {
       </LanguageProvider>
     );
 
-    expect(replace).toHaveBeenCalledWith('/restfullClient/GET');
+    await waitFor(() => expect(replace).toHaveBeenCalledWith('/restfullClient/GET'));
   });
-  it('should replace an invalid segment with GET', () => {
+  it('should replace an invalid segment with GET', async () => {
     const encodedSegment = btoa('qwerty');
     (usePathname as Mock).mockReturnValue(`/restfullClient/ru/${encodedSegment}`);
 
@@ -34,8 +34,7 @@ describe('RestfullClient component', () => {
         <RestfullClient />
       </LanguageProvider>
     );
-
-    expect(replace).toHaveBeenCalledWith(`/restfullClient/ru/GET/${encodedSegment}`);
+    await waitFor(() => expect(replace).toHaveBeenCalledWith(`/restfullClient/ru/GET/${encodedSegment}`));
   });
   it('should not change the URL if a valid method is present', () => {
     (usePathname as Mock).mockReturnValue('/restfullClient/ru/GET');

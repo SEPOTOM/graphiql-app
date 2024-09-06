@@ -3,7 +3,7 @@
 import { Alert, Box, Button, Snackbar } from '@mui/material';
 import { usePathname, useRouter } from 'next/navigation';
 import { Method, SegmentIndex } from '@/types';
-import { useEffect, useState, useTransition } from 'react';
+import { useEffect, useState } from 'react';
 import { BodyMenuTab, ResponseSection } from '@/components';
 import EndpointInput from './EndpointInput/EndpointInput';
 import RequestMethodSelector from './RequestMethodSelector/RequestMethodSelector';

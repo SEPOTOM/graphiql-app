@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import { Mock } from 'vitest';
 import EndpointInput from './EndpointInput';
 import { LanguageProvider } from '@/contexts';
+import { encodeToBase64 } from '@/services';
 
 const mockReplaceState = vi.fn();
 window.history.replaceState = mockReplaceState;
@@ -35,7 +36,7 @@ describe('EndpointInput component', () => {
     await user.type(input, endpoint);
 
     endpoint.split('').forEach((letter) => {
-      const encodedEndpoint = btoa(letter);
+      const encodedEndpoint = encodeToBase64(letter);
       const newPath = `/restfullClient/en/GET/${encodedEndpoint}`;
       expect(mockReplaceState).toHaveBeenCalledWith(null, '', newPath);
     });
