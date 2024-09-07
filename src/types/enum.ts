@@ -4,6 +4,16 @@ export enum GraphQlMenuTabs {
   Schema = 'graphQl_menu_tab_schema',
 }
 
+export enum GraphQlHeadersEditor {
+  HeadersEditorEN = 'Headers',
+  HeadersEditorRU = 'Заголовки',
+}
+
+export enum GraphQlVariablesEditor {
+  HeadersEditorEN = 'Variables',
+  HeadersEditorRU = 'Переменные',
+}
+
 export enum Method {
   Get = 'GET',
   Post = 'POST',
