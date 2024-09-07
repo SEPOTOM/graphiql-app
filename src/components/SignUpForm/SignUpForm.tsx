@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Box, Button, TextField, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Button, TextField, useMediaQuery, useTheme } from '@mui/material';
 
 import { useAuth } from '@/contexts';
 import { useTranslation } from '@/hooks';
-import { Notification, PasswordField } from '@/components';
+import { FormLayout, Notification, PasswordField } from '@/components';
 
 import { SignUpFormData, SignUpFormProps } from './types';
 
@@ -33,15 +33,7 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
 
   return (
     <>
-      <Box
-        component="form"
-        onSubmit={handleSubmit(onSubmit)}
-        sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}
-      >
-        <Typography variant={isSmallScreen ? 'h3' : 'h2'} component="h1" gutterBottom>
-          {t('sign_up.title')}
-        </Typography>
-
+      <FormLayout onSubmit={handleSubmit(onSubmit)} title={t('sign_up.title')}>
         <TextField
           label={t('sign_up.username')}
           {...register('username')}
@@ -80,7 +72,7 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
         <Button variant="contained" color="primary" type="submit" disabled={isSending}>
           {t('sign_up.submit_button')}
         </Button>
-      </Box>
+      </FormLayout>
 
       <Notification open={isSuccess} onClose={() => setIsSuccess(false)}>
         {t('sign_up.success_msg')}

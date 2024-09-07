@@ -1,12 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { Box, Button, TextField, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Button, TextField, useMediaQuery, useTheme } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { useAuth } from '@/contexts';
 import { useTranslation } from '@/hooks';
-import { Notification, PasswordField } from '@/components';
+import { FormLayout, Notification, PasswordField } from '@/components';
 
 import { SignInFormData, SignInFormProps } from './types';
 
@@ -29,15 +29,7 @@ const SignInForm = ({ lng }: SignInFormProps) => {
 
   return (
     <>
-      <Box
-        component="form"
-        onSubmit={handleSubmit(onSubmit)}
-        sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}
-      >
-        <Typography variant={isSmallScreen ? 'h3' : 'h2'} component="h1" gutterBottom>
-          {t('sign_in.title')}
-        </Typography>
-
+      <FormLayout onSubmit={handleSubmit(onSubmit)} title={t('sign_in.title')}>
         <TextField label={t('sign_in.email')} {...register('email')} required size={inputSize} disabled={isSending} />
 
         <PasswordField
@@ -52,7 +44,7 @@ const SignInForm = ({ lng }: SignInFormProps) => {
         <Button variant="contained" color="primary" type="submit" disabled={isSending}>
           {t('sign_in.submit_button')}
         </Button>
-      </Box>
+      </FormLayout>
 
       <Notification open={isSuccess} onClose={() => setIsSuccess(false)}>
         {t('sign_in.success_msg')}
