@@ -3,6 +3,7 @@
 import { Box } from '@mui/material';
 import EndpointsForm from './EnpointsUrlForm/EndpointsForm';
 import MenuTab from './ClientMenu/MenuTab';
+import GraphQLAndResponseAndRequestSection from './GraphQLRequestAndResponseSection/GraphQLRequestAndResponseSection';
 
 export default function GraphQlClient() {
   return (
@@ -17,6 +18,7 @@ export default function GraphQlClient() {
       }}
     >
       <EndpointsForm />
+      <GraphQLAndResponseAndRequestSection />
       <MenuTab />
     </Box>
   );
