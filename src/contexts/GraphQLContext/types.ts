@@ -1,4 +1,4 @@
-import { HeadersAndVariablesEditorRowDataItem } from '@/types/types';
+import { HeadersAndVariablesEditorRowDataItem } from '@/types';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 
 export interface GraphQLData {
