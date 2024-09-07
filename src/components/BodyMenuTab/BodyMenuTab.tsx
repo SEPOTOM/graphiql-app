@@ -3,7 +3,7 @@
 import { Box, Tab, Tabs } from '@mui/material';
 import { MenuTabsRest, SegmentIndex } from '@/types/enum';
 import RequestBodyMenuTabs from './RequestBodyMenuTabs';
-import { useState, SyntheticEvent, useEffect } from 'react';
+import { useState, SyntheticEvent } from 'react';
 import { RequestBody } from '@/components';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
