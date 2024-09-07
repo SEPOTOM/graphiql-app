@@ -21,7 +21,7 @@ export default function EditorTable({ heading, currentEditorData, setCurrentEdit
   const [rows, addRows] = useState([0]);
 
   const handleClick = () => {
-    addRows((oldArr) => [...oldArr, rows.length++]);
+    addRows((oldArr) => [...oldArr, rows.length]);
   };
 
   return (
