@@ -31,7 +31,7 @@ export default function ResponseSection({ responseBody, responseCode, responseSt
   }, [responseBody]);
 
   return (
-    <Box display="flex" flexDirection="column" gap={2} paddingTop={4}>
+    <Box display="flex" flexDirection="column" width="100%" gap={2} paddingTop={4}>
       <Typography variant="h4">{t('response_header')}</Typography>
       <Typography variant="h6">
         {t('http_response')}: {responseCode} {responseStatus}

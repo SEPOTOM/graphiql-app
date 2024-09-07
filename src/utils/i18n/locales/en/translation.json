@@ -13,6 +13,7 @@
   "body_mode_none": "None",
   "body_mode_none_text": "This request does not have a body",
   "body_mode_raw": "Raw",
+  "body_type_graphql_placeholder": "Enter GraphQL here...",
   "body_type_json_placeholder": "Enter JSON here...",
   "body_type_text": "Text",
   "body_type_text_placeholder": "Enter the text here...",

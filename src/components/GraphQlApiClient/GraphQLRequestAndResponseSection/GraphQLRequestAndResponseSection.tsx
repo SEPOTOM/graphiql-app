@@ -22,7 +22,7 @@ export default function GraphQLAndResponseAndRequestSection() {
         <GraphQlRequestBody />
       </Box>
       <Box display="flex" width="100%" border="1px solid rgba(224, 224, 224, 1)">
-        <ResponseSection responseBody={JSON.stringify(mockRequestData)} responseCode={200} responseStatus={'ok'} />
+        <ResponseSection responseBody={JSON.stringify('')} responseCode={200} responseStatus={'ok'} />
       </Box>
     </Box>
   );

@@ -26,8 +26,6 @@ export default function GraphQlRequestBody() {
 
   return (
     <Box display={'flex'} flexDirection={'column'} gap={1} width="100%">
-      <Typography variant="h4">a</Typography>
-      <Typography variant="h6">a</Typography>
       <RequestBodyEditor mode={BodyType.graphql} options={{ readOnly: false }} />
     </Box>
   );

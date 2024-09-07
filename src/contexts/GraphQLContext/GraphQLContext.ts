@@ -5,6 +5,12 @@ import { createContext, useContext } from 'react';
 import { GraphQLData } from './types';
 
 const GraphQlDataContext = createContext<GraphQLData>({
+  endpointUrl: '',
+  setEndpointUrl: () => {},
+  endpointSdlUrl: '',
+  setEndpointSdlUrl: () => {},
+  queryText: '',
+  setQueryText: () => {},
   paramData: [],
   setParamData: () => {},
   headerData: [],
