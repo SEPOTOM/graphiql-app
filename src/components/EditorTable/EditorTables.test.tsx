@@ -2,14 +2,21 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { usePathname } from 'next/navigation';
 import { Mock } from 'vitest';
-import EditorRow from './EditorRow';
+import EditorTable from './EditorTable';
+import { GraphQlHeadersEditor } from '@/types';
 
 const mockSetData = vi.fn();
 
 describe('Editors row', () => {
   it('should render editors row', async () => {
     (usePathname as Mock).mockReturnValue('en/GRAPHQL/https://rickandmortyapi.com/graphql');
-    render(<EditorRow rowId={0} currentEditorData={[]} setCurrentEditorData={mockSetData} />);
+    render(
+      <EditorTable
+        heading={GraphQlHeadersEditor.HeadersEditorEN}
+        currentEditorData={[]}
+        setCurrentEditorData={mockSetData}
+      />
+    );
 
     await waitFor(() => {
       const keyInput = screen.getByPlaceholderText('KEY');
@@ -25,7 +32,13 @@ describe('Editors row', () => {
 
   it('Inputs should be worked good', async () => {
     (usePathname as Mock).mockReturnValue('en/GRAPHQL/https://rickandmortyapi.com/graphql');
-    render(<EditorRow rowId={0} currentEditorData={[]} setCurrentEditorData={mockSetData} />);
+    render(
+      <EditorTable
+        heading={GraphQlHeadersEditor.HeadersEditorEN}
+        currentEditorData={[]}
+        setCurrentEditorData={mockSetData}
+      />
+    );
     await waitFor(async () => {
       const user = userEvent.setup();
       const keyInput = screen.getByPlaceholderText('KEY');
@@ -43,7 +56,13 @@ describe('Editors row', () => {
 
   it('Checkbox should be worked good', async () => {
     (usePathname as Mock).mockReturnValue('en/GRAPHQL/https://rickandmortyapi.com/graphql');
-    render(<EditorRow rowId={0} currentEditorData={[]} setCurrentEditorData={mockSetData} />);
+    render(
+      <EditorTable
+        heading={GraphQlHeadersEditor.HeadersEditorEN}
+        currentEditorData={[]}
+        setCurrentEditorData={mockSetData}
+      />
+    );
     await waitFor(async () => {
       const user = userEvent.setup();
       const checkBox = screen.getByRole('checkbox');
