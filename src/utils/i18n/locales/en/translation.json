@@ -32,6 +32,13 @@
     "hide": "Hide password",
     "show": "Show password"
   },
+  "sign_in": {
+    "title": "Sign In",
+    "email": "Email",
+    "password": "Password",
+    "submit_button": "Sign In",
+    "success_msg": "Successfully signed in"
+  },
   "sign_up": {
     "confirm_password": "Confirm Password",
     "email": "Email",

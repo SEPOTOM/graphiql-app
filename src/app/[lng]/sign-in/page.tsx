@@ -1,12 +1,15 @@
 import { Box, Container } from '@mui/material';
 
 import { SignInForm } from '@/components';
+import { LngParam } from '@/types';
 
-const SignInPage = () => {
+const SignInPage = ({ params }: { params: LngParam }) => {
+  const { lng } = params;
+
   return (
     <Box display="flex" justifyContent="center" alignItems="center" flexGrow={1}>
       <Container>
-        <SignInForm />
+        <SignInForm lng={lng} />
       </Container>
     </Box>
   );

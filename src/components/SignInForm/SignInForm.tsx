@@ -5,16 +5,18 @@ import { Box, Button, TextField, Typography, useMediaQuery, useTheme } from '@mu
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { useAuth } from '@/contexts';
+import { useTranslation } from '@/hooks';
 import { Notification, PasswordField } from '@/components';
 
-import { SignInFormData } from './types';
+import { SignInFormData, SignInFormProps } from './types';
 
-const SignInForm = () => {
+const SignInForm = ({ lng }: SignInFormProps) => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const { handleSubmit, register } = useForm<SignInFormData>();
   const { signIn, status } = useAuth();
   const [isSuccess, setIsSuccess] = useState(false);
+  const { t } = useTranslation(lng);
 
   const onSubmit: SubmitHandler<SignInFormData> = async ({ email, password }) => {
     await signIn(email, password);
@@ -33,27 +35,27 @@ const SignInForm = () => {
         sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}
       >
         <Typography variant={isSmallScreen ? 'h3' : 'h2'} component="h1" gutterBottom>
-          Sign In
+          {t('sign_in.title')}
         </Typography>
 
-        <TextField label="Email" {...register('email')} required size={inputSize} disabled={isSending} />
+        <TextField label={t('sign_in.email')} {...register('email')} required size={inputSize} disabled={isSending} />
 
         <PasswordField
-          label="Password"
+          label={t('sign_in.password')}
           {...register('password')}
           required
-          lng="en"
+          lng={lng}
           size={inputSize}
           disabled={isSending}
         />
 
         <Button variant="contained" color="primary" type="submit" disabled={isSending}>
-          Sign In
+          {t('sign_in.submit_button')}
         </Button>
       </Box>
 
       <Notification open={isSuccess} onClose={() => setIsSuccess(false)}>
-        Successfully signed in
+        {t('sign_in.success_msg')}
       </Notification>
     </>
   );
