@@ -5,7 +5,6 @@ import { useLanguage, useTranslation } from '@/hooks';
 import { BodyType } from '@/types/enum';
 import { Box, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { tabSize } from './consts';
 
 export interface ResponseSectionProps {
   responseBody: string;
