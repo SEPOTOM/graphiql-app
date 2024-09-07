@@ -12,8 +12,18 @@ import {
   SegmentIndex,
   BodyMode,
 } from '@/types/enum';
+import { HeadersAndVariablesEditorRowDataItem } from '@/types/headerAndVariablesEditors';
 
-export type { LngParam, Languages, TokenRes, SignUpData, Annotations, JSONError, EditorOptions };
+export type {
+  LngParam,
+  Languages,
+  TokenRes,
+  SignUpData,
+  Annotations,
+  JSONError,
+  EditorOptions,
+  HeadersAndVariablesEditorRowDataItem,
+};
 
 export {
   Method,

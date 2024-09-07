@@ -6,7 +6,7 @@ import styles from './EditorTable.module.scss';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
 import { Dispatch, SetStateAction, useState } from 'react';
-import { HeadersAndVariablesEditorRowDataItem } from '@/types/types';
+import { HeadersAndVariablesEditorRowDataItem } from '@/types';
 
 interface EditorTableProps {
   heading: string;
@@ -14,14 +14,14 @@ interface EditorTableProps {
   setCurrentEditorData: Dispatch<SetStateAction<HeadersAndVariablesEditorRowDataItem[]>>;
 }
 
-export default function EditorTableItem({ heading, currentEditorData, setCurrentEditorData }: EditorTableProps) {
+export default function EditorTable({ heading, currentEditorData, setCurrentEditorData }: EditorTableProps) {
   const pathname = usePathname();
   const [lng] = pathname.split('/').splice(1, 1);
   const { t } = useTranslation(lng);
   const [rows, addRows] = useState([0]);
 
   const handleClick = () => {
-    addRows((oldArr) => [...oldArr, +1]);
+    addRows((oldArr) => [...oldArr, rows.length++]);
   };
 
   return (

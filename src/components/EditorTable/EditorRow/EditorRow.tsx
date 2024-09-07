@@ -5,7 +5,7 @@ import styles from '../EditorTable.module.scss';
 import { Checkbox, TableCell, TableRow, TextField } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
-import { HeadersAndVariablesEditorRowDataItem } from '@/types/types';
+import { HeadersAndVariablesEditorRowDataItem } from '@/types';
 
 interface EditorRowProps {
   rowId: number;
@@ -14,7 +14,7 @@ interface EditorRowProps {
 }
 
 export default function EditorRow({ rowId, currentEditorData, setCurrentEditorData }: EditorRowProps) {
-  const [checkCheckbox, setCheckCheckbox] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
   const pathname = usePathname();
   const [lng] = pathname.split('/').splice(1, 1);
   const { t } = useTranslation(lng);
@@ -22,14 +22,14 @@ export default function EditorRow({ rowId, currentEditorData, setCurrentEditorDa
   const handleEditRowCheckboxChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const currentRowId = Number(event.target.name);
     const index = currentEditorData.findIndex((value) => value.id === currentRowId);
-    let result: HeadersAndVariablesEditorRowDataItem = { id: rowId, check: !checkCheckbox };
+    let result: HeadersAndVariablesEditorRowDataItem = { id: rowId, check: !isChecked };
 
-    setCheckCheckbox((prev) => !prev);
+    setIsChecked((prev) => !prev);
 
     if (index === -1) {
       setCurrentEditorData((oldArr) => [...oldArr, result]);
     } else {
-      result = { ...currentEditorData[index], check: !checkCheckbox };
+      result = { ...currentEditorData[index], check: !isChecked };
       const newArray = Object.assign([...currentEditorData], {
         [index]: result,
       });
@@ -39,7 +39,7 @@ export default function EditorRow({ rowId, currentEditorData, setCurrentEditorDa
 
   const handleEditRowTextFieldChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     let result: HeadersAndVariablesEditorRowDataItem = {
-      check: checkCheckbox,
+      check: isChecked,
       id: rowId,
       [event.target.name]: event.target.value,
     };
@@ -63,7 +63,7 @@ export default function EditorRow({ rowId, currentEditorData, setCurrentEditorDa
         <Checkbox
           name={String(rowId)}
           className={styles.edit_row__cell_checkbox}
-          checked={checkCheckbox}
+          checked={isChecked}
           onChange={handleEditRowCheckboxChange}
         />
       </TableCell>

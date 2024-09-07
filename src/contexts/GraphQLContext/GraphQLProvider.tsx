@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { GraphQLProviderProps } from './types';
 import { GraphQlDataContext } from './GraphQLContext';
-import { HeadersAndVariablesEditorRowDataItem } from '@/types/types';
+import { HeadersAndVariablesEditorRowDataItem } from '@/types';
 
 const GraphQlDataProvider = ({ children }: GraphQLProviderProps) => {
   const [paramData, setParamData] = useState<HeadersAndVariablesEditorRowDataItem[]>([]);

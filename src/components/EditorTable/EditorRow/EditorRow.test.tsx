@@ -7,7 +7,7 @@ import EditorRow from './EditorRow';
 const mockSetData = vi.fn();
 
 describe('Editors row', () => {
-  it('should  render editors row', async () => {
+  it('should render editors row', async () => {
     (usePathname as Mock).mockReturnValue('en/GRAPHQL/https://rickandmortyapi.com/graphql');
     render(<EditorRow rowId={0} currentEditorData={[]} setCurrentEditorData={mockSetData} />);
 
