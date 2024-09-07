@@ -18,7 +18,7 @@ export default function EditorTable({ heading, currentEditorData, setCurrentEdit
   const pathname = usePathname();
   const [lng] = pathname.split('/').splice(1, 1);
   const { t } = useTranslation(lng);
-  const [rows, addRows] = useState([0]);
+  const [rows, addRows] = useState(Array.from(Array(currentEditorData.length).keys()));
 
   const handleClick = () => {
     addRows((oldArr) => [...oldArr, rows.length]);

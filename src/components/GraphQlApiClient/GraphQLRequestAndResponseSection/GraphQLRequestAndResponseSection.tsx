@@ -1,14 +1,9 @@
 'use client';
 
-import { getNewGraphQlURLPath, makeGraphQLRequest } from '@/services';
-import { Box, Button } from '@mui/material';
-import TextField from '@mui/material/TextField';
+import { Box } from '@mui/material';
 import { usePathname } from 'next/navigation';
-import { ChangeEvent, useState } from 'react';
-import { graphQLSchemaQuery, headersGraphQLSchema } from '@/utils';
 import { useTranslation } from '@/hooks';
 import { ResponseSection } from '@/components';
-import mockRequestData from '@/tests/mocks/responseData';
 import GraphQlRequestBody from '../GraphQLRequestBody/GraphQLRequestBody';
 
 export default function GraphQLAndResponseAndRequestSection() {

@@ -1,8 +1,8 @@
 'use client';
 
-import { ChangeEvent, useState, MouseEvent, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
-import { RequestBodyEditor } from '@/components';
+import { GraphQLRequestBodyEditor } from '@/components';
 import { BodyMode, BodyType, SegmentIndex } from '@/types';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
@@ -25,8 +25,11 @@ export default function GraphQlRequestBody() {
   }, [bodyMode, pathSegments]);
 
   return (
-    <Box display={'flex'} flexDirection={'column'} gap={1} width="100%">
-      <RequestBodyEditor mode={BodyType.graphql} options={{ readOnly: false }} />
+    <Box display="flex" flexDirection="column" width="100%" gap={2} paddingTop={4}>
+      <Box display="flex" flexDirection="row" alignItems="center" justifyContent="space-between" width="100%">
+        <Typography variant="h4">{t('request_header')}</Typography>
+      </Box>
+      <GraphQLRequestBodyEditor mode={BodyType.graphql} options={{ readOnly: false }} />
     </Box>
   );
 }

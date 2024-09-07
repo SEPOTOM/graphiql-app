@@ -63,7 +63,7 @@ export default function EditorRow({ rowId, currentEditorData, setCurrentEditorDa
         <Checkbox
           name={String(rowId)}
           className={styles.edit_row__cell_checkbox}
-          checked={isChecked}
+          defaultChecked={currentEditorData[rowId] !== undefined ? currentEditorData[rowId].check : false}
           onChange={handleEditRowCheckboxChange}
         />
       </TableCell>
@@ -73,6 +73,7 @@ export default function EditorRow({ rowId, currentEditorData, setCurrentEditorDa
           placeholder={t('data_editor_key_heading')}
           name="key"
           onChange={handleEditRowTextFieldChange}
+          defaultValue={currentEditorData[rowId] !== undefined ? currentEditorData[rowId].key : ''}
         />
       </TableCell>
       <TableCell className={styles.edit_row__cell}>
@@ -81,6 +82,7 @@ export default function EditorRow({ rowId, currentEditorData, setCurrentEditorDa
           placeholder={t('data_editor_value_heading')}
           name="value"
           onChange={handleEditRowTextFieldChange}
+          defaultValue={currentEditorData[rowId] !== undefined ? currentEditorData[rowId].value : ''}
         />
       </TableCell>
     </TableRow>

@@ -14,7 +14,7 @@ export const makeGraphQLRequest = async (query: string, url: string, headers: He
     }
     const data = await response.json();
     return data;
-  } catch {
-    return 'Your query is not wrong';
+  } catch (error) {
+    return error;
   }
 };

@@ -10,6 +10,7 @@ import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
 import { ErrorsMessage } from '@/components';
 import { fallbackLng } from '@/utils';
+import { useGraphQl } from '@/contexts';
 
 export interface RequestBodyEditorProps {
   mode: string;
@@ -17,12 +18,13 @@ export interface RequestBodyEditorProps {
   initialValue?: string;
 }
 
-export default function RequestBodyEditor({ mode, options, initialValue }: RequestBodyEditorProps) {
+export default function GraphQLRequestBodyEditor({ mode, options, initialValue }: RequestBodyEditorProps) {
   const editorRef = useRef<Nullable<monaco.editor.IStandaloneCodeEditor>>(null);
   const pathname = usePathname();
   const pathSegments = pathname.split('/');
   const lng = pathSegments.at(SegmentIndex.Language) ?? fallbackLng;
   const { t } = useTranslation(lng);
+  const { setQueryText } = useGraphQl(); // another line
   const [value, setValue] = useState<string>(initialValue ?? '');
   const [showErrorsPopover, setShowErrorsPopover] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -70,10 +72,11 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
     if (options.readOnly) return;
     const editor = editorRef.current;
     setValue(t(`${PlaceHolder[mode as keyof typeof PlaceHolder]}`));
+    setQueryText(t(`${PlaceHolder[mode as keyof typeof PlaceHolder]}`));
     if (editor) {
       editor.focus();
     }
-  }, [mode, t, options.readOnly]);
+  }, [mode, t, options.readOnly, setQueryText]);
 
   useEffect(() => {
     if (options.readOnly) return;
@@ -100,6 +103,7 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
     if (value) {
       setShowErrorsPopover(false);
       setValue(value);
+      setQueryText(value);
     }
   };
 

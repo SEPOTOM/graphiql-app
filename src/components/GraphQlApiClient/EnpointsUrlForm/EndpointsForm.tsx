@@ -4,18 +4,19 @@ import { getNewGraphQlURLPath, makeGraphQLRequest } from '@/services';
 import { Box, Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { usePathname } from 'next/navigation';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 import { graphQLSchemaQuery, headersGraphQLSchema } from '@/utils';
 import { useTranslation } from '@/hooks';
 import { useGraphQl } from '@/contexts';
 
 export default function EndpointsForm() {
-  const { endpointUrl, setEndpointUrl, endpointSdlUrl, setEndpointSdlUrl } = useGraphQl();
+  const { endpointUrl, setEndpointUrl, endpointSdlUrl, setEndpointSdlUrl, paramData, headerData, queryText } =
+    useGraphQl();
   const pathname = usePathname();
   const [lng] = pathname.split('/').splice(1, 1);
   const { t } = useTranslation(lng);
 
-  const handleEndpointChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleEndpointChange = async (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const newUrlPath = event.target.value;
     const encodedEndpoint = btoa(newUrlPath);
     const newPath = getNewGraphQlURLPath(pathname, encodedEndpoint);
@@ -23,12 +24,27 @@ export default function EndpointsForm() {
     setEndpointUrl(newUrlPath);
     setEndpointSdlUrl(newUrlPath);
     makeGraphQLRequest(graphQLSchemaQuery, newUrlPath, headersGraphQLSchema);
+    const schema = await makeGraphQLRequest(graphQLSchemaQuery, newUrlPath, headersGraphQLSchema);
   };
 
   const handleEndpointSdlChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const newSdlPath = event.target.value;
     setEndpointSdlUrl(newSdlPath);
     makeGraphQLRequest(graphQLSchemaQuery, newSdlPath, headersGraphQLSchema);
+  };
+
+  const handleOnclick = async () => {
+    console.log('click function');
+    console.log(endpointUrl);
+    console.log(endpointSdlUrl);
+    console.log(queryText);
+    console.log(paramData);
+    const headers: HeadersInit = Object.fromEntries(
+      headerData.filter((item) => item.check === true).map((item) => [item.key, item.value])
+    );
+    console.log(headers);
+    const res = await makeGraphQLRequest(queryText, endpointUrl, headers);
+    console.log(JSON.stringify(res));
   };
 
   return (
@@ -43,7 +59,9 @@ export default function EndpointsForm() {
           placeholder={t('graphQl_endpoint_input_placeholder')}
           fullWidth
         />
-        <Button variant="outlined">{t('graphQl_send_button')}</Button>
+        <Button variant="outlined" onClick={handleOnclick}>
+          {t('graphQl_send_button')}
+        </Button>
       </Box>
       <Box display="flex" width="100%">
         <TextField
