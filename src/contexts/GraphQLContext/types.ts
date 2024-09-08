@@ -12,6 +12,12 @@ export interface GraphQLData {
   setParamData: Dispatch<SetStateAction<HeadersAndVariablesEditorRowDataItem[]>>;
   headerData: HeadersAndVariablesEditorRowDataItem[];
   setHeaderData: Dispatch<SetStateAction<HeadersAndVariablesEditorRowDataItem[]>>;
+  responseText: string;
+  setResponseText: Dispatch<SetStateAction<string>>;
+  responseStatus: number;
+  setResponseStatus: Dispatch<SetStateAction<number>>;
+  responseStatusText: string;
+  setResponseStatusText: Dispatch<SetStateAction<string>>;
 }
 
 export interface GraphQLProviderProps {

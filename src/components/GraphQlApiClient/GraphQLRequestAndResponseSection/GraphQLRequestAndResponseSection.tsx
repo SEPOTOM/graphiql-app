@@ -5,19 +5,22 @@ import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
 import { ResponseSection } from '@/components';
 import GraphQlRequestBody from '../GraphQLRequestBody/GraphQLRequestBody';
+import { useGraphQl } from '@/contexts';
 
 export default function GraphQLAndResponseAndRequestSection() {
-  const pathname = usePathname();
-  const [lng] = pathname.split('/').splice(1, 1);
-  const { t } = useTranslation(lng);
+  const { responseText, responseStatus, responseStatusText } = useGraphQl();
 
   return (
-    <Box display="flex" flexDirection="row" alignItems="center" width="100%">
+    <Box display="flex" flexDirection="row" alignItems="flex-start" width="100%">
       <Box display="flex" width="100%" border="1px solid rgba(224, 224, 224, 1)">
         <GraphQlRequestBody />
       </Box>
       <Box display="flex" width="100%" border="1px solid rgba(224, 224, 224, 1)">
-        <ResponseSection responseBody={JSON.stringify('')} responseCode={200} responseStatus={'ok'} />
+        <ResponseSection
+          responseBody={JSON.stringify(responseText)}
+          responseCode={responseStatus}
+          responseStatus={responseStatusText}
+        />
       </Box>
     </Box>
   );

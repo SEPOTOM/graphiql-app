@@ -8,10 +8,21 @@ import { ChangeEvent } from 'react';
 import { graphQLSchemaQuery, headersGraphQLSchema } from '@/utils';
 import { useTranslation } from '@/hooks';
 import { useGraphQl } from '@/contexts';
+import { GraphQlRequest } from '@/types';
 
 export default function EndpointsForm() {
-  const { endpointUrl, setEndpointUrl, endpointSdlUrl, setEndpointSdlUrl, paramData, headerData, queryText } =
-    useGraphQl();
+  const {
+    endpointUrl,
+    setEndpointUrl,
+    endpointSdlUrl,
+    setEndpointSdlUrl,
+    paramData,
+    headerData,
+    queryText,
+    setResponseText,
+    setResponseStatus,
+    setResponseStatusText,
+  } = useGraphQl();
   const pathname = usePathname();
   const [lng] = pathname.split('/').splice(1, 1);
   const { t } = useTranslation(lng);
@@ -34,17 +45,13 @@ export default function EndpointsForm() {
   };
 
   const handleOnclick = async () => {
-    console.log('click function');
-    console.log(endpointUrl);
-    console.log(endpointSdlUrl);
-    console.log(queryText);
-    console.log(paramData);
     const headers: HeadersInit = Object.fromEntries(
       headerData.filter((item) => item.check === true).map((item) => [item.key, item.value])
     );
-    console.log(headers);
-    const res = await makeGraphQLRequest(queryText, endpointUrl, headers);
-    console.log(JSON.stringify(res));
+    const res = (await makeGraphQLRequest(queryText, endpointUrl, headers)) as GraphQlRequest;
+    setResponseText(JSON.parse(res.data));
+    setResponseStatus(res.status);
+    setResponseStatusText(res.code);
   };
 
   return (

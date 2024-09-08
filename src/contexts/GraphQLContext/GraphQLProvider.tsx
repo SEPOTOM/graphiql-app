@@ -12,6 +12,9 @@ const GraphQlDataProvider = ({ children }: GraphQLProviderProps) => {
   const [queryText, setQueryText] = useState('');
   const [paramData, setParamData] = useState<HeadersAndVariablesEditorRowDataItem[]>(basicVariablesRows);
   const [headerData, setHeaderData] = useState<HeadersAndVariablesEditorRowDataItem[]>(basicHeadersRows);
+  const [responseText, setResponseText] = useState('');
+  const [responseStatus, setResponseStatus] = useState(0);
+  const [responseStatusText, setResponseStatusText] = useState('');
 
   return (
     <GraphQlDataContext.Provider
@@ -26,6 +29,12 @@ const GraphQlDataProvider = ({ children }: GraphQLProviderProps) => {
         setParamData,
         headerData,
         setHeaderData,
+        responseText,
+        setResponseText,
+        responseStatus,
+        setResponseStatus,
+        responseStatusText,
+        setResponseStatusText,
       }}
     >
       {children}

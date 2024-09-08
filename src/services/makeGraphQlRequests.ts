@@ -9,11 +9,11 @@ export const makeGraphQLRequest = async (query: string, url: string, headers: He
       headers,
       body: JSON.stringify({ query }),
     });
-    if (!response.ok) {
-      throw new Error('Network response was not ok boom');
-    }
-    const data = await response.json();
-    return data;
+    const status = response.status;
+    const code = response.statusText;
+    const request = await response.json();
+    const data = JSON.stringify(request);
+    return { data, status, code };
   } catch (error) {
     return error;
   }
