@@ -45,7 +45,7 @@ describe('GraphQl endpoints form', () => {
         '',
         newPath
       );
-      expect(mockMakeGraphQLRequest).toHaveBeenCalledWith(graphQLSchemaQuery, 'h', headersGraphQLSchema);
+      expect(mockMakeGraphQLRequest).toHaveBeenCalledWith(graphQLSchemaQuery, {}, 'h', headersGraphQLSchema);
     });
   });
 
@@ -59,7 +59,7 @@ describe('GraphQl endpoints form', () => {
       const inputSdl = screen.getByLabelText('SDL URL');
       const user = userEvent.setup();
       await user.type(inputSdl, 'h');
-      expect(mockMakeGraphQLRequest).toHaveBeenCalledWith(graphQLSchemaQuery, 'h', headersGraphQLSchema);
+      expect(mockMakeGraphQLRequest).toHaveBeenCalledWith(graphQLSchemaQuery, {}, 'h', headersGraphQLSchema);
     });
   });
 });
