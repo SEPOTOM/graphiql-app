@@ -1,6 +1,6 @@
 import { getTranslation } from '@/utils/i18n';
 import { defaultNS, fallbackLng, getI18nOptions, i18nCookieName, languages } from '@/utils/i18n/settings';
-import { graphQLSchemaQuery, headersGraphQLSchema } from './constants';
+import { graphQLSchemaQuery, headersGraphQLSchema, variablesGraphQLSchema } from './constants';
 import { isImagePath } from '@/utils/pathname';
 
 export {
@@ -13,4 +13,5 @@ export {
   isImagePath,
   graphQLSchemaQuery,
   headersGraphQLSchema,
+  variablesGraphQLSchema,
 };

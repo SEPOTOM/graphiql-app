@@ -102,6 +102,8 @@ fragment TypeRef on __Type {
 
 export const headersGraphQLSchema = { 'Content-type': 'application/json' };
 
+export const variablesGraphQLSchema = {};
+
 export const basicGraphQLQuery = `query {
   characters(page: 2, filter: { name: "rick" }) {
     info {

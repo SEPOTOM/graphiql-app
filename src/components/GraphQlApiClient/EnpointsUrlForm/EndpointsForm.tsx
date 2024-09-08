@@ -5,7 +5,7 @@ import { Box, Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { usePathname } from 'next/navigation';
 import { ChangeEvent } from 'react';
-import { graphQLSchemaQuery, headersGraphQLSchema } from '@/utils';
+import { graphQLSchemaQuery, headersGraphQLSchema, variablesGraphQLSchema } from '@/utils';
 import { useTranslation } from '@/hooks';
 import { useGraphQl } from '@/contexts';
 import { GraphQlRequest } from '@/types';
@@ -34,21 +34,37 @@ export default function EndpointsForm() {
     window.history.replaceState({ ...window.history.state, as: newPath, url: newPath }, '', newPath);
     setEndpointUrl(newUrlPath);
     setEndpointSdlUrl(newUrlPath);
-    makeGraphQLRequest(graphQLSchemaQuery, newUrlPath, headersGraphQLSchema);
-    const schema = await makeGraphQLRequest(graphQLSchemaQuery, newUrlPath, headersGraphQLSchema);
+    makeGraphQLRequest(graphQLSchemaQuery, variablesGraphQLSchema, newUrlPath, headersGraphQLSchema);
+    const schema = await makeGraphQLRequest(
+      graphQLSchemaQuery,
+      variablesGraphQLSchema,
+      newUrlPath,
+      headersGraphQLSchema
+    );
   };
 
-  const handleEndpointSdlChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleEndpointSdlChange = async (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const newSdlPath = event.target.value;
     setEndpointSdlUrl(newSdlPath);
-    makeGraphQLRequest(graphQLSchemaQuery, newSdlPath, headersGraphQLSchema);
+    makeGraphQLRequest(graphQLSchemaQuery, variablesGraphQLSchema, newSdlPath, headersGraphQLSchema);
+    const schema = await makeGraphQLRequest(
+      graphQLSchemaQuery,
+      variablesGraphQLSchema,
+      newSdlPath,
+      headersGraphQLSchema
+    );
   };
 
   const handleOnclick = async () => {
     const headers: HeadersInit = Object.fromEntries(
       headerData.filter((item) => item.check === true).map((item) => [item.key, item.value])
     );
-    const res = (await makeGraphQLRequest(queryText, endpointUrl, headers)) as GraphQlRequest;
+    const variables: HeadersInit = Object.fromEntries(
+      paramData
+        .filter((item) => item.check === true)
+        .map((item) => [item.key, Number(item.value) ? Number(item.value) : item.value])
+    );
+    const res = (await makeGraphQLRequest(queryText, variables, endpointUrl, headers)) as GraphQlRequest;
     setResponseText(JSON.parse(res.data));
     setResponseStatus(res.status);
     setResponseStatusText(res.code);

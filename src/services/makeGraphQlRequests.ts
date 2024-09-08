@@ -2,12 +2,12 @@
 
 import { Method } from '@/types';
 
-export const makeGraphQLRequest = async (query: string, url: string, headers: HeadersInit) => {
+export const makeGraphQLRequest = async (query: string, variables: HeadersInit, url: string, headers: HeadersInit) => {
   try {
     const response = await fetch(url, {
       method: Method.Post,
       headers,
-      body: JSON.stringify({ query }),
+      body: JSON.stringify({ query, variables }),
     });
     const status = response.status;
     const code = response.statusText;
