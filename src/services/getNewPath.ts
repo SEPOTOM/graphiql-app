@@ -32,3 +32,11 @@ export const getNewBodyPath = (currentPath: string, newSegment: string) => {
 
   return currentUrlSegments.join('/');
 };
+
+export const getNewPathHeaders = (currentPath: string, newSegment: string) => {
+  console.log(currentPath);
+  console.log(newSegment);
+  const currentUrlSegments = currentPath.split('?');
+  currentUrlSegments.splice(1, 1, newSegment);
+  return currentUrlSegments.join('?');
+};

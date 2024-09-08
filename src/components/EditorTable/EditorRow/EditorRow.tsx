@@ -63,7 +63,7 @@ export default function EditorRow({ rowId, currentEditorData, setCurrentEditorDa
         <Checkbox
           name={String(rowId)}
           className={styles.edit_row__cell_checkbox}
-          defaultChecked={currentEditorData[rowId] !== undefined ? currentEditorData[rowId].check : false}
+          checked={currentEditorData[rowId] !== undefined ? currentEditorData[rowId].check : false}
           onChange={handleEditRowCheckboxChange}
         />
       </TableCell>

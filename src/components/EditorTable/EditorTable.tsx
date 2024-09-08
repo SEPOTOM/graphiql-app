@@ -5,8 +5,9 @@ import EditorRow from './EditorRow/EditorRow';
 import styles from './EditorTable.module.scss';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
-import { Dispatch, SetStateAction, useState } from 'react';
-import { HeadersAndVariablesEditorRowDataItem } from '@/types';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { GraphQlHeadersEditor, HeadersAndVariablesEditorRowDataItem } from '@/types';
+import { getNewGraphQlURLPath, getNewPathHeaders } from '@/services';
 
 interface EditorTableProps {
   heading: string;
@@ -23,6 +24,20 @@ export default function EditorTable({ heading, currentEditorData, setCurrentEdit
   const handleClick = () => {
     addRows((oldArr) => [...oldArr, rows.length]);
   };
+
+  useEffect(() => {
+    if (heading === GraphQlHeadersEditor.HeadersEditorRU || heading === GraphQlHeadersEditor.HeadersEditorEN) {
+      const headers: HeadersInit = Object.fromEntries(
+        currentEditorData.filter((item) => item.check === true).map((item) => [item.key, item.value])
+      );
+      let headersStr = '';
+      currentEditorData
+        .filter((item) => item.check === true)
+        .forEach((item) => (headersStr += `${item.key}=${item.value}&`));
+      const newPath = getNewPathHeaders(pathname, headersStr.slice(0, -1));
+      window.history.replaceState({ ...window.history.state, as: newPath, url: newPath }, '', newPath);
+    }
+  }, [currentEditorData, heading, pathname]);
 
   return (
     <Box display="flex" gap={1} flexDirection="column" width="100%">
