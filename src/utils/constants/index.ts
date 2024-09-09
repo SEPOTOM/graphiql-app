@@ -100,6 +100,8 @@ fragment TypeRef on __Type {
     }
 }`;
 
+export const basicRequestErrorMessage = 'Your request is wrong';
+
 export const headersGraphQLSchema = { 'Content-type': 'application/json' };
 
 export const variablesGraphQLSchema = {};

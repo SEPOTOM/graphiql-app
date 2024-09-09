@@ -35,7 +35,7 @@ export default function EditorTable({ heading, currentEditorData, setCurrentEdit
         .filter((item) => item.check === true)
         .forEach((item) => (headersStr += `${item.key}=${item.value}&`));
       const newPath = getNewPathHeaders(pathname, headersStr.slice(0, -1));
-      window.history.replaceState({ ...window.history.state, as: newPath, url: newPath }, '', newPath);
+      window.history.replaceState(null, '', newPath);
     }
   }, [currentEditorData, heading, pathname]);
 

@@ -5,7 +5,7 @@ import Editor from '@monaco-editor/react';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import * as monaco from 'monaco-editor';
 import { BodyType, PlaceHolder, SegmentIndex, EditorOptions } from '@/types';
-import { encodeToBase64, getNewBodyPath } from '@/services';
+import { decodeFromBase64, encodeToBase64, getNewGraphQLBodyPath } from '@/services';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
 import { ErrorsMessage } from '@/components';
@@ -24,7 +24,7 @@ export default function GraphQLRequestBodyEditor({ mode, options, initialValue }
   const pathSegments = pathname.split('/');
   const lng = pathSegments.at(SegmentIndex.Language) ?? fallbackLng;
   const { t } = useTranslation(lng);
-  const { setQueryText } = useGraphQl(); // another line
+  const { setQueryText } = useGraphQl();
   const [value, setValue] = useState<string>(initialValue ?? '');
   const [showErrorsPopover, setShowErrorsPopover] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -43,11 +43,11 @@ export default function GraphQLRequestBodyEditor({ mode, options, initialValue }
       } else {
         encodedValue = encodeToBase64(value);
       }
-      const newPath = getNewBodyPath(pathname, encodedValue);
+      const newPath = getNewGraphQLBodyPath(pathname, encodedValue);
       window.history.replaceState(null, '', newPath);
     } catch (e) {
       if (e instanceof Error) {
-        const newSegments = pathSegments.slice(0, SegmentIndex.Body);
+        const newSegments = pathSegments.slice(0, 4);
         window.history.replaceState(null, '', newSegments.join('/'));
         setErrorMessage(`Invalid JSON: ${e.message}`);
         setShowErrorsPopover(true);
@@ -76,7 +76,14 @@ export default function GraphQLRequestBodyEditor({ mode, options, initialValue }
     if (editor) {
       editor.focus();
     }
-  }, [mode, t, options.readOnly, setQueryText]);
+    const pathNameFromUrl = pathname.split('/').at(4);
+    if (pathNameFromUrl) {
+      console.log('load');
+      const encodedPathNameFromUrl = decodeFromBase64(pathNameFromUrl);
+      setValue(encodedPathNameFromUrl);
+      setQueryText(encodedPathNameFromUrl);
+    }
+  }, [mode, t, options.readOnly, setQueryText, pathname]);
 
   useEffect(() => {
     if (options.readOnly) return;
@@ -112,7 +119,7 @@ export default function GraphQLRequestBodyEditor({ mode, options, initialValue }
       {showErrorsPopover && <ErrorsMessage errorMessage={errorMessage} />}
       <Editor
         language={mode}
-        height="35vh"
+        height="41.6vh"
         width="100%"
         value={value}
         onChange={handleChange}

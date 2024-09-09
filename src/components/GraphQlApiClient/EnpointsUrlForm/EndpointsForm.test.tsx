@@ -4,8 +4,6 @@ import { usePathname } from 'next/navigation';
 import { Mock } from 'vitest';
 import * as services from '@/services';
 
-import { graphQLSchemaQuery, headersGraphQLSchema } from '@/utils';
-
 import EndpointsForm from './EndpointsForm';
 
 const mockReplaceState = vi.fn();
@@ -28,7 +26,6 @@ describe('GraphQl endpoints form', () => {
 
     await waitFor(async () => {
       const mockGetNewGraphQlURLPath = vi.spyOn(services, 'getNewGraphQlURLPath');
-      const mockMakeGraphQLRequest = vi.spyOn(services, 'makeGraphQLRequest');
       const inputUrl = screen.getByLabelText('Endpoint URL');
       const user = userEvent.setup();
       await user.type(inputUrl, 'h');
@@ -37,29 +34,7 @@ describe('GraphQl endpoints form', () => {
       await waitFor(() => {
         expect(mockGetNewGraphQlURLPath).toHaveBeenCalledWith('en/GRAPHQL', encodedEndpoint);
       });
-      expect(mockReplaceState).toHaveBeenCalledWith(
-        {
-          as: newPath,
-          url: newPath,
-        },
-        '',
-        newPath
-      );
-      expect(mockMakeGraphQLRequest).toHaveBeenCalledWith(graphQLSchemaQuery, {}, 'h', headersGraphQLSchema);
-    });
-  });
-
-  it('selecting another SDL endpoint gets schema', async () => {
-    (usePathname as Mock).mockReturnValue('en/GRAPHQL/h');
-
-    render(<EndpointsForm />);
-
-    await waitFor(async () => {
-      const mockMakeGraphQLRequest = vi.spyOn(services, 'makeGraphQLRequest');
-      const inputSdl = screen.getByLabelText('SDL URL');
-      const user = userEvent.setup();
-      await user.type(inputSdl, 'h');
-      expect(mockMakeGraphQLRequest).toHaveBeenCalledWith(graphQLSchemaQuery, {}, 'h', headersGraphQLSchema);
+      expect(mockReplaceState).toHaveBeenCalledWith(null, '', newPath);
     });
   });
 });

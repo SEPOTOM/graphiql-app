@@ -1,4 +1,11 @@
-import { getNewMethodPath, getNewURLPath, getNewBodyPath, getNewGraphQlURLPath, getNewPathHeaders } from './getNewPath';
+import {
+  getNewMethodPath,
+  getNewURLPath,
+  getNewBodyPath,
+  getNewGraphQlURLPath,
+  getNewPathHeaders,
+  getNewGraphQLBodyPath,
+} from './getNewPath';
 import { auth } from '@/services/auth/firebase';
 import { registerWithEmailAndPassword } from '@/services/auth/auth';
 import { makeGraphQLRequest } from './makeGraphQlRequests';
@@ -15,4 +22,5 @@ export {
   decodeFromBase64,
   getNewBodyPath,
   getNewPathHeaders,
+  getNewGraphQLBodyPath,
 };
