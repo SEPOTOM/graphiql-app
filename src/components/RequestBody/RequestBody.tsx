@@ -10,12 +10,12 @@ import { useLanguage, useTranslation } from '@/hooks';
 import RequestBodyTypeSelector from './BodyTypeSelector/RequestBodyTypeSelector';
 import { decodeFromBase64, encodeToBase64, getNewBodyPath } from '@/services';
 
-
 export default function RequestBody() {
   const [bodyMode, setBodyMode] = useState<string>(BodyMode.None);
   const [bodyType, setBodyType] = useState<string>(BodyType.json);
   const pathname = usePathname();
   const pathSegments = pathname.split('/');
+  const bodySegment = pathSegments.at(SegmentIndex.Body);
   const { lng } = useLanguage();
   const { t } = useTranslation(lng);
   const [decodedBody, setDecodedBody] = useState('');

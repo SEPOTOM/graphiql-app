@@ -3,10 +3,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { dir } from 'i18next';
 import './layout.scss';
 
-
 import { MUIThemeProvider, Footer, Header } from '@/components';
 import { AuthProvider, LanguageProvider } from '@/contexts';
-
 
 import { LngParam } from '@/types';
 import './layout.scss';
