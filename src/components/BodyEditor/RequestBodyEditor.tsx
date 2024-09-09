@@ -7,9 +7,9 @@ import * as monaco from 'monaco-editor';
 import { BodyType, PlaceHolder, SegmentIndex, EditorOptions } from '@/types';
 import { encodeToBase64, getNewBodyPath } from '@/services';
 import { usePathname } from 'next/navigation';
-import { useTranslation } from '@/hooks';
+import { useLanguage, useTranslation } from '@/hooks';
 import { ErrorsMessage } from '@/components';
-import { fallbackLng } from '@/utils';
+import { Button } from '@mui/material';
 
 export interface RequestBodyEditorProps {
   mode: string;
@@ -21,7 +21,7 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
   const editorRef = useRef<Nullable<monaco.editor.IStandaloneCodeEditor>>(null);
   const pathname = usePathname();
   const pathSegments = pathname.split('/');
-  const lng = pathSegments.at(SegmentIndex.Language) ?? fallbackLng;
+  const { lng } = useLanguage();
   const { t } = useTranslation(lng);
   const [value, setValue] = useState<string>(initialValue ?? '');
   const [showErrorsPopover, setShowErrorsPopover] = useState(false);
@@ -31,8 +31,20 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
     setValue(initialValue || '');
   }, [initialValue]);
 
+  const formatDocument = () => {
+    if (options.readOnly) return;
+    const editor = editorRef.current;
+    if (editor) {
+      const formatAction = editor.getAction('editor.action.formatDocument');
+      if (formatAction) {
+        formatAction.run();
+      }
+    }
+  };
+
   const onBlur = useCallback(() => {
     if (options.readOnly) return;
+
     try {
       let encodedValue: string;
       if (mode === BodyType.json) {
@@ -67,13 +79,13 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
   }, [showErrorsPopover, options.readOnly]);
 
   useEffect(() => {
-    if (options.readOnly) return;
+    if (options.readOnly || initialValue) return;
     const editor = editorRef.current;
     setValue(t(`${PlaceHolder[mode as keyof typeof PlaceHolder]}`));
     if (editor) {
       editor.focus();
     }
-  }, [mode, t, options.readOnly]);
+  }, [mode, t, options.readOnly, initialValue]);
 
   useEffect(() => {
     if (options.readOnly) return;
@@ -94,6 +106,10 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
     if (options.readOnly) return;
     editorRef.current = editor;
     editor.focus();
+    const formatAction = editor.getAction('editor.action.formatDocument');
+    if (formatAction) {
+      formatAction.run();
+    }
   };
 
   const handleChange = (value?: string) => {
@@ -104,7 +120,7 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
   };
 
   return (
-    <Paper sx={{ width: '100%', position: 'relative' }}>
+    <Paper sx={{ width: '100%', position: 'relative', padding: '10px' }}>
       {showErrorsPopover && <ErrorsMessage errorMessage={errorMessage} />}
       <Editor
         language={mode}
@@ -116,6 +132,9 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
         loading={t('editor_loading')}
         options={options}
       />
+      {mode === BodyType.json && !options.readOnly && (
+        <Button onClick={formatDocument}>{t('format_button_text')}</Button>
+      )}
     </Paper>
   );
 }

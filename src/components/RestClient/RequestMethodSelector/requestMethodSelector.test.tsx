@@ -5,6 +5,7 @@ import { Mock } from 'vitest';
 import * as services from '@/services';
 import { Method } from '@/types';
 import RequestMethodSelector from './RequestMethodSelector';
+import { LanguageProvider } from '@/contexts';
 
 const mockReplaceState = vi.fn();
 window.history.replaceState = mockReplaceState;
@@ -13,7 +14,11 @@ describe('RequestMethodSelector component', () => {
   it('renders correctly with the initial method selected based on the current URL', async () => {
     (usePathname as Mock).mockReturnValue('/restfullClient/ru/PATCH');
 
-    render(<RequestMethodSelector />);
+    render(
+      <LanguageProvider lang="en">
+        <RequestMethodSelector />
+      </LanguageProvider>
+    );
 
     await waitFor(() => expect(screen.getByText(Method.Patch)).toBeInTheDocument());
   });
@@ -21,7 +26,11 @@ describe('RequestMethodSelector component', () => {
   it('component handles cases where the pathname does not contain a method segment', async () => {
     (usePathname as Mock).mockReturnValue('/restfullClient/en');
 
-    render(<RequestMethodSelector />);
+    render(
+      <LanguageProvider lang="en">
+        <RequestMethodSelector />
+      </LanguageProvider>
+    );
 
     await waitFor(() => expect(screen.getByText(Method.Get)).toBeInTheDocument());
   });
@@ -32,7 +41,11 @@ describe('RequestMethodSelector component', () => {
     const newMethod = Method.Post;
     const user = userEvent.setup();
 
-    render(<RequestMethodSelector />);
+    render(
+      <LanguageProvider lang="en">
+        <RequestMethodSelector />
+      </LanguageProvider>
+    );
 
     await waitFor(() => {
       expect(screen.getByText(Method.Get)).toBeInTheDocument();

@@ -3,14 +3,19 @@ import RequestBody from './RequestBody';
 import userEvent from '@testing-library/user-event';
 import { usePathname } from 'next/navigation';
 import { Mock } from 'vitest';
+import { LanguageProvider } from '@/contexts';
 
 const user = userEvent.setup();
 
 describe('RequestBody Component', () => {
   it('displays the RequestBodyTypeSelector when bodyType is set to "raw"', async () => {
-    (usePathname as Mock).mockReturnValue('/restfullClient/en/');
+    (usePathname as Mock).mockReturnValue('/restfullClient');
 
-    render(<RequestBody />);
+    render(
+      <LanguageProvider lang="en">
+        <RequestBody />
+      </LanguageProvider>
+    );
 
     await user.click(screen.getByLabelText('raw request body'));
 

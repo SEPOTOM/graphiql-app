@@ -3,6 +3,8 @@ import userEvent from '@testing-library/user-event';
 import { usePathname } from 'next/navigation';
 import { Mock } from 'vitest';
 import EndpointInput from './EndpointInput';
+import { LanguageProvider } from '@/contexts';
+import { encodeToBase64 } from '@/services';
 
 const mockReplaceState = vi.fn();
 window.history.replaceState = mockReplaceState;
@@ -10,7 +12,11 @@ window.history.replaceState = mockReplaceState;
 describe('EndpointInput component', () => {
   it('renders correctly with the initial endpoint selected based on the current URL', () => {
     (usePathname as Mock).mockReturnValue('/restfullClient/en/PATCH/cXdlcnR5');
-    render(<EndpointInput />);
+    render(
+      <LanguageProvider lang="en">
+        <EndpointInput />
+      </LanguageProvider>
+    );
     expect(screen.getByLabelText('URL')).toHaveValue('qwerty');
   });
 
@@ -18,7 +24,11 @@ describe('EndpointInput component', () => {
     (usePathname as Mock).mockReturnValue('/restfullClient/en/GET');
     const user = userEvent.setup();
 
-    const screen = render(<EndpointInput />);
+    const screen = render(
+      <LanguageProvider lang="en">
+        <EndpointInput />
+      </LanguageProvider>
+    );
 
     const input = screen.getByLabelText('URL');
     const endpoint = 'newEndpoint';
@@ -26,7 +36,7 @@ describe('EndpointInput component', () => {
     await user.type(input, endpoint);
 
     endpoint.split('').forEach((letter) => {
-      const encodedEndpoint = btoa(letter);
+      const encodedEndpoint = encodeToBase64(letter);
       const newPath = `/restfullClient/en/GET/${encodedEndpoint}`;
       expect(mockReplaceState).toHaveBeenCalledWith(null, '', newPath);
     });
@@ -35,7 +45,11 @@ describe('EndpointInput component', () => {
   it('decodes base64 encoded endpoint and displays it', () => {
     const encodedSegment = btoa('encodedEndpoint');
     (usePathname as Mock).mockReturnValue(`/restfullClient/en/GET/${encodedSegment}`);
-    render(<EndpointInput />);
+    render(
+      <LanguageProvider lang="en">
+        <EndpointInput />
+      </LanguageProvider>
+    );
     expect(screen.getByLabelText('URL')).toHaveValue('encodedEndpoint');
   });
 });
