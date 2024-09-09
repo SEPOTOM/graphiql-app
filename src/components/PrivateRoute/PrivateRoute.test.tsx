@@ -21,4 +21,16 @@ describe('PrivateRoute', () => {
 
     expect(await findByRole('paragraph')).toHaveTextContent(/authentication in progress/i);
   });
+
+  it("shows a message during redirect if the user ins't authenticated", async () => {
+    (useAuth as Mock).mockImplementation(() => ({ user: null }));
+
+    const { findByRole } = render(
+      <LanguageProvider lang="en">
+        <PrivateRoute>Test message</PrivateRoute>
+      </LanguageProvider>
+    );
+
+    expect(await findByRole('paragraph')).toHaveTextContent(/redirect/i);
+  });
 });
