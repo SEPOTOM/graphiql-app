@@ -8,8 +8,8 @@ import { BodyMenuTab, ResponseSection } from '@/components';
 import EndpointInput from './EndpointInput/EndpointInput';
 import RequestMethodSelector from './RequestMethodSelector/RequestMethodSelector';
 import { decodeFromBase64 } from '@/services';
-import { useTranslation } from 'react-i18next';
-import { useLanguage } from '@/hooks';
+import { useLanguage, useTranslation } from '@/hooks';
+import { jsonTabs, noContentStatus } from './consts';
 
 export default function RestfullClient() {
   const pathname = usePathname();
@@ -20,8 +20,8 @@ export default function RestfullClient() {
   const [status, setStatus] = useState(0);
   const [statusText, setStatusText] = useState('');
   const [resData, setResData] = useState('');
-  const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const showError = !!errorMessage;
 
   useEffect(() => {
     const method = segments[SegmentIndex.Method];
@@ -53,7 +53,7 @@ export default function RestfullClient() {
       setStatus(response.status);
       setStatusText(response.statusText);
 
-      if (response.status === 204 || response.headers.get('content-length') === '0') {
+      if (response.status === noContentStatus || response.headers.get('content-length') === '0') {
         setResData(`${t('empty_response')}`);
         return;
       }
@@ -67,12 +67,11 @@ export default function RestfullClient() {
         data = text;
       }
 
-      setResData(typeof data === 'string' ? data : JSON.stringify(data, null, 2));
+      setResData(typeof data === 'string' ? data : JSON.stringify(data, null, jsonTabs));
     } catch (error) {
       if (error instanceof Error) {
         setErrorMessage(error.message);
       }
-      setShowError(true);
       setStatus(0);
       setStatusText('');
       setResData('');
@@ -85,7 +84,7 @@ export default function RestfullClient() {
         <RequestMethodSelector />
         <EndpointInput />
         <Button variant="contained" onClick={handleSubmit}>
-          Submit
+          {t('send_button_text')}
         </Button>
       </Box>
       <BodyMenuTab />
@@ -93,10 +92,10 @@ export default function RestfullClient() {
       <Snackbar
         open={showError}
         autoHideDuration={4000}
-        onClose={() => setShowError(false)}
+        onClose={() => setErrorMessage('')}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
-        <Alert onClose={() => setShowError(false)} severity="error">
+        <Alert onClose={() => setErrorMessage('')} severity="error">
           {errorMessage}
         </Alert>
       </Snackbar>

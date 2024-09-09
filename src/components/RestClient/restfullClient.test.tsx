@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { usePathname, useRouter } from 'next/navigation';
 import { Mock } from 'vitest';
 import { RestfullClient } from '@/components';

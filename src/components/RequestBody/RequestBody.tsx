@@ -8,7 +8,6 @@ import { BodyMode, BodyType, SegmentIndex } from '@/types';
 import { usePathname } from 'next/navigation';
 import { useLanguage, useTranslation } from '@/hooks';
 import RequestBodyTypeSelector from './BodyTypeSelector/RequestBodyTypeSelector';
-import { fallbackLng } from '@/utils';
 
 export default function RequestBody() {
   const [bodyMode, setBodyMode] = useState<string>(BodyMode.None);

@@ -24,6 +24,7 @@
   "restfull_client_menu_tab_body": "Тело запроса",
   "restfull_client_menu_tab_headers": "Заголовки",
   "restfull_client_menu_tab_variables": "Переменные",
+  "send_button_text": "Отправить",
   "footer": {
     "github": "GitHub профиль пользователя",
     "rss": "Логотип RSSchool"

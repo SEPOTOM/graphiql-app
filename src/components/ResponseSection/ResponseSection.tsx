@@ -2,7 +2,7 @@
 
 import { RequestBodyEditor } from '@/components';
 import { useLanguage, useTranslation } from '@/hooks';
-import { BodyType } from '@/types/enum';
+import { BodyType } from '@/types';
 import { Box, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 
@@ -22,7 +22,7 @@ export default function ResponseSection({ responseBody, responseCode, responseSt
   }, [responseBody]);
 
   return (
-    <Box display="flex" flexDirection="column" gap={2} paddingTop={4}>
+    <Box display="flex" flexDirection="column" justifyContent="space-between" gap={2} paddingTop={4} minHeight="35svh">
       <Typography variant="h4">{t('response_header')}</Typography>
       {Boolean(responseCode) && (
         <Typography variant="h6">

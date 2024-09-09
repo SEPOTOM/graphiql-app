@@ -9,7 +9,6 @@ import { encodeToBase64, getNewBodyPath } from '@/services';
 import { usePathname } from 'next/navigation';
 import { useLanguage, useTranslation } from '@/hooks';
 import { ErrorsMessage } from '@/components';
-import { fallbackLng } from '@/utils';
 
 export interface RequestBodyEditorProps {
   mode: string;

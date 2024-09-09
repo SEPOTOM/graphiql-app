@@ -5,7 +5,7 @@ import RestfullClientPage from './page';
 import { LanguageProvider } from '@/contexts';
 
 describe('RestfullClientPage', () => {
-  it('should  render component correctly', async () => {
+  it('should render component correctly', async () => {
     (usePathname as Mock).mockReturnValue('/restfullClient/ru');
     const replace = vi.fn();
     (useRouter as Mock).mockImplementation(() => ({
