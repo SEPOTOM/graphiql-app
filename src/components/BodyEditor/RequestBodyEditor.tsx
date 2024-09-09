@@ -13,7 +13,7 @@ import {
   StorageKey,
 } from '@/types';
 import { encodeToBase64, getNewBodyPath } from '@/services';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useLanguage, useTranslation } from '@/hooks';
 import { ErrorsMessage } from '@/components';
 import { Button } from '@mui/material';
@@ -28,6 +28,7 @@ export interface RequestBodyEditorProps {
 export default function RequestBodyEditor({ mode, options, initialValue }: RequestBodyEditorProps) {
   const editorRef = useRef<Nullable<monaco.editor.IStandaloneCodeEditor>>(null);
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const pathSegments = pathname.split('/');
   const { lng } = useLanguage();
   const { t } = useTranslation(lng);
@@ -52,6 +53,7 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
   };
 
   const onBlur = useCallback(() => {
+    const params = new URLSearchParams(searchParams.toString());
     if (options.readOnly) return;
 
     try {
@@ -62,12 +64,12 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
       } else {
         encodedValue = encodeToBase64(value);
       }
-      const newPath = getNewBodyPath(pathname, encodedValue);
+      const newPath = `${getNewBodyPath(pathname, encodedValue)}?${params}`;
       window.history.replaceState(null, '', newPath);
     } catch (e) {
       if (e instanceof Error) {
-        const newSegments = pathSegments.slice(0, SegmentIndex.Body);
-        window.history.replaceState(null, '', newSegments.join('/'));
+        const newSegments = `${pathSegments.slice(0, SegmentIndex.Body).join('/')}?${params}`;
+        window.history.replaceState(null, '', newSegments);
         setErrorMessage(`Invalid JSON: ${e.message}`);
         setShowErrorsPopover(true);
       }

@@ -5,7 +5,7 @@ import { Box } from '@mui/material';
 import { RequestBodyEditor } from '@/components';
 import RequestBodyToggle from './BodyModeToggle/RequestBodyToggle';
 import { BodyMode, BodyType, SegmentIndex } from '@/types';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useLanguage, useTranslation } from '@/hooks';
 import RequestBodyTypeSelector from './BodyTypeSelector/RequestBodyTypeSelector';
 import { decodeFromBase64, encodeToBase64, getNewBodyPath } from '@/services';
@@ -14,6 +14,7 @@ export default function RequestBody() {
   const [bodyMode, setBodyMode] = useState<string>(BodyMode.None);
   const [bodyType, setBodyType] = useState<string>(BodyType.json);
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const pathSegments = pathname.split('/');
   const bodySegment = pathSegments.at(SegmentIndex.Body);
   const { lng } = useLanguage();
@@ -45,13 +46,13 @@ export default function RequestBody() {
 
   useEffect(() => {
     const segmentsCount = pathSegments.length;
-
+    const params = new URLSearchParams(searchParams.toString());
     if (bodyMode === BodyMode.None && segmentsCount >= SegmentIndex.LastElement) {
-      const newSegments = pathSegments.slice(0, SegmentIndex.Body);
-      window.history.replaceState(null, '', newSegments.join('/'));
+      const newSegments = `${pathSegments.slice(0, SegmentIndex.Body).join('/')}?${params}`;
+      window.history.replaceState(null, '', newSegments);
     } else if (bodyMode === BodyMode.Raw && decodedBody) {
       const encodedBody = encodeToBase64(decodedBody);
-      const newPath = getNewBodyPath(pathname, encodedBody);
+      const newPath = `${getNewBodyPath(pathname, encodedBody)}?${params}`;
       window.history.replaceState(null, '', newPath);
     }
   }, [bodyMode, pathSegments, decodedBody, pathname]);
