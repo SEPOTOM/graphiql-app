@@ -11,6 +11,7 @@ import EditorTable from './EditorTable/EditorTable';
 import SignUpForm from '@/components/SignUpForm/SignUpForm';
 import Notification from '@/components/Notification/Notification';
 import PasswordField from '@/components/PasswordField/PasswordField';
+import Header from '@/components/Header/Header';
 
 export {
   MUIThemeProvider,
@@ -26,4 +27,5 @@ export {
   SignUpForm,
   Notification,
   PasswordField,
+  Header,
 };
