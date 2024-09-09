@@ -2,9 +2,9 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { usePathname } from 'next/navigation';
 import { Mock } from 'vitest';
-import * as services from '@/services/index';
+import * as services from '@/services';
 
-import { graphQLSchemaQuery, headersGraphQLSchema } from '@/utils/constants';
+import { graphQLSchemaQuery, headersGraphQLSchema } from '@/utils';
 
 import EndpointsForm from './EndpointsForm';
 
