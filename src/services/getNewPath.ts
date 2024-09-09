@@ -12,6 +12,7 @@ export const getNewMethodPath = (currentPath: string, newSegment: string, method
 
 export const getNewURLPath = (currentPath: string, newSegment: string) => {
   const currentUrlSegments = currentPath.split('/');
+  currentUrlSegments.splice(4, 1, newSegment);
   currentUrlSegments.splice(SegmentIndex.Endpoint, 1, newSegment);
   return currentUrlSegments.join('/');
 };
@@ -19,7 +20,6 @@ export const getNewURLPath = (currentPath: string, newSegment: string) => {
 export const getNewGraphQlURLPath = (currentPath: string, newSegment: string) => {
   const currentUrlSegments = currentPath.split('/');
   currentUrlSegments.splice(3, 1, newSegment);
-
   return currentUrlSegments.join('/');
 };
 

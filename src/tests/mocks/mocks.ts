@@ -1933,3 +1933,5 @@ export const mockedGraphQlSchema = {
 };
 
 export const mockedGraphQlError = 'Your query is not wrong';
+
+export const mockedGraphQlEditorsRow = [{ id: 0, key: 'Content-type', value: 'application/json', check: true }];

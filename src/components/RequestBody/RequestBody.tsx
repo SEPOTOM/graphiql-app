@@ -8,6 +8,8 @@ import { BodyMode, BodyType, SegmentIndex } from '@/types';
 import { usePathname } from 'next/navigation';
 import { useLanguage, useTranslation } from '@/hooks';
 import RequestBodyTypeSelector from './BodyTypeSelector/RequestBodyTypeSelector';
+import { decodeFromBase64, encodeToBase64, getNewBodyPath } from '@/services';
+
 
 export default function RequestBody() {
   const [bodyMode, setBodyMode] = useState<string>(BodyMode.None);
@@ -16,6 +18,7 @@ export default function RequestBody() {
   const pathSegments = pathname.split('/');
   const { lng } = useLanguage();
   const { t } = useTranslation(lng);
+  const [decodedBody, setDecodedBody] = useState('');
 
   const handleBodyTypeChange = (e: MouseEvent<HTMLElement>, newBodyType: Nullable<string>) => {
     if (newBodyType !== null) {
@@ -28,12 +31,30 @@ export default function RequestBody() {
   };
 
   useEffect(() => {
+    if (bodySegment) {
+      const decodedValue = decodeFromBase64(bodySegment);
+      setBodyMode(BodyMode.Raw);
+      setDecodedBody(decodedValue);
+      try {
+        JSON.parse(decodedValue);
+      } catch (e) {
+        setBodyType(BodyType.text);
+      }
+    }
+  }, [bodySegment]);
+
+  useEffect(() => {
     const segmentsCount = pathSegments.length;
+
     if (bodyMode === BodyMode.None && segmentsCount >= SegmentIndex.LastElement) {
       const newSegments = pathSegments.slice(0, SegmentIndex.Body);
       window.history.replaceState(null, '', newSegments.join('/'));
+    } else if (bodyMode === BodyMode.Raw && decodedBody) {
+      const encodedBody = encodeToBase64(decodedBody);
+      const newPath = getNewBodyPath(pathname, encodedBody);
+      window.history.replaceState(null, '', newPath);
     }
-  }, [bodyMode, pathSegments]);
+  }, [bodyMode, pathSegments, decodedBody, pathname]);
 
   return (
     <Box display={'flex'} flexDirection={'column'} gap={3}>
@@ -43,7 +64,7 @@ export default function RequestBody() {
       </Box>
       {bodyMode === BodyMode.None ?
         <p>{t('body_mode_none_text')}</p>
-      : <RequestBodyEditor mode={bodyType} options={{ readOnly: false }} />}
+      : <RequestBodyEditor mode={bodyType} options={{ readOnly: false }} initialValue={decodedBody} />}
     </Box>
   );
 }

@@ -1,32 +1,62 @@
 {
-  "graphQl_endpoint_input_label": "Endpoint URL",
-  "graphQl_endpoint_input_placeholder": "Enter Endpoint URL",
-  "graphQl_SDL_input_label": "SDL URL",
-  "graphQl_SDL_input_placeholder": "Enter SDL URL",
-  "graphQl_send_button": "Send",
-  "graphQl_menu_tab_headers": "Headers",
-  "graphQl_menu_tab_variables": "Variables",
-  "graphQl_menu_tab_schema": "Schema",
   "body_mode_none": "None",
   "body_mode_none_text": "This request does not have a body",
   "body_mode_raw": "Raw",
   "body_type_json_placeholder": "Enter JSON here...",
   "body_type_text": "Text",
   "body_type_text_placeholder": "Enter the text here...",
+  "data_editor_key_heading": "KEY",
+  "data_editor_value_heading": "VALUE",
   "editor_loading": "Loading...",
   "empty_response": "Empty response",
   "endpoint_placeholder": "Enter endpoint-URL",
   "error_empty_endpoint": "Endpoint URL must be filled in",
+  "footer": {
+    "github": "GitHub profile of",
+    "rss": "RSSchool logo"
+  },
+  "format_button_text": "Format document",
+  "graphQl_SDL_input_label": "SDL URL",
+  "graphQl_SDL_input_placeholder": "Enter SDL URL",
+  "graphQl_endpoint_input_label": "Endpoint URL",
+  "graphQl_endpoint_input_placeholder": "Enter Endpoint URL",
+  "graphQl_menu_tab_empty_message": "Here will be something else",
+  "graphQl_menu_tab_headers": "Headers",
+  "graphQl_menu_tab_schema": "Schema",
+  "graphQl_menu_tab_variables": "Variables",
+  "graphQl_send_button": "Send",
+  "header": {
+    "lng_switcher_label": "Select language",
+    "sign_in_btn": "Sign In",
+    "sign_out_btn": "Sign Out",
+    "sign_up_btn": "Sign Up"
+  },
   "http_response": "Status",
   "method_label": "Method",
+  "pwd_field": {
+    "hide": "Hide password",
+    "show": "Show password"
+  },
   "response_header": "Response",
   "response_placeholder": "Enter the URL and click Send to get a response",
   "restfull_client_menu_tab_body": "Request Body",
   "restfull_client_menu_tab_headers": "Headers",
   "restfull_client_menu_tab_variables": "Variables",
   "send_button_text": "Send",
-  "footer": {
-    "github": "GitHub profile of",
-    "rss": "RSSchool logo"
+  "sign_in": {
+    "email": "Email",
+    "password": "Password",
+    "submit_button": "Sign In",
+    "success_msg": "Successfully signed in",
+    "title": "Sign In"
+  },
+  "sign_up": {
+    "confirm_password": "Confirm Password",
+    "email": "Email",
+    "password": "Password",
+    "submit_button": "Sign Up",
+    "success_msg": "Successfully signed up",
+    "title": "Sign Up",
+    "username": "Username"
   }
 }
