@@ -18,6 +18,7 @@
   "body_type_text_placeholder": "Enter the text here...",
   "editor_loading": "Loading...",
   "endpoint_placeholder": "Enter endpoint-URL",
+  "format_button_text": "Format document",
   "http_response": "Status",
   "method_label": "Method",
   "response_header": "Response",

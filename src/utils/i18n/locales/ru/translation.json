@@ -18,6 +18,7 @@
   "body_type_text_placeholder": "Введите текст запроса здесь...",
   "editor_loading": "Загрузка...",
   "endpoint_placeholder": "Введите конечный URL-адрес",
+  "format_button_text": "Форматировать документ",
   "http_response": "Статус",
   "method_label": "Метод",
   "response_header": "Ответ",
