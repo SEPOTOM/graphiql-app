@@ -18,47 +18,42 @@ export interface RequestBodyEditorProps {
   initialValue?: string;
 }
 
-export default function GraphQlRequestBodyEditor({ mode, options, initialValue }: RequestBodyEditorProps) {
+export default function GraphQLRequestBodyEditor({ mode, options, initialValue }: RequestBodyEditorProps) {
   const editorRef = useRef<Nullable<monaco.editor.IStandaloneCodeEditor>>(null);
   const pathname = usePathname();
   const pathSegments = pathname.split('/');
   const lng = pathSegments.at(SegmentIndex.Language) ?? fallbackLng;
   const { t } = useTranslation(lng);
-  const { queryText, setQueryText } = useGraphQl();
+  const { setQueryText } = useGraphQl();
+  const [value, setValue] = useState<string>(initialValue ?? '');
   const [showErrorsPopover, setShowErrorsPopover] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    setQueryText(initialValue || '');
-    const pathNameFromUrl = pathname.split('/').at(4);
-    let encodedPathNameFromUrl = t(`${PlaceHolder[mode as keyof typeof PlaceHolder]}`);
-    if (pathNameFromUrl) {
-      encodedPathNameFromUrl = decodeFromBase64(pathNameFromUrl);
-    }
-    setQueryText(encodedPathNameFromUrl);
-  }, [initialValue, mode, pathname, setQueryText, t]);
+    setValue(initialValue || '');
+  }, [initialValue]);
 
   const onBlur = useCallback(() => {
     if (options.readOnly) return;
     try {
       let encodedValue: string;
       if (mode === BodyType.json) {
-        const parsedValue = JSON.parse(queryText);
+        const parsedValue = JSON.parse(value);
         encodedValue = encodeToBase64(JSON.stringify(parsedValue));
       } else {
-        encodedValue = encodeToBase64(queryText);
+        encodedValue = encodeToBase64(value);
       }
       const newPath = getNewGraphQLBodyPath(pathname, encodedValue);
       window.history.replaceState(null, '', newPath);
     } catch (e) {
       if (e instanceof Error) {
-        const newSegments = pathSegments.slice(0, SegmentIndex.Body);
+        const newSegments = pathSegments.slice(0, 4);
         window.history.replaceState(null, '', newSegments.join('/'));
-        setErrorMessage(`Invalid GraphQL: ${e.message}`);
+        setErrorMessage(`Invalid JSON: ${e.message}`);
         setShowErrorsPopover(true);
       }
     }
-  }, [mode, queryText, pathname, pathSegments, options.readOnly]);
+  }, [mode, value, pathname, pathSegments, options.readOnly]);
 
   useEffect(() => {
     if (options.readOnly) return;
@@ -76,10 +71,19 @@ export default function GraphQlRequestBodyEditor({ mode, options, initialValue }
   useEffect(() => {
     if (options.readOnly) return;
     const editor = editorRef.current;
+    setValue(t(`${PlaceHolder[mode as keyof typeof PlaceHolder]}`));
+    setQueryText(t(`${PlaceHolder[mode as keyof typeof PlaceHolder]}`));
     if (editor) {
       editor.focus();
     }
-  }, [mode, t, options.readOnly]);
+    const pathNameFromUrl = pathname.split('/').at(4);
+    if (pathNameFromUrl) {
+      console.log('load');
+      const encodedPathNameFromUrl = decodeFromBase64(pathNameFromUrl);
+      setValue(encodedPathNameFromUrl);
+      setQueryText(encodedPathNameFromUrl);
+    }
+  }, [mode, t, options.readOnly, setQueryText, pathname]);
 
   useEffect(() => {
     if (options.readOnly) return;
@@ -88,6 +92,7 @@ export default function GraphQlRequestBodyEditor({ mode, options, initialValue }
     if (editor) {
       dispose = editor.onDidBlurEditorWidget(onBlur);
     }
+
     return () => {
       if (dispose) {
         dispose.dispose();
@@ -101,10 +106,11 @@ export default function GraphQlRequestBodyEditor({ mode, options, initialValue }
     editor.focus();
   };
 
-  const handleChange = (queryText?: string) => {
-    if (queryText) {
+  const handleChange = (value?: string) => {
+    if (value) {
       setShowErrorsPopover(false);
-      setQueryText(queryText);
+      setValue(value);
+      setQueryText(value);
     }
   };
 
@@ -115,7 +121,7 @@ export default function GraphQlRequestBodyEditor({ mode, options, initialValue }
         language={mode}
         height="41.6vh"
         width="100%"
-        value={queryText}
+        value={value}
         onChange={handleChange}
         onMount={handleEditorDidMount}
         loading={t('editor_loading')}

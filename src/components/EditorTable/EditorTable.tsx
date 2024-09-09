@@ -3,7 +3,7 @@
 import { Box, Button, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
 import EditorRow from './EditorRow/EditorRow';
 import styles from './EditorTable.module.scss';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useTranslation } from '@/hooks';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { GraphQlHeadersEditor, HeadersAndVariablesEditorRowDataItem } from '@/types';
@@ -27,14 +27,11 @@ export default function EditorTable({ heading, currentEditorData, setCurrentEdit
 
   useEffect(() => {
     if (heading === GraphQlHeadersEditor.HeadersEditorRU || heading === GraphQlHeadersEditor.HeadersEditorEN) {
-      const headers: HeadersInit = Object.fromEntries(
+      const headers: HeadersInit | URLSearchParams = Object.fromEntries(
         currentEditorData.filter((item) => item.check === true).map((item) => [item.key, item.value])
       );
-      let headersStr = '';
-      currentEditorData
-        .filter((item) => item.check === true)
-        .forEach((item) => (headersStr += `${item.key}=${item.value}&`));
-      const newPath = getNewPathHeaders(pathname, headersStr.slice(0, -1));
+      const searchParams = new URLSearchParams(headers as URLSearchParams);
+      const newPath = getNewPathHeaders(pathname, searchParams.toString().replaceAll('%2F', '/'));
       window.history.replaceState(null, '', newPath);
     }
   }, [currentEditorData, heading, pathname]);

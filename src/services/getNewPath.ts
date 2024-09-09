@@ -30,12 +30,10 @@ export const getNewBodyPath = (currentPath: string, newSegment: string) => {
 export const getNewGraphQlURLPath = (currentPath: string, newSegment: string) => {
   const currentUrlSegments = currentPath.split('/');
   currentUrlSegments.splice(3, 1, newSegment);
-  console.log(currentUrlSegments.join('/'));
   return currentUrlSegments.join('/');
 };
 
 export const getNewPathHeaders = (currentPath: string, newSegment: string) => {
-  console.log(currentPath);
   const currentUrlSegments = currentPath.split('?');
   currentUrlSegments.splice(1, 1, newSegment);
   return currentUrlSegments.join('?');
@@ -43,11 +41,9 @@ export const getNewPathHeaders = (currentPath: string, newSegment: string) => {
 
 export const getNewGraphQLBodyPath = (currentPath: string, newSegment: string) => {
   const currentUrlSegments = currentPath.split('/');
-  console.log(currentUrlSegments);
   if (currentUrlSegments.length < 4) {
     currentUrlSegments.splice(3, 1, '');
   }
   currentUrlSegments.splice(4, 1, newSegment);
-
   return currentUrlSegments.join('/');
 };
