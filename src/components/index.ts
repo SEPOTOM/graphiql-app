@@ -11,6 +11,7 @@ import EditorTable from './EditorTable/EditorTable';
 import SignUpForm from '@/components/SignUpForm/SignUpForm';
 import Notification from '@/components/Notification/Notification';
 import PasswordField from '@/components/PasswordField/PasswordField';
+import Header from '@/components/Header/Header';
 import SignInForm from '@/components/SignInForm/SignInForm';
 import FormLayout from '@/components/FormLayout/FormLayout';
 
@@ -28,6 +29,7 @@ export {
   SignUpForm,
   Notification,
   PasswordField,
+  Header,
   SignInForm,
   FormLayout,
 };

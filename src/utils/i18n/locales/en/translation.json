@@ -13,6 +13,7 @@
     "github": "GitHub profile of",
     "rss": "RSSchool logo"
   },
+  "format_button_text": "Format document",
   "graphQl_SDL_input_label": "SDL URL",
   "graphQl_SDL_input_placeholder": "Enter SDL URL",
   "graphQl_endpoint_input_label": "Endpoint URL",
@@ -22,6 +23,12 @@
   "graphQl_menu_tab_schema": "Schema",
   "graphQl_menu_tab_variables": "Variables",
   "graphQl_send_button": "Send",
+  "header": {
+    "lng_switcher_label": "Select language",
+    "sign_in_btn": "Sign In",
+    "sign_out_btn": "Sign Out",
+    "sign_up_btn": "Sign Up"
+  },
   "http_response": "Status",
   "method_label": "Method",
   "pwd_field": {

@@ -13,6 +13,7 @@
     "github": "GitHub профиль пользователя",
     "rss": "Логотип RSSchool"
   },
+  "format_button_text": "Форматировать документ",
   "graphQl_SDL_input_label": "Конечный URL-адрес схемы",
   "graphQl_SDL_input_placeholder": "Введите конечный URL-адрес схемы",
   "graphQl_endpoint_input_label": "Конечный URL-адрес",
@@ -22,6 +23,12 @@
   "graphQl_menu_tab_schema": "Схема",
   "graphQl_menu_tab_variables": "Переменные",
   "graphQl_send_button": "Отправить",
+  "header": {
+    "lng_switcher_label": "Выберите язык",
+    "sign_in_btn": "Вход",
+    "sign_out_btn": "Выход",
+    "sign_up_btn": "Регистрация"
+  },
   "http_response": "Статус",
   "method_label": "Метод",
   "pwd_field": {
