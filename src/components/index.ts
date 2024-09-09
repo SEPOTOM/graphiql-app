@@ -14,6 +14,7 @@ import PasswordField from '@/components/PasswordField/PasswordField';
 import Header from '@/components/Header/Header';
 import SignInForm from '@/components/SignInForm/SignInForm';
 import FormLayout from '@/components/FormLayout/FormLayout';
+import PrivateRoute from '@/components/PrivateRoute/PrivateRoute';
 
 export {
   MUIThemeProvider,
@@ -32,4 +33,5 @@ export {
   Header,
   SignInForm,
   FormLayout,
+  PrivateRoute,
 };
