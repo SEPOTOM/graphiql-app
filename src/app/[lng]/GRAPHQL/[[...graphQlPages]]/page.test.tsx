@@ -1,19 +1,21 @@
 import { render, screen } from '@testing-library/react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Mock } from 'vitest';
 import GraphQlClientPage from './page';
-import { GraphQlDataProvider } from '@/contexts';
+import { GraphQlDataProvider, LanguageProvider } from '@/contexts';
 
 describe('GraphQlClientPage', () => {
   it('should  render page correctly', () => {
-    (usePathname as Mock).mockReturnValue('en/GRAPHQL');
+    (usePathname as Mock).mockReturnValue('GRAPHQL/en');
     const replace = vi.fn();
     (useRouter as Mock).mockImplementation(() => ({
       replace,
     }));
     render(
       <GraphQlDataProvider>
-        <GraphQlClientPage />
+        <LanguageProvider lang="en">
+          <GraphQlClientPage />
+        </LanguageProvider>
       </GraphQlDataProvider>
     );
     expect(screen.getByLabelText('Endpoint URL')).toBeInTheDocument();
