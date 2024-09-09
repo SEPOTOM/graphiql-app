@@ -11,7 +11,6 @@ import { useLanguage, useTranslation } from '@/hooks';
 import { ErrorsMessage } from '@/components';
 import { Button } from '@mui/material';
 
-
 export interface RequestBodyEditorProps {
   mode: string;
   options: EditorOptions;
