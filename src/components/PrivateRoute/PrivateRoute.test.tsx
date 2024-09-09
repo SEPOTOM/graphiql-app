@@ -33,4 +33,16 @@ describe('PrivateRoute', () => {
 
     expect(await findByRole('paragraph')).toHaveTextContent(/redirect/i);
   });
+
+  it('shows the nested content is the user is authenticated', async () => {
+    (useAuth as Mock).mockImplementation(() => ({ user: {} }));
+
+    const { findByText } = render(
+      <LanguageProvider lang="en">
+        <PrivateRoute>Test message</PrivateRoute>
+      </LanguageProvider>
+    );
+
+    expect(await findByText('Test message')).toBeInTheDocument();
+  });
 });
