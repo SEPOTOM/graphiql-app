@@ -24,7 +24,14 @@ const PrivateRoute = ({ children }: PrivateRouteProps) => {
 
   if (!user) {
     router.replace('/');
-    return;
+
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" flexGrow={1}>
+        <Typography variant="h4" component="p">
+          Redirecting to homepage...
+        </Typography>
+      </Box>
+    );
   }
 
   return children;
