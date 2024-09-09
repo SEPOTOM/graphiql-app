@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { Box, CircularProgress, Typography } from '@mui/material';
 
 import { useAuth } from '@/contexts';
 
@@ -11,7 +12,14 @@ const PrivateRoute = ({ children }: PrivateRouteProps) => {
   const router = useRouter();
 
   if (status === 'init') {
-    return;
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" flexGrow={1}>
+        <CircularProgress />
+        <Typography variant="h4" component="p" ml={2}>
+          Authentication in progress...
+        </Typography>
+      </Box>
+    );
   }
 
   if (!user) {
