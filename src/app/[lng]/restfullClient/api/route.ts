@@ -4,6 +4,7 @@ type reqBody = {
   method: string;
   endpoint: string;
   body: Nullable<string>;
+  headers: Record<string, string>;
 };
 
 export async function POST(req: NextRequest) {
@@ -11,6 +12,7 @@ export async function POST(req: NextRequest) {
   const response = await fetch(reqBody.endpoint, {
     method: reqBody.method,
     body: reqBody.body,
+    headers: reqBody.headers,
   });
 
   const status = response.status;

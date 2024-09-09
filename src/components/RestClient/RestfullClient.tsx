@@ -1,7 +1,7 @@
 'use client';
 
 import { Alert, Box, Button, Snackbar } from '@mui/material';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Method, SegmentIndex } from '@/types';
 import { useEffect, useState } from 'react';
 import { BodyMenuTab, ResponseSection } from '@/components';
@@ -13,6 +13,7 @@ import { jsonTabs, noContentStatus } from './consts';
 
 export default function RestfullClient() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const segments = pathname.split('/');
   const router = useRouter();
   const { lng } = useLanguage();
@@ -40,6 +41,10 @@ export default function RestfullClient() {
       const method = segments[SegmentIndex.Method];
       const endpoint = decodeFromBase64(segments.at(SegmentIndex.Endpoint) ?? '');
       const body = segments[SegmentIndex.Body] ? decodeFromBase64(segments[SegmentIndex.Body]) : null;
+      const headers: Record<string, string> = {};
+      searchParams.forEach((value, key) => {
+        headers[key] = value;
+      });
 
       if (!endpoint || endpoint.trim() === '') {
         throw new Error(t('error_empty_endpoint'));
@@ -47,7 +52,7 @@ export default function RestfullClient() {
 
       const response = await fetch(`/restfullClient/api`, {
         method: 'POST',
-        body: JSON.stringify({ method, endpoint, body }),
+        body: JSON.stringify({ method, endpoint, body, headers }),
       });
 
       setStatus(response.status);
