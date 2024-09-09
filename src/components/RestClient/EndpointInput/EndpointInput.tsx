@@ -1,16 +1,15 @@
 'use client';
 
-import { useTranslation } from '@/hooks';
+import { useLanguage, useTranslation } from '@/hooks';
 import { decodeFromBase64, encodeToBase64, getNewURLPath } from '@/services';
 import { SegmentIndex } from '@/types';
-import { fallbackLng } from '@/utils';
 import TextField from '@mui/material/TextField';
 import { usePathname } from 'next/navigation';
 import { ChangeEvent } from 'react';
 
 export default function EndpointInput() {
   const pathname = usePathname();
-  const lng = pathname.split('/').at(SegmentIndex.Language) ?? fallbackLng;
+  const { lng } = useLanguage();
   const { t } = useTranslation(lng);
   const currentEndpoint = pathname.split('/').at(SegmentIndex.Endpoint) || '';
 

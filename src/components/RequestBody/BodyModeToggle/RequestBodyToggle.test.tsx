@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import RequestBodyToggle, { RequestBodyToggleProps } from './RequestBodyToggle';
 import { usePathname } from 'next/navigation';
 import { Mock } from 'vitest';
+import { LanguageProvider } from '@/contexts';
 
 describe('RequestBodyTypeSelector', () => {
   const setup = (props: Partial<RequestBodyToggleProps> = {}) => {
@@ -12,7 +13,11 @@ describe('RequestBodyTypeSelector', () => {
       ...props,
     };
 
-    return render(<RequestBodyToggle {...defaultProps} />);
+    return render(
+      <LanguageProvider lang="en">
+        <RequestBodyToggle {...defaultProps} />
+      </LanguageProvider>
+    );
   };
 
   (usePathname as Mock).mockReturnValue('/restfullClient/en/');

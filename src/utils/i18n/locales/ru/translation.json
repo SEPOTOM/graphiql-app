@@ -8,7 +8,9 @@
   "data_editor_key_heading": "КЛЮЧ",
   "data_editor_value_heading": "ЗНАЧЕНИЕ",
   "editor_loading": "Загрузка...",
+  "empty_response": "Пустой ответ",
   "endpoint_placeholder": "Введите конечный URL-адрес",
+  "error_empty_endpoint": "Конечный URL адрес должен быть заполнен",
   "footer": {
     "github": "GitHub профиль пользователя",
     "rss": "Логотип RSSchool"
@@ -36,9 +38,11 @@
     "show": "Показать пароль"
   },
   "response_header": "Ответ",
+  "response_placeholder": "Введите URL и нажмите кнопку 'Отправить', чтобы получить ответ",
   "restfull_client_menu_tab_body": "Тело запроса",
   "restfull_client_menu_tab_headers": "Заголовки",
   "restfull_client_menu_tab_variables": "Переменные",
+  "send_button_text": "Отправить",
   "sign_in": {
     "email": "Электронная почта",
     "password": "Пароль",

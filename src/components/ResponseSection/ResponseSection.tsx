@@ -1,13 +1,10 @@
 'use client';
 
 import { RequestBodyEditor } from '@/components';
-import { useTranslation } from '@/hooks';
-import { BodyType, SegmentIndex } from '@/types';
-import { fallbackLng } from '@/utils';
+import { useLanguage, useTranslation } from '@/hooks';
+import { BodyType } from '@/types';
 import { Box, Typography } from '@mui/material';
-import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { tabSize } from './consts';
 
 export interface ResponseSectionProps {
   responseBody: string;
@@ -16,35 +13,36 @@ export interface ResponseSectionProps {
 }
 
 export default function ResponseSection({ responseBody, responseCode, responseStatus }: ResponseSectionProps) {
-  const pathname = usePathname();
-  const lng = pathname.split('/').at(SegmentIndex.Language) ?? fallbackLng;
+  const { lng } = useLanguage();
   const { t } = useTranslation(lng);
-  const [formattedJson, setFormattedJson] = useState<string>('');
+  const [responseData, setResponseData] = useState<string>('');
 
   useEffect(() => {
-    try {
-      const parsedJson = JSON.parse(responseBody);
-      setFormattedJson(JSON.stringify(parsedJson, null, tabSize));
-    } catch {
-      setFormattedJson(responseBody);
-    }
+    setResponseData(responseBody);
   }, [responseBody]);
 
   return (
-    <Box display="flex" flexDirection="column" gap={2} paddingTop={4}>
+    <Box display="flex" flexDirection="column" justifyContent="space-between" gap={2} paddingTop={4} minHeight="35svh">
       <Typography variant="h4">{t('response_header')}</Typography>
-      <Typography variant="h6">
-        {t('http_response')}: {responseCode} {responseStatus}
-      </Typography>
-      <RequestBodyEditor
-        mode={BodyType.json}
-        options={{
-          readOnly: true,
-          automaticLayout: true,
-          minimap: { enabled: false },
-        }}
-        initialValue={formattedJson}
-      />
+      {Boolean(responseCode) && (
+        <Typography variant="h6">
+          {t('http_response')}: {responseCode} {responseStatus}
+        </Typography>
+      )}
+      {responseData ?
+        <RequestBodyEditor
+          mode={BodyType.json}
+          options={{
+            readOnly: true,
+            automaticLayout: true,
+            minimap: { enabled: false },
+          }}
+          initialValue={responseData}
+        />
+      : <Typography variant="body1" paragraph sx={{ textAlign: 'center' }}>
+          {t('response_placeholder')}
+        </Typography>
+      }
     </Box>
   );
 }

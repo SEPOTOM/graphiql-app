@@ -6,18 +6,17 @@ import { RequestBodyEditor } from '@/components';
 import RequestBodyToggle from './BodyModeToggle/RequestBodyToggle';
 import { BodyMode, BodyType, SegmentIndex } from '@/types';
 import { usePathname } from 'next/navigation';
-import { useTranslation } from '@/hooks';
+import { useLanguage, useTranslation } from '@/hooks';
 import RequestBodyTypeSelector from './BodyTypeSelector/RequestBodyTypeSelector';
-import { fallbackLng } from '@/utils';
 import { decodeFromBase64, encodeToBase64, getNewBodyPath } from '@/services';
+
 
 export default function RequestBody() {
   const [bodyMode, setBodyMode] = useState<string>(BodyMode.None);
   const [bodyType, setBodyType] = useState<string>(BodyType.json);
   const pathname = usePathname();
   const pathSegments = pathname.split('/');
-  const bodySegment = pathSegments.at(SegmentIndex.Body);
-  const lng = pathSegments.at(SegmentIndex.Language) ?? fallbackLng;
+  const { lng } = useLanguage();
   const { t } = useTranslation(lng);
   const [decodedBody, setDecodedBody] = useState('');
 
