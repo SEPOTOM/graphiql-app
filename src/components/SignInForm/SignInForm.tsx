@@ -19,7 +19,7 @@ const SignInForm = ({ lng }: SignInFormProps) => {
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<SignInFormData>({
     resolver: yupResolver(signInSchema),
     mode: 'onChange',
@@ -67,7 +67,7 @@ const SignInForm = ({ lng }: SignInFormProps) => {
           FormHelperTextProps={helperTextProps}
         />
 
-        <Button variant="contained" color="primary" type="submit" disabled={isSending}>
+        <Button variant="contained" color="primary" type="submit" disabled={isSending || !isValid}>
           {t('sign_in.submit_button')}
         </Button>
       </FormLayout>
