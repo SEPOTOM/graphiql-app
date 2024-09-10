@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
 import styles from '../EditorTable.module.scss';
 import { Checkbox, TableCell, TableRow, TextField } from '@mui/material';
 import { usePathname } from 'next/navigation';
