@@ -6,10 +6,10 @@ import { AuthProvider } from '@/contexts';
 import SignUpForm from './SignUpForm';
 
 describe('SignUpForm', () => {
-  it('renders all required fields and submit button', () => {
-    const { getByRole, getByLabelText } = render(<SignUpForm lng="en" />);
+  it('renders all required fields and submit button', async () => {
+    const { findByRole, getByRole, getByLabelText } = render(<SignUpForm lng="en" />);
 
-    expect(getByRole('textbox', { name: /username/i })).toBeInTheDocument();
+    expect(await findByRole('textbox', { name: /username/i })).toBeInTheDocument();
     expect(getByRole('textbox', { name: /email/i })).toBeInTheDocument();
     expect(getByRole('button', { name: /sign up/i })).toBeInTheDocument();
     expect(getByLabelText(/^password/i)).toBeInTheDocument();
@@ -23,7 +23,7 @@ describe('SignUpForm', () => {
       </AuthProvider>
     );
 
-    await user.type(getByRole('textbox', { name: /username/i }), 'Mark');
+    await user.type(await findByRole('textbox', { name: /username/i }), 'Mark');
     await user.type(getByRole('textbox', { name: /email/i }), 'mark@email.com');
     await user.type(getByLabelText(/^password/i), 'mark12345678!');
     await user.type(getByLabelText(/confirm password/i), 'mark12345678!');
@@ -33,12 +33,12 @@ describe('SignUpForm', () => {
   });
 
   it('disables form widgets while the form is submitting', async () => {
-    const { user, getByRole, getByLabelText, getAllByRole } = renderWithUser(
+    const { user, findByLabelText, getByRole, getByLabelText, getAllByRole } = renderWithUser(
       <AuthProvider>
         <SignUpForm lng="en" />
       </AuthProvider>
     );
-    const pwdInput = getByLabelText(/^password/i);
+    const pwdInput = await findByLabelText(/^password/i);
     const confirmPwdInput = getByLabelText(/confirm password/i);
     const otherWidgets = [...getAllByRole('textbox'), ...getAllByRole('button')];
 
