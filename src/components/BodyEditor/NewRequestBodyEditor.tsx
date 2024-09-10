@@ -5,12 +5,12 @@ import Editor from '@monaco-editor/react';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import * as monaco from 'monaco-editor';
 import { BodyType, PlaceHolder, SegmentIndex, EditorOptions } from '@/types';
-import { decodeFromBase64, encodeToBase64, getNewGraphQLBodyPath } from '@/services';
+import { decodeFromBase64, encodeToBase64, getNewBodyPath, getNewGraphQLBodyPath } from '@/services';
 import { usePathname } from 'next/navigation';
-import { useTranslation } from '@/hooks';
+import { useLanguage, useTranslation } from '@/hooks';
 import { ErrorsMessage } from '@/components';
-import { fallbackLng } from '@/utils';
 import { useGraphQl } from '@/contexts';
+import { Button } from '@mui/material';
 
 export interface RequestBodyEditorProps {
   mode: string;
@@ -18,47 +18,66 @@ export interface RequestBodyEditorProps {
   initialValue?: string;
 }
 
-export default function GraphQlRequestBodyEditor({ mode, options, initialValue }: RequestBodyEditorProps) {
+export default function NewRequestBodyEditor({ mode, options, initialValue }: RequestBodyEditorProps) {
   const editorRef = useRef<Nullable<monaco.editor.IStandaloneCodeEditor>>(null);
   const pathname = usePathname();
   const pathSegments = pathname.split('/');
-  const lng = pathSegments.at(SegmentIndex.Language) ?? fallbackLng;
+  const { lng } = useLanguage();
   const { t } = useTranslation(lng);
-  const { queryText, setQueryText } = useGraphQl();
+  const [value, setValue] = useState<string>(initialValue ?? '');
+  const { setQueryText } = useGraphQl();
   const [showErrorsPopover, setShowErrorsPopover] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    setQueryText(initialValue || '');
-    const pathNameFromUrl = pathname.split('/').at(4);
-    let encodedPathNameFromUrl = t(`${PlaceHolder[mode as keyof typeof PlaceHolder]}`);
-    if (pathNameFromUrl) {
-      encodedPathNameFromUrl = decodeFromBase64(pathNameFromUrl);
+    setValue(initialValue || '');
+    if (mode === BodyType.graphql) {
+      const pathNameFromUrl = pathname.split('/').at(4);
+      let encodedPathNameFromUrl = t(`${PlaceHolder[mode as keyof typeof PlaceHolder]}`);
+      if (pathNameFromUrl) {
+        encodedPathNameFromUrl = decodeFromBase64(pathNameFromUrl);
+      }
+      setQueryText(encodedPathNameFromUrl);
+      setValue(encodedPathNameFromUrl);
     }
-    setQueryText(encodedPathNameFromUrl);
   }, [initialValue, mode, pathname, setQueryText, t]);
+
+  const formatDocument = () => {
+    if (options.readOnly) return;
+    const editor = editorRef.current;
+    if (editor) {
+      const formatAction = editor.getAction('editor.action.formatDocument');
+      if (formatAction) {
+        formatAction.run();
+      }
+    }
+  };
 
   const onBlur = useCallback(() => {
     if (options.readOnly) return;
+
     try {
       let encodedValue: string;
       if (mode === BodyType.json) {
-        const parsedValue = JSON.parse(queryText);
+        const parsedValue = JSON.parse(value);
         encodedValue = encodeToBase64(JSON.stringify(parsedValue));
       } else {
-        encodedValue = encodeToBase64(queryText);
+        encodedValue = encodeToBase64(value);
       }
-      const newPath = getNewGraphQLBodyPath(pathname, encodedValue);
+      const newPath =
+        mode === BodyType.graphql ?
+          getNewGraphQLBodyPath(pathname, encodedValue)
+        : getNewBodyPath(pathname, encodedValue);
       window.history.replaceState(null, '', newPath);
     } catch (e) {
       if (e instanceof Error) {
         const newSegments = pathSegments.slice(0, SegmentIndex.Body);
         window.history.replaceState(null, '', newSegments.join('/'));
-        setErrorMessage(`Invalid GraphQL: ${e.message}`);
+        setErrorMessage(`Invalid JSON: ${e.message}`);
         setShowErrorsPopover(true);
       }
     }
-  }, [mode, queryText, pathname, pathSegments, options.readOnly]);
+  }, [mode, value, pathname, pathSegments, options.readOnly]);
 
   useEffect(() => {
     if (options.readOnly) return;
@@ -74,12 +93,16 @@ export default function GraphQlRequestBodyEditor({ mode, options, initialValue }
   }, [showErrorsPopover, options.readOnly]);
 
   useEffect(() => {
-    if (options.readOnly) return;
+    if (options.readOnly || initialValue) return;
     const editor = editorRef.current;
+    setValue(t(`${PlaceHolder[mode as keyof typeof PlaceHolder]}`));
+    if (mode === BodyType.graphql) {
+      setQueryText(t(`${PlaceHolder[mode as keyof typeof PlaceHolder]}`));
+    }
     if (editor) {
       editor.focus();
     }
-  }, [mode, t, options.readOnly]);
+  }, [mode, t, options.readOnly, initialValue, setQueryText]);
 
   useEffect(() => {
     if (options.readOnly) return;
@@ -88,6 +111,7 @@ export default function GraphQlRequestBodyEditor({ mode, options, initialValue }
     if (editor) {
       dispose = editor.onDidBlurEditorWidget(onBlur);
     }
+
     return () => {
       if (dispose) {
         dispose.dispose();
@@ -99,12 +123,19 @@ export default function GraphQlRequestBodyEditor({ mode, options, initialValue }
     if (options.readOnly) return;
     editorRef.current = editor;
     editor.focus();
+    const formatAction = editor.getAction('editor.action.formatDocument');
+    if (formatAction) {
+      formatAction.run();
+    }
   };
 
-  const handleChange = (queryText?: string) => {
-    if (queryText) {
+  const handleChange = (value?: string) => {
+    if (value) {
       setShowErrorsPopover(false);
-      setQueryText(queryText);
+      setValue(value);
+      if (mode === BodyType.graphql) {
+        setQueryText(value);
+      }
     }
   };
 
@@ -115,12 +146,15 @@ export default function GraphQlRequestBodyEditor({ mode, options, initialValue }
         language={mode}
         height="35vh"
         width="100%"
-        value={queryText}
+        value={value}
         onChange={handleChange}
         onMount={handleEditorDidMount}
         loading={t('editor_loading')}
         options={options}
       />
+      {mode === BodyType.json && !options.readOnly && (
+        <Button onClick={formatDocument}>{t('format_button_text')}</Button>
+      )}
     </Paper>
   );
 }

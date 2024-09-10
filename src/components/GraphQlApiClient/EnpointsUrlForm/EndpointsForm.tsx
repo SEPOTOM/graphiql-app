@@ -1,9 +1,9 @@
 'use client';
 
-import { decodeFromBase64, getNewGraphQlURLPath, makeGraphQLRequest } from '@/services';
+import { decodeFromBase64, encodeToBase64, getNewGraphQlURLPath, makeGraphQLRequest } from '@/services';
 import { Box, Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { ChangeEvent, useEffect } from 'react';
 import { graphQLSchemaQuery, headersGraphQLSchema, variablesGraphQLSchema } from '@/utils';
 import { useTranslation } from '@/hooks';
@@ -27,9 +27,9 @@ export default function EndpointsForm() {
   const [lng] = pathname.split('/').splice(1, 1);
   const { t } = useTranslation(lng);
 
-  const handleEndpointChange = async (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleEndpointChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const newUrlPath = event.target.value;
-    const encodedEndpoint = btoa(newUrlPath);
+    const encodedEndpoint = encodeToBase64(newUrlPath);
     const newPath = getNewGraphQlURLPath(pathname, encodedEndpoint);
     window.history.replaceState(null, '', newPath);
     setEndpointUrl(newUrlPath);
@@ -43,10 +43,9 @@ export default function EndpointsForm() {
       endpointSdlUrl,
       headersGraphQLSchema
     );
-    console.log(schema);
   };
 
-  const handleEndpointSdlChange = async (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleEndpointSdlChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const newSdlPath = event.target.value;
     setEndpointSdlUrl(newSdlPath);
   };
@@ -61,7 +60,6 @@ export default function EndpointsForm() {
         .map((item) => [item.key, Number(item.value) ? Number(item.value) : item.value])
     );
     const res = (await makeGraphQLRequest(queryText, variables, endpointUrl, headers)) as GraphQlRequest;
-    console.log(pathname);
     setResponseText(JSON.parse(res.data));
     setResponseStatus(res.status);
     setResponseStatusText(res.code);
@@ -70,11 +68,11 @@ export default function EndpointsForm() {
   useEffect(() => {
     const pathNameFromUrl = pathname.split('/').at(3);
     if (pathNameFromUrl) {
-      const encodedPathNameFromUrl = decodeFromBase64(pathNameFromUrl);
-      setEndpointUrl(encodedPathNameFromUrl);
-      setEndpointSdlUrl(encodedPathNameFromUrl);
+      const decodedPathNameFromUrl = decodeFromBase64(pathNameFromUrl);
+      setEndpointUrl(decodedPathNameFromUrl);
+      setEndpointSdlUrl(decodedPathNameFromUrl);
     }
-  });
+  }, [pathname, setEndpointSdlUrl, setEndpointUrl]);
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" width="100%" gap={1}>

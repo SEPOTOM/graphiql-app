@@ -20,7 +20,15 @@ export default function GraphQlRequestBody() {
   }
 
   return (
-    <Box display="flex" flexDirection="column" width="100%" gap={2} paddingTop={4}>
+    <Box
+      display="flex"
+      width="100%"
+      flexDirection="column"
+      justifyContent="space-between"
+      gap={2}
+      paddingTop={4}
+      minHeight="35svh"
+    >
       <Box display="flex" flexDirection="row" alignItems="center" justifyContent="space-between" width="100%">
         <Typography variant="h4">{t('request_header')}</Typography>
       </Box>

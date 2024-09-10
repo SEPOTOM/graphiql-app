@@ -14,7 +14,9 @@ interface EditorRowProps {
 }
 
 export default function EditorRow({ rowId, currentEditorData, setCurrentEditorData }: EditorRowProps) {
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(
+    currentEditorData[rowId] !== undefined ? currentEditorData[rowId].check : false
+  );
   const pathname = usePathname();
   const [lng] = pathname.split('/').splice(1, 1);
   const { t } = useTranslation(lng);
@@ -63,7 +65,7 @@ export default function EditorRow({ rowId, currentEditorData, setCurrentEditorDa
         <Checkbox
           name={String(rowId)}
           className={styles.edit_row__cell_checkbox}
-          checked={currentEditorData[rowId] !== undefined ? currentEditorData[rowId].check : false}
+          checked={isChecked}
           onChange={handleEditRowCheckboxChange}
         />
       </TableCell>

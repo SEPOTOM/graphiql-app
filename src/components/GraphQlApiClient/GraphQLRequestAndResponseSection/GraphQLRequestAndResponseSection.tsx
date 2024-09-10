@@ -1,8 +1,6 @@
 'use client';
 
 import { Box } from '@mui/material';
-import { usePathname } from 'next/navigation';
-import { useTranslation } from '@/hooks';
 import { ResponseSection } from '@/components';
 import GraphQlRequestBody from '../GraphQLRequestBody/GraphQLRequestBody';
 import { useGraphQl } from '@/contexts';

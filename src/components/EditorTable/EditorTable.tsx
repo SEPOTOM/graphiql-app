@@ -7,7 +7,7 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import { useTranslation } from '@/hooks';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { GraphQlHeadersEditor, HeadersAndVariablesEditorRowDataItem } from '@/types';
-import { getNewGraphQlURLPath, getNewPathHeaders } from '@/services';
+import { getNewPathHeaders } from '@/services';
 
 interface EditorTableProps {
   heading: string;
@@ -21,13 +21,16 @@ export default function EditorTable({ heading, currentEditorData, setCurrentEdit
   const { t } = useTranslation(lng);
   const [rows, addRows] = useState(Array.from(Array(currentEditorData.length).keys()));
 
+  console.log(heading);
+  console.log(currentEditorData);
+
   const handleClick = () => {
     addRows((oldArr) => [...oldArr, rows.length]);
   };
 
   useEffect(() => {
     if (heading === GraphQlHeadersEditor.HeadersEditorRU || heading === GraphQlHeadersEditor.HeadersEditorEN) {
-      const headers: HeadersInit | URLSearchParams = Object.fromEntries(
+      const headers: URLSearchParams = Object.fromEntries(
         currentEditorData.filter((item) => item.check === true).map((item) => [item.key, item.value])
       );
       const searchParams = new URLSearchParams(headers as URLSearchParams);
