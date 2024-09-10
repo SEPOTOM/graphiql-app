@@ -1,10 +1,12 @@
 import { render, screen } from '@testing-library/react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Mock } from 'vitest';
 import GraphQlClientPage from './page';
 
 describe('GraphQlClientPage', () => {
   it('should  render page correctly', () => {
+    const mockSearchParams = new URLSearchParams();
+    (useSearchParams as Mock).mockReturnValue(mockSearchParams);
     (usePathname as Mock).mockReturnValue('en/GRAPHQL');
     const replace = vi.fn();
     (useRouter as Mock).mockImplementation(() => ({

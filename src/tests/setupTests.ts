@@ -6,6 +6,7 @@ beforeAll(() => {
   vi.mock('next/navigation', () => ({
     usePathname: vi.fn(),
     useRouter: vi.fn(),
+    useSearchParams: vi.fn(),
   }));
   server.listen();
 });
