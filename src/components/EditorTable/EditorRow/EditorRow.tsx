@@ -14,9 +14,10 @@ interface EditorRowProps {
 }
 
 export default function EditorRow({ rowId, currentEditorData, setCurrentEditorData }: EditorRowProps) {
-  const [isChecked, setIsChecked] = useState(
-    currentEditorData[rowId] !== undefined ? currentEditorData[rowId].check : false
-  );
+  const isCheckedValue = currentEditorData[rowId] !== undefined ? currentEditorData[rowId].check : false;
+  const defaultRowKey = currentEditorData[rowId] !== undefined ? currentEditorData[rowId].key : '';
+  const defaultRowValue = currentEditorData[rowId] !== undefined ? currentEditorData[rowId].value : '';
+  const [isChecked, setIsChecked] = useState(isCheckedValue);
   const pathname = usePathname();
   const [lng] = pathname.split('/').splice(1, 1);
   const { t } = useTranslation(lng);
@@ -75,7 +76,7 @@ export default function EditorRow({ rowId, currentEditorData, setCurrentEditorDa
           placeholder={t('data_editor_key_heading')}
           name="key"
           onChange={handleEditRowTextFieldChange}
-          defaultValue={currentEditorData[rowId] !== undefined ? currentEditorData[rowId].key : ''}
+          defaultValue={defaultRowKey}
         />
       </TableCell>
       <TableCell className={styles.edit_row__cell}>
@@ -84,7 +85,7 @@ export default function EditorRow({ rowId, currentEditorData, setCurrentEditorDa
           placeholder={t('data_editor_value_heading')}
           name="value"
           onChange={handleEditRowTextFieldChange}
-          defaultValue={currentEditorData[rowId] !== undefined ? currentEditorData[rowId].value : ''}
+          defaultValue={defaultRowValue}
         />
       </TableCell>
     </TableRow>

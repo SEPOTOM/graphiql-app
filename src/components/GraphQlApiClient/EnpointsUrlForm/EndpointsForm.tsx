@@ -22,6 +22,7 @@ export default function EndpointsForm() {
     setResponseText,
     setResponseStatus,
     setResponseStatusText,
+    setSchemaGraphQL,
   } = useGraphQl();
   const pathname = usePathname();
   const [lng] = pathname.split('/').splice(1, 1);
@@ -37,12 +38,13 @@ export default function EndpointsForm() {
   };
 
   const handleEndpointBlur = async () => {
-    const schema = await makeGraphQLRequest(
+    const schema = (await makeGraphQLRequest(
       graphQLSchemaQuery,
       variablesGraphQLSchema,
       endpointSdlUrl,
       headersGraphQLSchema
-    );
+    )) as GraphQlRequest;
+    setSchemaGraphQL(schema.data);
   };
 
   const handleEndpointSdlChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -60,7 +62,8 @@ export default function EndpointsForm() {
         .map((item) => [item.key, Number(item.value) ? Number(item.value) : item.value])
     );
     const res = (await makeGraphQLRequest(queryText, variables, endpointUrl, headers)) as GraphQlRequest;
-    setResponseText(JSON.parse(res.data));
+    const data = JSON.parse(res.data);
+    setResponseText(JSON.stringify(data, null, 2));
     setResponseStatus(res.status);
     setResponseStatusText(res.code);
   };

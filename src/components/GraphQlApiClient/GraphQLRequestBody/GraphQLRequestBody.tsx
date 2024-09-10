@@ -13,11 +13,6 @@ export default function GraphQlRequestBody() {
   const pathSegments = pathname.split('/');
   const lng = pathSegments.at(SegmentIndex.Language) ?? fallbackLng;
   const { t } = useTranslation(lng);
-  const pathNameFromUrl = pathSegments.at(4);
-  let encodedPathNameFromUrl = '';
-  if (pathNameFromUrl) {
-    encodedPathNameFromUrl = decodeFromBase64(pathNameFromUrl);
-  }
 
   return (
     <Box

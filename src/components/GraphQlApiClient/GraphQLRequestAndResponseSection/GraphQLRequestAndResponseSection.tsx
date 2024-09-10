@@ -15,7 +15,7 @@ export default function GraphQLAndResponseAndRequestSection() {
       </Box>
       <Box display="flex" width="100%" border="1px solid rgba(224, 224, 224, 1)">
         <ResponseSection
-          responseBody={JSON.stringify(responseText)}
+          responseBody={responseText}
           responseCode={responseStatus}
           responseStatus={responseStatusText}
         />

@@ -11,8 +11,7 @@ export const makeGraphQLRequest = async (query: string, variables: HeadersInit, 
     });
     const status = response.status;
     const code = response.statusText;
-    const requestData: string = await response.json();
-    const data = JSON.stringify(requestData);
+    const data = await response.text();
     return { data, status, code };
   } catch (error) {
     return `${error}`;

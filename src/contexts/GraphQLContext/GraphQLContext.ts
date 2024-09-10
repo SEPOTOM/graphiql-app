@@ -21,6 +21,8 @@ const GraphQlDataContext = createContext<GraphQLData>({
   setResponseStatus: () => {},
   responseStatusText: '',
   setResponseStatusText: () => {},
+  schemaGraphQL: '',
+  setSchemaGraphQL: () => {},
 });
 
 const useGraphQl = () => {

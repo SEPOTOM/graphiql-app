@@ -5,8 +5,7 @@ import { useGraphQl } from '@/contexts';
 import { useTranslation } from '@/hooks';
 import { GraphQlHeadersEditor, GraphQlVariablesEditor } from '@/types';
 import { Box, Typography } from '@mui/material';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 interface TabPanelProps {
   children?: React.ReactNode;

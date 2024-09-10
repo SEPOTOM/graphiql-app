@@ -18,6 +18,8 @@ export interface GraphQLData {
   setResponseStatus: Dispatch<SetStateAction<number>>;
   responseStatusText: string;
   setResponseStatusText: Dispatch<SetStateAction<string>>;
+  schemaGraphQL: string;
+  setSchemaGraphQL: Dispatch<SetStateAction<string>>;
 }
 
 export interface GraphQLProviderProps {

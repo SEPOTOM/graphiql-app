@@ -32,6 +32,7 @@ const GraphQlDataProvider = ({ children }: GraphQLProviderProps) => {
   const [responseText, setResponseText] = useState('');
   const [responseStatus, setResponseStatus] = useState(0);
   const [responseStatusText, setResponseStatusText] = useState('');
+  const [schemaGraphQL, setSchemaGraphQL] = useState('');
 
   return (
     <GraphQlDataContext.Provider
@@ -52,6 +53,8 @@ const GraphQlDataProvider = ({ children }: GraphQLProviderProps) => {
         setResponseStatus,
         responseStatusText,
         setResponseStatusText,
+        schemaGraphQL,
+        setSchemaGraphQL,
       }}
     >
       {children}
