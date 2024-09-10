@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Mock } from 'vitest';
 import RestfullClientPage from './page';
 import { LanguageProvider } from '@/contexts';
@@ -11,6 +11,8 @@ describe('RestfullClientPage', () => {
     (useRouter as Mock).mockImplementation(() => ({
       replace,
     }));
+    const mockedSearch = new URLSearchParams();
+    (useSearchParams as Mock).mockReturnValue(mockedSearch);
 
     render(
       <LanguageProvider lang="en">
