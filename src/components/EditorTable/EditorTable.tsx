@@ -21,9 +21,6 @@ export default function EditorTable({ heading, currentEditorData, setCurrentEdit
   const { t } = useTranslation(lng);
   const [rows, addRows] = useState(Array.from(Array(currentEditorData.length).keys()));
 
-  console.log(heading);
-  console.log(currentEditorData);
-
   const handleClick = () => {
     addRows((oldArr) => [...oldArr, rows.length]);
   };

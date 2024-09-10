@@ -23,21 +23,21 @@ export default function CustomTabPanel({ children, value, index, content, ...oth
   const headerEditors = Object.values(GraphQlHeadersEditor) as string[];
   const variablesEditors = Object.values(GraphQlVariablesEditor) as string[];
   const editors = headerEditors.concat(variablesEditors);
-  const searchParamsFromUrl = useSearchParams();
+  // const searchParamsFromUrl = useSearchParams();
 
-  useEffect(() => {
-    if (searchParamsFromUrl && searchParamsFromUrl.size > 1) {
-      const searchParamsFromUrlArr = searchParamsFromUrl
-        .toString()
-        .replaceAll('%2F', '/')
-        .split('&')
-        .map((item) => item.split('='));
-      const searchParamsFromUrlObj = searchParamsFromUrlArr.map((item, index) => {
-        return { id: index, key: item[0], value: item[1], check: true };
-      });
-      setHeaderData([...searchParamsFromUrlObj]);
-    }
-  }, [searchParamsFromUrl, setHeaderData]);
+  // useEffect(() => {
+  //   if (searchParamsFromUrl && searchParamsFromUrl.size > 1) {
+  //     const searchParamsFromUrlArr = searchParamsFromUrl
+  //       .toString()
+  //       .replaceAll('%2F', '/')
+  //       .split('&')
+  //       .map((item) => item.split('='));
+  //     const searchParamsFromUrlObj = searchParamsFromUrlArr.map((item, index) => {
+  //       return { id: index, key: item[0], value: item[1], check: true };
+  //     });
+  //     setHeaderData([...searchParamsFromUrlObj]);
+  //   }
+  // }, [searchParamsFromUrl, setHeaderData]);
 
   return (
     <Box
