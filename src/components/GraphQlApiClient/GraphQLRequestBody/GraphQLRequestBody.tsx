@@ -6,7 +6,6 @@ import { BodyType, SegmentIndex } from '@/types';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
 import { fallbackLng } from '@/utils';
-import { decodeFromBase64 } from '@/services';
 
 export default function GraphQlRequestBody() {
   const pathname = usePathname();
