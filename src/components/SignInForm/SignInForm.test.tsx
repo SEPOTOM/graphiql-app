@@ -21,7 +21,7 @@ describe('SignInForm', () => {
     );
 
     await user.type(getByRole('textbox', { name: /email/i }), 'mark@email.com');
-    await user.type(getByLabelText(/^password/i), 'mark12345678');
+    await user.type(getByLabelText(/^password/i), 'mark12345678!');
     await user.click(getByRole('button', { name: /sign in/i }));
 
     expect(await findByRole('alert')).toHaveTextContent(/success/i);
@@ -37,7 +37,7 @@ describe('SignInForm', () => {
     const pwdInput = getByLabelText(/^password/i);
 
     await user.type(emailInput, 'mark@email.com');
-    await user.type(pwdInput, 'mark12345678');
+    await user.type(pwdInput, 'mark12345678!');
     await user.click(getByRole('button', { name: /sign in/i }));
 
     expect(emailInput).toBeDisabled();
