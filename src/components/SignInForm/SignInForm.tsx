@@ -9,8 +9,9 @@ import { useAuth } from '@/contexts';
 import { useTranslation } from '@/hooks';
 import { FormLayout, Notification, PasswordField } from '@/components';
 import { signInSchema } from '@/utils';
+import { SignInFormData } from '@/types';
 
-import { SignInFormData, SignInFormProps } from './types';
+import { SignInFormProps } from './types';
 
 const SignInForm = ({ lng }: SignInFormProps) => {
   const theme = useTheme();

@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
-import { SignInFormData } from '@/components/SignInForm/types';
 import { SignUpFormData } from '@/components/SignUpForm/types';
+import { SignInFormData } from '@/types';
 
 const emailSchema = yup.string().required('Email is required').email('Invalid email address');
 
