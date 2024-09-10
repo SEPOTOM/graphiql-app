@@ -5,20 +5,43 @@ import EditorRow from './EditorRow/EditorRow';
 import styles from './EditorTable.module.scss';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useTranslation } from '@/hooks';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { HeadersAndVariablesEditorRowDataItem } from '@/types';
 
 interface EditorTableProps {
   heading: string;
-  currentEditorData: HeadersAndVariablesEditorRowDataItem[];
-  setCurrentEditorData: Dispatch<SetStateAction<HeadersAndVariablesEditorRowDataItem[]>>;
 }
 
-export default function EditorTable({ heading, currentEditorData, setCurrentEditorData }: EditorTableProps) {
+export default function EditorTable({ heading }: EditorTableProps) {
+  const searchParams = useSearchParams();
   const pathname = usePathname();
   const [lng] = pathname.split('/').splice(1, 1);
   const { t } = useTranslation(lng);
-  const [rows, addRows] = useState(currentEditorData.length ? Array.from(Array(currentEditorData.length).keys()) : [0]);
+  const params = Array.from(searchParams.entries());
+  const initializedRowsData = params.map(([key, value], index) => ({
+    id: index,
+    key,
+    value,
+    check: true,
+  }));
+
+  const currentRowData: HeadersAndVariablesEditorRowDataItem[] = initializedRowsData;
+  const [rowsData, setRowsData] = useState<HeadersAndVariablesEditorRowDataItem[]>(currentRowData);
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+    rowsData.forEach((row) => {
+      if (row.check && (row.value || row.key)) {
+        params.set(row.key, row.value);
+      } else {
+        params.delete(row.key);
+      }
+      const newPath = `${pathname}?${params}`;
+      window.history.replaceState(null, '', newPath);
+    });
+  }, [rowsData]);
+
+  const [rows, addRows] = useState(rowsData.length ? Array.from(Array(rowsData.length).keys()) : [0]);
 
   const handleClick = () => {
     addRows((oldArr) => [...oldArr, rows.length]);
@@ -42,12 +65,7 @@ export default function EditorTable({ heading, currentEditorData, setCurrentEdit
         <TableBody>
           {rows.map((_, index) => {
             return (
-              <EditorRow
-                key={index}
-                rowId={index}
-                currentEditorData={currentEditorData}
-                setCurrentEditorData={setCurrentEditorData}
-              />
+              <EditorRow key={index} rowId={index} currentEditorData={rowsData} setCurrentEditorData={setRowsData} />
             );
           })}
         </TableBody>
