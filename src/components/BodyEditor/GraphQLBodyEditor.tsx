@@ -8,7 +8,6 @@ import { BodyType, PlaceHolder, SegmentIndex, EditorOptions } from '@/types';
 import { decodeFromBase64, encodeToBase64, getNewGraphQLBodyPath } from '@/services';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
-import { ErrorsMessage } from '@/components';
 import { fallbackLng } from '@/utils';
 import { useGraphQl } from '@/contexts';
 
@@ -25,8 +24,6 @@ export default function GraphQlRequestBodyEditor({ mode, options, initialValue }
   const lng = pathSegments.at(SegmentIndex.Language) ?? fallbackLng;
   const { t } = useTranslation(lng);
   const { queryText, setQueryText } = useGraphQl();
-  const [showErrorsPopover, setShowErrorsPopover] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     setQueryText(initialValue || '');
@@ -54,24 +51,9 @@ export default function GraphQlRequestBodyEditor({ mode, options, initialValue }
       if (e instanceof Error) {
         const newSegments = pathSegments.slice(0, SegmentIndex.Body);
         window.history.replaceState(null, '', newSegments.join('/'));
-        setErrorMessage(`Invalid GraphQL: ${e.message}`);
-        setShowErrorsPopover(true);
       }
     }
   }, [mode, queryText, pathname, pathSegments, options.readOnly]);
-
-  useEffect(() => {
-    if (options.readOnly) return;
-    let timer: NodeJS.Timeout;
-    if (showErrorsPopover) {
-      timer = setTimeout(() => {
-        setShowErrorsPopover(false);
-      }, 2500);
-    }
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [showErrorsPopover, options.readOnly]);
 
   useEffect(() => {
     if (options.readOnly) return;
@@ -103,14 +85,12 @@ export default function GraphQlRequestBodyEditor({ mode, options, initialValue }
 
   const handleChange = (queryText?: string) => {
     if (queryText) {
-      setShowErrorsPopover(false);
       setQueryText(queryText);
     }
   };
 
   return (
     <Paper sx={{ width: '100%', position: 'relative', padding: '10px' }}>
-      {showErrorsPopover && <ErrorsMessage errorMessage={errorMessage} />}
       <Editor
         language={mode}
         height="35vh"
