@@ -3,7 +3,7 @@
 import { Box, Button, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
 import EditorRow from './EditorRow/EditorRow';
 import styles from './EditorTable.module.scss';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useTranslation } from '@/hooks';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { HeadersAndVariablesEditorRowDataItem } from '@/types';
@@ -18,7 +18,7 @@ export default function EditorTable({ heading, currentEditorData, setCurrentEdit
   const pathname = usePathname();
   const [lng] = pathname.split('/').splice(1, 1);
   const { t } = useTranslation(lng);
-  const [rows, addRows] = useState([0]);
+  const [rows, addRows] = useState(currentEditorData.length ? Array.from(Array(currentEditorData.length).keys()) : [0]);
 
   const handleClick = () => {
     addRows((oldArr) => [...oldArr, rows.length]);

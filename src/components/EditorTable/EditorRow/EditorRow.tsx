@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
 import styles from '../EditorTable.module.scss';
 import { Checkbox, TableCell, TableRow, TextField } from '@mui/material';
 import { usePathname } from 'next/navigation';
@@ -14,7 +14,7 @@ interface EditorRowProps {
 }
 
 export default function EditorRow({ rowId, currentEditorData, setCurrentEditorData }: EditorRowProps) {
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(currentEditorData[rowId]?.check ?? false);
   const pathname = usePathname();
   const [lng] = pathname.split('/').splice(1, 1);
   const { t } = useTranslation(lng);
@@ -22,7 +22,7 @@ export default function EditorRow({ rowId, currentEditorData, setCurrentEditorDa
   const handleEditRowCheckboxChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const currentRowId = Number(event.target.name);
     const index = currentEditorData.findIndex((value) => value.id === currentRowId);
-    let result: HeadersAndVariablesEditorRowDataItem = { id: rowId, check: !isChecked };
+    let result: HeadersAndVariablesEditorRowDataItem = { id: rowId, check: !isChecked, key: '', value: '' };
 
     setIsChecked((prev) => !prev);
 
@@ -41,6 +41,8 @@ export default function EditorRow({ rowId, currentEditorData, setCurrentEditorDa
     let result: HeadersAndVariablesEditorRowDataItem = {
       check: isChecked,
       id: rowId,
+      key: '',
+      value: '',
       [event.target.name]: event.target.value,
     };
 
@@ -73,6 +75,7 @@ export default function EditorRow({ rowId, currentEditorData, setCurrentEditorDa
           placeholder={t('data_editor_key_heading')}
           name="key"
           onChange={handleEditRowTextFieldChange}
+          defaultValue={currentEditorData[rowId]?.key ?? ''}
         />
       </TableCell>
       <TableCell className={styles.edit_row__cell}>
@@ -81,6 +84,7 @@ export default function EditorRow({ rowId, currentEditorData, setCurrentEditorDa
           placeholder={t('data_editor_value_heading')}
           name="value"
           onChange={handleEditRowTextFieldChange}
+          defaultValue={currentEditorData[rowId]?.value ?? ''}
         />
       </TableCell>
     </TableRow>
