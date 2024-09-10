@@ -25,8 +25,8 @@ describe('SignUpForm', () => {
 
     await user.type(getByRole('textbox', { name: /username/i }), 'Mark');
     await user.type(getByRole('textbox', { name: /email/i }), 'mark@email.com');
-    await user.type(getByLabelText(/^password/i), 'mark12345678');
-    await user.type(getByLabelText(/confirm password/i), 'mark12345678');
+    await user.type(getByLabelText(/^password/i), 'mark12345678!');
+    await user.type(getByLabelText(/confirm password/i), 'mark12345678!');
     await user.click(getByRole('button', { name: /sign up/i }));
 
     expect(await findByRole('alert')).toHaveTextContent(/success/i);
@@ -44,8 +44,8 @@ describe('SignUpForm', () => {
 
     await user.type(getByRole('textbox', { name: /username/i }), 'Mark');
     await user.type(getByRole('textbox', { name: /email/i }), 'mark@email.com');
-    await user.type(pwdInput, 'mark12345678');
-    await user.type(confirmPwdInput, 'mark12345678');
+    await user.type(pwdInput, 'mark12345678!');
+    await user.type(confirmPwdInput, 'mark12345678!');
     await user.click(getByRole('button', { name: /sign up/i }));
 
     expect(pwdInput).toBeDisabled();
