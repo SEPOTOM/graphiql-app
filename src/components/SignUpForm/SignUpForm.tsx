@@ -9,8 +9,9 @@ import { useAuth } from '@/contexts';
 import { useTranslation } from '@/hooks';
 import { FormLayout, Notification, PasswordField } from '@/components';
 import { signUpSchema } from '@/utils';
+import { SignUpFormData } from '@/types';
 
-import { SignUpFormData, SignUpFormProps } from './types';
+import { SignUpFormProps } from './types';
 
 const SignUpForm = ({ lng }: SignUpFormProps) => {
   const { signUp, status } = useAuth();

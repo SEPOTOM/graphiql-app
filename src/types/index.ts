@@ -1,5 +1,5 @@
 import { Languages, LngParam } from '@/types/i18n';
-import { SignInFormData, SignUpData, TokenRes } from '@/types/auth';
+import { SignInFormData, SignUpData, SignUpFormData, TokenRes } from '@/types/auth';
 import { Annotations, JSONError, EditorOptions } from '@/types/bodyEditor';
 import {
   Method,
@@ -24,6 +24,7 @@ export type {
   EditorOptions,
   HeadersAndVariablesEditorRowDataItem,
   SignInFormData,
+  SignUpFormData,
 };
 
 export {
