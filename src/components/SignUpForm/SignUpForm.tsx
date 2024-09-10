@@ -2,17 +2,27 @@
 
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Button, TextField, useMediaQuery, useTheme } from '@mui/material';
+import { Button, FormHelperTextProps, TextField, useMediaQuery, useTheme } from '@mui/material';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import { useAuth } from '@/contexts';
 import { useTranslation } from '@/hooks';
 import { FormLayout, Notification, PasswordField } from '@/components';
+import { signUpSchema } from '@/utils';
 
 import { SignUpFormData, SignUpFormProps } from './types';
 
 const SignUpForm = ({ lng }: SignUpFormProps) => {
   const { signUp, status } = useAuth();
-  const { handleSubmit, register } = useForm<SignUpFormData>();
+  const {
+    handleSubmit,
+    register,
+    watch,
+    formState: { errors },
+  } = useForm<SignUpFormData>({
+    resolver: yupResolver(signUpSchema),
+    mode: 'onChange',
+  });
   const { t } = useTranslation(lng);
   const [isSuccess, setIsSuccess] = useState(false);
   const theme = useTheme();
@@ -28,8 +38,16 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
     setIsSuccess(true);
   };
 
+  const password = watch('password');
+  const confirmPassword = watch('confirmPassword');
+  const passwordsMatchError = password !== confirmPassword ? 'Passwords must match' : '';
+  const confirmPasswordError = errors.confirmPassword?.message || passwordsMatchError;
+
   const isSending = status === 'loading';
   const inputSize = isSmallScreen ? 'small' : 'medium';
+  const helperTextProps: Partial<FormHelperTextProps> = {
+    sx: { fontSize: 14 },
+  };
 
   return (
     <>
@@ -40,6 +58,9 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
           disabled={isSending}
           required
           size={inputSize}
+          error={Boolean(errors.username)}
+          helperText={errors.username?.message || ' '}
+          FormHelperTextProps={helperTextProps}
         />
 
         <TextField
@@ -49,6 +70,9 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
           disabled={isSending}
           required
           size={inputSize}
+          error={Boolean(errors.email)}
+          helperText={errors.email?.message || ' '}
+          FormHelperTextProps={helperTextProps}
         />
 
         <PasswordField
@@ -58,6 +82,9 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
           required
           lng={lng}
           size={inputSize}
+          error={Boolean(errors.password)}
+          helperText={errors.password?.message || ' '}
+          FormHelperTextProps={helperTextProps}
         />
 
         <PasswordField
@@ -67,6 +94,9 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
           required
           lng={lng}
           size={inputSize}
+          error={Boolean(confirmPasswordError)}
+          helperText={confirmPasswordError || ' '}
+          FormHelperTextProps={helperTextProps}
         />
 
         <Button variant="contained" color="primary" type="submit" disabled={isSending}>
