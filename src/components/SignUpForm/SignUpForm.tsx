@@ -25,6 +25,7 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
     mode: 'onChange',
   });
   const { t } = useTranslation(lng);
+  const { t: vt } = useTranslation(lng, 'validation');
   const [isSuccess, setIsSuccess] = useState(false);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -41,8 +42,9 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
 
   const password = watch('password');
   const confirmPassword = watch('confirmPassword');
-  const passwordsMatchError = password !== confirmPassword ? 'Passwords must match' : '';
-  const confirmPasswordError = errors.confirmPassword?.message || passwordsMatchError;
+  const passwordsMatchError = password !== confirmPassword ? vt('confirm_pwd.match') : '';
+  const confirmPasswordError =
+    errors.confirmPassword?.message ? vt(errors.confirmPassword.message) : passwordsMatchError;
 
   const isSending = status === 'loading';
   const inputSize = isSmallScreen ? 'small' : 'medium';
@@ -60,7 +62,7 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
           required
           size={inputSize}
           error={Boolean(errors.username)}
-          helperText={errors.username?.message || ' '}
+          helperText={errors.username?.message ? vt(errors.username.message) : ' '}
           FormHelperTextProps={helperTextProps}
         />
 
@@ -72,7 +74,7 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
           required
           size={inputSize}
           error={Boolean(errors.email)}
-          helperText={errors.email?.message || ' '}
+          helperText={errors.email?.message ? vt(errors.email.message) : ' '}
           FormHelperTextProps={helperTextProps}
         />
 
@@ -84,7 +86,7 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
           lng={lng}
           size={inputSize}
           error={Boolean(errors.password)}
-          helperText={errors.password?.message || ' '}
+          helperText={errors.password?.message ? vt(errors.password.message) : ' '}
           FormHelperTextProps={helperTextProps}
         />
 
