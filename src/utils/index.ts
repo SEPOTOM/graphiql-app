@@ -8,6 +8,7 @@ import {
 } from './constants';
 import { isImagePath } from '@/utils/pathname';
 import { signInSchema, signUpSchema } from '@/utils/validation';
+import { getAuthErrorMessage } from '@/utils/errors';
 
 export {
   fallbackLng,
@@ -23,4 +24,5 @@ export {
   basicRequestErrorMessage,
   signInSchema,
   signUpSchema,
+  getAuthErrorMessage,
 };
