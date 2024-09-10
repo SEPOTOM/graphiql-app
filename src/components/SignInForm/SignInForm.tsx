@@ -27,6 +27,7 @@ const SignInForm = ({ lng }: SignInFormProps) => {
   const { signIn, status } = useAuth();
   const [isSuccess, setIsSuccess] = useState(false);
   const { t } = useTranslation(lng);
+  const { t: vt } = useTranslation(lng, 'validation');
 
   const onSubmit: SubmitHandler<SignInFormData> = async ({ email, password }) => {
     await signIn(email, password);
@@ -50,7 +51,7 @@ const SignInForm = ({ lng }: SignInFormProps) => {
           size={inputSize}
           disabled={isSending}
           error={Boolean(errors.email)}
-          helperText={errors.email?.message || ' '}
+          helperText={errors.email?.message ? vt(errors.email.message) : ' '}
           FormHelperTextProps={helperTextProps}
         />
 
@@ -62,7 +63,7 @@ const SignInForm = ({ lng }: SignInFormProps) => {
           size={inputSize}
           disabled={isSending}
           error={Boolean(errors.password)}
-          helperText={errors.password?.message || ' '}
+          helperText={errors.password?.message ? vt(errors.password.message) : ' '}
           FormHelperTextProps={helperTextProps}
         />
 
