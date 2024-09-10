@@ -2,7 +2,11 @@ import * as yup from 'yup';
 
 import { SignInFormData, SignUpFormData } from '@/types';
 
-const emailSchema = yup.string().required('Email is required').email('Invalid email address');
+const emailSchema = yup
+  .string()
+  .required('Email is required')
+  .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Invalid email address')
+  .email('Invalid email address');
 
 const passwordSchema = yup
   .string()
