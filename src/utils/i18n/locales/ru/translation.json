@@ -2,6 +2,7 @@
   "body_mode_none": "Без данных",
   "body_mode_none_text": "У этого запроса нет тела",
   "body_mode_raw": "Необработанный",
+  "body_type_graphql_placeholder": "Введите GraphQL здесь...",
   "body_type_json_placeholder": "Введите JSON здесь...",
   "body_type_text": "Текст",
   "body_type_text_placeholder": "Введите текст запроса здесь...",
@@ -38,6 +39,7 @@
     "show": "Показать пароль"
   },
   "response_header": "Ответ",
+  "request_header": "Запрос",
   "response_placeholder": "Введите URL и нажмите кнопку 'Отправить', чтобы получить ответ",
   "restfull_client_menu_tab_body": "Тело запроса",
   "restfull_client_menu_tab_headers": "Заголовки",

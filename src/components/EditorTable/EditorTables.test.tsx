@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import { Mock } from 'vitest';
 import EditorTable from './EditorTable';
 import { GraphQlHeadersEditor } from '@/types';
+import { mockedGraphQlEditorsRow } from '@/tests/mocks/mocks';
 
 const mockSetData = vi.fn();
 
@@ -13,7 +14,7 @@ describe('Editors row', () => {
     render(
       <EditorTable
         heading={GraphQlHeadersEditor.HeadersEditorEN}
-        currentEditorData={[]}
+        currentEditorData={mockedGraphQlEditorsRow}
         setCurrentEditorData={mockSetData}
       />
     );
@@ -35,7 +36,7 @@ describe('Editors row', () => {
     render(
       <EditorTable
         heading={GraphQlHeadersEditor.HeadersEditorEN}
-        currentEditorData={[]}
+        currentEditorData={mockedGraphQlEditorsRow}
         setCurrentEditorData={mockSetData}
       />
     );
@@ -59,7 +60,7 @@ describe('Editors row', () => {
     render(
       <EditorTable
         heading={GraphQlHeadersEditor.HeadersEditorEN}
-        currentEditorData={[]}
+        currentEditorData={mockedGraphQlEditorsRow}
         setCurrentEditorData={mockSetData}
       />
     );
