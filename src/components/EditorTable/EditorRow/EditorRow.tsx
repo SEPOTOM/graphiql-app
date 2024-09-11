@@ -20,7 +20,7 @@ export default function EditorRow({ rowId, currentEditorData, setCurrentEditorDa
   const { t } = useTranslation(lng);
 
   useEffect(() => {
-    setIsChecked(currentEditorData[rowId]?.check);
+    setIsChecked(currentEditorData[rowId]?.check ?? false);
   }, [currentEditorData]);
 
   const handleEditRowCheckboxChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
