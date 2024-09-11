@@ -1,6 +1,7 @@
 import { BaseSyntheticEvent } from 'react';
 import { FirebaseError } from 'firebase/app';
 
+import { AuthError } from '@/utils';
 import { renderWithUser } from '@/tests';
 
 import FormLayout from './FormLayout';
@@ -59,5 +60,21 @@ describe('FormLayout', () => {
     await user.click(getByRole('button', { name: 'Submit' }));
 
     expect(getByRole('alert')).toHaveTextContent(/unexpected error/i);
+  });
+
+  it('should show provided message for errors from the route handler', async () => {
+    const handleSubmit = (e?: BaseSyntheticEvent) => {
+      e?.preventDefault();
+      throw new AuthError('Internal server error.');
+    };
+    const { user, getByRole } = renderWithUser(
+      <FormLayout {...sharedProps} onSubmit={handleSubmit}>
+        {children}
+      </FormLayout>
+    );
+
+    await user.click(getByRole('button', { name: 'Submit' }));
+
+    expect(getByRole('alert')).toHaveTextContent('Internal server error.');
   });
 });
