@@ -1,6 +1,6 @@
 'use client';
 
-import { EditorTable } from '@/components';
+import { EditorTable, SchemaGraphQL } from '@/components';
 import { useGraphQl } from '@/contexts';
 import { useTranslation } from '@/hooks';
 import { GraphQlHeadersEditor, GraphQlVariablesEditor } from '@/types';
@@ -38,7 +38,7 @@ export default function CustomTabPanel({ children, value, index, content, ...oth
           currentEditorData={variablesEditors.includes(content) ? paramData : headerData}
           setCurrentEditorData={variablesEditors.includes(content) ? setParamData : setHeaderData}
         />
-      : <Typography>{t('graphQl_menu_tab_empty_message')}</Typography>}
+      : <SchemaGraphQL />}
     </Box>
   );
 }

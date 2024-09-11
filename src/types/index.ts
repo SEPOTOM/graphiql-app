@@ -11,9 +11,12 @@ import {
   PlaceHolder,
   SegmentIndex,
   BodyMode,
+  SchemaTabs,
+  SchemaTypes,
 } from '@/types/enum';
 import { HeadersAndVariablesEditorRowDataItem } from '@/types/headerAndVariablesEditors';
 import { GraphQlRequest } from './graphqlRequest';
+import { GraphQlSchemaTypesFields, GraphQlSchemaTypesFieldType, GraphQlSchemaTypesItem } from './graphQlSchema';
 
 export type {
   LngParam,
@@ -25,6 +28,9 @@ export type {
   EditorOptions,
   HeadersAndVariablesEditorRowDataItem,
   GraphQlRequest,
+  GraphQlSchemaTypesItem,
+  GraphQlSchemaTypesFields,
+  GraphQlSchemaTypesFieldType,
 };
 
 export {
@@ -37,4 +43,6 @@ export {
   GraphQlMenuTabs,
   GraphQlHeadersEditor,
   GraphQlVariablesEditor,
+  SchemaTabs,
+  SchemaTypes,
 };

@@ -54,3 +54,15 @@ export enum BodyMode {
   None = 'none',
   Raw = 'raw',
 }
+
+export enum SchemaTypes {
+  queryType = 'queryType',
+  mutationType = 'mutationType',
+  subscriptionType = 'subscriptionType',
+}
+
+export enum SchemaTabs {
+  Query = 'Query',
+  Mutation = 'Mutation',
+  Subscription = 'Subscription',
+}

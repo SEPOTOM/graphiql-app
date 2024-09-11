@@ -15,6 +15,8 @@ import GraphQlRequestBodyEditor from './BodyEditor/GraphQLBodyEditor';
 import Header from '@/components/Header/Header';
 import SignInForm from '@/components/SignInForm/SignInForm';
 import FormLayout from '@/components/FormLayout/FormLayout';
+import NotFound from '@/components/NotFound/NotFound';
+import SchemaGraphQL from './GraphQlApiClient/SchemaGraphQL/SchemaGraphQL';
 
 export {
   MUIThemeProvider,
@@ -34,4 +36,6 @@ export {
   Header,
   SignInForm,
   FormLayout,
+  NotFound,
+  SchemaGraphQL,
 };

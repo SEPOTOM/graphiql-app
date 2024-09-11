@@ -44,7 +44,7 @@ export default function EndpointsForm() {
       endpointSdlUrl,
       headersGraphQLSchema
     )) as GraphQlRequest;
-    setSchemaGraphQL(schema.data);
+    schema.code === 'OK' ? setSchemaGraphQL(schema.data) : setSchemaGraphQL('Schema not found');
   };
 
   const handleEndpointSdlChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

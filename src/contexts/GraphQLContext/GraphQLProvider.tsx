@@ -32,7 +32,7 @@ const GraphQlDataProvider = ({ children }: GraphQLProviderProps) => {
   const [responseText, setResponseText] = useState('');
   const [responseStatus, setResponseStatus] = useState(0);
   const [responseStatusText, setResponseStatusText] = useState('');
-  const [schemaGraphQL, setSchemaGraphQL] = useState('');
+  const [schemaGraphQL, setSchemaGraphQL] = useState('Schema not found');
 
   return (
     <GraphQlDataContext.Provider
