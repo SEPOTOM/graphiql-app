@@ -1,6 +1,8 @@
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import * as admin from 'firebase-admin';
+import { FirebaseAuthError } from 'firebase-admin/auth';
 
+import { getServerAuthErrorData } from '@/utils';
 import { SignUpData, TokenRes } from '@/types';
 
 const serviceAccount = {
@@ -25,14 +27,24 @@ const getFirebaseApp = () =>
   : admin.app();
 
 export const POST = async (req: NextRequest) => {
-  const auth = getFirebaseApp().auth();
+  try {
+    const auth = getFirebaseApp().auth();
 
-  const reqBody: SignUpData = await req.json();
+    const reqBody: SignUpData = await req.json();
 
-  const { uid } = await auth.createUser(reqBody);
-  const token = await auth.createCustomToken(uid);
+    const { uid } = await auth.createUser(reqBody);
+    const token = await auth.createCustomToken(uid);
 
-  const resBody: TokenRes = { token };
+    const resBody: TokenRes = { token };
 
-  return Response.json(resBody);
+    return Response.json(resBody);
+  } catch (err) {
+    if (err instanceof FirebaseAuthError) {
+      const { errorMessage, status } = getServerAuthErrorData(err.code);
+
+      return NextResponse.json({ error: errorMessage }, { status });
+    } else {
+      throw err;
+    }
+  }
 };
