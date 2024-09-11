@@ -17,12 +17,6 @@ export const getNewURLPath = (currentPath: string, newSegment: string) => {
   return currentUrlSegments.join('/');
 };
 
-export const getNewGraphQlURLPath = (currentPath: string, newSegment: string) => {
-  const currentUrlSegments = currentPath.split('/');
-  currentUrlSegments.splice(3, 1, newSegment);
-  return currentUrlSegments.join('/');
-};
-
 export const getNewBodyPath = (currentPath: string, newSegment: string) => {
   const currentUrlSegments = currentPath.split('/');
   if (currentUrlSegments.length < SegmentIndex.Body) {
@@ -30,5 +24,26 @@ export const getNewBodyPath = (currentPath: string, newSegment: string) => {
   }
   currentUrlSegments.splice(SegmentIndex.Body, 1, newSegment);
 
+  return currentUrlSegments.join('/');
+};
+
+export const getNewGraphQlURLPath = (currentPath: string, newSegment: string) => {
+  const currentUrlSegments = currentPath.split('/');
+  currentUrlSegments.splice(3, 1, newSegment);
+  return currentUrlSegments.join('/');
+};
+
+export const getNewPathHeaders = (currentPath: string, newSegment: string) => {
+  const currentUrlSegments = currentPath.split('?');
+  currentUrlSegments.splice(1, 1, newSegment);
+  return currentUrlSegments.join('?');
+};
+
+export const getNewGraphQLBodyPath = (currentPath: string, newSegment: string) => {
+  const currentUrlSegments = currentPath.split('/');
+  if (currentUrlSegments.length < 4) {
+    currentUrlSegments.splice(3, 1, '');
+  }
+  currentUrlSegments.splice(4, 1, newSegment);
   return currentUrlSegments.join('/');
 };

@@ -100,4 +100,25 @@ fragment TypeRef on __Type {
     }
 }`;
 
+export const basicRequestErrorMessage = 'Your request is wrong';
+
 export const headersGraphQLSchema = { 'Content-type': 'application/json' };
+
+export const variablesGraphQLSchema = {};
+
+export const basicGraphQLQuery = `query {
+  characters(page: 2, filter: { name: "rick" }) {
+    info {
+      count
+    }
+    results {
+      name
+    }
+  }
+  location(id: 1) {
+    id
+  }
+  episodesByIds(ids: [1, 2]) {
+    id
+  }
+}`;

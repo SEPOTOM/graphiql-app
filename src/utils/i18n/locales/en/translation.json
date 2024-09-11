@@ -2,6 +2,7 @@
   "body_mode_none": "None",
   "body_mode_none_text": "This request does not have a body",
   "body_mode_raw": "Raw",
+  "body_type_graphql_placeholder": "Enter GraphQL here...",
   "body_type_json_placeholder": "Enter JSON here...",
   "body_type_text": "Text",
   "body_type_text_placeholder": "Enter the text here...",
@@ -42,6 +43,7 @@
     "show": "Show password"
   },
   "response_header": "Response",
+  "request_header": "Request",
   "response_placeholder": "Enter the URL and click Send to get a response",
   "restfull_client_menu_tab_body": "Request Body",
   "restfull_client_menu_tab_headers": "Headers",

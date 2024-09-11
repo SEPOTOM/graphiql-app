@@ -1,57 +1,107 @@
 'use client';
 
-import { getNewGraphQlURLPath, makeGraphQLRequest } from '@/services';
+import { decodeFromBase64, encodeToBase64, getNewGraphQlURLPath, makeGraphQLRequest } from '@/services';
 import { Box, Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { usePathname } from 'next/navigation';
-import { ChangeEvent, useState } from 'react';
-import { graphQLSchemaQuery, headersGraphQLSchema } from '@/utils';
+import { ChangeEvent, useEffect } from 'react';
+import { graphQLSchemaQuery, headersGraphQLSchema, variablesGraphQLSchema } from '@/utils';
 import { useTranslation } from '@/hooks';
+import { useGraphQl } from '@/contexts';
+import { GraphQlRequest } from '@/types';
 
 export default function EndpointsForm() {
+  const {
+    endpointUrl,
+    setEndpointUrl,
+    endpointSdlUrl,
+    setEndpointSdlUrl,
+    paramData,
+    headerData,
+    queryText,
+    setResponseText,
+    setResponseStatus,
+    setResponseStatusText,
+    setSchemaGraphQL,
+  } = useGraphQl();
   const pathname = usePathname();
   const [lng] = pathname.split('/').splice(1, 1);
   const { t } = useTranslation(lng);
-  const [urlPath, setUrlPath] = useState('');
-  const [sdlPath, setSdlPath] = useState('');
 
   const handleEndpointChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const newUrlPath = event.target.value;
-    const encodedEndpoint = btoa(newUrlPath);
+    const encodedEndpoint = encodeToBase64(newUrlPath);
     const newPath = getNewGraphQlURLPath(pathname, encodedEndpoint);
-    window.history.replaceState({ ...window.history.state, as: newPath, url: newPath }, '', newPath);
-    setUrlPath(newUrlPath);
-    setSdlPath(newUrlPath);
-    makeGraphQLRequest(graphQLSchemaQuery, newUrlPath, headersGraphQLSchema);
+    window.history.replaceState(null, '', newPath);
+    setEndpointUrl(newUrlPath);
+    setEndpointSdlUrl(newUrlPath);
+  };
+
+  const handleEndpointBlur = async () => {
+    const schema = (await makeGraphQLRequest(
+      graphQLSchemaQuery,
+      variablesGraphQLSchema,
+      endpointSdlUrl,
+      headersGraphQLSchema
+    )) as GraphQlRequest;
+    setSchemaGraphQL(schema.data);
   };
 
   const handleEndpointSdlChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const newSdlPath = event.target.value;
-    setSdlPath(newSdlPath);
-    makeGraphQLRequest(graphQLSchemaQuery, newSdlPath, headersGraphQLSchema);
+    setEndpointSdlUrl(newSdlPath);
   };
+
+  const handleOnclick = async () => {
+    const headers: HeadersInit = Object.fromEntries(
+      headerData.filter((item) => item.check === true).map((item) => [item.key, item.value])
+    );
+    const variables: HeadersInit = Object.fromEntries(
+      paramData
+        .filter((item) => item.check === true)
+        .map((item) => [item.key, Number(item.value) ? Number(item.value) : item.value])
+    );
+    const res = (await makeGraphQLRequest(queryText, variables, endpointUrl, headers)) as GraphQlRequest;
+    const data = JSON.parse(res.data);
+    setResponseText(JSON.stringify(data, null, 2));
+    setResponseStatus(res.status);
+    setResponseStatusText(res.code);
+  };
+
+  useEffect(() => {
+    const pathNameFromUrl = pathname.split('/').at(3);
+    if (pathNameFromUrl) {
+      const decodedPathNameFromUrl = decodeFromBase64(pathNameFromUrl);
+      setEndpointUrl(decodedPathNameFromUrl);
+      setEndpointSdlUrl(decodedPathNameFromUrl);
+    }
+  }, [pathname, setEndpointSdlUrl, setEndpointUrl]);
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" width="100%" gap={1}>
       <Box display="flex" width="100%" gap={1}>
         <TextField
-          value={urlPath}
+          value={endpointUrl}
           id="url-input"
           label={t('graphQl_endpoint_input_label')}
           variant="outlined"
           onChange={handleEndpointChange}
+          onBlur={handleEndpointBlur}
           placeholder={t('graphQl_endpoint_input_placeholder')}
           fullWidth
         />
-        <Button variant="outlined">{t('graphQl_send_button')}</Button>
+        <Button variant="outlined" onClick={handleOnclick}>
+          {t('graphQl_send_button')}
+        </Button>
       </Box>
       <Box display="flex" width="100%">
         <TextField
-          value={sdlPath}
+          value={endpointSdlUrl}
           id="sdl-url"
           label={t('graphQl_SDL_input_label')}
           variant="outlined"
           onChange={handleEndpointSdlChange}
+          onBlur={handleEndpointBlur}
           placeholder={t('graphQl_SDL_input_placeholder')}
           fullWidth
         />

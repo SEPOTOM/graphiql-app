@@ -125,6 +125,7 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
       <Editor
         language={mode}
         height="35vh"
+        width="100%"
         value={value}
         onChange={handleChange}
         onMount={handleEditorDidMount}
