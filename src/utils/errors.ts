@@ -9,6 +9,19 @@ export const getAuthErrorMessage = (errorCode: string) => {
   }
 };
 
+export const getServerAuthErrorData = (errorCode: string) => {
+  const errorMessage = getAuthErrorMessage(errorCode);
+
+  switch (errorCode) {
+    default: {
+      return {
+        errorMessage: 'Failed to sign up.',
+        status: 500,
+      };
+    }
+  }
+};
+
 export class AuthError extends Error {
   constructor(message: string) {
     super(message);
