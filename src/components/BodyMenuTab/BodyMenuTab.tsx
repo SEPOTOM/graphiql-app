@@ -3,10 +3,11 @@
 import { Box, Tab, Tabs } from '@mui/material';
 import { HeadersAndVariablesEditorRowDataItem, MenuTabsRest } from '@/types';
 import RequestBodyMenuTabs from './RequestBodyMenuTabs';
-import { useState, SyntheticEvent, SetStateAction, useEffect } from 'react';
+import { useState, SyntheticEvent, useEffect } from 'react';
 import { EditorTable, RequestBody } from '@/components';
 import { useLanguage, useTranslation } from '@/hooks';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { encodeToBase64, decodeFromBase64 } from '@/services';
 
 export default function BodyMenuTab() {
   const searchParams = useSearchParams();
@@ -19,8 +20,8 @@ export default function BodyMenuTab() {
   const params = Array.from(searchParams.entries());
   const initializedRowsData = params.map(([key, value], index) => ({
     id: index,
-    key,
-    value,
+    key: decodeFromBase64(key),
+    value: decodeFromBase64(value),
     check: true,
   }));
 
@@ -31,7 +32,9 @@ export default function BodyMenuTab() {
     const params = new URLSearchParams();
     rowsData.forEach((row) => {
       if (row.check && (row.value || row.key)) {
-        params.set(row.key, row.value);
+        const encodedKey = encodeToBase64(row.key);
+        const encodedValue = encodeToBase64(row.value);
+        params.set(encodedKey, encodedValue);
       } else {
         params.delete(row.key);
       }
