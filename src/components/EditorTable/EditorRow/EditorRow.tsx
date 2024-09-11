@@ -4,7 +4,7 @@ import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'reac
 import styles from '../EditorTable.module.scss';
 import { Checkbox, TableCell, TableRow, TextField } from '@mui/material';
 import { usePathname } from 'next/navigation';
-import { useTranslation } from '@/hooks';
+import { useLanguage, useTranslation } from '@/hooks';
 import { HeadersAndVariablesEditorRowDataItem } from '@/types';
 
 interface EditorRowProps {
@@ -15,8 +15,7 @@ interface EditorRowProps {
 
 export default function EditorRow({ rowId, currentEditorData, setCurrentEditorData }: EditorRowProps) {
   const [isChecked, setIsChecked] = useState(currentEditorData[rowId]?.check ?? false);
-  const pathname = usePathname();
-  const [lng] = pathname.split('/').splice(1, 1);
+  const { lng } = useLanguage();
   const { t } = useTranslation(lng);
 
   useEffect(() => {

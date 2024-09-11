@@ -2,7 +2,7 @@
 
 import { EditorTable } from '@/components';
 import { useGraphQl } from '@/contexts';
-import { useTranslation } from '@/hooks';
+import { useLanguage, useTranslation } from '@/hooks';
 import { decodeFromBase64, encodeToBase64 } from '@/services';
 import { GraphQlHeadersEditor, GraphQlVariablesEditor, HeadersAndVariablesEditorRowDataItem } from '@/types';
 import { Box, Typography } from '@mui/material';
@@ -20,7 +20,7 @@ export default function CustomTabPanel({ children, value, index, content, ...oth
   const searchParams = useSearchParams();
   const { paramData, setParamData } = useGraphQl();
   const pathname = usePathname();
-  const [lng] = pathname.split('/').splice(1, 1);
+  const { lng } = useLanguage();
   const { t } = useTranslation(lng);
   const params = Array.from(searchParams.entries());
   const initializedRowsData = params.map(([key, value], index) => ({

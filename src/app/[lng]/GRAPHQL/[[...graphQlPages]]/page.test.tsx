@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Mock } from 'vitest';
 import GraphQlClientPage from './page';
+import { LanguageProvider } from '@/contexts';
 
 describe('GraphQlClientPage', () => {
   it('should  render page correctly', () => {
@@ -10,7 +11,13 @@ describe('GraphQlClientPage', () => {
     (useRouter as Mock).mockImplementation(() => ({
       replace,
     }));
-    render(<GraphQlClientPage />);
+    const mockedSearch = new URLSearchParams();
+    (useSearchParams as Mock).mockReturnValue(mockedSearch);
+    render(
+      <LanguageProvider lang="en">
+        <GraphQlClientPage />
+      </LanguageProvider>
+    );
     expect(screen.getByLabelText('Endpoint URL')).toBeInTheDocument();
     expect(screen.getByLabelText('SDL URL')).toBeInTheDocument();
   });

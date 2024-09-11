@@ -24,7 +24,7 @@ describe('SignInForm', () => {
     await user.type(getByLabelText(/^password/i), 'mark12345678');
     await user.click(getByRole('button', { name: /sign in/i }));
 
-    // expect(await findByRole('alert')).toHaveTextContent(/success/i);
+    expect(await findByRole('alert')).toHaveTextContent(/success/i);
   });
 
   it('disables form widgets while the form is submitting', async () => {

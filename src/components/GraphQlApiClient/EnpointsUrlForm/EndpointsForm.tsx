@@ -6,11 +6,11 @@ import TextField from '@mui/material/TextField';
 import { usePathname } from 'next/navigation';
 import { ChangeEvent, useState } from 'react';
 import { graphQLSchemaQuery, headersGraphQLSchema } from '@/utils';
-import { useTranslation } from '@/hooks';
+import { useLanguage, useTranslation } from '@/hooks';
 
 export default function EndpointsForm() {
   const pathname = usePathname();
-  const [lng] = pathname.split('/').splice(1, 1);
+  const { lng } = useLanguage();
   const { t } = useTranslation(lng);
   const [urlPath, setUrlPath] = useState('');
   const [sdlPath, setSdlPath] = useState('');

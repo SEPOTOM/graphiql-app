@@ -4,7 +4,7 @@ import { Box, Button, Table, TableBody, TableCell, TableHead, TableRow, Typograp
 import EditorRow from './EditorRow/EditorRow';
 import styles from './EditorTable.module.scss';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { useTranslation } from '@/hooks';
+import { useLanguage, useTranslation } from '@/hooks';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { HeadersAndVariablesEditorRowDataItem } from '@/types';
 
@@ -15,8 +15,7 @@ interface EditorTableProps {
 }
 
 export default function EditorTable({ heading, currentEditorData, setCurrentEditorData }: EditorTableProps) {
-  const pathname = usePathname();
-  const [lng] = pathname.split('/').splice(1, 1);
+  const { lng } = useLanguage();
   const { t } = useTranslation(lng);
   const [rows, addRows] = useState(currentEditorData.length ? Array.from(Array(currentEditorData.length).keys()) : [0]);
 

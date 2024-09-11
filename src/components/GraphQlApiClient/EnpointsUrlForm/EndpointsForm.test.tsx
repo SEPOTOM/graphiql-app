@@ -7,6 +7,7 @@ import * as services from '@/services';
 import { graphQLSchemaQuery, headersGraphQLSchema } from '@/utils';
 
 import EndpointsForm from './EndpointsForm';
+import { LanguageProvider } from '@/contexts';
 
 const mockReplaceState = vi.fn();
 window.history.replaceState = mockReplaceState;
@@ -15,7 +16,11 @@ describe('GraphQl endpoints form', () => {
   it('should  render form correctly', async () => {
     (usePathname as Mock).mockReturnValue('en/GRAPHQL');
 
-    render(<EndpointsForm />);
+    render(
+      <LanguageProvider lang="en">
+        <EndpointsForm />
+      </LanguageProvider>
+    );
     await waitFor(() => {
       expect(screen.getByLabelText('Endpoint URL')).toHaveValue('');
     });
@@ -24,7 +29,11 @@ describe('GraphQl endpoints form', () => {
   it('selecting another endpoint updates URL', async () => {
     (usePathname as Mock).mockReturnValue('en/GRAPHQL');
 
-    render(<EndpointsForm />);
+    render(
+      <LanguageProvider lang="en">
+        <EndpointsForm />
+      </LanguageProvider>
+    );
 
     await waitFor(async () => {
       const mockGetNewGraphQlURLPath = vi.spyOn(services, 'getNewGraphQlURLPath');
@@ -52,7 +61,11 @@ describe('GraphQl endpoints form', () => {
   it('selecting another SDL endpoint gets schema', async () => {
     (usePathname as Mock).mockReturnValue('en/GRAPHQL/h');
 
-    render(<EndpointsForm />);
+    render(
+      <LanguageProvider lang="en">
+        <EndpointsForm />
+      </LanguageProvider>
+    );
 
     await waitFor(async () => {
       const mockMakeGraphQLRequest = vi.spyOn(services, 'makeGraphQLRequest');
