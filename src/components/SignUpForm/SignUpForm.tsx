@@ -9,7 +9,7 @@ import { FirebaseError } from 'firebase/app';
 import { useAuth } from '@/contexts';
 import { useTranslation } from '@/hooks';
 import { FormLayout, Notification, PasswordField } from '@/components';
-import { getAuthErrorMessage, signUpSchema } from '@/utils';
+import { AuthError, getAuthErrorMessage, signUpSchema } from '@/utils';
 import { SignUpFormData } from '@/types';
 
 import { SignUpFormProps } from './types';
@@ -44,6 +44,10 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
     } catch (err) {
       if (err instanceof FirebaseError) {
         setErrorMessage(getAuthErrorMessage(err.code));
+      }
+
+      if (err instanceof AuthError) {
+        setErrorMessage(err.message);
       }
     }
   };
