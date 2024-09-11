@@ -1,4 +1,10 @@
 {
+  "auth_errors": {
+    "default": "An unexpected error occurred. Please try again.",
+    "existing_email": "Email is already in use.",
+    "invalid_credential": "The credential provided is invalid.",
+    "server_default": "Failed to sign up."
+  },
   "body_mode_none": "None",
   "body_mode_none_text": "This request does not have a body",
   "body_mode_raw": "Raw",

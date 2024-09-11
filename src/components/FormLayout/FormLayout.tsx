@@ -5,29 +5,31 @@ import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { FirebaseError } from 'firebase/app';
 
 import { Notification } from '@/components';
+import { useTranslation } from '@/hooks';
 import { AuthError, getAuthErrorMessage } from '@/utils';
 
 import { FormLayoutProps } from './types';
 
-const FormLayout = ({ children, onSubmit, title }: FormLayoutProps) => {
+const FormLayout = ({ children, onSubmit, title, lng }: FormLayoutProps) => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const [errorMessage, setErrorMessage] = useState<Nullable<string>>(null);
+  const { t } = useTranslation(lng);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     try {
       await onSubmit(e);
     } catch (err) {
       if (err instanceof FirebaseError) {
-        setErrorMessage(getAuthErrorMessage(err.code));
+        setErrorMessage(t(getAuthErrorMessage(err.code)));
       }
 
       if (err instanceof AuthError) {
-        setErrorMessage(err.message);
+        setErrorMessage(t(err.message));
       }
 
       if (err instanceof TypeError && err.message === 'Failed to fetch') {
-        setErrorMessage(getAuthErrorMessage(''));
+        setErrorMessage(t(getAuthErrorMessage('')));
       }
     }
   };

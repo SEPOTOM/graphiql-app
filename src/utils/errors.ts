@@ -1,13 +1,13 @@
 export const getAuthErrorMessage = (errorCode: string) => {
   switch (errorCode) {
     case 'auth/invalid-credential': {
-      return 'The credential provided is invalid.';
+      return 'auth_errors.invalid_credential';
     }
     case 'auth/email-already-exists': {
-      return 'Email is already in use.';
+      return 'auth_errors.existing_email';
     }
     default: {
-      return 'An unexpected error occurred. Please try again.';
+      return 'auth_errors.default';
     }
   }
 };
@@ -23,7 +23,7 @@ export const getServerAuthErrorData = (errorCode: string) => {
     }
     default: {
       return {
-        errorMessage: 'Failed to sign up.',
+        errorMessage: 'auth_errors.server_default',
         status: 500,
       };
     }

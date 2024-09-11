@@ -54,7 +54,7 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
 
   return (
     <>
-      <FormLayout onSubmit={handleSubmit(onSubmit)} title={t('sign_up.title')}>
+      <FormLayout onSubmit={handleSubmit(onSubmit)} title={t('sign_up.title')} lng={lng}>
         <TextField
           label={t('sign_up.username')}
           {...register('username')}
