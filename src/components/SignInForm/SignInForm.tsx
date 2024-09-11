@@ -19,12 +19,12 @@ const SignInForm = ({ lng }: SignInFormProps) => {
   const {
     handleSubmit,
     register,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitting },
   } = useForm<SignInFormData>({
     resolver: yupResolver(signInSchema),
     mode: 'onChange',
   });
-  const { signIn, status } = useAuth();
+  const { signIn } = useAuth();
   const [isSuccess, setIsSuccess] = useState(false);
   const { t } = useTranslation(lng);
   const { t: vt } = useTranslation(lng, 'validation');
@@ -35,7 +35,6 @@ const SignInForm = ({ lng }: SignInFormProps) => {
     setIsSuccess(true);
   };
 
-  const isSending = status === 'loading';
   const inputSize = isSmallScreen ? 'small' : 'medium';
   const helperTextProps: Partial<FormHelperTextProps> = {
     sx: { fontSize: 14 },
@@ -49,7 +48,7 @@ const SignInForm = ({ lng }: SignInFormProps) => {
           {...register('email')}
           required
           size={inputSize}
-          disabled={isSending}
+          disabled={isSubmitting}
           error={Boolean(errors.email)}
           helperText={errors.email?.message ? vt(errors.email.message) : ' '}
           FormHelperTextProps={helperTextProps}
@@ -61,13 +60,13 @@ const SignInForm = ({ lng }: SignInFormProps) => {
           required
           lng={lng}
           size={inputSize}
-          disabled={isSending}
+          disabled={isSubmitting}
           error={Boolean(errors.password)}
           helperText={errors.password?.message ? vt(errors.password.message) : ' '}
           FormHelperTextProps={helperTextProps}
         />
 
-        <Button variant="contained" color="primary" type="submit" disabled={isSending || !isValid}>
+        <Button variant="contained" color="primary" type="submit" disabled={isSubmitting || !isValid}>
           {t('sign_in.submit_button')}
         </Button>
       </FormLayout>
