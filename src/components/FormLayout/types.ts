@@ -1,7 +1,7 @@
-import { FormEventHandler, ReactNode } from 'react';
+import { BaseSyntheticEvent, ReactNode } from 'react';
 
 export interface FormLayoutProps {
   children: ReactNode;
-  onSubmit: FormEventHandler<HTMLFormElement>;
+  onSubmit: (e?: BaseSyntheticEvent<object, unknown, unknown>) => Promise<void>;
   title: string;
 }

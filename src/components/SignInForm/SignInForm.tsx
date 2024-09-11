@@ -4,12 +4,11 @@ import { useState } from 'react';
 import { Button, FormHelperTextProps, TextField, useMediaQuery, useTheme } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FirebaseError } from 'firebase/app';
 
 import { useAuth } from '@/contexts';
 import { useTranslation } from '@/hooks';
 import { FormLayout, Notification, PasswordField } from '@/components';
-import { getAuthErrorMessage, signInSchema } from '@/utils';
+import { signInSchema } from '@/utils';
 import { SignInFormData } from '@/types';
 
 import { SignInFormProps } from './types';
@@ -27,20 +26,13 @@ const SignInForm = ({ lng }: SignInFormProps) => {
   });
   const { signIn, status } = useAuth();
   const [isSuccess, setIsSuccess] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<Nullable<string>>(null);
   const { t } = useTranslation(lng);
   const { t: vt } = useTranslation(lng, 'validation');
 
   const onSubmit: SubmitHandler<SignInFormData> = async ({ email, password }) => {
-    try {
-      await signIn(email, password);
+    await signIn(email, password);
 
-      setIsSuccess(true);
-    } catch (err) {
-      if (err instanceof FirebaseError) {
-        setErrorMessage(getAuthErrorMessage(err.code));
-      }
-    }
+    setIsSuccess(true);
   };
 
   const isSending = status === 'loading';
@@ -82,10 +74,6 @@ const SignInForm = ({ lng }: SignInFormProps) => {
 
       <Notification open={isSuccess} onClose={() => setIsSuccess(false)}>
         {t('sign_in.success_msg')}
-      </Notification>
-
-      <Notification open={Boolean(errorMessage)} onClose={() => setErrorMessage(null)} isError autoHideDuration={5000}>
-        {errorMessage}
       </Notification>
     </>
   );

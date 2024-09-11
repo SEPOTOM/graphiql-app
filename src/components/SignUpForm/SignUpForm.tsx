@@ -4,12 +4,11 @@ import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button, FormHelperTextProps, TextField, useMediaQuery, useTheme } from '@mui/material';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FirebaseError } from 'firebase/app';
 
 import { useAuth } from '@/contexts';
 import { useTranslation } from '@/hooks';
 import { FormLayout, Notification, PasswordField } from '@/components';
-import { AuthError, getAuthErrorMessage, signUpSchema } from '@/utils';
+import { signUpSchema } from '@/utils';
 import { SignUpFormData } from '@/types';
 
 import { SignUpFormProps } from './types';
@@ -29,27 +28,16 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
   const { t: vt } = useTranslation(lng, 'validation');
   const [isSuccess, setIsSuccess] = useState(false);
   const theme = useTheme();
-  const [errorMessage, setErrorMessage] = useState<Nullable<string>>(null);
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const onSubmit: SubmitHandler<SignUpFormData> = async ({ username, email, password }) => {
-    try {
-      await signUp({
-        email,
-        password,
-        displayName: username,
-      });
+    await signUp({
+      email,
+      password,
+      displayName: username,
+    });
 
-      setIsSuccess(true);
-    } catch (err) {
-      if (err instanceof FirebaseError) {
-        setErrorMessage(getAuthErrorMessage(err.code));
-      }
-
-      if (err instanceof AuthError) {
-        setErrorMessage(err.message);
-      }
-    }
+    setIsSuccess(true);
   };
 
   const password = watch('password');
@@ -121,10 +109,6 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
 
       <Notification open={isSuccess} onClose={() => setIsSuccess(false)}>
         {t('sign_up.success_msg')}
-      </Notification>
-
-      <Notification open={Boolean(errorMessage)} onClose={() => setErrorMessage(null)} isError autoHideDuration={5000}>
-        {errorMessage}
       </Notification>
     </>
   );
