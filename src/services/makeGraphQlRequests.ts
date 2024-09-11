@@ -2,19 +2,18 @@
 
 import { Method } from '@/types';
 
-export const makeGraphQLRequest = async (query: string, url: string, headers: HeadersInit) => {
+export const makeGraphQLRequest = async (query: string, variables: HeadersInit, url: string, headers: HeadersInit) => {
   try {
     const response = await fetch(url, {
       method: Method.Post,
       headers,
-      body: JSON.stringify({ query }),
+      body: JSON.stringify({ query, variables }),
     });
-    if (!response.ok) {
-      throw new Error('Network response was not ok boom');
-    }
-    const data = await response.json();
-    return data;
-  } catch {
-    return 'Your query is not wrong';
+    const status = response.status;
+    const code = response.statusText;
+    const data = await response.text();
+    return { data, status, code };
+  } catch (error) {
+    return `${error}`;
   }
 };

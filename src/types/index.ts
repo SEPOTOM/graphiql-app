@@ -13,6 +13,7 @@ import {
   BodyMode,
 } from '@/types/enum';
 import { HeadersAndVariablesEditorRowDataItem } from '@/types/headerAndVariablesEditors';
+import { GraphQlRequest } from './graphqlRequest';
 
 export type {
   LngParam,
@@ -23,6 +24,7 @@ export type {
   JSONError,
   EditorOptions,
   HeadersAndVariablesEditorRowDataItem,
+  GraphQlRequest,
   SignInFormData,
   SignUpFormData,
 };

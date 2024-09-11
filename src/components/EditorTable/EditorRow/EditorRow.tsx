@@ -14,7 +14,11 @@ interface EditorRowProps {
 }
 
 export default function EditorRow({ rowId, currentEditorData, setCurrentEditorData }: EditorRowProps) {
-  const [isChecked, setIsChecked] = useState(false);
+  const currentEditorDataRow = currentEditorData[rowId];
+  const isCheckedValue = currentEditorDataRow ? currentEditorDataRow.check : false;
+  const defaultRowKey = currentEditorDataRow ? currentEditorDataRow.key : '';
+  const defaultRowValue = currentEditorDataRow ? currentEditorDataRow.value : '';
+  const [isChecked, setIsChecked] = useState(isCheckedValue);
   const pathname = usePathname();
   const [lng] = pathname.split('/').splice(1, 1);
   const { t } = useTranslation(lng);
@@ -73,6 +77,7 @@ export default function EditorRow({ rowId, currentEditorData, setCurrentEditorDa
           placeholder={t('data_editor_key_heading')}
           name="key"
           onChange={handleEditRowTextFieldChange}
+          defaultValue={defaultRowKey}
         />
       </TableCell>
       <TableCell className={styles.edit_row__cell}>
@@ -81,6 +86,7 @@ export default function EditorRow({ rowId, currentEditorData, setCurrentEditorDa
           placeholder={t('data_editor_value_heading')}
           name="value"
           onChange={handleEditRowTextFieldChange}
+          defaultValue={defaultRowValue}
         />
       </TableCell>
     </TableRow>

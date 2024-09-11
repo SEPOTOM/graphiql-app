@@ -4,6 +4,10 @@ import { Mock } from 'vitest';
 import RestfullClientPage from './page';
 import { LanguageProvider } from '@/contexts';
 
+vi.mock('@/contexts/AuthContext/AuthContext', () => ({
+  useAuth: () => ({ user: {}, status: 'authenticated' }),
+}));
+
 describe('RestfullClientPage', () => {
   it('should render component correctly', async () => {
     (usePathname as Mock).mockReturnValue('/restfullClient/ru');
