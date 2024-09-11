@@ -8,6 +8,8 @@ import { EditorTable, RequestBody } from '@/components';
 import { useLanguage, useTranslation } from '@/hooks';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { encodeToBase64, decodeFromBase64 } from '@/services';
+import useSavedVariables from '@/hooks/useSavedVariables';
+import { VARIABLES_STORAGE_KEY } from './consts';
 
 export default function BodyMenuTab() {
   const searchParams = useSearchParams();
@@ -16,6 +18,11 @@ export default function BodyMenuTab() {
   const { t } = useTranslation(lng);
   const tabs = Object.values(MenuTabsRest) as string[];
   const [value, setValue] = useState(0);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const params = Array.from(searchParams.entries());
   const initializedRowsData = params.map(([key, value], index) => ({
@@ -25,12 +32,29 @@ export default function BodyMenuTab() {
     check: true,
   }));
 
-  const currentRowData: HeadersAndVariablesEditorRowDataItem[] = initializedRowsData;
-  const [rowsData, setRowsData] = useState<HeadersAndVariablesEditorRowDataItem[]>(currentRowData);
+  const [variables, setVariables] = useSavedVariables<HeadersAndVariablesEditorRowDataItem[]>(
+    VARIABLES_STORAGE_KEY,
+    []
+  );
+
+  const [headersRowsData, setHeadersRowsData] = useState<HeadersAndVariablesEditorRowDataItem[]>(initializedRowsData);
+  const [variablesRowsData, setVariablesRowsData] = useState<HeadersAndVariablesEditorRowDataItem[]>([]);
+
+  useEffect(() => {
+    if (isClient) {
+      setVariablesRowsData(variables);
+    }
+  }, [isClient, variables]);
+
+  useEffect(() => {
+    if (variablesRowsData.length) {
+      setVariables(variablesRowsData);
+    }
+  }, [variablesRowsData]);
 
   useEffect(() => {
     const params = new URLSearchParams();
-    rowsData.forEach((row) => {
+    headersRowsData.forEach((row) => {
       if (row.check && (row.value || row.key)) {
         const encodedKey = encodeToBase64(row.key);
         const encodedValue = encodeToBase64(row.value);
@@ -40,23 +64,31 @@ export default function BodyMenuTab() {
       }
       const newPath = `${pathname}?${params}`;
       window.history.replaceState(null, '', newPath);
-      console.log(newPath);
     });
-  }, [rowsData]);
+  }, [headersRowsData]);
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
   const tabPanels = [
-    { label: 'Variables', content: 'Variables' },
+    {
+      label: 'Variables',
+      content: (
+        <EditorTable
+          heading={t(MenuTabsRest.Variables)}
+          currentEditorData={variablesRowsData}
+          setCurrentEditorData={setVariablesRowsData}
+        />
+      ),
+    },
     {
       label: 'Headers',
       content: (
         <EditorTable
           heading={t(MenuTabsRest.Headers)}
-          currentEditorData={rowsData}
-          setCurrentEditorData={setRowsData}
+          currentEditorData={headersRowsData}
+          setCurrentEditorData={setHeadersRowsData}
         />
       ),
     },

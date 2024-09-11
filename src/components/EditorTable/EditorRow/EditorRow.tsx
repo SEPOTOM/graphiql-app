@@ -19,6 +19,10 @@ export default function EditorRow({ rowId, currentEditorData, setCurrentEditorDa
   const [lng] = pathname.split('/').splice(1, 1);
   const { t } = useTranslation(lng);
 
+  useEffect(() => {
+    setIsChecked(currentEditorData[rowId]?.check);
+  }, [currentEditorData]);
+
   const handleEditRowCheckboxChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const currentRowId = Number(event.target.name);
     const index = currentEditorData.findIndex((value) => value.id === currentRowId);
