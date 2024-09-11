@@ -7,6 +7,7 @@ import {
   basicRequestErrorMessage,
 } from './constants';
 import { isImagePath } from '@/utils/pathname';
+import { signInSchema, signUpSchema } from '@/utils/validation';
 
 export {
   fallbackLng,
@@ -20,4 +21,6 @@ export {
   headersGraphQLSchema,
   variablesGraphQLSchema,
   basicRequestErrorMessage,
+  signInSchema,
+  signUpSchema,
 };

@@ -1,0 +1,20 @@
+{
+  "confirm_pwd": {
+    "match": "Passwords must match",
+    "required": "Confirm Password is required"
+  },
+  "email": {
+    "invalid": "Invalid email address",
+    "required": "Email is required"
+  },
+  "password": {
+    "digit": "Password must contain at least one digit",
+    "length": "Password must be at least 8 characters",
+    "letter": "Password must contain at least one letter",
+    "required": "Password is required",
+    "special_char": "Password must contain at least one special character"
+  },
+  "username": {
+    "required": "Username is required"
+  }
+}
