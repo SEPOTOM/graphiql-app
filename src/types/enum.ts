@@ -52,3 +52,7 @@ export enum BodyMode {
   None = 'none',
   Raw = 'raw',
 }
+
+export enum StorageKey {
+  Variables = 'variables_data',
+}

@@ -11,6 +11,7 @@ import {
   PlaceHolder,
   SegmentIndex,
   BodyMode,
+  StorageKey,
 } from '@/types/enum';
 import { HeadersAndVariablesEditorRowDataItem } from '@/types/headerAndVariablesEditors';
 
@@ -35,4 +36,5 @@ export {
   GraphQlMenuTabs,
   GraphQlHeadersEditor,
   GraphQlVariablesEditor,
+  StorageKey,
 };

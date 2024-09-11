@@ -4,12 +4,20 @@ import Paper from '@mui/material/Paper';
 import Editor from '@monaco-editor/react';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import * as monaco from 'monaco-editor';
-import { BodyType, PlaceHolder, SegmentIndex, EditorOptions } from '@/types';
+import {
+  BodyType,
+  PlaceHolder,
+  SegmentIndex,
+  EditorOptions,
+  HeadersAndVariablesEditorRowDataItem,
+  StorageKey,
+} from '@/types';
 import { encodeToBase64, getNewBodyPath } from '@/services';
 import { usePathname } from 'next/navigation';
 import { useLanguage, useTranslation } from '@/hooks';
 import { ErrorsMessage } from '@/components';
 import { Button } from '@mui/material';
+import useSavedVariables from '@/hooks/useSavedVariables';
 
 export interface RequestBodyEditorProps {
   mode: string;
@@ -26,10 +34,11 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
   const [value, setValue] = useState<string>(initialValue ?? '');
   const [showErrorsPopover, setShowErrorsPopover] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [variables, _] = useSavedVariables<HeadersAndVariablesEditorRowDataItem[]>(StorageKey.Variables, []);
 
   useEffect(() => {
-    setValue(initialValue || '');
-  }, [initialValue]);
+    setValue(insertVariablesIntoBody(initialValue || ''));
+  }, [initialValue, variables]);
 
   const formatDocument = () => {
     if (options.readOnly) return;
@@ -117,6 +126,17 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
       setShowErrorsPopover(false);
       setValue(value);
     }
+  };
+
+  const insertVariablesIntoBody = (body: string) => {
+    let updatedBody = body;
+    variables.forEach(({ key, value, check }) => {
+      if (check) {
+        const regex = new RegExp(`{{${key}}}`, 'g');
+        updatedBody = updatedBody.replace(regex, value);
+      }
+    });
+    return updatedBody;
   };
 
   return (

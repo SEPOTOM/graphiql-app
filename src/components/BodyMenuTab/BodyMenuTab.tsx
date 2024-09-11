@@ -1,7 +1,7 @@
 'use client';
 
 import { Box, Tab, Tabs } from '@mui/material';
-import { HeadersAndVariablesEditorRowDataItem, MenuTabsRest } from '@/types';
+import { HeadersAndVariablesEditorRowDataItem, MenuTabsRest, StorageKey } from '@/types';
 import RequestBodyMenuTabs from './RequestBodyMenuTabs';
 import { useState, SyntheticEvent, useEffect } from 'react';
 import { EditorTable, RequestBody } from '@/components';
@@ -9,7 +9,6 @@ import { useLanguage, useTranslation } from '@/hooks';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { encodeToBase64, decodeFromBase64 } from '@/services';
 import useSavedVariables from '@/hooks/useSavedVariables';
-import { VARIABLES_STORAGE_KEY } from './consts';
 
 export default function BodyMenuTab() {
   const searchParams = useSearchParams();
@@ -32,10 +31,7 @@ export default function BodyMenuTab() {
     check: true,
   }));
 
-  const [variables, setVariables] = useSavedVariables<HeadersAndVariablesEditorRowDataItem[]>(
-    VARIABLES_STORAGE_KEY,
-    []
-  );
+  const [variables, setVariables] = useSavedVariables<HeadersAndVariablesEditorRowDataItem[]>(StorageKey.Variables, []);
 
   const [headersRowsData, setHeadersRowsData] = useState<HeadersAndVariablesEditorRowDataItem[]>(initializedRowsData);
   const [variablesRowsData, setVariablesRowsData] = useState<HeadersAndVariablesEditorRowDataItem[]>([]);
