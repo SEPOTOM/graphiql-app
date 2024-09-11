@@ -3,6 +3,13 @@ import { usePathname, useRouter } from 'next/navigation';
 import { Mock } from 'vitest';
 import GraphQlClientPage from './page';
 import { GraphQlDataProvider, LanguageProvider } from '@/contexts';
+import { ReactNode } from 'react';
+
+vi.mock('@/components/PrivateRoute/PrivateRoute', () => ({
+  default: ({ children }: { children: ReactNode }) => {
+    return children;
+  },
+}));
 
 describe('GraphQlClientPage', () => {
   it('should  render page correctly', () => {

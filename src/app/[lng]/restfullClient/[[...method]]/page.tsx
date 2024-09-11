@@ -1,11 +1,13 @@
-import { RestfullClient } from '@/components';
+import { PrivateRoute, RestfullClient } from '@/components';
 import { Container } from '@mui/material';
 
 const RestfullClientPage = () => {
   return (
-    <Container sx={{ flexGrow: '1', paddingBottom: '40px' }}>
-      <RestfullClient />
-    </Container>
+    <PrivateRoute>
+      <Container sx={{ flexGrow: '1', paddingBottom: '40px' }}>
+        <RestfullClient />
+      </Container>
+    </PrivateRoute>
   );
 };
 
