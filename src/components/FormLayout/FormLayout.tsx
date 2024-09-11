@@ -25,6 +25,10 @@ const FormLayout = ({ children, onSubmit, title }: FormLayoutProps) => {
       if (err instanceof AuthError) {
         setErrorMessage(err.message);
       }
+
+      if (err instanceof TypeError && err.message === 'Failed to fetch') {
+        setErrorMessage(getAuthErrorMessage(''));
+      }
     }
   };
 
