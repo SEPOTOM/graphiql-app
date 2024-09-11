@@ -8,6 +8,7 @@ beforeAll(() => {
     useSearchParams: vi.fn(),
     useRouter: vi.fn(() => ({
       replace: vi.fn(),
+      push: vi.fn(),
     })),
   }));
   server.listen();
