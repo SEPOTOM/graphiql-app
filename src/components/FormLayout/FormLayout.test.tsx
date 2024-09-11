@@ -44,4 +44,20 @@ describe('FormLayout', () => {
 
     expect(getByRole('alert')).toHaveTextContent(/credential/i);
   });
+
+  it('should show default message for unexpected errors', async () => {
+    const handleSubmit = (e?: BaseSyntheticEvent) => {
+      e?.preventDefault();
+      throw new TypeError('Failed to fetch');
+    };
+    const { user, getByRole } = renderWithUser(
+      <FormLayout {...sharedProps} onSubmit={handleSubmit}>
+        {children}
+      </FormLayout>
+    );
+
+    await user.click(getByRole('button', { name: 'Submit' }));
+
+    expect(getByRole('alert')).toHaveTextContent(/unexpected error/i);
+  });
 });
