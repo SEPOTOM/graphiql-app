@@ -5,7 +5,7 @@ import EditorRow from './EditorRow/EditorRow';
 import styles from './EditorTable.module.scss';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useLanguage, useTranslation } from '@/hooks';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { HeadersAndVariablesEditorRowDataItem } from '@/types';
 
 interface EditorTableProps {
@@ -17,7 +17,11 @@ interface EditorTableProps {
 export default function EditorTable({ heading, currentEditorData, setCurrentEditorData }: EditorTableProps) {
   const { lng } = useLanguage();
   const { t } = useTranslation(lng);
-  const [rows, addRows] = useState(currentEditorData.length ? Array.from(Array(currentEditorData.length).keys()) : [0]);
+  const [rows, addRows] = useState([0]);
+
+  useEffect(() => {
+    addRows(currentEditorData.length ? Array.from(Array(currentEditorData.length).keys()) : [0]);
+  }, [currentEditorData]);
 
   const handleClick = () => {
     addRows((oldArr) => [...oldArr, rows.length]);

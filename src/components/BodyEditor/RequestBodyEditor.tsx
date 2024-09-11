@@ -57,12 +57,13 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
     if (options.readOnly) return;
 
     try {
+      let bodyWithVariables = insertVariablesIntoBody(value);
       let encodedValue: string;
       if (mode === BodyType.json) {
-        const parsedValue = JSON.parse(value);
+        const parsedValue = JSON.parse(bodyWithVariables);
         encodedValue = encodeToBase64(JSON.stringify(parsedValue));
       } else {
-        encodedValue = encodeToBase64(value);
+        encodedValue = encodeToBase64(bodyWithVariables);
       }
       const newPath = `${getNewBodyPath(pathname, encodedValue)}?${params}`;
       window.history.replaceState(null, '', newPath);
