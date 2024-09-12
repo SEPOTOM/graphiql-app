@@ -8,7 +8,7 @@ import { StateMessage } from '@/components';
 
 import { PublicRouteProps } from './types';
 
-const PublicRoute = ({ children }: PublicRouteProps) => {
+const PublicRoute = ({ children, shouldRedirect = true }: PublicRouteProps) => {
   const { status } = useAuth();
   const router = useRouter();
   const { lng } = useLanguage();
@@ -18,7 +18,7 @@ const PublicRoute = ({ children }: PublicRouteProps) => {
     return <StateMessage showLoading>{t('route_states.loading')}</StateMessage>;
   }
 
-  if (status === 'authenticated') {
+  if (shouldRedirect && status === 'authenticated') {
     router.replace('/');
 
     return <StateMessage>{t('route_states.redirect')}</StateMessage>;
