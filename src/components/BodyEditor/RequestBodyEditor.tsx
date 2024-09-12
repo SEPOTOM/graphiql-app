@@ -14,7 +14,7 @@ import {
 } from '@/types';
 import { encodeToBase64, getNewBodyPath } from '@/services';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { useLanguage, useTranslation, useSavedVariables } from '@/hooks';
+import { useLanguage, useTranslation, useLocalStorage } from '@/hooks';
 import { ErrorsMessage } from '@/components';
 import { Button } from '@mui/material';
 
@@ -34,7 +34,7 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
   const [value, setValue] = useState<string>(initialValue ?? '');
   const [showErrorsPopover, setShowErrorsPopover] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [variables] = useSavedVariables<HeadersAndVariablesEditorRowDataItem[]>(StorageKey.Variables, []);
+  const [variables] = useLocalStorage<HeadersAndVariablesEditorRowDataItem[]>(StorageKey.Variables, []);
 
   const insertVariablesIntoBody = useCallback(
     (body: string) => {

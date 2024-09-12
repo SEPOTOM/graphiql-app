@@ -1,5 +1,5 @@
 import useTranslation from '@/hooks/useTranslation';
 import useLanguage from './useLanguage';
-import useSavedVariables from './useSavedVariables';
+import useLocalStorage from './useLocalStorage';
 
-export { useTranslation, useLanguage, useSavedVariables };
+export { useTranslation, useLanguage, useLocalStorage };
