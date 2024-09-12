@@ -14,16 +14,17 @@ const PublicRoute = ({ children }: PublicRouteProps) => {
   const { lng } = useLanguage();
   const { t } = useTranslation(lng);
 
+  if (status === 'init') {
+    return <StateMessage showLoading>{t('route_states.loading')}</StateMessage>;
+  }
+
   if (status === 'authenticated') {
     router.replace('/');
+
     return <StateMessage>{t('route_states.redirect')}</StateMessage>;
   }
 
-  if (status === 'unauthenticated') {
-    return children;
-  }
-
-  return <StateMessage showLoading>{t('route_states.loading')}</StateMessage>;
+  return children;
 };
 
 export default PublicRoute;
