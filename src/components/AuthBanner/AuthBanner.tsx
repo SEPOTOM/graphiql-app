@@ -1,12 +1,33 @@
 'use client';
 
+import { ReactNode } from 'react';
 import Link from 'next/link';
 import { Button, List, ListItem, Typography } from '@mui/material';
 
 import { useAuth } from '@/contexts';
 
+import { LinkMetadata } from './types';
+import { privateLinks, publicLinks } from './consts';
+
 const AuthBanner = () => {
   const { user } = useAuth();
+
+  const createLink = ({ title, href, variant }: LinkMetadata): ReactNode => {
+    return (
+      <ListItem sx={{ width: user ? '100%' : 'auto' }} key={href}>
+        <Button
+          variant={variant ?? 'contained'}
+          color="primary"
+          component={Link}
+          href={href}
+          size="large"
+          fullWidth={Boolean(user)}
+        >
+          {title}
+        </Button>
+      </ListItem>
+    );
+  };
 
   return (
     <>
@@ -22,40 +43,7 @@ const AuthBanner = () => {
           width: '100%',
         }}
       >
-        {user ?
-          <>
-            <ListItem>
-              <Button variant="contained" color="primary" component={Link} href="/GET" size="large" fullWidth>
-                REST Client
-              </Button>
-            </ListItem>
-
-            <ListItem>
-              <Button variant="contained" color="primary" component={Link} href="/GRAPHQL" size="large" fullWidth>
-                GraphiQL Client
-              </Button>
-            </ListItem>
-
-            <ListItem>
-              <Button variant="contained" color="primary" component={Link} href="/history" size="large" fullWidth>
-                History
-              </Button>
-            </ListItem>
-          </>
-        : <>
-            <ListItem sx={{ width: 'auto' }}>
-              <Button variant="contained" color="primary" component={Link} href="/sign-in" size="large">
-                Sign In
-              </Button>
-            </ListItem>
-
-            <ListItem sx={{ width: 'auto' }}>
-              <Button variant="outlined" color="primary" component={Link} href="/sign-up" size="large">
-                Sign Up
-              </Button>
-            </ListItem>
-          </>
-        }
+        {user ? privateLinks.map(createLink) : publicLinks.map(createLink)}
       </List>
     </>
   );
