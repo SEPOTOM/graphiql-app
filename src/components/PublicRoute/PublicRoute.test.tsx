@@ -20,4 +20,16 @@ describe('PublicRoute', () => {
 
     expect(getByRole('paragraph')).toHaveTextContent(/loading/i);
   });
+
+  it('shows a message during redirect if the user in authenticated', () => {
+    (useAuth as Mock).mockImplementation(() => ({ status: 'authenticated' }));
+
+    const { getByRole } = render(
+      <LanguageProvider lang="en">
+        <PublicRoute>Test message</PublicRoute>
+      </LanguageProvider>
+    );
+
+    expect(getByRole('paragraph')).toHaveTextContent(/redirect/i);
+  });
 });
