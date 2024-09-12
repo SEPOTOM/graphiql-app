@@ -14,12 +14,12 @@ import { SignUpFormData } from '@/types';
 import { SignUpFormProps } from './types';
 
 const SignUpForm = ({ lng }: SignUpFormProps) => {
-  const { signUp, status } = useAuth();
+  const { signUp } = useAuth();
   const {
     handleSubmit,
     register,
     watch,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitting },
   } = useForm<SignUpFormData>({
     resolver: yupResolver(signUpSchema),
     mode: 'onChange',
@@ -46,7 +46,6 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
   const confirmPasswordError =
     errors.confirmPassword?.message ? vt(errors.confirmPassword.message) : passwordsMatchError;
 
-  const isSending = status === 'loading';
   const inputSize = isSmallScreen ? 'small' : 'medium';
   const helperTextProps: Partial<FormHelperTextProps> = {
     sx: { fontSize: 14 },
@@ -54,11 +53,11 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
 
   return (
     <>
-      <FormLayout onSubmit={handleSubmit(onSubmit)} title={t('sign_up.title')}>
+      <FormLayout onSubmit={handleSubmit(onSubmit)} title={t('sign_up.title')} lng={lng}>
         <TextField
           label={t('sign_up.username')}
           {...register('username')}
-          disabled={isSending}
+          disabled={isSubmitting}
           required
           size={inputSize}
           error={Boolean(errors.username)}
@@ -70,7 +69,7 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
           label={t('sign_up.email')}
           {...register('email')}
           type="email"
-          disabled={isSending}
+          disabled={isSubmitting}
           required
           size={inputSize}
           error={Boolean(errors.email)}
@@ -81,7 +80,7 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
         <PasswordField
           label={t('sign_up.password')}
           {...register('password')}
-          disabled={isSending}
+          disabled={isSubmitting}
           required
           lng={lng}
           size={inputSize}
@@ -93,7 +92,7 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
         <PasswordField
           label={t('sign_up.confirm_password')}
           {...register('confirmPassword')}
-          disabled={isSending}
+          disabled={isSubmitting}
           required
           lng={lng}
           size={inputSize}
@@ -102,7 +101,7 @@ const SignUpForm = ({ lng }: SignUpFormProps) => {
           FormHelperTextProps={helperTextProps}
         />
 
-        <Button variant="contained" color="primary" type="submit" disabled={isSending || !isValid}>
+        <Button variant="contained" color="primary" type="submit" disabled={isSubmitting || !isValid}>
           {t('sign_up.submit_button')}
         </Button>
       </FormLayout>
