@@ -2,9 +2,10 @@
 
 import { EditorTable, SchemaGraphQL } from '@/components';
 import { useGraphQl } from '@/contexts';
+import { basicHeadersRows } from '@/contexts/GraphQLContext/consts';
 import { useLanguage, useTranslation } from '@/hooks';
 import { GraphQlHeadersEditor, GraphQlVariablesEditor, HeadersAndVariablesEditorRowDataItem } from '@/types';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -20,14 +21,16 @@ export default function CustomTabPanel({ children, value, index, content, ...oth
   const { paramData, setParamData } = useGraphQl();
   const pathname = usePathname();
   const { lng } = useLanguage();
-  const { t } = useTranslation(lng);
   const params = Array.from(searchParams.entries());
-  const initializedRowsData = params.map(([key, value], index) => ({
-    id: index,
-    key: decodeURIComponent(key),
-    value: decodeURIComponent(value),
-    check: true,
-  }));
+  const initializedRowsData =
+    params.length > 0 ?
+      params.map(([key, value], index) => ({
+        id: index,
+        key: decodeURIComponent(key),
+        value: decodeURIComponent(value),
+        check: true,
+      }))
+    : basicHeadersRows;
 
   const [headerData, setHeaderData] = useState<HeadersAndVariablesEditorRowDataItem[]>(initializedRowsData);
 

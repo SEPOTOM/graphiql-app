@@ -42,7 +42,7 @@ export default function SchemaGraphQLTabPanel({
       </Box>
       <List>
         {currentTabItemField ?
-          currentTabItemField.map((item, index) => (
+          currentTabItemField.map((item) => (
             <ListItem key={item.name} alignItems="flex-start">
               <ListItemText
                 primary={

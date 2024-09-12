@@ -1,17 +1,19 @@
+type Nullable<T> = T | undefined | null;
+
 export interface GraphQlSchemaTypesItem {
   description: string;
-  enumValues?: null | never[];
-  fields: GraphQlSchemaTypesFields[] | null;
-  inputFields: GraphQlSchemaTypesInputFields[] | null;
-  interfaces?: null | never[];
+  enumValues?: Nullable<never[]>;
+  fields: Nullable<GraphQlSchemaTypesFields[]>;
+  inputFields: Nullable<GraphQlSchemaTypesInputFields[]>;
+  interfaces?: Nullable<never[]>;
   kind: string;
   name: string;
-  possibleTypes: null | never[];
+  possibleTypes: Nullable<never[]>;
 }
 
 export interface GraphQlSchemaTypesFields {
   args?: never[];
-  deprecationReason?: null | string;
+  deprecationReason?: Nullable<string>;
   description: string;
   isDeprecated?: boolean;
   name: string;
@@ -19,7 +21,7 @@ export interface GraphQlSchemaTypesFields {
 }
 
 export interface GraphQlSchemaTypesInputFields {
-  defaultValue: null | string;
+  defaultValue: Nullable<string>;
   description: string;
   name: string;
   type: GraphQlSchemaTypesFieldType;
@@ -28,5 +30,5 @@ export interface GraphQlSchemaTypesInputFields {
 export interface GraphQlSchemaTypesFieldType {
   kind: string;
   name: string;
-  ofType: null | GraphQlSchemaTypesFieldType;
+  ofType: Nullable<GraphQlSchemaTypesFieldType>;
 }
