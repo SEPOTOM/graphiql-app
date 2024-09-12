@@ -1,6 +1,7 @@
 'use client';
 
 import { FormEvent, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { FirebaseError } from 'firebase/app';
 
@@ -13,12 +14,15 @@ import { FormLayoutProps } from './types';
 const FormLayout = ({ children, onSubmit, title, lng }: FormLayoutProps) => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const router = useRouter();
   const [errorMessage, setErrorMessage] = useState<Nullable<string>>(null);
   const { t } = useTranslation(lng);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     try {
       await onSubmit(e);
+
+      router.replace(`/${lng}/GET`);
     } catch (err) {
       if (err instanceof FirebaseError) {
         setErrorMessage(t(getAuthErrorMessage(err.code)));
