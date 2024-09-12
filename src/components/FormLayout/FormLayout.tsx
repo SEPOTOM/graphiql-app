@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { FirebaseError } from 'firebase/app';
 
-import { Notification } from '@/components';
+import { Notification, PublicRoute } from '@/components';
 import { useTranslation } from '@/hooks';
 import { AuthError, getAuthErrorMessage } from '@/utils';
 
@@ -17,13 +17,18 @@ const FormLayout = ({ children, onSubmit, title, lng }: FormLayoutProps) => {
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState<Nullable<string>>(null);
   const { t } = useTranslation(lng);
+  const [shouldRedirect, setShouldRedirect] = useState(true);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     try {
+      setShouldRedirect(false);
+
       await onSubmit(e);
 
       router.replace(`/${lng}/GET`);
     } catch (err) {
+      setShouldRedirect(true);
+
       if (err instanceof FirebaseError) {
         setErrorMessage(t(getAuthErrorMessage(err.code)));
       }
@@ -39,21 +44,28 @@ const FormLayout = ({ children, onSubmit, title, lng }: FormLayoutProps) => {
   };
 
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit}
-      sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}
-    >
-      <Typography variant={isSmallScreen ? 'h3' : 'h2'} component="h1" gutterBottom>
-        {title}
-      </Typography>
+    <PublicRoute shouldRedirect={shouldRedirect}>
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}
+      >
+        <Typography variant={isSmallScreen ? 'h3' : 'h2'} component="h1" gutterBottom>
+          {title}
+        </Typography>
 
-      {children}
+        {children}
 
-      <Notification open={Boolean(errorMessage)} onClose={() => setErrorMessage(null)} isError autoHideDuration={5000}>
-        {errorMessage}
-      </Notification>
-    </Box>
+        <Notification
+          open={Boolean(errorMessage)}
+          onClose={() => setErrorMessage(null)}
+          isError
+          autoHideDuration={5000}
+        >
+          {errorMessage}
+        </Notification>
+      </Box>
+    </PublicRoute>
   );
 };
 
