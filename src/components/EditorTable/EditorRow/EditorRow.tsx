@@ -13,14 +13,16 @@ interface EditorRowProps {
 }
 
 export default function EditorRow({ rowId, currentEditorData, setCurrentEditorData }: EditorRowProps) {
-  const currentRow = currentEditorData[rowId];
-  const [isChecked, setIsChecked] = useState(currentRow?.check ?? false);
   const { lng } = useLanguage();
   const { t } = useTranslation(lng);
+  const currentEditorDataRow = currentEditorData[rowId];
+  const [isChecked, setIsChecked] = useState(currentEditorDataRow?.check ?? false);
+  const defaultRowKey = currentEditorDataRow ? currentEditorDataRow.key : '';
+  const defaultRowValue = currentEditorDataRow ? currentEditorDataRow.value : '';
 
-  useEffect(() => {
-    setIsChecked(currentRow?.check ?? false);
-  }, [currentRow, rowId]);
+   useEffect(() => {
+    setIsChecked(currentEditorDataRow?.check ?? false);
+  }, [currentEditorDataRow, rowId]);
 
   const handleEditRowCheckboxChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const currentRowId = Number(event.target.name);
@@ -78,7 +80,7 @@ export default function EditorRow({ rowId, currentEditorData, setCurrentEditorDa
           placeholder={t('data_editor_key_heading')}
           name="key"
           onChange={handleEditRowTextFieldChange}
-          defaultValue={currentRow?.key ?? ''}
+          defaultValue={defaultRowKey}
         />
       </TableCell>
       <TableCell className={styles.edit_row__cell}>
@@ -87,7 +89,7 @@ export default function EditorRow({ rowId, currentEditorData, setCurrentEditorDa
           placeholder={t('data_editor_value_heading')}
           name="value"
           onChange={handleEditRowTextFieldChange}
-          defaultValue={currentRow?.value ?? ''}
+          defaultValue={defaultRowValue}
         />
       </TableCell>
     </TableRow>

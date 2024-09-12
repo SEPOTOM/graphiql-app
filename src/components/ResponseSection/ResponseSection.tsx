@@ -22,7 +22,15 @@ export default function ResponseSection({ responseBody, responseCode, responseSt
   }, [responseBody]);
 
   return (
-    <Box display="flex" flexDirection="column" justifyContent="space-between" gap={2} paddingTop={4} minHeight="35svh">
+    <Box
+      display="flex"
+      width="100%"
+      flexDirection="column"
+      justifyContent="space-between"
+      gap={2}
+      paddingTop={4}
+      minHeight="35svh"
+    >
       <Typography variant="h4">{t('response_header')}</Typography>
       {Boolean(responseCode) && (
         <Typography variant="h6">

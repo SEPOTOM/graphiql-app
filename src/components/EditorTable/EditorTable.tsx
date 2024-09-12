@@ -5,7 +5,8 @@ import EditorRow from './EditorRow/EditorRow';
 import styles from './EditorTable.module.scss';
 import { useLanguage, useTranslation } from '@/hooks';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { HeadersAndVariablesEditorRowDataItem } from '@/types';
+import { GraphQlHeadersEditor, HeadersAndVariablesEditorRowDataItem } from '@/types';
+
 
 interface EditorTableProps {
   heading: string;
@@ -16,7 +17,7 @@ interface EditorTableProps {
 export default function EditorTable({ heading, currentEditorData, setCurrentEditorData }: EditorTableProps) {
   const { lng } = useLanguage();
   const { t } = useTranslation(lng);
-  const [rows, addRows] = useState([0]);
+  const [rows, addRows] = useState(Array.from(Array(currentEditorData.length).keys()));
 
   useEffect(() => {
     addRows(currentEditorData.length ? Array.from(Array(currentEditorData.length).keys()) : [0]);
@@ -25,6 +26,7 @@ export default function EditorTable({ heading, currentEditorData, setCurrentEdit
   const handleClick = () => {
     addRows((oldArr) => [...oldArr, rows.length]);
   };
+
 
   return (
     <Box display="flex" gap={1} flexDirection="column" width="100%">

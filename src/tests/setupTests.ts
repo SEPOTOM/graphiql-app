@@ -5,8 +5,11 @@ import { server } from '@/tests/mocks/server';
 beforeAll(() => {
   vi.mock('next/navigation', () => ({
     usePathname: vi.fn(),
-    useRouter: vi.fn(),
     useSearchParams: vi.fn(),
+    useRouter: vi.fn(() => ({
+      replace: vi.fn(),
+    })),
+
   }));
   server.listen();
 });

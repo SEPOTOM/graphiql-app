@@ -31,11 +31,13 @@ export enum MenuTabsRest {
 }
 
 export enum BodyType {
+  graphql = 'graphql',
   json = 'json',
   text = 'text',
 }
 
 export enum PlaceHolder {
+  graphql = 'body_type_graphql_placeholder',
   json = 'body_type_json_placeholder',
   text = 'body_type_text_placeholder',
 }

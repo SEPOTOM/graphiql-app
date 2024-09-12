@@ -1,5 +1,5 @@
 import { Languages, LngParam } from '@/types/i18n';
-import { SignUpData, TokenRes } from '@/types/auth';
+import { SignInFormData, SignUpData, SignUpFormData, TokenRes } from '@/types/auth';
 import { Annotations, JSONError, EditorOptions } from '@/types/bodyEditor';
 import {
   Method,
@@ -14,6 +14,7 @@ import {
   StorageKey,
 } from '@/types/enum';
 import { HeadersAndVariablesEditorRowDataItem } from '@/types/headerAndVariablesEditors';
+import { GraphQlRequest } from './graphqlRequest';
 
 export type {
   LngParam,
@@ -24,6 +25,9 @@ export type {
   JSONError,
   EditorOptions,
   HeadersAndVariablesEditorRowDataItem,
+  GraphQlRequest,
+  SignInFormData,
+  SignUpFormData,
 };
 
 export {
