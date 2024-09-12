@@ -37,15 +37,15 @@ const RootLayout = ({
       <body>
         <CssBaseline />
         <AppRouterCacheProvider>
-          {/* <AuthProvider> */}
-          <MUIThemeProvider lng={lng}>
-            <LanguageProvider lang={lng}>
-              <Header lng={lng} />
-              {children}
-              <Footer lng={lng} />
-            </LanguageProvider>
-          </MUIThemeProvider>
-          {/* </AuthProvider> */}
+          <AuthProvider>
+            <MUIThemeProvider lng={lng}>
+              <LanguageProvider lang={lng}>
+                <Header lng={lng} />
+                {children}
+                <Footer lng={lng} />
+              </LanguageProvider>
+            </MUIThemeProvider>
+          </AuthProvider>
         </AppRouterCacheProvider>
       </body>
     </html>
