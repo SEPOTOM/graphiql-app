@@ -3,6 +3,7 @@ import { FirebaseError } from 'firebase/app';
 
 import { AuthError } from '@/utils';
 import { renderWithUser } from '@/tests';
+import { LanguageProvider } from '@/contexts';
 
 import FormLayout from './FormLayout';
 import { FormLayoutProps } from './types';
@@ -20,9 +21,11 @@ describe('FormLayout', () => {
       throw new FirebaseError('auth/email-already-exists', 'The email is already exist.');
     };
     const { user, getByRole } = renderWithUser(
-      <FormLayout {...sharedProps} onSubmit={handleSubmit}>
-        {children}
-      </FormLayout>
+      <LanguageProvider lang="en">
+        <FormLayout {...sharedProps} onSubmit={handleSubmit}>
+          {children}
+        </FormLayout>
+      </LanguageProvider>
     );
 
     await user.click(getByRole('button', { name: 'Submit' }));
@@ -36,9 +39,11 @@ describe('FormLayout', () => {
       throw new FirebaseError('auth/invalid-credential', 'The credential provided is invalid.');
     };
     const { user, getByRole } = renderWithUser(
-      <FormLayout {...sharedProps} onSubmit={handleSubmit}>
-        {children}
-      </FormLayout>
+      <LanguageProvider lang="en">
+        <FormLayout {...sharedProps} onSubmit={handleSubmit}>
+          {children}
+        </FormLayout>
+      </LanguageProvider>
     );
 
     await user.click(getByRole('button', { name: 'Submit' }));
@@ -52,9 +57,11 @@ describe('FormLayout', () => {
       throw new TypeError('Failed to fetch');
     };
     const { user, getByRole } = renderWithUser(
-      <FormLayout {...sharedProps} onSubmit={handleSubmit}>
-        {children}
-      </FormLayout>
+      <LanguageProvider lang="en">
+        <FormLayout {...sharedProps} onSubmit={handleSubmit}>
+          {children}
+        </FormLayout>
+      </LanguageProvider>
     );
 
     await user.click(getByRole('button', { name: 'Submit' }));
@@ -68,9 +75,11 @@ describe('FormLayout', () => {
       throw new AuthError('Internal server error.');
     };
     const { user, getByRole } = renderWithUser(
-      <FormLayout {...sharedProps} onSubmit={handleSubmit}>
-        {children}
-      </FormLayout>
+      <LanguageProvider lang="en">
+        <FormLayout {...sharedProps} onSubmit={handleSubmit}>
+          {children}
+        </FormLayout>
+      </LanguageProvider>
     );
 
     await user.click(getByRole('button', { name: 'Submit' }));
