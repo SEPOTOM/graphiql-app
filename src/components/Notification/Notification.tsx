@@ -1,5 +1,5 @@
 import { Box, Slide, SlideProps, Snackbar, SnackbarContent } from '@mui/material';
-import { CheckCircle as CheckCircleIcon } from '@mui/icons-material';
+import { CheckCircle as CheckCircleIcon, Cancel as CancelIcon } from '@mui/icons-material';
 
 import { NotificationProps } from './types';
 
@@ -11,6 +11,7 @@ const Notification = ({
   children,
   TransitionComponent = SlideTransition,
   autoHideDuration = 3000,
+  isError,
   ...props
 }: NotificationProps) => {
   return (
@@ -26,12 +27,15 @@ const Notification = ({
       <SnackbarContent
         message={
           <Box display="flex" alignItems="center">
-            <CheckCircleIcon sx={{ mr: 1 }} />
+            {isError ?
+              <CancelIcon sx={{ mr: 1 }} />
+            : <CheckCircleIcon sx={{ mr: 1 }} />}
+
             {children}
           </Box>
         }
         sx={{
-          backgroundColor: 'green',
+          backgroundColor: isError ? 'red' : 'green',
           color: 'white',
         }}
       />

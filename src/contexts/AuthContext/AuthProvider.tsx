@@ -40,6 +40,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       setStatus('authenticated');
     } catch (err) {
       setStatus('unauthenticated');
+
+      throw err;
     }
   };
 
@@ -56,6 +58,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       setStatus('unauthenticated');
     } catch (err) {
       setStatus('authenticated');
+
+      throw err;
     }
   };
 

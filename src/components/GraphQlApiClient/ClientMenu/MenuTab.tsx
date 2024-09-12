@@ -3,15 +3,13 @@
 import { Box, Tab, Tabs } from '@mui/material';
 import { SyntheticEvent, useState } from 'react';
 import { GraphQlMenuTabs } from '@/types';
-import { usePathname } from 'next/navigation';
-import { useTranslation } from '@/hooks';
+import { useLanguage, useTranslation } from '@/hooks';
 import CustomTabPanel from './MenuTabPanel';
 
 export default function MenuTab() {
   const tabs = Object.values(GraphQlMenuTabs) as string[];
-  const pathname = usePathname();
   const [value, setValue] = useState(0);
-  const [lng] = pathname.split('/').splice(1, 1);
+  const { lng } = useLanguage();
   const { t } = useTranslation(lng);
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {

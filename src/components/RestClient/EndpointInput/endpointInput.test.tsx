@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { Mock } from 'vitest';
 import EndpointInput from './EndpointInput';
 import { LanguageProvider } from '@/contexts';
@@ -22,6 +22,7 @@ describe('EndpointInput component', () => {
 
   it('updates URL when a new endpoint is entered', async () => {
     (usePathname as Mock).mockReturnValue('/restfullClient/en/GET');
+    (useSearchParams as Mock).mockReturnValue(new URLSearchParams());
     const user = userEvent.setup();
 
     const screen = render(
@@ -37,7 +38,7 @@ describe('EndpointInput component', () => {
 
     endpoint.split('').forEach((letter) => {
       const encodedEndpoint = encodeToBase64(letter);
-      const newPath = `/restfullClient/en/GET/${encodedEndpoint}`;
+      const newPath = `/restfullClient/en/GET/${encodedEndpoint}?`;
       expect(mockReplaceState).toHaveBeenCalledWith(null, '', newPath);
     });
   });

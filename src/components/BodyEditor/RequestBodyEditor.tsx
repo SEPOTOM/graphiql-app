@@ -4,10 +4,17 @@ import Paper from '@mui/material/Paper';
 import Editor from '@monaco-editor/react';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import * as monaco from 'monaco-editor';
-import { BodyType, PlaceHolder, SegmentIndex, EditorOptions } from '@/types';
+import {
+  BodyType,
+  PlaceHolder,
+  SegmentIndex,
+  EditorOptions,
+  HeadersAndVariablesEditorRowDataItem,
+  StorageKey,
+} from '@/types';
 import { encodeToBase64, getNewBodyPath } from '@/services';
-import { usePathname } from 'next/navigation';
-import { useLanguage, useTranslation } from '@/hooks';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useLanguage, useTranslation, useSavedVariables } from '@/hooks';
 import { ErrorsMessage } from '@/components';
 import { Button } from '@mui/material';
 
@@ -20,16 +27,32 @@ export interface RequestBodyEditorProps {
 export default function RequestBodyEditor({ mode, options, initialValue }: RequestBodyEditorProps) {
   const editorRef = useRef<Nullable<monaco.editor.IStandaloneCodeEditor>>(null);
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const pathSegments = pathname.split('/');
   const { lng } = useLanguage();
   const { t } = useTranslation(lng);
   const [value, setValue] = useState<string>(initialValue ?? '');
   const [showErrorsPopover, setShowErrorsPopover] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [variables] = useSavedVariables<HeadersAndVariablesEditorRowDataItem[]>(StorageKey.Variables, []);
+
+  const insertVariablesIntoBody = useCallback(
+    (body: string) => {
+      let updatedBody = body;
+      variables.forEach(({ key, value, check }) => {
+        if (check) {
+          const regex = new RegExp(`{{${key}}}`, 'g');
+          updatedBody = updatedBody.replace(regex, value);
+        }
+      });
+      return updatedBody;
+    },
+    [variables]
+  );
 
   useEffect(() => {
-    setValue(initialValue || '');
-  }, [initialValue]);
+    setValue(insertVariablesIntoBody(initialValue || ''));
+  }, [initialValue, variables, insertVariablesIntoBody]);
 
   const formatDocument = () => {
     if (options.readOnly) return;
@@ -43,27 +66,29 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
   };
 
   const onBlur = useCallback(() => {
+    const params = new URLSearchParams(searchParams.toString());
     if (options.readOnly) return;
 
     try {
+      let bodyWithVariables = insertVariablesIntoBody(value);
       let encodedValue: string;
       if (mode === BodyType.json) {
-        const parsedValue = JSON.parse(value);
+        const parsedValue = JSON.parse(bodyWithVariables);
         encodedValue = encodeToBase64(JSON.stringify(parsedValue));
       } else {
-        encodedValue = encodeToBase64(value);
+        encodedValue = encodeToBase64(bodyWithVariables);
       }
-      const newPath = getNewBodyPath(pathname, encodedValue);
+      const newPath = `${getNewBodyPath(pathname, encodedValue)}?${params}`;
       window.history.replaceState(null, '', newPath);
     } catch (e) {
       if (e instanceof Error) {
-        const newSegments = pathSegments.slice(0, SegmentIndex.Body);
-        window.history.replaceState(null, '', newSegments.join('/'));
+        const newSegments = `${pathSegments.slice(0, SegmentIndex.Body).join('/')}?${params}`;
+        window.history.replaceState(null, '', newSegments);
         setErrorMessage(`Invalid JSON: ${e.message}`);
         setShowErrorsPopover(true);
       }
     }
-  }, [mode, value, pathname, pathSegments, options.readOnly]);
+  }, [mode, value, pathname, pathSegments, options.readOnly, insertVariablesIntoBody, searchParams]);
 
   useEffect(() => {
     if (options.readOnly) return;

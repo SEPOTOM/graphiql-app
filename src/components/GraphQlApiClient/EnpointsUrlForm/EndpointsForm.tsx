@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField';
 import { usePathname } from 'next/navigation';
 import { ChangeEvent, useEffect } from 'react';
 import { graphQLSchemaQuery, headersGraphQLSchema, variablesGraphQLSchema } from '@/utils';
-import { useTranslation } from '@/hooks';
+import { useLanguage, useTranslation } from '@/hooks';
 import { useGraphQl } from '@/contexts';
 import { GraphQlRequest } from '@/types';
 
@@ -25,7 +25,7 @@ export default function EndpointsForm() {
     setSchemaGraphQL,
   } = useGraphQl();
   const pathname = usePathname();
-  const [lng] = pathname.split('/').splice(1, 1);
+  const { lng } = useLanguage();
   const { t } = useTranslation(lng);
 
   const handleEndpointChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -59,7 +59,7 @@ export default function EndpointsForm() {
     const variables: HeadersInit = Object.fromEntries(
       paramData
         .filter((item) => item.check === true)
-        .map((item) => [item.key, Number(item.value) ? Number(item.value) : item.value])
+        .map((item) => [item.key, String(Number(item.value) ? Number(item.value) : item.value)])
     );
     const res = (await makeGraphQLRequest(queryText, variables, endpointUrl, headers)) as GraphQlRequest;
     const data = JSON.parse(res.data);

@@ -3,11 +3,9 @@
 import { Box, Button, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
 import EditorRow from './EditorRow/EditorRow';
 import styles from './EditorTable.module.scss';
-import { usePathname } from 'next/navigation';
-import { useTranslation } from '@/hooks';
+import { useLanguage, useTranslation } from '@/hooks';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { GraphQlHeadersEditor, HeadersAndVariablesEditorRowDataItem } from '@/types';
-import { getNewPathHeaders } from '@/services';
+import { HeadersAndVariablesEditorRowDataItem } from '@/types';
 
 interface EditorTableProps {
   heading: string;
@@ -16,25 +14,17 @@ interface EditorTableProps {
 }
 
 export default function EditorTable({ heading, currentEditorData, setCurrentEditorData }: EditorTableProps) {
-  const pathname = usePathname();
-  const [lng] = pathname.split('/').splice(1, 1);
+  const { lng } = useLanguage();
   const { t } = useTranslation(lng);
   const [rows, addRows] = useState(Array.from(Array(currentEditorData.length).keys()));
+
+  useEffect(() => {
+    addRows(currentEditorData.length ? Array.from(Array(currentEditorData.length).keys()) : [0]);
+  }, [currentEditorData]);
 
   const handleClick = () => {
     addRows((oldArr) => [...oldArr, rows.length]);
   };
-
-  useEffect(() => {
-    if (heading === GraphQlHeadersEditor.HeadersEditorRU || heading === GraphQlHeadersEditor.HeadersEditorEN) {
-      const headers: URLSearchParams = Object.fromEntries(
-        currentEditorData.filter((item) => item.check === true).map((item) => [item.key, item.value])
-      );
-      const searchParams = new URLSearchParams(headers as URLSearchParams);
-      const newPath = getNewPathHeaders(pathname, searchParams.toString().replaceAll('%2F', '/'));
-      window.history.replaceState(null, '', newPath);
-    }
-  }, [currentEditorData, heading, pathname]);
 
   return (
     <Box display="flex" gap={1} flexDirection="column" width="100%" paddingLeft={2}>

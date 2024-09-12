@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { Mock } from 'vitest';
 import * as services from '@/services';
 import { Method } from '@/types';
@@ -37,6 +37,7 @@ describe('RequestMethodSelector component', () => {
 
   it('selecting a different method updates the state and URL', async () => {
     (usePathname as Mock).mockReturnValue('/restfullClient/ru/GET');
+    (useSearchParams as Mock).mockReturnValue(new URLSearchParams());
     const mockGetNewMethodPath = vi.spyOn(services, 'getNewMethodPath');
     const newMethod = Method.Post;
     const user = userEvent.setup();
@@ -59,7 +60,7 @@ describe('RequestMethodSelector component', () => {
     await waitFor(() => {
       expect(screen.getByText(newMethod)).toBeInTheDocument();
     });
-    expect(mockReplaceState).toHaveBeenCalledWith(null, '', '/restfullClient/ru/POST');
+    expect(mockReplaceState).toHaveBeenCalledWith(null, '', '/restfullClient/ru/POST?');
     expect(mockGetNewMethodPath).toHaveBeenCalledWith('/restfullClient/ru/GET', newMethod, Object.values(Method));
     mockGetNewMethodPath.mockRestore();
   });

@@ -66,3 +66,7 @@ export enum SchemaTabs {
   Mutation = 'Mutation',
   Subscription = 'Subscription',
 }
+
+export enum StorageKey {
+  Variables = 'variables_data',
+}

@@ -1,5 +1,5 @@
 import { render, waitFor } from '@testing-library/react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Mock } from 'vitest';
 import { RestfullClient } from '@/components';
 import { LanguageProvider } from '@/contexts';
@@ -16,6 +16,8 @@ afterEach(() => {
 describe('RestfullClient component', () => {
   it('should set the method to GET if the URL has no method', async () => {
     (usePathname as Mock).mockReturnValue('/restfullClient');
+    const mockedSearch = new URLSearchParams();
+    (useSearchParams as Mock).mockReturnValue(mockedSearch);
 
     render(
       <LanguageProvider lang="en">
@@ -28,6 +30,8 @@ describe('RestfullClient component', () => {
   it('should replace an invalid segment with GET', async () => {
     const encodedSegment = btoa('qwerty');
     (usePathname as Mock).mockReturnValue(`/restfullClient/ru/${encodedSegment}`);
+    const mockedSearch = new URLSearchParams();
+    (useSearchParams as Mock).mockReturnValue(mockedSearch);
 
     render(
       <LanguageProvider lang="en">
@@ -38,6 +42,8 @@ describe('RestfullClient component', () => {
   });
   it('should not change the URL if a valid method is present', () => {
     (usePathname as Mock).mockReturnValue('/restfullClient/ru/GET');
+    const mockedSearch = new URLSearchParams();
+    (useSearchParams as Mock).mockReturnValue(mockedSearch);
 
     render(
       <LanguageProvider lang="en">

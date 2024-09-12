@@ -18,6 +18,9 @@ import FormLayout from '@/components/FormLayout/FormLayout';
 import NotFound from '@/components/NotFound/NotFound';
 import SchemaGraphQL from './GraphQlApiClient/SchemaGraphQL/SchemaGraphQL';
 import BasicNotFound from './NotFound/BasicNotFound';
+import PrivateRoute from '@/components/PrivateRoute/PrivateRoute';
+import PublicRoute from '@/components/PublicRoute/PublicRoute';
+import StateMessage from '@/components/StateMessage/StateMessage';
 
 export {
   MUIThemeProvider,
@@ -40,4 +43,7 @@ export {
   NotFound,
   BasicNotFound,
   SchemaGraphQL,
+  PrivateRoute,
+  PublicRoute,
+  StateMessage,
 };

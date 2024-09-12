@@ -3,8 +3,8 @@ import userEvent from '@testing-library/user-event';
 import { usePathname } from 'next/navigation';
 import { Mock } from 'vitest';
 import * as services from '@/services';
-
 import EndpointsForm from './EndpointsForm';
+import { LanguageProvider } from '@/contexts';
 import { encodeToBase64 } from '@/services';
 
 const mockReplaceState = vi.fn();
@@ -14,7 +14,11 @@ describe('GraphQl endpoints form', () => {
   it('should  render form correctly', async () => {
     (usePathname as Mock).mockReturnValue('en/GRAPHQL');
 
-    render(<EndpointsForm />);
+    render(
+      <LanguageProvider lang="en">
+        <EndpointsForm />
+      </LanguageProvider>
+    );
     await waitFor(() => {
       expect(screen.getByLabelText('Endpoint URL')).toHaveValue('');
     });
@@ -23,7 +27,11 @@ describe('GraphQl endpoints form', () => {
   it('selecting another endpoint updates URL', async () => {
     (usePathname as Mock).mockReturnValue('en/GRAPHQL');
 
-    render(<EndpointsForm />);
+    render(
+      <LanguageProvider lang="en">
+        <EndpointsForm />
+      </LanguageProvider>
+    );
 
     await waitFor(async () => {
       const mockGetNewGraphQlURLPath = vi.spyOn(services, 'getNewGraphQlURLPath');
@@ -34,6 +42,7 @@ describe('GraphQl endpoints form', () => {
       await waitFor(() => {
         expect(mockGetNewGraphQlURLPath).toHaveBeenCalledWith('en/GRAPHQL', encodedEndpoint);
       });
+
       const newPath = `en/GRAPHQL/${encodedEndpoint}`;
       expect(mockReplaceState).toHaveBeenCalledWith(null, '', newPath);
     });
