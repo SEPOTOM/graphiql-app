@@ -45,6 +45,9 @@
   "restfull_client_menu_tab_headers": "Заголовки",
   "restfull_client_menu_tab_variables": "Переменные",
   "send_button_text": "Отправить",
+  "not_found_main_heading": "Простите, но страницу, которую ищите, не существует.",
+  "not_found_sub_heading": "Попробуйте начать с начала...",
+  "not_found_button": "Главная",
   "sign_in": {
     "email": "Электронная почта",
     "password": "Пароль",

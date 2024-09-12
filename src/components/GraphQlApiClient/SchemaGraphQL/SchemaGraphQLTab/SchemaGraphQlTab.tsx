@@ -15,18 +15,6 @@ export default function SchemaGraphQlTab({ heading }: SchemaGraphQlTabProps) {
   const schemaObj = JSON.parse(schemaGraphQL);
   const schemaTypesArr: GraphQlSchemaTypesItem[] = schemaObj.data.__schema.types;
   const tabItems = schemaTypesArr.filter((item) => !item.name.includes('__'));
-  console.log('tabItems');
-  console.log(tabItems);
-
-  // const schemaTabs;
-  // useEffect(() => {
-  //   if (schemaGraphQL !== 'Schema not found') {
-  //     const schemaObj = JSON.parse(schemaGraphQL);
-  //     const schemaTypesArr: GraphQlSchemaTypesItem[] = schemaObj.data.__schema.types;
-  //     const filteredArr = schemaTypesArr.filter((item) => item.name === heading);
-  //     console.log(filteredArr);
-  //   }
-  // }, [heading, schemaGraphQL]);
 
   const [value, setValue] = useState(0);
 

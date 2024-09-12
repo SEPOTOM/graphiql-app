@@ -1,11 +1,8 @@
 'use client';
 
-import { EditorTable, SchemaGraphQL } from '@/components';
 import { useGraphQl } from '@/contexts';
-import { useTranslation } from '@/hooks';
-import { GraphQlHeadersEditor, GraphQlSchemaTypesItem, GraphQlVariablesEditor } from '@/types';
+import { GraphQlSchemaTypesItem } from '@/types';
 import { Box, Divider, List, ListItem, ListItemText, Typography } from '@mui/material';
-import { usePathname } from 'next/navigation';
 
 interface SchemaGraphQLTabPanelProps {
   children?: React.ReactNode;
@@ -13,7 +10,6 @@ interface SchemaGraphQLTabPanelProps {
   value: number;
   content: string;
   description: string;
-  // tabItemType: string | undefined;
 }
 
 export default function SchemaGraphQLTabPanel({
@@ -29,8 +25,6 @@ export default function SchemaGraphQLTabPanel({
   const schemaTypesArr: GraphQlSchemaTypesItem[] = schemaObj.data.__schema.types;
   const currentTabItem = schemaTypesArr.filter((item) => !item.name.includes('__'))[index];
   const currentTabItemField = currentTabItem.fields || currentTabItem.inputFields;
-  // console.log('currentTabItem');
-  // console.log(currentTabItem);
 
   return (
     <Box

@@ -45,6 +45,11 @@
   "restfull_client_menu_tab_headers": "Headers",
   "restfull_client_menu_tab_variables": "Variables",
   "send_button_text": "Send",
+  "not_found_main_heading": "Sorry, but the page you're looking for, doesn't exist.",
+  "not_found_sub_heading": "Try to start from the beginning...",
+  "not_found_button": "Main",
+  "basic_not_found_main_heading": "I'm sorry, but you're in the wrong place.",
+  "basic_not_found_sub_heading": " Try it here...",
   "sign_in": {
     "email": "Email",
     "password": "Password",

@@ -1,13 +1,13 @@
-'use client';
-
-import Error from 'next/error';
+import { BasicNotFound } from '@/components';
+import { fallbackLng } from '@/utils';
 
 export default function NotFound() {
+  const lng = fallbackLng;
+
   return (
-    <html lang="en">
+    <html lang={lng}>
       <body>
-        <p>Custom 404 page</p>
-        <Error statusCode={404} />
+        <BasicNotFound lng={lng} />
       </body>
     </html>
   );
