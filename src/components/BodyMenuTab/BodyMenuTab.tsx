@@ -1,25 +1,91 @@
 'use client';
 
 import { Box, Tab, Tabs } from '@mui/material';
-import { MenuTabsRest } from '@/types';
+import { HeadersAndVariablesEditorRowDataItem, MenuTabsRest, StorageKey } from '@/types';
 import RequestBodyMenuTabs from './RequestBodyMenuTabs';
-import { useState, SyntheticEvent } from 'react';
-import { RequestBody } from '@/components';
-import { useLanguage, useTranslation } from '@/hooks';
+import { useState, SyntheticEvent, useEffect } from 'react';
+import { EditorTable, RequestBody } from '@/components';
+import { useLanguage, useTranslation, useSavedVariables } from '@/hooks';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 export default function BodyMenuTab() {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
   const { lng } = useLanguage();
   const { t } = useTranslation(lng);
   const tabs = Object.values(MenuTabsRest) as string[];
   const [value, setValue] = useState(0);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const params = Array.from(searchParams.entries());
+  const initializedRowsData = params.map(([key, value], index) => ({
+    id: index,
+    key: decodeURIComponent(key),
+    value: decodeURIComponent(value),
+    check: true,
+  }));
+
+  const [variables, setVariables] = useSavedVariables<HeadersAndVariablesEditorRowDataItem[]>(StorageKey.Variables, []);
+
+  const [headersRowsData, setHeadersRowsData] = useState<HeadersAndVariablesEditorRowDataItem[]>(initializedRowsData);
+  const [variablesRowsData, setVariablesRowsData] = useState<HeadersAndVariablesEditorRowDataItem[]>([]);
+
+  useEffect(() => {
+    if (isClient) {
+      setVariablesRowsData(variables);
+    }
+  }, [isClient, variables]);
+
+  useEffect(() => {
+    if (variablesRowsData.length) {
+      setVariables(variablesRowsData);
+    }
+  }, [variablesRowsData, setVariables]);
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+    headersRowsData.forEach(({ key, value, check }) => {
+      if (check && (value || key)) {
+        const encodedKey = encodeURIComponent(key);
+        const encodedValue = encodeURIComponent(value);
+        params.set(encodedKey, encodedValue);
+      } else {
+        params.delete(key);
+      }
+      const newPath = `${pathname}?${params}`;
+      window.history.replaceState(null, '', newPath);
+    });
+  }, [headersRowsData, pathname]);
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
   const tabPanels = [
-    { label: 'Variables', content: 'Variables' },
-    { label: 'Headers', content: 'Headers' },
+    {
+      label: 'Variables',
+      content: (
+        <EditorTable
+          heading={t(MenuTabsRest.Variables)}
+          currentEditorData={variablesRowsData}
+          setCurrentEditorData={setVariablesRowsData}
+        />
+      ),
+    },
+    {
+      label: 'Headers',
+      content: (
+        <EditorTable
+          heading={t(MenuTabsRest.Headers)}
+          currentEditorData={headersRowsData}
+          setCurrentEditorData={setHeadersRowsData}
+        />
+      ),
+    },
     { label: 'RequestBody', content: <RequestBody /> },
   ];
 

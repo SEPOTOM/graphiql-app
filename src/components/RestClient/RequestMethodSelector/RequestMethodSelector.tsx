@@ -3,13 +3,14 @@
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { Method, SegmentIndex } from '@/types';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { getNewMethodPath } from '@/services';
 import { useLanguage, useTranslation } from '@/hooks';
 
 export default function RequestMethodSelector() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const { lng } = useLanguage();
   const { t } = useTranslation(lng);
   const methods = Object.values(Method) as string[];
@@ -18,9 +19,10 @@ export default function RequestMethodSelector() {
   const [method, setMethod] = useState<string>(currentMethod);
 
   const handleSelect = (event: SelectChangeEvent) => {
+    const params = new URLSearchParams(searchParams.toString());
     const selectedMethod = event.target.value;
     setMethod(selectedMethod);
-    const newPath = getNewMethodPath(pathname, selectedMethod, methods);
+    const newPath = `${getNewMethodPath(pathname, selectedMethod, methods)}?${params}`;
     window.history.replaceState(null, '', newPath);
   };
 

@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import { Mock } from 'vitest';
 import EditorTable from './EditorTable';
 import { GraphQlHeadersEditor } from '@/types';
+import { LanguageProvider } from '@/contexts';
 import { mockedGraphQlEditorsRow } from '@/tests/mocks/mocks';
 
 const mockSetData = vi.fn();
@@ -12,11 +13,13 @@ describe('Editors row', () => {
   it('should render editors row', async () => {
     (usePathname as Mock).mockReturnValue('en/GRAPHQL/https://rickandmortyapi.com/graphql');
     render(
-      <EditorTable
-        heading={GraphQlHeadersEditor.HeadersEditorEN}
-        currentEditorData={mockedGraphQlEditorsRow}
-        setCurrentEditorData={mockSetData}
-      />
+      <LanguageProvider lang="en">
+        <EditorTable
+          heading={GraphQlHeadersEditor.HeadersEditorEN}
+          currentEditorData={mockedGraphQlEditorsRow}
+          setCurrentEditorData={mockSetData}
+        />
+      </LanguageProvider>
     );
 
     await waitFor(() => {
@@ -34,11 +37,13 @@ describe('Editors row', () => {
   it('Inputs should be worked good', async () => {
     (usePathname as Mock).mockReturnValue('en/GRAPHQL/https://rickandmortyapi.com/graphql');
     render(
-      <EditorTable
-        heading={GraphQlHeadersEditor.HeadersEditorEN}
-        currentEditorData={mockedGraphQlEditorsRow}
-        setCurrentEditorData={mockSetData}
-      />
+      <LanguageProvider lang="en">
+        <EditorTable
+          heading={GraphQlHeadersEditor.HeadersEditorEN}
+          currentEditorData={mockedGraphQlEditorsRow}
+          setCurrentEditorData={mockSetData}
+        />
+      </LanguageProvider>
     );
     await waitFor(async () => {
       const user = userEvent.setup();
@@ -58,11 +63,13 @@ describe('Editors row', () => {
   it('Checkbox should be worked good', async () => {
     (usePathname as Mock).mockReturnValue('en/GRAPHQL/https://rickandmortyapi.com/graphql');
     render(
-      <EditorTable
-        heading={GraphQlHeadersEditor.HeadersEditorEN}
-        currentEditorData={mockedGraphQlEditorsRow}
-        setCurrentEditorData={mockSetData}
-      />
+      <LanguageProvider lang="en">
+        <EditorTable
+          heading={GraphQlHeadersEditor.HeadersEditorEN}
+          currentEditorData={mockedGraphQlEditorsRow}
+          setCurrentEditorData={mockSetData}
+        />
+      </LanguageProvider>
     );
     await waitFor(async () => {
       const user = userEvent.setup();

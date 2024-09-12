@@ -2,10 +2,11 @@
 
 import { EditorTable } from '@/components';
 import { useGraphQl } from '@/contexts';
-import { useTranslation } from '@/hooks';
-import { GraphQlHeadersEditor, GraphQlVariablesEditor } from '@/types';
+import { useLanguage, useTranslation } from '@/hooks';
+import { GraphQlHeadersEditor, GraphQlVariablesEditor, HeadersAndVariablesEditorRowDataItem } from '@/types';
 import { Box, Typography } from '@mui/material';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -15,13 +16,39 @@ interface TabPanelProps {
 }
 
 export default function CustomTabPanel({ children, value, index, content, ...other }: TabPanelProps) {
-  const { paramData, setParamData, headerData, setHeaderData } = useGraphQl();
+  const searchParams = useSearchParams();
+  const { paramData, setParamData } = useGraphQl();
   const pathname = usePathname();
-  const [lng] = pathname.split('/').splice(1, 1);
+  const { lng } = useLanguage();
   const { t } = useTranslation(lng);
+  const params = Array.from(searchParams.entries());
+  const initializedRowsData = params.map(([key, value], index) => ({
+    id: index,
+    key: decodeURIComponent(key),
+    value: decodeURIComponent(value),
+    check: true,
+  }));
+
+  const [headerData, setHeaderData] = useState<HeadersAndVariablesEditorRowDataItem[]>(initializedRowsData);
+
   const headerEditors = Object.values(GraphQlHeadersEditor) as string[];
   const variablesEditors = Object.values(GraphQlVariablesEditor) as string[];
   const editors = headerEditors.concat(variablesEditors);
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+    headerData.forEach(({ key, value, check }) => {
+      if (check && (value || key)) {
+        const encodedKey = encodeURIComponent(key);
+        const encodedValue = encodeURIComponent(value);
+        params.set(encodedKey, encodedValue);
+      } else {
+        params.delete(key);
+      }
+      const newPath = `${pathname}?${params}`;
+      window.history.replaceState(null, '', newPath);
+    });
+  }, [headerData, pathname]);
 
   return (
     <Box

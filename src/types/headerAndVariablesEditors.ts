@@ -1,6 +1,6 @@
 export interface HeadersAndVariablesEditorRowDataItem {
-  check?: boolean;
-  id?: number;
-  key?: string;
-  value?: string;
+  check: boolean;
+  id: number;
+  key: string;
+  value: string;
 }
