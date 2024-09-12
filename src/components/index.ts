@@ -19,6 +19,7 @@ import PrivateRoute from '@/components/PrivateRoute/PrivateRoute';
 import HistorySection from './HistorySection/HistorySection';
 import PublicRoute from '@/components/PublicRoute/PublicRoute';
 import StateMessage from '@/components/StateMessage/StateMessage';
+import AuthBanner from '@/components/AuthBanner/AuthBanner';
 
 export {
   BodyMenuTab,
@@ -42,4 +43,5 @@ export {
   SignUpForm,
   PublicRoute,
   StateMessage,
+  AuthBanner,
 };
