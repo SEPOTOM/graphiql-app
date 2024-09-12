@@ -45,7 +45,6 @@ describe('GraphQl endpoints form', () => {
 
       const newPath = `en/GRAPHQL/${encodedEndpoint}`;
       expect(mockReplaceState).toHaveBeenCalledWith(null, '', newPath);
-
     });
   });
 });

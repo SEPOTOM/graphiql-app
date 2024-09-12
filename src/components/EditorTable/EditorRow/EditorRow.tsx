@@ -20,7 +20,7 @@ export default function EditorRow({ rowId, currentEditorData, setCurrentEditorDa
   const defaultRowKey = currentEditorDataRow ? currentEditorDataRow.key : '';
   const defaultRowValue = currentEditorDataRow ? currentEditorDataRow.value : '';
 
-   useEffect(() => {
+  useEffect(() => {
     setIsChecked(currentEditorDataRow?.check ?? false);
   }, [currentEditorDataRow, rowId]);
 

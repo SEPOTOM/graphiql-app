@@ -7,14 +7,12 @@ import { GraphQlHeadersEditor } from '@/types';
 import { LanguageProvider } from '@/contexts';
 import { mockedGraphQlEditorsRow } from '@/tests/mocks/mocks';
 
-
 const mockSetData = vi.fn();
 
 describe('Editors row', () => {
   it('should render editors row', async () => {
     (usePathname as Mock).mockReturnValue('en/GRAPHQL/https://rickandmortyapi.com/graphql');
     render(
-
       <LanguageProvider lang="en">
         <EditorTable
           heading={GraphQlHeadersEditor.HeadersEditorEN}
@@ -39,7 +37,6 @@ describe('Editors row', () => {
   it('Inputs should be worked good', async () => {
     (usePathname as Mock).mockReturnValue('en/GRAPHQL/https://rickandmortyapi.com/graphql');
     render(
-
       <LanguageProvider lang="en">
         <EditorTable
           heading={GraphQlHeadersEditor.HeadersEditorEN}

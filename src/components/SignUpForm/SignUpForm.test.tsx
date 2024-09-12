@@ -16,7 +16,6 @@ describe('SignUpForm', () => {
     expect(getByLabelText(/confirm password/i)).toBeInTheDocument();
   });
 
-
   it('displays success alert after successful registration', async () => {
     const { user, getByRole, getByLabelText, findByRole } = renderWithUser(
       <AuthProvider>
@@ -32,7 +31,6 @@ describe('SignUpForm', () => {
 
     expect(await findByRole('alert')).toHaveTextContent(/success/i);
   });
-
 
   it('disables form widgets while the form is submitting', async () => {
     const { user, findByLabelText, getByRole, getByLabelText, getAllByRole } = renderWithUser(

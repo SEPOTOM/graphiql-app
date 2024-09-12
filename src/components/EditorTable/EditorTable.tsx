@@ -7,7 +7,6 @@ import { useLanguage, useTranslation } from '@/hooks';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { GraphQlHeadersEditor, HeadersAndVariablesEditorRowDataItem } from '@/types';
 
-
 interface EditorTableProps {
   heading: string;
   currentEditorData: HeadersAndVariablesEditorRowDataItem[];
@@ -26,7 +25,6 @@ export default function EditorTable({ heading, currentEditorData, setCurrentEdit
   const handleClick = () => {
     addRows((oldArr) => [...oldArr, rows.length]);
   };
-
 
   return (
     <Box display="flex" gap={1} flexDirection="column" width="100%">

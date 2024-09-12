@@ -4,12 +4,11 @@ import { decodeFromBase64, encodeToBase64, getNewGraphQlURLPath, makeGraphQLRequ
 import { Box, Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { usePathname } from 'next/navigation';
-import { ChangeEvent, useState, useEffect } from 'react';
+import { ChangeEvent, useEffect } from 'react';
 import { graphQLSchemaQuery, headersGraphQLSchema, variablesGraphQLSchema } from '@/utils';
 import { useLanguage, useTranslation } from '@/hooks';
 import { useGraphQl } from '@/contexts';
 import { GraphQlRequest } from '@/types';
-
 
 export default function EndpointsForm() {
   const {
@@ -54,13 +53,13 @@ export default function EndpointsForm() {
   };
 
   const handleOnclick = async () => {
-      const headers: HeadersInit = Object.fromEntries(
+    const headers: HeadersInit = Object.fromEntries(
       headerData.filter((item) => item.check === true).map((item) => [item.key, item.value])
     );
     const variables: HeadersInit = Object.fromEntries(
       paramData
         .filter((item) => item.check === true)
-        .map((item) => [item.key, Number(item.value) ? Number(item.value) : item.value])
+        .map((item) => [item.key, String(Number(item.value) ? Number(item.value) : item.value)])
     );
     const res = (await makeGraphQLRequest(queryText, variables, endpointUrl, headers)) as GraphQlRequest;
     const data = JSON.parse(res.data);

@@ -9,7 +9,6 @@ beforeAll(() => {
     useRouter: vi.fn(() => ({
       replace: vi.fn(),
     })),
-
   }));
   server.listen();
 });
