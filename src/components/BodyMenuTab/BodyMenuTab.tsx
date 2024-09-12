@@ -8,7 +8,7 @@ import { EditorTable, RequestBody } from '@/components';
 import { useLanguage, useTranslation } from '@/hooks';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { encodeToBase64, decodeFromBase64 } from '@/services';
-import useSavedVariables from '@/hooks/useSavedVariables';
+import { useSavedVariables } from '@/hooks';
 
 export default function BodyMenuTab() {
   const searchParams = useSearchParams();
@@ -46,22 +46,22 @@ export default function BodyMenuTab() {
     if (variablesRowsData.length) {
       setVariables(variablesRowsData);
     }
-  }, [variablesRowsData]);
+  }, [variablesRowsData, setVariables]);
 
   useEffect(() => {
     const params = new URLSearchParams();
-    headersRowsData.forEach((row) => {
-      if (row.check && (row.value || row.key)) {
-        const encodedKey = encodeToBase64(row.key);
-        const encodedValue = encodeToBase64(row.value);
+    headersRowsData.forEach(({ key, value, check }) => {
+      if (check && (value || key)) {
+        const encodedKey = encodeToBase64(key);
+        const encodedValue = encodeToBase64(value);
         params.set(encodedKey, encodedValue);
       } else {
-        params.delete(row.key);
+        params.delete(key);
       }
       const newPath = `${pathname}?${params}`;
       window.history.replaceState(null, '', newPath);
     });
-  }, [headersRowsData]);
+  }, [headersRowsData, pathname]);
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);

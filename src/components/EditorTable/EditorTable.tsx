@@ -3,7 +3,6 @@
 import { Box, Button, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
 import EditorRow from './EditorRow/EditorRow';
 import styles from './EditorTable.module.scss';
-import { usePathname, useSearchParams } from 'next/navigation';
 import { useLanguage, useTranslation } from '@/hooks';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { HeadersAndVariablesEditorRowDataItem } from '@/types';

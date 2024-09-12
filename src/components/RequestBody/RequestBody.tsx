@@ -55,7 +55,7 @@ export default function RequestBody() {
       const newPath = `${getNewBodyPath(pathname, encodedBody)}?${params}`;
       window.history.replaceState(null, '', newPath);
     }
-  }, [bodyMode, pathSegments, decodedBody, pathname]);
+  }, [bodyMode, pathSegments, decodedBody, pathname, searchParams]);
 
   return (
     <Box display={'flex'} flexDirection={'column'} gap={3}>

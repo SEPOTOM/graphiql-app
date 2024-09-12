@@ -3,7 +3,6 @@
 import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
 import styles from '../EditorTable.module.scss';
 import { Checkbox, TableCell, TableRow, TextField } from '@mui/material';
-import { usePathname } from 'next/navigation';
 import { useLanguage, useTranslation } from '@/hooks';
 import { HeadersAndVariablesEditorRowDataItem } from '@/types';
 
@@ -14,13 +13,14 @@ interface EditorRowProps {
 }
 
 export default function EditorRow({ rowId, currentEditorData, setCurrentEditorData }: EditorRowProps) {
-  const [isChecked, setIsChecked] = useState(currentEditorData[rowId]?.check ?? false);
+  const currentRow = currentEditorData[rowId];
+  const [isChecked, setIsChecked] = useState(currentRow?.check ?? false);
   const { lng } = useLanguage();
   const { t } = useTranslation(lng);
 
   useEffect(() => {
-    setIsChecked(currentEditorData[rowId]?.check ?? false);
-  }, [currentEditorData]);
+    setIsChecked(currentRow?.check ?? false);
+  }, [currentRow, rowId]);
 
   const handleEditRowCheckboxChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const currentRowId = Number(event.target.name);
@@ -78,7 +78,7 @@ export default function EditorRow({ rowId, currentEditorData, setCurrentEditorDa
           placeholder={t('data_editor_key_heading')}
           name="key"
           onChange={handleEditRowTextFieldChange}
-          defaultValue={currentEditorData[rowId]?.key ?? ''}
+          defaultValue={currentRow?.key ?? ''}
         />
       </TableCell>
       <TableCell className={styles.edit_row__cell}>
@@ -87,7 +87,7 @@ export default function EditorRow({ rowId, currentEditorData, setCurrentEditorDa
           placeholder={t('data_editor_value_heading')}
           name="value"
           onChange={handleEditRowTextFieldChange}
-          defaultValue={currentEditorData[rowId]?.value ?? ''}
+          defaultValue={currentRow?.value ?? ''}
         />
       </TableCell>
     </TableRow>

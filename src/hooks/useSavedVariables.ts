@@ -17,7 +17,7 @@ export default function useSavedVariables<T>(key: string, defaultValue: T): [T, 
     if (isClient) {
       localStorage.setItem(key, JSON.stringify(query));
     }
-  }, [query]);
+  }, [query, isClient, key]);
 
   return [query, setQuery];
 }

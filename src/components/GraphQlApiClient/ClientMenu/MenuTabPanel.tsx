@@ -38,18 +38,18 @@ export default function CustomTabPanel({ children, value, index, content, ...oth
 
   useEffect(() => {
     const params = new URLSearchParams();
-    headerData.forEach((row) => {
-      if (row.check && (row.value || row.key)) {
-        const encodedKey = encodeToBase64(row.key);
-        const encodedValue = encodeToBase64(row.value);
+    headerData.forEach(({ key, value, check }) => {
+      if (check && (value || key)) {
+        const encodedKey = encodeToBase64(key);
+        const encodedValue = encodeToBase64(value);
         params.set(encodedKey, encodedValue);
       } else {
-        params.delete(row.key);
+        params.delete(key);
       }
       const newPath = `${pathname}?${params}`;
       window.history.replaceState(null, '', newPath);
     });
-  }, [headerData]);
+  }, [headerData, pathname]);
 
   return (
     <Box

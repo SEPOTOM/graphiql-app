@@ -17,7 +17,7 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import { useLanguage, useTranslation } from '@/hooks';
 import { ErrorsMessage } from '@/components';
 import { Button } from '@mui/material';
-import useSavedVariables from '@/hooks/useSavedVariables';
+import { useSavedVariables } from '@/hooks';
 
 export interface RequestBodyEditorProps {
   mode: string;
@@ -35,11 +35,25 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
   const [value, setValue] = useState<string>(initialValue ?? '');
   const [showErrorsPopover, setShowErrorsPopover] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [variables, _] = useSavedVariables<HeadersAndVariablesEditorRowDataItem[]>(StorageKey.Variables, []);
+  const [variables] = useSavedVariables<HeadersAndVariablesEditorRowDataItem[]>(StorageKey.Variables, []);
+
+  const insertVariablesIntoBody = useCallback(
+    (body: string) => {
+      let updatedBody = body;
+      variables.forEach(({ key, value, check }) => {
+        if (check) {
+          const regex = new RegExp(`{{${key}}}`, 'g');
+          updatedBody = updatedBody.replace(regex, value);
+        }
+      });
+      return updatedBody;
+    },
+    [variables]
+  );
 
   useEffect(() => {
     setValue(insertVariablesIntoBody(initialValue || ''));
-  }, [initialValue, variables]);
+  }, [initialValue, variables, insertVariablesIntoBody]);
 
   const formatDocument = () => {
     if (options.readOnly) return;
@@ -75,7 +89,7 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
         setShowErrorsPopover(true);
       }
     }
-  }, [mode, value, pathname, pathSegments, options.readOnly]);
+  }, [mode, value, pathname, pathSegments, options.readOnly, insertVariablesIntoBody, searchParams]);
 
   useEffect(() => {
     if (options.readOnly) return;
@@ -129,17 +143,6 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
       setShowErrorsPopover(false);
       setValue(value);
     }
-  };
-
-  const insertVariablesIntoBody = (body: string) => {
-    let updatedBody = body;
-    variables.forEach(({ key, value, check }) => {
-      if (check) {
-        const regex = new RegExp(`{{${key}}}`, 'g');
-        updatedBody = updatedBody.replace(regex, value);
-      }
-    });
-    return updatedBody;
   };
 
   return (

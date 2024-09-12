@@ -1,7 +1,6 @@
 import '@testing-library/jest-dom/vitest';
 import { cleanup } from '@testing-library/react';
 import { server } from '@/tests/mocks/server';
-import { useSearchParams } from 'next/navigation';
 
 beforeAll(() => {
   vi.mock('next/navigation', () => ({
