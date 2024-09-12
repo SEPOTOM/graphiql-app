@@ -40,20 +40,21 @@
   },
   "http_response": "Status",
   "method_label": "Method",
-  "private_route": {
-    "loading": "Authentication in progress...",
-    "redirect": "Redirecting to homepage..."
-  },
   "pwd_field": {
     "hide": "Hide password",
     "show": "Show password"
   },
-  "response_header": "Response",
   "request_header": "Request",
+  "response_header": "Response",
   "response_placeholder": "Enter the URL and click Send to get a response",
   "restfull_client_menu_tab_body": "Request Body",
   "restfull_client_menu_tab_headers": "Headers",
   "restfull_client_menu_tab_variables": "Variables",
+  "route_states": {
+    "authentication": "Authentication in progress...",
+    "loading": "Loading...",
+    "redirect": "Redirecting to homepage..."
+  },
   "send_button_text": "Send",
   "sign_in": {
     "email": "Email",

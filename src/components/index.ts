@@ -16,6 +16,8 @@ import Header from '@/components/Header/Header';
 import SignInForm from '@/components/SignInForm/SignInForm';
 import FormLayout from '@/components/FormLayout/FormLayout';
 import PrivateRoute from '@/components/PrivateRoute/PrivateRoute';
+import PublicRoute from '@/components/PublicRoute/PublicRoute';
+import StateMessage from '@/components/StateMessage/StateMessage';
 
 export {
   MUIThemeProvider,
@@ -36,4 +38,6 @@ export {
   SignInForm,
   FormLayout,
   PrivateRoute,
+  PublicRoute,
+  StateMessage,
 };
