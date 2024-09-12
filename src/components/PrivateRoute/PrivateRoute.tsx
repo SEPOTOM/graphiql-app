@@ -19,7 +19,7 @@ const PrivateRoute = ({ children }: PrivateRouteProps) => {
       <Box display="flex" justifyContent="center" alignItems="center" flexGrow={1}>
         <CircularProgress />
         <Typography variant="h4" component="p" ml={2}>
-          {t('private_route.loading')}
+          {t('route_states.authentication')}
         </Typography>
       </Box>
     );
@@ -31,7 +31,7 @@ const PrivateRoute = ({ children }: PrivateRouteProps) => {
     return (
       <Box display="flex" justifyContent="center" alignItems="center" flexGrow={1}>
         <Typography variant="h4" component="p">
-          {t('private_route.redirect')}
+          {t('route_states.redirect')}
         </Typography>
       </Box>
     );

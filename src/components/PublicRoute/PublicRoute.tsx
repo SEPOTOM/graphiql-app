@@ -19,7 +19,7 @@ const PublicRoute = ({ children }: PublicRouteProps) => {
     return (
       <Box display="flex" justifyContent="center" alignItems="center" flexGrow={1}>
         <Typography variant="h4" component="p">
-          {t('public_route.redirect')}
+          {t('route_states.redirect')}
         </Typography>
       </Box>
     );
@@ -33,7 +33,7 @@ const PublicRoute = ({ children }: PublicRouteProps) => {
     <Box display="flex" justifyContent="center" alignItems="center" flexGrow={1}>
       <CircularProgress />
       <Typography variant="h4" component="p" ml={2}>
-        {t('public_route.loading')}
+        {t('route_states.loading')}
       </Typography>
     </Box>
   );
