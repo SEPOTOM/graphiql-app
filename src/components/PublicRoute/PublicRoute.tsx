@@ -1,10 +1,10 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { Box, CircularProgress, Typography } from '@mui/material';
 
 import { useAuth } from '@/contexts';
 import { useLanguage, useTranslation } from '@/hooks';
+import { StateMessage } from '@/components';
 
 import { PublicRouteProps } from './types';
 
@@ -16,27 +16,14 @@ const PublicRoute = ({ children }: PublicRouteProps) => {
 
   if (status === 'authenticated') {
     router.replace('/');
-    return (
-      <Box display="flex" justifyContent="center" alignItems="center" flexGrow={1}>
-        <Typography variant="h4" component="p">
-          {t('route_states.redirect')}
-        </Typography>
-      </Box>
-    );
+    return <StateMessage>{t('route_states.redirect')}</StateMessage>;
   }
 
   if (status === 'unauthenticated') {
     return children;
   }
 
-  return (
-    <Box display="flex" justifyContent="center" alignItems="center" flexGrow={1}>
-      <CircularProgress />
-      <Typography variant="h4" component="p" ml={2}>
-        {t('route_states.loading')}
-      </Typography>
-    </Box>
-  );
+  return <StateMessage showLoading>{t('route_states.loading')}</StateMessage>;
 };
 
 export default PublicRoute;
