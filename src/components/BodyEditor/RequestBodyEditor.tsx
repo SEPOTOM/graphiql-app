@@ -14,10 +14,9 @@ import {
 } from '@/types';
 import { encodeToBase64, getNewBodyPath } from '@/services';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { useLanguage, useTranslation } from '@/hooks';
+import { useLanguage, useTranslation, useSavedVariables } from '@/hooks';
 import { ErrorsMessage } from '@/components';
 import { Button } from '@mui/material';
-import { useSavedVariables } from '@/hooks';
 
 export interface RequestBodyEditorProps {
   mode: string;

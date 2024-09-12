@@ -3,7 +3,6 @@
 import { EditorTable } from '@/components';
 import { useGraphQl } from '@/contexts';
 import { useLanguage, useTranslation } from '@/hooks';
-import { decodeFromBase64, encodeToBase64 } from '@/services';
 import { GraphQlHeadersEditor, GraphQlVariablesEditor, HeadersAndVariablesEditorRowDataItem } from '@/types';
 import { Box, Typography } from '@mui/material';
 import { usePathname, useSearchParams } from 'next/navigation';
@@ -25,8 +24,8 @@ export default function CustomTabPanel({ children, value, index, content, ...oth
   const params = Array.from(searchParams.entries());
   const initializedRowsData = params.map(([key, value], index) => ({
     id: index,
-    key: decodeFromBase64(key),
-    value: decodeFromBase64(value),
+    key: decodeURIComponent(key),
+    value: decodeURIComponent(value),
     check: true,
   }));
 
@@ -40,8 +39,8 @@ export default function CustomTabPanel({ children, value, index, content, ...oth
     const params = new URLSearchParams();
     headerData.forEach(({ key, value, check }) => {
       if (check && (value || key)) {
-        const encodedKey = encodeToBase64(key);
-        const encodedValue = encodeToBase64(value);
+        const encodedKey = encodeURIComponent(key);
+        const encodedValue = encodeURIComponent(value);
         params.set(encodedKey, encodedValue);
       } else {
         params.delete(key);

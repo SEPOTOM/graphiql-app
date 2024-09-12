@@ -5,10 +5,8 @@ import { HeadersAndVariablesEditorRowDataItem, MenuTabsRest, StorageKey } from '
 import RequestBodyMenuTabs from './RequestBodyMenuTabs';
 import { useState, SyntheticEvent, useEffect } from 'react';
 import { EditorTable, RequestBody } from '@/components';
-import { useLanguage, useTranslation } from '@/hooks';
+import { useLanguage, useTranslation, useSavedVariables } from '@/hooks';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { encodeToBase64, decodeFromBase64 } from '@/services';
-import { useSavedVariables } from '@/hooks';
 
 export default function BodyMenuTab() {
   const searchParams = useSearchParams();
@@ -26,8 +24,8 @@ export default function BodyMenuTab() {
   const params = Array.from(searchParams.entries());
   const initializedRowsData = params.map(([key, value], index) => ({
     id: index,
-    key: decodeFromBase64(key),
-    value: decodeFromBase64(value),
+    key: decodeURIComponent(key),
+    value: decodeURIComponent(value),
     check: true,
   }));
 
@@ -52,8 +50,8 @@ export default function BodyMenuTab() {
     const params = new URLSearchParams();
     headersRowsData.forEach(({ key, value, check }) => {
       if (check && (value || key)) {
-        const encodedKey = encodeToBase64(key);
-        const encodedValue = encodeToBase64(value);
+        const encodedKey = encodeURIComponent(key);
+        const encodedValue = encodeURIComponent(value);
         params.set(encodedKey, encodedValue);
       } else {
         params.delete(key);

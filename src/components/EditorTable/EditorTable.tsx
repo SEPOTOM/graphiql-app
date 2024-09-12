@@ -5,7 +5,7 @@ import EditorRow from './EditorRow/EditorRow';
 import styles from './EditorTable.module.scss';
 import { useLanguage, useTranslation } from '@/hooks';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { GraphQlHeadersEditor, HeadersAndVariablesEditorRowDataItem } from '@/types';
+import { HeadersAndVariablesEditorRowDataItem } from '@/types';
 
 interface EditorTableProps {
   heading: string;
