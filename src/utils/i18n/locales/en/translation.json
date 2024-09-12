@@ -34,6 +34,7 @@
   },
   "http_response": "Status",
   "method_label": "Method",
+  "not_found": "The page was not found",
   "pwd_field": {
     "hide": "Hide password",
     "show": "Show password"

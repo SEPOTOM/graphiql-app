@@ -34,6 +34,7 @@
   },
   "http_response": "Статус",
   "method_label": "Метод",
+  "not_found": "Страница не найдена",
   "pwd_field": {
     "hide": "Скрыть пароль",
     "show": "Показать пароль"

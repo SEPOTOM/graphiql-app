@@ -1,13 +1,13 @@
-'use client';
+import CustomNotFound from '@/components/404/404';
+import { LngParam } from '@/types';
 
-import Error from 'next/error';
+export default function NotFound({ params }: { params: LngParam }) {
+  const { lng } = params;
 
-export default function NotFound() {
   return (
-    <html lang="en">
+    <html lang={lng}>
       <body>
-        <p>Custom 404 page</p>
-        <Error statusCode={404} />
+        <CustomNotFound lng={lng} />
       </body>
     </html>
   );
