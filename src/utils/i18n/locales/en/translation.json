@@ -34,6 +34,10 @@
   },
   "http_response": "Status",
   "method_label": "Method",
+  "public_route": {
+    "loading": "Loading...",
+    "redirect": "Redirecting to the main page..."
+  },
   "private_route": {
     "loading": "Authentication in progress...",
     "redirect": "Redirecting to homepage..."
