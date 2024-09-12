@@ -13,7 +13,13 @@ const PublicRoute = ({ children }: PublicRouteProps) => {
 
   if (status === 'authenticated') {
     router.replace('/');
-    return;
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" flexGrow={1}>
+        <Typography variant="h4" component="p">
+          Redirecting to the main page...
+        </Typography>
+      </Box>
+    );
   }
 
   if (status === 'unauthenticated') {
