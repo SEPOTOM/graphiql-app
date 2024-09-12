@@ -16,24 +16,26 @@ import Header from '@/components/Header/Header';
 import SignInForm from '@/components/SignInForm/SignInForm';
 import FormLayout from '@/components/FormLayout/FormLayout';
 import PrivateRoute from '@/components/PrivateRoute/PrivateRoute';
+import HistorySection from './HistorySection/HistorySection';
 
 export {
-  MUIThemeProvider,
-  RestfullClient,
-  GraphQlClient,
-  Footer,
-  RequestBody,
   BodyMenuTab,
-  ErrorsMessage,
-  RequestBodyEditor,
-  GraphQlRequestBodyEditor,
-  ResponseSection,
   EditorTable,
-  SignUpForm,
+  ErrorsMessage,
+  Footer,
+  FormLayout,
+  GraphQlClient,
+  GraphQlRequestBodyEditor,
+  Header,
+  HistorySection,
+  MUIThemeProvider,
   Notification,
   PasswordField,
-  Header,
-  SignInForm,
-  FormLayout,
   PrivateRoute,
+  RequestBody,
+  RequestBodyEditor,
+  ResponseSection,
+  RestfullClient,
+  SignInForm,
+  SignUpForm,
 };
