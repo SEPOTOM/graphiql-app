@@ -25,18 +25,6 @@ export default function RestfullClient() {
   const [_, setSavedRequests] = useLocalStorage<RequestHistoryItem[]>(StorageKey.Requests, []);
   const showError = !!errorMessage;
 
-  useEffect(() => {
-    const method = segments[SegmentIndex.Method];
-    if (!method) {
-      const newPath = `${pathname}/${Method.Get}`;
-      router.replace(newPath);
-    } else if (!(Object.values(Method) as string[]).includes(method)) {
-      segments.splice(SegmentIndex.Method, 0, Method.Get);
-      const newPath = segments.join('/');
-      router.replace(newPath);
-    }
-  }, [pathname, router, segments]);
-
   const handleSubmit = async () => {
     try {
       const method = segments[SegmentIndex.Method];
@@ -51,14 +39,14 @@ export default function RestfullClient() {
         throw new Error(t('error_empty_endpoint'));
       }
 
-      const response = await fetch(`/restfullClient/api`, {
+      const response = await fetch(`/method/api`, {
         method: 'POST',
         body: JSON.stringify({ method, endpoint, body, headers }),
       });
 
       const newRequest: RequestHistoryItem = {
         id: new Date().toISOString(),
-        client: `restfullClient/${method}`,
+        client: method,
         endpoint,
         body: body ? body : '',
         headers: `${searchParams}`,

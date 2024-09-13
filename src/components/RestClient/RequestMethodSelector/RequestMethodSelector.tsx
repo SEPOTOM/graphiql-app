@@ -14,9 +14,8 @@ export default function RequestMethodSelector() {
   const { lng } = useLanguage();
   const { t } = useTranslation(lng);
   const methods = Object.values(Method) as string[];
-  const pathNameMethod = pathname.split('/')[SegmentIndex.Method];
-  const currentMethod = methods.includes(pathNameMethod) ? pathNameMethod : Method.Get;
-  const [method, setMethod] = useState<string>(currentMethod);
+  const pathNameMethod = pathname.split('/').at(SegmentIndex.Method) ?? Method.Get;
+  const [method, setMethod] = useState<string>(pathNameMethod);
 
   const handleSelect = (event: SelectChangeEvent) => {
     const params = new URLSearchParams(searchParams.toString());

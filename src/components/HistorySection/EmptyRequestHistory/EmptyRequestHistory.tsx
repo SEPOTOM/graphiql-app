@@ -12,7 +12,7 @@ export default function EmptyRequestHistory() {
         {t('empty_requests_history_message')}
       </Typography>
       <Box sx={{ width: '80%', display: 'flex', justifyContent: 'space-evenly', fontSize: 24 }}>
-        <Link href="/restfullClient/GET">{t('rest_client')}</Link>
+        <Link href="/GET">{t('rest_client')}</Link>
         <Link href="/GRAPHQL">{t('graphql_client')}</Link>
       </Box>
     </Box>
