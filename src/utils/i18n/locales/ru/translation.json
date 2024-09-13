@@ -32,6 +32,8 @@
   "graphQl_menu_tab_schema": "Схема",
   "graphQl_menu_tab_variables": "Переменные",
   "graphQl_send_button": "Отправить",
+  "graphQL_syntax_error_message": "Введеный URL не верный для graphQL запроса",
+  "graphQL_else_error_message": "Неизвестная ошибка",
   "header": {
     "lng_switcher_label": "Выберите язык",
     "sign_in_btn": "Вход",

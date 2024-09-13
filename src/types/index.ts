@@ -14,6 +14,7 @@ import {
   SchemaTabs,
   SchemaTypes,
   StorageKey,
+  GraphQlEditorErrorTypes,
 } from '@/types/enum';
 import { HeadersAndVariablesEditorRowDataItem } from '@/types/headerAndVariablesEditors';
 import { GraphQlRequest } from './graphqlRequest';
@@ -49,4 +50,5 @@ export {
   SchemaTabs,
   SchemaTypes,
   StorageKey,
+  GraphQlEditorErrorTypes,
 };

@@ -71,3 +71,7 @@ export enum StorageKey {
   Variables = 'variables_data',
   GraphQLVariables = 'graphql_variables_data',
 }
+
+export enum GraphQlEditorErrorTypes {
+  SyntaxError = 'SyntaxError',
+}

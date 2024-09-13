@@ -8,7 +8,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { graphQLSchemaQuery, headersGraphQLSchema, variablesGraphQLSchema } from '@/utils';
 import { useLanguage, useTranslation } from '@/hooks';
 import { useGraphQl } from '@/contexts';
-import { GraphQlRequest } from '@/types';
+import { GraphQlEditorErrorTypes, GraphQlRequest } from '@/types';
 
 export default function EndpointsForm() {
   const {
@@ -79,7 +79,9 @@ export default function EndpointsForm() {
       setResponseStatusText(res.code);
     } catch (error) {
       if (error instanceof Error) {
-        setErrorMessage(error.message);
+        error.name === GraphQlEditorErrorTypes.SyntaxError ?
+          setErrorMessage(t('graphQL_syntax_error_message'))
+        : setErrorMessage(t('graphQL_else_error_message'));
       }
     }
   };

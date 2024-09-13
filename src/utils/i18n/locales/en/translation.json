@@ -32,6 +32,8 @@
   "graphQl_menu_tab_schema": "Schema",
   "graphQl_menu_tab_variables": "Variables",
   "graphQl_send_button": "Send",
+  "graphQL_syntax_error_message": "The entered URL is not correct for the graphQL query",
+  "graphQL_else_error_message": "Unknown error",
   "header": {
     "lng_switcher_label": "Select language",
     "sign_in_btn": "Sign In",
