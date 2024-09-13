@@ -2,10 +2,10 @@ import Image from 'next/image';
 import { Box, Container, Link, List, ListItem, Typography } from '@mui/material';
 import { GitHub as GitHubIcon } from '@mui/icons-material';
 
-import { getTranslation } from '@/utils';
+import { getTranslation, reactCourseUrl } from '@/utils';
 
 import { FooterProps } from './types';
-import { authors, reactCourseUrl } from './consts';
+import { authors } from './consts';
 
 const Footer = async ({ lng }: FooterProps) => {
   const { t } = await getTranslation(lng);
