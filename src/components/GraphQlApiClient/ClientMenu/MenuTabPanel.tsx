@@ -3,7 +3,13 @@
 import { EditorTable, SchemaGraphQL } from '@/components';
 import { useGraphQl } from '@/contexts';
 import { basicHeadersRows } from '@/contexts/GraphQLContext/consts';
-import { GraphQlHeadersEditor, GraphQlVariablesEditor, HeadersAndVariablesEditorRowDataItem } from '@/types';
+import { useSavedVariables } from '@/hooks';
+import {
+  GraphQlHeadersEditor,
+  GraphQlVariablesEditor,
+  HeadersAndVariablesEditorRowDataItem,
+  StorageKey,
+} from '@/types';
 import { Box } from '@mui/material';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -17,9 +23,10 @@ interface TabPanelProps {
 
 export default function CustomTabPanel({ children, value, index, content, ...other }: TabPanelProps) {
   const searchParams = useSearchParams();
-  const { paramData, setParamData } = useGraphQl();
   const pathname = usePathname();
   const params = Array.from(searchParams.entries());
+  const [isClient, setIsClient] = useState(false);
+
   const initializedRowsData =
     params.length > 0 ?
       params.map(([key, value], index) => ({
@@ -31,10 +38,32 @@ export default function CustomTabPanel({ children, value, index, content, ...oth
     : basicHeadersRows;
 
   const [headerData, setHeaderData] = useState<HeadersAndVariablesEditorRowDataItem[]>(initializedRowsData);
+  const [paramData, setParamData] = useState<HeadersAndVariablesEditorRowDataItem[]>([]);
 
   const headerEditors = Object.values(GraphQlHeadersEditor) as string[];
   const variablesEditors = Object.values(GraphQlVariablesEditor) as string[];
   const editors = headerEditors.concat(variablesEditors);
+
+  const [variables, setVariables] = useSavedVariables<HeadersAndVariablesEditorRowDataItem[]>(
+    StorageKey.GraphQLVariables,
+    []
+  );
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (isClient) {
+      setParamData(variables);
+    }
+  }, [isClient, setParamData, variables]);
+
+  useEffect(() => {
+    if (paramData.length) {
+      setVariables(paramData);
+    }
+  }, [paramData, setVariables]);
 
   useEffect(() => {
     const params = new URLSearchParams();

@@ -38,14 +38,7 @@ export default function GraphQlRequestBodyEditor({ mode, options, initialValue }
   const onBlur = useCallback(() => {
     if (options.readOnly) return;
     try {
-      let encodedValue: string;
-      if (mode === BodyType.json) {
-        const parsedValue = JSON.parse(queryText);
-        encodedValue = encodeToBase64(JSON.stringify(parsedValue));
-      } else {
-        encodedValue = encodeToBase64(queryText);
-      }
-      const newPath = getNewGraphQLBodyPath(pathname, encodedValue);
+      const newPath = getNewGraphQLBodyPath(pathname, encodeToBase64(queryText));
       window.history.replaceState(null, '', newPath);
     } catch (e) {
       if (e instanceof Error) {
@@ -53,7 +46,7 @@ export default function GraphQlRequestBodyEditor({ mode, options, initialValue }
         window.history.replaceState(null, '', newSegments.join('/'));
       }
     }
-  }, [mode, queryText, pathname, pathSegments, options.readOnly]);
+  }, [queryText, pathname, pathSegments, options.readOnly]);
 
   useEffect(() => {
     if (options.readOnly) return;

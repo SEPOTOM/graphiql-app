@@ -15,7 +15,6 @@ import GraphQlRequestBodyEditor from './BodyEditor/GraphQLBodyEditor';
 import Header from '@/components/Header/Header';
 import SignInForm from '@/components/SignInForm/SignInForm';
 import FormLayout from '@/components/FormLayout/FormLayout';
-import NotFound from '@/components/NotFound/NotFound';
 import SchemaGraphQL from './GraphQlApiClient/SchemaGraphQL/SchemaGraphQL';
 import BasicNotFound from './NotFound/BasicNotFound';
 import PrivateRoute from '@/components/PrivateRoute/PrivateRoute';
@@ -40,7 +39,6 @@ export {
   Header,
   SignInForm,
   FormLayout,
-  NotFound,
   BasicNotFound,
   SchemaGraphQL,
   PrivateRoute,

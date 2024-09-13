@@ -1,5 +1,3 @@
-type Nullable<T> = T | undefined | null;
-
 export interface GraphQlSchemaTypesItem {
   description: string;
   enumValues?: Nullable<never[]>;
