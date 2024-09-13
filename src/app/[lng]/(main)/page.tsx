@@ -1,7 +1,9 @@
 import { ReactNode } from 'react';
-import { Box, Container, Link, Typography } from '@mui/material';
+import { Box, Card, CardContent, Container, Divider, Link, List, ListItem, Typography } from '@mui/material';
 
 import { AuthBanner } from '@/components';
+
+import { teamMembers } from './consts';
 
 const ContentBlock = ({ children }: { children: ReactNode }) => {
   return (
@@ -31,6 +33,7 @@ const MainPage = () => {
           justifyContent: 'center',
           alignItems: 'center',
           textAlign: 'center',
+          py: 6,
         }}
       >
         <AuthBanner />
@@ -60,6 +63,46 @@ const MainPage = () => {
               options, and users can revisit previously executed requests via the History page.
             </Typography>
           </ContentBlock>
+        </Box>
+
+        <Box mt={10}>
+          <Typography variant="h3" gutterBottom>
+            About the developers
+          </Typography>
+
+          <List sx={{ display: 'flex', alignItems: 'stretch', gap: 4 }}>
+            {teamMembers.map(({ name, role, githubName, githubLink, description, contributions }) => (
+              <ListItem key={name} sx={{ minWidth: 350, p: 0 }}>
+                <Card sx={{ height: '100%' }}>
+                  <CardContent>
+                    <Typography variant="h5" component="div">
+                      {name}
+                    </Typography>
+                    <Typography variant="subtitle1" color="text.secondary">
+                      {role}
+                    </Typography>
+                    <Link href={githubLink} target="_blank" rel="noopener noreferrer">
+                      @{githubName}
+                    </Link>
+                    <Typography variant="body2" mt={2}>
+                      {description}
+                    </Typography>
+                    <Divider sx={{ my: 2 }} />
+                    <Typography variant="body1" fontWeight="bold">
+                      Contributions:
+                    </Typography>
+                    <List>
+                      {contributions.map((contribution, index) => (
+                        <ListItem key={index}>
+                          <Typography variant="body2">{contribution}</Typography>
+                        </ListItem>
+                      ))}
+                    </List>
+                  </CardContent>
+                </Card>
+              </ListItem>
+            ))}
+          </List>
         </Box>
       </Container>
     </Box>
