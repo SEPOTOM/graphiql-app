@@ -1,8 +1,6 @@
 export interface TeamMember {
-  name: string;
-  role: string;
+  devTKey: string;
   githubName: string;
   githubLink: string;
-  description: string;
-  contributions: string[];
+  contributionsTKeys: string[];
 }

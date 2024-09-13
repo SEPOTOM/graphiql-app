@@ -1,13 +1,19 @@
 import { Box, Container, Link, List, ListItem, Typography } from '@mui/material';
 
 import { AuthBanner } from '@/components';
-import { reactCourseUrl } from '@/utils';
+import { getTranslation, reactCourseUrl } from '@/utils';
+import { LngParam } from '@/types';
 
 import ContentBlock from './ContentBlock';
 import TeamMemberCard from './TeamMemberCard';
 import { teamMembers } from './consts';
 
-const MainPage = () => {
+const MainPage = async ({ params }: { params: LngParam }) => {
+  const { lng } = params;
+  const { t } = await getTranslation(lng);
+
+  console.log(t('main_page.course_title'));
+
   return (
     <Box display="flex" justifyContent="center" alignItems="center" flexGrow={1}>
       <Container
@@ -25,39 +31,33 @@ const MainPage = () => {
         <Box display="flex" gap={4}>
           <ContentBlock>
             <Typography variant="h4" gutterBottom>
-              Course Information
+              {t('main_page.course_title')}
             </Typography>
             <Typography variant="body1" gutterBottom>
-              The React Course is designed for students with strong JavaScript, TypeScript, and frontend skills. It
-              includes free online education with publicly available materials. After successfully completing the course
-              and projects, students receive an electronic certificate.
+              {t('main_page.course_info')}
             </Typography>
             <Link href={reactCourseUrl} target="_blank" rel="noopener noreferrer">
-              Learn more
+              {t('main_page.course_link')}
             </Link>
           </ContentBlock>
 
           <ContentBlock>
             <Typography variant="h4" gutterBottom>
-              About the Project
+              {t('main_page.project_title')}
             </Typography>
-            <Typography variant="body1">
-              This project is a web tool that combines functionalities of Postman and GraphiQL. It enables users to test
-              and explore RESTful APIs and GraphQL endpoints with ease. Secure access is provided through authentication
-              options, and users can revisit previously executed requests via the History page.
-            </Typography>
+            <Typography variant="body1">{t('main_page.project_info')}</Typography>
           </ContentBlock>
         </Box>
 
         <Box mt={10}>
           <Typography variant="h3" gutterBottom>
-            About the developers
+            {t('main_page.devs_title')}
           </Typography>
 
           <List sx={{ display: 'flex', alignItems: 'stretch', gap: 4 }}>
             {teamMembers.map((teamMember) => (
-              <ListItem key={teamMember.name} sx={{ minWidth: 350, p: 0 }}>
-                <TeamMemberCard {...teamMember} />
+              <ListItem key={teamMember.devTKey} sx={{ minWidth: 350, p: 0 }}>
+                <TeamMemberCard {...teamMember} lng={lng} />
               </ListItem>
             ))}
           </List>
