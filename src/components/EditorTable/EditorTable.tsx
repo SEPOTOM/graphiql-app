@@ -14,6 +14,9 @@ interface EditorTableProps {
 }
 
 export default function EditorTable({ heading, currentEditorData, setCurrentEditorData }: EditorTableProps) {
+  console.log(heading);
+  console.log(currentEditorData);
+
   const { lng } = useLanguage();
   const { t } = useTranslation(lng);
   const [rows, addRows] = useState(Array.from(Array(currentEditorData.length).keys()));

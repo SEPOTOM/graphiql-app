@@ -3,7 +3,7 @@
 import { decodeFromBase64, encodeToBase64, getNewGraphQlURLPath, makeGraphQLRequest } from '@/services';
 import { Box, Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { ChangeEvent, useEffect } from 'react';
 import { graphQLSchemaQuery, headersGraphQLSchema, variablesGraphQLSchema } from '@/utils';
 import { useLanguage, useTranslation } from '@/hooks';
@@ -25,6 +25,7 @@ export default function EndpointsForm() {
     setSchemaGraphQL,
   } = useGraphQl();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const { lng } = useLanguage();
   const { t } = useTranslation(lng);
 
@@ -53,9 +54,11 @@ export default function EndpointsForm() {
   };
 
   const handleOnclick = async () => {
-    const headers: HeadersInit = Object.fromEntries(
-      headerData.filter((item) => item.check === true).map((item) => [item.key, item.value])
-    );
+    const headers: Record<string, string> = {};
+    searchParams.forEach((value, key) => {
+      headers[key.replaceAll('%2F', '/')] = value.replaceAll('%2F', '/');
+    });
+
     const variables: HeadersInit = Object.fromEntries(
       paramData
         .filter((item) => item.check === true)

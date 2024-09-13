@@ -3,7 +3,6 @@
 import { EditorTable, SchemaGraphQL } from '@/components';
 import { useGraphQl } from '@/contexts';
 import { basicHeadersRows } from '@/contexts/GraphQLContext/consts';
-import { useLanguage, useTranslation } from '@/hooks';
 import { GraphQlHeadersEditor, GraphQlVariablesEditor, HeadersAndVariablesEditorRowDataItem } from '@/types';
 import { Box } from '@mui/material';
 import { usePathname, useSearchParams } from 'next/navigation';
@@ -20,7 +19,6 @@ export default function CustomTabPanel({ children, value, index, content, ...oth
   const searchParams = useSearchParams();
   const { paramData, setParamData } = useGraphQl();
   const pathname = usePathname();
-  const { lng } = useLanguage();
   const params = Array.from(searchParams.entries());
   const initializedRowsData =
     params.length > 0 ?
