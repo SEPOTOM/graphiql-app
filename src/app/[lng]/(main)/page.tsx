@@ -4,6 +4,7 @@ import { Box, Card, CardContent, Container, Divider, Link, List, ListItem, Typog
 import { AuthBanner } from '@/components';
 
 import { teamMembers } from './consts';
+import { TeamMember } from './types';
 
 const ContentBlock = ({ children }: { children: ReactNode }) => {
   return (
@@ -20,6 +21,38 @@ const ContentBlock = ({ children }: { children: ReactNode }) => {
     >
       {children}
     </Box>
+  );
+};
+
+const TeamMemberCard = ({ name, role, githubName, githubLink, description, contributions }: TeamMember) => {
+  return (
+    <Card sx={{ height: '100%' }}>
+      <CardContent>
+        <Typography variant="h5" component="div">
+          {name}
+        </Typography>
+        <Typography variant="subtitle1" color="text.secondary">
+          {role}
+        </Typography>
+        <Link href={githubLink} target="_blank" rel="noopener noreferrer">
+          @{githubName}
+        </Link>
+        <Typography variant="body2" mt={2}>
+          {description}
+        </Typography>
+        <Divider sx={{ my: 2 }} />
+        <Typography variant="body1" fontWeight="bold">
+          Contributions:
+        </Typography>
+        <List>
+          {contributions.map((contribution, index) => (
+            <ListItem key={index}>
+              <Typography variant="body2">{contribution}</Typography>
+            </ListItem>
+          ))}
+        </List>
+      </CardContent>
+    </Card>
   );
 };
 
@@ -71,35 +104,9 @@ const MainPage = () => {
           </Typography>
 
           <List sx={{ display: 'flex', alignItems: 'stretch', gap: 4 }}>
-            {teamMembers.map(({ name, role, githubName, githubLink, description, contributions }) => (
-              <ListItem key={name} sx={{ minWidth: 350, p: 0 }}>
-                <Card sx={{ height: '100%' }}>
-                  <CardContent>
-                    <Typography variant="h5" component="div">
-                      {name}
-                    </Typography>
-                    <Typography variant="subtitle1" color="text.secondary">
-                      {role}
-                    </Typography>
-                    <Link href={githubLink} target="_blank" rel="noopener noreferrer">
-                      @{githubName}
-                    </Link>
-                    <Typography variant="body2" mt={2}>
-                      {description}
-                    </Typography>
-                    <Divider sx={{ my: 2 }} />
-                    <Typography variant="body1" fontWeight="bold">
-                      Contributions:
-                    </Typography>
-                    <List>
-                      {contributions.map((contribution, index) => (
-                        <ListItem key={index}>
-                          <Typography variant="body2">{contribution}</Typography>
-                        </ListItem>
-                      ))}
-                    </List>
-                  </CardContent>
-                </Card>
+            {teamMembers.map((teamMember) => (
+              <ListItem key={teamMember.name} sx={{ minWidth: 350, p: 0 }}>
+                <TeamMemberCard {...teamMember} />
               </ListItem>
             ))}
           </List>

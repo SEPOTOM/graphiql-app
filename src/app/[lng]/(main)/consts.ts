@@ -1,4 +1,6 @@
-export const teamMembers = [
+import { TeamMember } from './types';
+
+export const teamMembers: Readonly<TeamMember[]> = [
   {
     name: 'Artyom Pizin',
     role: 'Team Leader',
@@ -26,4 +28,4 @@ export const teamMembers = [
       'First of all, I want to gain new knowledge, skills and experience. I am sure they will be useful to me in the future. A good achievement will be successful completion of training at all stages and getting a new job. I am sure that I will succeed.',
     contributions: ['GraphiQL client Page', 'GraphiQL client logic', 'Not Found Page'],
   },
-] as const;
+];
