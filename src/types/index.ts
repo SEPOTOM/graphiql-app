@@ -15,6 +15,7 @@ import {
 } from '@/types/enum';
 import { HeadersAndVariablesEditorRowDataItem } from '@/types/headerAndVariablesEditors';
 import { GraphQlRequest } from './graphqlRequest';
+import { RequestHistoryItem } from './RequestHistoryItem';
 
 export type {
   LngParam,
@@ -28,6 +29,7 @@ export type {
   GraphQlRequest,
   SignInFormData,
   SignUpFormData,
+  RequestHistoryItem,
 };
 
 export {

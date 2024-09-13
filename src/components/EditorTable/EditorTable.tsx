@@ -6,6 +6,7 @@ import styles from './EditorTable.module.scss';
 import { useLanguage, useTranslation } from '@/hooks';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { HeadersAndVariablesEditorRowDataItem } from '@/types';
+import { initializeRows } from '@/services';
 
 interface EditorTableProps {
   heading: string;
@@ -16,10 +17,10 @@ interface EditorTableProps {
 export default function EditorTable({ heading, currentEditorData, setCurrentEditorData }: EditorTableProps) {
   const { lng } = useLanguage();
   const { t } = useTranslation(lng);
-  const [rows, addRows] = useState(Array.from(Array(currentEditorData.length).keys()));
+  const [rows, addRows] = useState(initializeRows(currentEditorData.length));
 
   useEffect(() => {
-    addRows(currentEditorData.length ? Array.from(Array(currentEditorData.length).keys()) : [0]);
+    addRows(initializeRows(currentEditorData.length));
   }, [currentEditorData]);
 
   const handleClick = () => {

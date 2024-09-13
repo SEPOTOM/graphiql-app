@@ -57,4 +57,5 @@ export enum BodyMode {
 
 export enum StorageKey {
   Variables = 'variables_data',
+  Requests = 'requests_history',
 }

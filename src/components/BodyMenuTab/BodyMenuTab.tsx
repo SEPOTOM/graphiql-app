@@ -5,7 +5,7 @@ import { HeadersAndVariablesEditorRowDataItem, MenuTabsRest, StorageKey } from '
 import RequestBodyMenuTabs from './RequestBodyMenuTabs';
 import { useState, SyntheticEvent, useEffect } from 'react';
 import { EditorTable, RequestBody } from '@/components';
-import { useLanguage, useTranslation, useSavedVariables } from '@/hooks';
+import { useLanguage, useTranslation, useLocalStorage } from '@/hooks';
 import { usePathname, useSearchParams } from 'next/navigation';
 
 export default function BodyMenuTab() {
@@ -29,7 +29,7 @@ export default function BodyMenuTab() {
     check: true,
   }));
 
-  const [variables, setVariables] = useSavedVariables<HeadersAndVariablesEditorRowDataItem[]>(StorageKey.Variables, []);
+  const [variables, setVariables] = useLocalStorage<HeadersAndVariablesEditorRowDataItem[]>(StorageKey.Variables, []);
 
   const [headersRowsData, setHeadersRowsData] = useState<HeadersAndVariablesEditorRowDataItem[]>(initializedRowsData);
   const [variablesRowsData, setVariablesRowsData] = useState<HeadersAndVariablesEditorRowDataItem[]>([]);

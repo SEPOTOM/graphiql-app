@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
-export default function useSavedVariables<T>(key: string, defaultValue: T): [T, Dispatch<SetStateAction<T>>] {
+export default function useLocalStorage<T>(key: string, defaultValue: T): [T, Dispatch<SetStateAction<T>>] {
   const isClient = typeof window !== 'undefined';
   const getValue = (): T => {
     if (isClient) {
