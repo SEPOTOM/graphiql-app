@@ -12,8 +12,6 @@ const MainPage = async ({ params }: { params: LngParam }) => {
   const { lng } = params;
   const { t } = await getTranslation(lng);
 
-  console.log(t('main_page.course_title'));
-
   return (
     <Box display="flex" justifyContent="center" alignItems="center" flexGrow={1}>
       <Container
