@@ -2,11 +2,11 @@ import { LinkMetadata } from './types';
 
 export const publicLinks: Readonly<LinkMetadata[]> = [
   {
-    title: 'Sign In',
+    titleTKey: 'sign_in_link',
     href: '/sign-in',
   },
   {
-    title: 'Sign Up',
+    titleTKey: 'sign_up_link',
     href: '/sign-up',
     variant: 'outlined',
   },
@@ -14,15 +14,15 @@ export const publicLinks: Readonly<LinkMetadata[]> = [
 
 export const privateLinks: Readonly<LinkMetadata[]> = [
   {
-    title: 'RESTfull Client',
+    titleTKey: 'rest_link',
     href: '/GET',
   },
   {
-    title: 'GraphiQL Client',
+    titleTKey: 'graphql_link',
     href: '/GRAPHQL',
   },
   {
-    title: 'History',
+    titleTKey: 'history_link',
     href: '/history',
   },
 ];

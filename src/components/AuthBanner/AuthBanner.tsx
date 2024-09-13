@@ -5,14 +5,17 @@ import Link from 'next/link';
 import { Button, List, ListItem, Typography } from '@mui/material';
 
 import { useAuth } from '@/contexts';
+import { useLanguage, useTranslation } from '@/hooks';
 
 import { LinkMetadata } from './types';
 import { privateLinks, publicLinks } from './consts';
 
 const AuthBanner = () => {
   const { user } = useAuth();
+  const { lng } = useLanguage();
+  const { t } = useTranslation(lng);
 
-  const createLink = ({ title, href, variant }: LinkMetadata): ReactNode => {
+  const createLink = ({ titleTKey, href, variant }: LinkMetadata): ReactNode => {
     return (
       <ListItem sx={{ width: user ? '100%' : 'auto' }} key={href}>
         <Button
@@ -23,7 +26,7 @@ const AuthBanner = () => {
           size="large"
           fullWidth={Boolean(user)}
         >
-          {title}
+          {t(`auth_banner.${titleTKey}`)}
         </Button>
       </ListItem>
     );
@@ -32,7 +35,7 @@ const AuthBanner = () => {
   return (
     <>
       <Typography variant="h2" component="h1" gutterBottom>
-        Welcome{user ? ` back, ${user.displayName}` : ''}!
+        {user ? `${t('auth_banner.auth_title')}, ${user.displayName}` : t('auth_banner.title')}!
       </Typography>
 
       <List

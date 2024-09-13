@@ -1,4 +1,13 @@
 {
+  "auth_banner": {
+    "title": "Welcome",
+    "auth_title": "Welcome back",
+    "sign_in_link": "Sign In",
+    "sign_up_link": "Sign Up",
+    "rest_link": "RESTfull Client",
+    "graphql_link": "GraphiQL Client",
+    "history_link": "History"
+  },
   "auth_errors": {
     "default": "An unexpected error occurred. Please try again.",
     "existing_email": "Email is already in use.",

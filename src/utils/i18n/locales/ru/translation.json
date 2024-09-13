@@ -1,4 +1,13 @@
 {
+  "auth_banner": {
+    "title": "Добро пожаловать",
+    "auth_title": "С возвращением",
+    "sign_in_link": "Войти",
+    "sign_up_link": "Зарегистрироваться",
+    "rest_link": "Клиент RESTful",
+    "graphql_link": "Клиент GraphiQL",
+    "history_link": "История"
+  },
   "auth_errors": {
     "default": "Произошла непредвиденная ошибка. Пожалуйста, попробуйте снова.",
     "existing_email": "Этот адрес электронной почты уже используется.",

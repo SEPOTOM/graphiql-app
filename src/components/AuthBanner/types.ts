@@ -1,7 +1,7 @@
 import { ButtonProps } from '@mui/material';
 
 export interface LinkMetadata {
-  title: string;
+  titleTKey: string;
   href: string;
   variant?: ButtonProps['variant'];
 }
