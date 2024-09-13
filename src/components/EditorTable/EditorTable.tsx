@@ -16,11 +16,12 @@ interface EditorTableProps {
 export default function EditorTable({ heading, currentEditorData, setCurrentEditorData }: EditorTableProps) {
   const { lng } = useLanguage();
   const { t } = useTranslation(lng);
-  const [rows, addRows] = useState(Array.from(Array(currentEditorData.length).keys()));
+  const rowsCount = currentEditorData.length ? Array.from(Array(currentEditorData.length).keys()) : [0];
+  const [rows, addRows] = useState(rowsCount);
 
   useEffect(() => {
-    addRows(currentEditorData.length ? Array.from(Array(currentEditorData.length).keys()) : [0]);
-  }, [currentEditorData]);
+    addRows(rowsCount);
+  }, [rowsCount]);
 
   const handleClick = () => {
     addRows((oldArr) => [...oldArr, rows.length]);

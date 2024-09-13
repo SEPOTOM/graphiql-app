@@ -3,12 +3,12 @@
 import { decodeFromBase64, encodeToBase64, getNewGraphQlURLPath, makeGraphQLRequest } from '@/services';
 import { Box, Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { ChangeEvent, useEffect } from 'react';
 import { graphQLSchemaQuery, headersGraphQLSchema, variablesGraphQLSchema } from '@/utils';
-import { useLanguage, useTranslation } from '@/hooks';
+import { useLanguage, useLocalStorage, useTranslation } from '@/hooks';
 import { useGraphQl } from '@/contexts';
-import { GraphQlRequest } from '@/types';
+import { GraphQlRequest, RequestHistoryItem, StorageKey } from '@/types';
 
 export default function EndpointsForm() {
   const {
@@ -25,8 +25,10 @@ export default function EndpointsForm() {
     setSchemaGraphQL,
   } = useGraphQl();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const { lng } = useLanguage();
   const { t } = useTranslation(lng);
+  const [_, setSavedRequests] = useLocalStorage<RequestHistoryItem[]>(StorageKey.Requests, []);
 
   const handleEndpointChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const newUrlPath = event.target.value;
@@ -66,6 +68,15 @@ export default function EndpointsForm() {
     setResponseText(JSON.stringify(data, null, 2));
     setResponseStatus(res.status);
     setResponseStatusText(res.code);
+    const newRequest: RequestHistoryItem = {
+      id: new Date().toISOString(),
+      client: 'GRAPHQL',
+      endpoint: endpointUrl,
+      body: queryText ? queryText : '',
+      headers: `${searchParams}`,
+      timestamp: Date.now(),
+    };
+    setSavedRequests((prevHistory) => [newRequest, ...prevHistory].sort((a, b) => b.timestamp - a.timestamp));
   };
 
   useEffect(() => {
