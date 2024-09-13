@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 
 import { renderWithUser } from '@/tests';
+import { LanguageProvider } from '@/contexts';
 
 import SignUpForm from './SignUpForm';
 
@@ -12,7 +13,11 @@ vi.mock('@/contexts/AuthContext/AuthContext', () => ({
 
 describe('SignUpForm', () => {
   it('renders all required fields and submit button', async () => {
-    const { findByRole, getByRole, getByLabelText } = render(<SignUpForm lng="en" />);
+    const { findByRole, getByRole, getByLabelText } = render(
+      <LanguageProvider lang="en">
+        <SignUpForm lng="en" />
+      </LanguageProvider>
+    );
 
     expect(await findByRole('textbox', { name: /username/i })).toBeInTheDocument();
     expect(getByRole('textbox', { name: /email/i })).toBeInTheDocument();
@@ -22,7 +27,11 @@ describe('SignUpForm', () => {
   });
 
   it('displays success alert after successful registration', async () => {
-    const { user, getByRole, getByLabelText, findByRole } = renderWithUser(<SignUpForm lng="en" />);
+    const { user, getByRole, getByLabelText, findByRole } = renderWithUser(
+      <LanguageProvider lang="en">
+        <SignUpForm lng="en" />
+      </LanguageProvider>
+    );
 
     await user.type(await findByRole('textbox', { name: /username/i }), 'Mark');
     await user.type(getByRole('textbox', { name: /email/i }), 'mark@email.com');
@@ -34,7 +43,11 @@ describe('SignUpForm', () => {
   });
 
   it('disables form widgets while the form is submitting', async () => {
-    const { user, findByLabelText, getByRole, getByLabelText, getAllByRole } = renderWithUser(<SignUpForm lng="en" />);
+    const { user, findByLabelText, getByRole, getByLabelText, getAllByRole } = renderWithUser(
+      <LanguageProvider lang="en">
+        <SignUpForm lng="en" />
+      </LanguageProvider>
+    );
     const pwdInput = await findByLabelText(/^password/i);
     const confirmPwdInput = getByLabelText(/confirm password/i);
     const otherWidgets = [...getAllByRole('textbox'), ...getAllByRole('button')];
