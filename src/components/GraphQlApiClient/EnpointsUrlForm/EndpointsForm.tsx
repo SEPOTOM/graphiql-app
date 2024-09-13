@@ -6,9 +6,9 @@ import TextField from '@mui/material/TextField';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { graphQLSchemaQuery, headersGraphQLSchema, variablesGraphQLSchema } from '@/utils';
-import { useLanguage, useTranslation } from '@/hooks';
+import { useLanguage, useLocalStorage, useTranslation } from '@/hooks';
 import { useGraphQl } from '@/contexts';
-import { GraphQlEditorErrorTypes, GraphQlRequest } from '@/types';
+import { GraphQlRequest, GraphQlEditorErrorTypes, RequestHistoryItem, StorageKey } from '@/types';
 
 export default function EndpointsForm() {
   const {
@@ -29,6 +29,7 @@ export default function EndpointsForm() {
   const { t } = useTranslation(lng);
   const [errorMessage, setErrorMessage] = useState('');
   const showError = !!errorMessage;
+  const [_, setSavedRequests] = useLocalStorage<RequestHistoryItem[]>(StorageKey.Requests, []);
 
   const handleEndpointChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const newUrlPath = event.target.value;
@@ -77,6 +78,15 @@ export default function EndpointsForm() {
       setResponseText(JSON.stringify(data, null, 2));
       setResponseStatus(res.status);
       setResponseStatusText(res.code);
+      const newRequest: RequestHistoryItem = {
+        id: new Date().toISOString(),
+        client: 'GRAPHQL',
+        endpoint: endpointUrl,
+        body: queryText ? queryText : '',
+        headers: `${searchParams}`,
+        timestamp: Date.now(),
+      };
+      setSavedRequests((prevHistory) => [newRequest, ...prevHistory].sort((a, b) => b.timestamp - a.timestamp));
     } catch (error) {
       if (error instanceof Error) {
         error.name === GraphQlEditorErrorTypes.SyntaxError ?

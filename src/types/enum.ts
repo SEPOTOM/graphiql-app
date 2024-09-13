@@ -70,6 +70,7 @@ export enum SchemaTabs {
 export enum StorageKey {
   Variables = 'variables_data',
   GraphQLVariables = 'graphql_variables_data',
+  Requests = 'requests_history',
 }
 
 export enum GraphQlEditorErrorTypes {

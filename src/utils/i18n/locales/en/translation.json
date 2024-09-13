@@ -16,6 +16,7 @@
   "data_editor_value_heading": "VALUE",
   "editor_loading": "Loading...",
   "empty_response": "Empty response",
+  "empty_requests_history_message": "You haven't executed any requests. Try:",
   "endpoint_placeholder": "Enter endpoint-URL",
   "error_empty_endpoint": "Endpoint URL must be filled in",
   "footer": {
@@ -23,6 +24,7 @@
     "rss": "RSSchool logo"
   },
   "format_button_text": "Format document",
+  "graphql_client": "GraphQL client",
   "graphQl_SDL_input_label": "SDL URL",
   "graphQl_SDL_input_placeholder": "Enter SDL URL",
   "graphQl_endpoint_input_label": "Endpoint URL",
@@ -49,9 +51,11 @@
   "request_header": "Request",
   "response_header": "Response",
   "response_placeholder": "Enter the URL and click Send to get a response",
+  "rest_client": "REST client",
   "restfull_client_menu_tab_body": "Request Body",
   "restfull_client_menu_tab_headers": "Headers",
   "restfull_client_menu_tab_variables": "Variables",
+  "request_history_title": "Request History",
   "route_states": {
     "authentication": "Authentication in progress...",
     "loading": "Loading...",

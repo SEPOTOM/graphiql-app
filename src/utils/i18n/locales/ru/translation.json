@@ -16,6 +16,7 @@
   "data_editor_value_heading": "ЗНАЧЕНИЕ",
   "editor_loading": "Загрузка...",
   "empty_response": "Пустой ответ",
+  "empty_requests_history_message": "Вы не выполнили ни одного запроса. Попробуйте:",
   "endpoint_placeholder": "Введите конечный URL-адрес",
   "error_empty_endpoint": "Конечный URL адрес должен быть заполнен",
   "footer": {
@@ -23,6 +24,7 @@
     "rss": "Логотип RSSchool"
   },
   "format_button_text": "Форматировать документ",
+  "graphql_client": "GraphQL клиент",
   "graphQl_SDL_input_label": "Конечный URL-адрес схемы",
   "graphQl_SDL_input_placeholder": "Введите конечный URL-адрес схемы",
   "graphQl_endpoint_input_label": "Конечный URL-адрес",
@@ -49,9 +51,11 @@
   "response_header": "Ответ",
   "request_header": "Запрос",
   "response_placeholder": "Введите URL и нажмите кнопку 'Отправить', чтобы получить ответ",
+  "rest_client": "REST клиент",
   "restfull_client_menu_tab_body": "Тело запроса",
   "restfull_client_menu_tab_headers": "Заголовки",
   "restfull_client_menu_tab_variables": "Переменные",
+  "request_history_title": "История запросов",
   "route_states": {
     "authentication": "Выполняется аутентификация...",
     "loading": "Загрузка...",

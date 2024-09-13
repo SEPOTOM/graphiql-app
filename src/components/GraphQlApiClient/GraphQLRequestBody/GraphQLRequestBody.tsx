@@ -2,15 +2,11 @@
 
 import { Box, Typography } from '@mui/material';
 import { GraphQlRequestBodyEditor } from '@/components';
-import { BodyType, SegmentIndex } from '@/types';
-import { usePathname } from 'next/navigation';
-import { useTranslation } from '@/hooks';
-import { fallbackLng } from '@/utils';
+import { BodyType } from '@/types';
+import { useLanguage, useTranslation } from '@/hooks';
 
 export default function GraphQlRequestBody() {
-  const pathname = usePathname();
-  const pathSegments = pathname.split('/');
-  const lng = pathSegments.at(SegmentIndex.Language) ?? fallbackLng;
+  const { lng } = useLanguage();
   const { t } = useTranslation(lng);
 
   return (

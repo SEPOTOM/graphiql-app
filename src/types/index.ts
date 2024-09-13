@@ -19,6 +19,7 @@ import {
 import { HeadersAndVariablesEditorRowDataItem } from '@/types/headerAndVariablesEditors';
 import { GraphQlRequest } from './graphqlRequest';
 import { GraphQlSchemaTypesFields, GraphQlSchemaTypesFieldType, GraphQlSchemaTypesItem } from './graphQlSchema';
+import { RequestHistoryItem } from './RequestHistoryItem';
 
 export type {
   LngParam,
@@ -35,6 +36,7 @@ export type {
   GraphQlSchemaTypesFieldType,
   SignInFormData,
   SignUpFormData,
+  RequestHistoryItem,
 };
 
 export {
