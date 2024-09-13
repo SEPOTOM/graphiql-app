@@ -1,5 +1,25 @@
+import { ReactNode } from 'react';
 import { Box, Container, Link, Typography } from '@mui/material';
+
 import { AuthBanner } from '@/components';
+
+const ContentBlock = ({ children }: { children: ReactNode }) => {
+  return (
+    <Box
+      sx={{
+        border: '1px solid',
+        borderColor: 'grey.300',
+        borderRadius: '8px',
+        padding: '16px',
+        marginTop: '24px',
+        textAlign: 'left',
+        flexGrow: 1,
+      }}
+    >
+      {children}
+    </Box>
+  );
+};
 
 const MainPage = () => {
   return (
@@ -16,17 +36,7 @@ const MainPage = () => {
         <AuthBanner />
 
         <Box display="flex" gap={4}>
-          <Box
-            sx={{
-              border: '1px solid',
-              borderColor: 'grey.300',
-              borderRadius: '8px',
-              padding: '16px',
-              marginTop: '24px',
-              textAlign: 'left',
-              flexGrow: 1,
-            }}
-          >
+          <ContentBlock>
             <Typography variant="h4" gutterBottom>
               Course Information
             </Typography>
@@ -38,19 +48,9 @@ const MainPage = () => {
                 Learn more
               </Link>
             </Typography>
-          </Box>
+          </ContentBlock>
 
-          <Box
-            sx={{
-              border: '1px solid',
-              borderColor: 'grey.300',
-              borderRadius: '8px',
-              padding: '16px',
-              marginTop: '24px',
-              textAlign: 'left',
-              flexGrow: 1,
-            }}
-          >
+          <ContentBlock>
             <Typography variant="h4" gutterBottom>
               About the Project
             </Typography>
@@ -59,7 +59,7 @@ const MainPage = () => {
               and explore RESTful APIs and GraphQL endpoints with ease. Secure access is provided through authentication
               options, and users can revisit previously executed requests via the History page.
             </Typography>
-          </Box>
+          </ContentBlock>
         </Box>
       </Container>
     </Box>
