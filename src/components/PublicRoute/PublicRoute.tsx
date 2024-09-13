@@ -6,19 +6,19 @@ import { useAuth } from '@/contexts';
 import { useLanguage, useTranslation } from '@/hooks';
 import { StateMessage } from '@/components';
 
-import { PrivateRouteProps } from './types';
+import { PublicRouteProps } from './types';
 
-const PrivateRoute = ({ children }: PrivateRouteProps) => {
-  const { user, status } = useAuth();
+const PublicRoute = ({ children }: PublicRouteProps) => {
+  const { status } = useAuth();
   const router = useRouter();
   const { lng } = useLanguage();
   const { t } = useTranslation(lng);
 
   if (status === 'init') {
-    return <StateMessage showLoading>{t('route_states.authentication')}</StateMessage>;
+    return <StateMessage showLoading>{t('route_states.loading')}</StateMessage>;
   }
 
-  if (!user) {
+  if (status === 'authenticated') {
     router.replace('/');
 
     return <StateMessage>{t('route_states.redirect')}</StateMessage>;
@@ -27,4 +27,4 @@ const PrivateRoute = ({ children }: PrivateRouteProps) => {
   return children;
 };
 
-export default PrivateRoute;
+export default PublicRoute;

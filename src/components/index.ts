@@ -17,6 +17,9 @@ import SignInForm from '@/components/SignInForm/SignInForm';
 import FormLayout from '@/components/FormLayout/FormLayout';
 import PrivateRoute from '@/components/PrivateRoute/PrivateRoute';
 import HistorySection from './HistorySection/HistorySection';
+import PublicRoute from '@/components/PublicRoute/PublicRoute';
+import StateMessage from '@/components/StateMessage/StateMessage';
+
 
 export {
   BodyMenuTab,
@@ -38,4 +41,6 @@ export {
   RestfullClient,
   SignInForm,
   SignUpForm,
+  PublicRoute,
+  StateMessage,
 };

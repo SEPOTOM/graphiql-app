@@ -1,9 +1,14 @@
 import { render } from '@testing-library/react';
 
 import { renderWithUser } from '@/tests';
-import { AuthProvider } from '@/contexts';
 
 import SignInForm from './SignInForm';
+
+vi.mock('@/contexts/AuthContext/AuthContext', () => ({
+  useAuth: vi.fn(() => ({
+    signIn: vi.fn(() => new Promise((res) => setTimeout(res, 100))),
+  })),
+}));
 
 describe('SignInForm', () => {
   it('renders all required fields and submit button', async () => {
@@ -13,12 +18,19 @@ describe('SignInForm', () => {
     expect(getByLabelText(/^password/i)).toBeInTheDocument();
   });
 
+  it('displays success alert after successful login', async () => {
+    const { user, getByRole, getByLabelText, findByRole } = renderWithUser(<SignInForm lng="en" />);
+
+    await user.type(await findByRole('textbox', { name: /email/i }), 'mark@email.com');
+    await user.type(getByLabelText(/^password/i), 'mark12345678!');
+    await user.click(getByRole('button', { name: /sign in/i }));
+
+    expect(await findByRole('alert')).toHaveTextContent(/success/i);
+  });
+
+
   it('disables form widgets while the form is submitting', async () => {
-    const { user, findByRole, getByRole, getByLabelText, getAllByRole } = renderWithUser(
-      <AuthProvider>
-        <SignInForm lng="en" />
-      </AuthProvider>
-    );
+    const { user, findByRole, getByRole, getByLabelText, getAllByRole } = renderWithUser(<SignInForm lng="en" />);
     const emailInput = await findByRole('textbox', { name: /email/i });
     const pwdInput = getByLabelText(/^password/i);
 
