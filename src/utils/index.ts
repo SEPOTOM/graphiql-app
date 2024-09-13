@@ -5,6 +5,7 @@ import {
   headersGraphQLSchema,
   variablesGraphQLSchema,
   basicRequestErrorMessage,
+  reactCourseUrl,
 } from './constants';
 import { isImagePath } from '@/utils/pathname';
 import { signInSchema, signUpSchema } from '@/utils/validation';
@@ -22,6 +23,7 @@ export {
   headersGraphQLSchema,
   variablesGraphQLSchema,
   basicRequestErrorMessage,
+  reactCourseUrl,
   signInSchema,
   signUpSchema,
   getAuthErrorMessage,

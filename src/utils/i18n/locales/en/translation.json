@@ -1,4 +1,13 @@
 {
+  "auth_banner": {
+    "title": "Welcome",
+    "auth_title": "Welcome back",
+    "sign_in_link": "Sign In",
+    "sign_up_link": "Sign Up",
+    "rest_link": "RESTfull Client",
+    "graphql_link": "GraphiQL Client",
+    "history_link": "History"
+  },
   "auth_errors": {
     "default": "An unexpected error occurred. Please try again.",
     "existing_email": "Email is already in use.",
@@ -14,6 +23,40 @@
   "body_type_text_placeholder": "Enter the text here...",
   "data_editor_key_heading": "KEY",
   "data_editor_value_heading": "VALUE",
+  "devs": {
+    "artyom": {
+      "contributions": {
+        "auth": "Authentication",
+        "forms": "Sign Up/Sing In Pages",
+        "main_page": "Main Page",
+        "setup": "Project Setup"
+      },
+      "description": "I have been studying Frontend development for 3 years now. Sometimes I have been successful and productive, and other times, not so much. After gaining real work experience, I also plan to study Backend development. I will continue until I achieve my goals.",
+      "name": "Artyom Pizin",
+      "role": "Team Lead"
+    },
+    "pavel": {
+      "contributions": {
+        "graphql_logic": "GraphiQL client logic",
+        "graphql_page": "GraphiQL client Page",
+        "not_found_page": "Not Found Page"
+      },
+      "description": "First of all, I want to gain new knowledge, skills and experience. I am sure they will be useful to me in the future. A good achievement will be successful completion of training at all stages and getting a new job. I am sure that I will succeed.",
+      "name": "Pavel Kuvshinov",
+      "role": "Developer"
+    },
+    "svetlana": {
+      "contributions": {
+        "history_logic": "History logic",
+        "history_page": "History Page",
+        "rest_logic": "RESTfull client logic",
+        "rest_page": "RESTfull client Page"
+      },
+      "description": "I've been studying Frontend for six months. But I realized, that I needed a more structured approach to learning. My goal is to get as much knowledge about front-end development as possible. I have completed several free courses and I want to continue to develop myself. I really enjoy learning new things.",
+      "name": "Svetlana Ilina",
+      "role": "Developer"
+    }
+  },
   "editor_loading": "Loading...",
   "empty_response": "Empty response",
   "empty_requests_history_message": "You haven't executed any requests. Try:",
@@ -52,6 +95,15 @@
   "response_header": "Response",
   "response_placeholder": "Enter the URL and click Send to get a response",
   "rest_client": "REST client",
+  "main_page": {
+    "contributions": "Contributions",
+    "course_info": "The React Course is designed for students with strong JavaScript, TypeScript, and frontend skills. It includes free online education with publicly available materials. After successfully completing the course and projects, students receive an electronic certificate.",
+    "course_link": "Learn more",
+    "course_title": "Course Information",
+    "devs_title": "About the developers",
+    "project_info": "This project is a web tool that combines functionalities of Postman and GraphiQL. It enables users to test and explore RESTful APIs and GraphQL endpoints with ease. Secure access is provided through authentication options, and users can revisit previously executed requests via the History page.",
+    "project_title": "About the Project"
+  },
   "restfull_client_menu_tab_body": "Request Body",
   "restfull_client_menu_tab_headers": "Headers",
   "restfull_client_menu_tab_variables": "Variables",

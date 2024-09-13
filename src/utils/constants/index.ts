@@ -122,3 +122,5 @@ export const basicGraphQLQuery = `query {
     id
   }
 }`;
+
+export const reactCourseUrl = 'https://rs.school/courses/reactjs';
