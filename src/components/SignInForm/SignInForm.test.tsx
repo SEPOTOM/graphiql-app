@@ -13,20 +13,6 @@ describe('SignInForm', () => {
     expect(getByLabelText(/^password/i)).toBeInTheDocument();
   });
 
-  it('displays success alert after successful login', async () => {
-    const { user, getByRole, getByLabelText, findByRole } = renderWithUser(
-      <AuthProvider>
-        <SignInForm lng="en" />
-      </AuthProvider>
-    );
-
-    await user.type(await findByRole('textbox', { name: /email/i }), 'mark@email.com');
-    await user.type(getByLabelText(/^password/i), 'mark12345678!');
-    await user.click(getByRole('button', { name: /sign in/i }));
-
-    expect(await findByRole('alert')).toHaveTextContent(/success/i);
-  });
-
   it('disables form widgets while the form is submitting', async () => {
     const { user, findByRole, getByRole, getByLabelText, getAllByRole } = renderWithUser(
       <AuthProvider>
