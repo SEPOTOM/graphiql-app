@@ -15,6 +15,8 @@ import GraphQlRequestBodyEditor from './BodyEditor/GraphQLBodyEditor';
 import Header from '@/components/Header/Header';
 import SignInForm from '@/components/SignInForm/SignInForm';
 import FormLayout from '@/components/FormLayout/FormLayout';
+import SchemaGraphQL from './GraphQlApiClient/SchemaGraphQL/SchemaGraphQL';
+import BasicNotFound from './NotFound/BasicNotFound';
 import PrivateRoute from '@/components/PrivateRoute/PrivateRoute';
 import HistorySection from './HistorySection/HistorySection';
 import PublicRoute from '@/components/PublicRoute/PublicRoute';
@@ -33,12 +35,14 @@ export {
   MUIThemeProvider,
   Notification,
   PasswordField,
+  SignInForm,
+  BasicNotFound,
+  SchemaGraphQL,
   PrivateRoute,
   RequestBody,
   RequestBodyEditor,
   ResponseSection,
   RestfullClient,
-  SignInForm,
   SignUpForm,
   PublicRoute,
   StateMessage,

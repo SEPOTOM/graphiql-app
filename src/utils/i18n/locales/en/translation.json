@@ -34,6 +34,8 @@
   "graphQl_menu_tab_schema": "Schema",
   "graphQl_menu_tab_variables": "Variables",
   "graphQl_send_button": "Send",
+  "graphQL_syntax_error_message": "The entered URL is not correct for the graphQL query",
+  "graphQL_else_error_message": "Unknown error",
   "header": {
     "lng_switcher_label": "Select language",
     "sign_in_btn": "Sign In",
@@ -60,6 +62,11 @@
     "redirect": "Redirecting to homepage..."
   },
   "send_button_text": "Send",
+  "not_found_main_heading": "Sorry, but the page you're looking for, doesn't exist.",
+  "not_found_sub_heading": "Try to start from the beginning...",
+  "not_found_button": "Main",
+  "basic_not_found_main_heading": "I'm sorry, but you're in the wrong place.",
+  "basic_not_found_sub_heading": " Try it here...",
   "sign_in": {
     "email": "Email",
     "password": "Password",

@@ -28,8 +28,8 @@ export default function EditorTable({ heading, currentEditorData, setCurrentEdit
   };
 
   return (
-    <Box display="flex" gap={1} flexDirection="column" width="100%">
-      <Typography>{heading}</Typography>
+    <Box display="flex" gap={1} flexDirection="column" width="100%" paddingLeft={2}>
+      <Typography variant="h6">{heading}</Typography>
       <Table sx={{ minWidth: '100%', border: '1px solid rgba(224, 224, 224, 1)' }}>
         <TableHead>
           <TableRow>

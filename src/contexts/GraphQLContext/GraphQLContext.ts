@@ -13,8 +13,6 @@ const GraphQlDataContext = createContext<GraphQLData>({
   setQueryText: () => {},
   paramData: [],
   setParamData: () => {},
-  headerData: [],
-  setHeaderData: () => {},
   responseText: '',
   setResponseText: () => {},
   responseStatus: 0,

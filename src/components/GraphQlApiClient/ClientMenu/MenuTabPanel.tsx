@@ -1,10 +1,16 @@
 'use client';
 
-import { EditorTable } from '@/components';
+import { EditorTable, SchemaGraphQL } from '@/components';
 import { useGraphQl } from '@/contexts';
-import { useLanguage, useTranslation } from '@/hooks';
-import { GraphQlHeadersEditor, GraphQlVariablesEditor, HeadersAndVariablesEditorRowDataItem } from '@/types';
-import { Box, Typography } from '@mui/material';
+import { basicHeadersRows } from '@/contexts/GraphQLContext/consts';
+import { useLocalStorage } from '@/hooks';
+import {
+  GraphQlHeadersEditor,
+  GraphQlVariablesEditor,
+  HeadersAndVariablesEditorRowDataItem,
+  StorageKey,
+} from '@/types';
+import { Box } from '@mui/material';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -17,23 +23,49 @@ interface TabPanelProps {
 
 export default function CustomTabPanel({ children, value, index, content, ...other }: TabPanelProps) {
   const searchParams = useSearchParams();
-  const { paramData, setParamData } = useGraphQl();
   const pathname = usePathname();
-  const { lng } = useLanguage();
-  const { t } = useTranslation(lng);
   const params = Array.from(searchParams.entries());
-  const initializedRowsData = params.map(([key, value], index) => ({
-    id: index,
-    key: decodeURIComponent(key),
-    value: decodeURIComponent(value),
-    check: true,
-  }));
+  const [isClient, setIsClient] = useState(false);
+  const { setParamData } = useGraphQl();
+
+  const initializedRowsData =
+    params.length > 0 ?
+      params.map(([key, value], index) => ({
+        id: index,
+        key: decodeURIComponent(key),
+        value: decodeURIComponent(value),
+        check: true,
+      }))
+    : basicHeadersRows;
 
   const [headerData, setHeaderData] = useState<HeadersAndVariablesEditorRowDataItem[]>(initializedRowsData);
+  const [variableData, setVariableData] = useState<HeadersAndVariablesEditorRowDataItem[]>([]);
 
   const headerEditors = Object.values(GraphQlHeadersEditor) as string[];
   const variablesEditors = Object.values(GraphQlVariablesEditor) as string[];
   const editors = headerEditors.concat(variablesEditors);
+
+  const [variables, setVariables] = useLocalStorage<HeadersAndVariablesEditorRowDataItem[]>(
+    StorageKey.GraphQLVariables,
+    []
+  );
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (isClient) {
+      setVariableData(variables);
+      setParamData(variables);
+    }
+  }, [isClient, setParamData, setVariableData, variables]);
+
+  useEffect(() => {
+    if (variableData.length) {
+      setVariables(variableData);
+    }
+  }, [variableData, setVariables]);
 
   useEffect(() => {
     const params = new URLSearchParams();
@@ -62,10 +94,10 @@ export default function CustomTabPanel({ children, value, index, content, ...oth
       {editors.includes(content) ?
         <EditorTable
           heading={content}
-          currentEditorData={variablesEditors.includes(content) ? paramData : headerData}
-          setCurrentEditorData={variablesEditors.includes(content) ? setParamData : setHeaderData}
+          currentEditorData={variablesEditors.includes(content) ? variableData : headerData}
+          setCurrentEditorData={variablesEditors.includes(content) ? setVariableData : setHeaderData}
         />
-      : <Typography>{t('graphQl_menu_tab_empty_message')}</Typography>}
+      : <SchemaGraphQL />}
     </Box>
   );
 }

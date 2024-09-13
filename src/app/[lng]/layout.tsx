@@ -8,6 +8,20 @@ import { AuthProvider, LanguageProvider } from '@/contexts';
 
 import { LngParam } from '@/types';
 import './layout.scss';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Rest & GraphQL App',
+  description: 'Rest and GraphQL App',
+  icons: [
+    {
+      rel: 'icon',
+      type: 'image/svg+xml',
+      sizes: '32x32',
+      url: '/logo.svg',
+    },
+  ],
+};
 
 const RootLayout = ({
   children,

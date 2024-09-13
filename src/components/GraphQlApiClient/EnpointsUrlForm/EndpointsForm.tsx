@@ -1,14 +1,14 @@
 'use client';
 
 import { decodeFromBase64, encodeToBase64, getNewGraphQlURLPath, makeGraphQLRequest } from '@/services';
-import { Box, Button } from '@mui/material';
+import { Alert, Box, Button, Snackbar } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { ChangeEvent, useEffect } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { graphQLSchemaQuery, headersGraphQLSchema, variablesGraphQLSchema } from '@/utils';
 import { useLanguage, useLocalStorage, useTranslation } from '@/hooks';
 import { useGraphQl } from '@/contexts';
-import { GraphQlRequest, RequestHistoryItem, StorageKey } from '@/types';
+import { GraphQlRequest, GraphQlEditorErrorTypes, RequestHistoryItem, StorageKey } from '@/types';
 
 export default function EndpointsForm() {
   const {
@@ -17,7 +17,6 @@ export default function EndpointsForm() {
     endpointSdlUrl,
     setEndpointSdlUrl,
     paramData,
-    headerData,
     queryText,
     setResponseText,
     setResponseStatus,
@@ -28,6 +27,8 @@ export default function EndpointsForm() {
   const searchParams = useSearchParams();
   const { lng } = useLanguage();
   const { t } = useTranslation(lng);
+  const [errorMessage, setErrorMessage] = useState('');
+  const showError = !!errorMessage;
   const [_, setSavedRequests] = useLocalStorage<RequestHistoryItem[]>(StorageKey.Requests, []);
 
   const handleEndpointChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -40,13 +41,19 @@ export default function EndpointsForm() {
   };
 
   const handleEndpointBlur = async () => {
-    const schema = (await makeGraphQLRequest(
-      graphQLSchemaQuery,
-      variablesGraphQLSchema,
-      endpointSdlUrl,
-      headersGraphQLSchema
-    )) as GraphQlRequest;
-    setSchemaGraphQL(schema.data);
+    try {
+      const schema = (await makeGraphQLRequest(
+        graphQLSchemaQuery,
+        variablesGraphQLSchema,
+        endpointSdlUrl,
+        headersGraphQLSchema
+      )) as GraphQlRequest;
+      schema.code === 'OK' ? setSchemaGraphQL(schema.data) : setSchemaGraphQL('Schema not found');
+    } catch (error) {
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+      }
+    }
   };
 
   const handleEndpointSdlChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -55,28 +62,38 @@ export default function EndpointsForm() {
   };
 
   const handleOnclick = async () => {
-    const headers: HeadersInit = Object.fromEntries(
-      headerData.filter((item) => item.check === true).map((item) => [item.key, item.value])
-    );
+    const headers: Record<string, string> = {};
+    searchParams.forEach((value, key) => {
+      headers[decodeURIComponent(key)] = decodeURIComponent(value);
+    });
+
     const variables: HeadersInit = Object.fromEntries(
       paramData
         .filter((item) => item.check === true)
         .map((item) => [item.key, String(Number(item.value) ? Number(item.value) : item.value)])
     );
-    const res = (await makeGraphQLRequest(queryText, variables, endpointUrl, headers)) as GraphQlRequest;
-    const data = JSON.parse(res.data);
-    setResponseText(JSON.stringify(data, null, 2));
-    setResponseStatus(res.status);
-    setResponseStatusText(res.code);
-    const newRequest: RequestHistoryItem = {
-      id: new Date().toISOString(),
-      client: 'GRAPHQL',
-      endpoint: endpointUrl,
-      body: queryText ? queryText : '',
-      headers: `${searchParams}`,
-      timestamp: Date.now(),
-    };
-    setSavedRequests((prevHistory) => [newRequest, ...prevHistory].sort((a, b) => b.timestamp - a.timestamp));
+    try {
+      const res = (await makeGraphQLRequest(queryText, variables, endpointUrl, headers)) as GraphQlRequest;
+      const data = JSON.parse(res.data);
+      setResponseText(JSON.stringify(data, null, 2));
+      setResponseStatus(res.status);
+      setResponseStatusText(res.code);
+      const newRequest: RequestHistoryItem = {
+        id: new Date().toISOString(),
+        client: 'GRAPHQL',
+        endpoint: endpointUrl,
+        body: queryText ? queryText : '',
+        headers: `${searchParams}`,
+        timestamp: Date.now(),
+      };
+      setSavedRequests((prevHistory) => [newRequest, ...prevHistory].sort((a, b) => b.timestamp - a.timestamp));
+    } catch (error) {
+      if (error instanceof Error) {
+        error.name === GraphQlEditorErrorTypes.SyntaxError ?
+          setErrorMessage(t('graphQL_syntax_error_message'))
+        : setErrorMessage(t('graphQL_else_error_message'));
+      }
+    }
   };
 
   useEffect(() => {
@@ -117,6 +134,16 @@ export default function EndpointsForm() {
           fullWidth
         />
       </Box>
+      <Snackbar
+        open={showError}
+        autoHideDuration={4000}
+        onClose={() => setErrorMessage('')}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      >
+        <Alert onClose={() => setErrorMessage('')} severity="error">
+          {errorMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

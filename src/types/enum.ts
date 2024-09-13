@@ -55,7 +55,24 @@ export enum BodyMode {
   Raw = 'raw',
 }
 
+export enum SchemaTypes {
+  queryType = 'queryType',
+  mutationType = 'mutationType',
+  subscriptionType = 'subscriptionType',
+}
+
+export enum SchemaTabs {
+  Query = 'Query',
+  Mutation = 'Mutation',
+  Subscription = 'Subscription',
+}
+
 export enum StorageKey {
   Variables = 'variables_data',
+  GraphQLVariables = 'graphql_variables_data',
   Requests = 'requests_history',
+}
+
+export enum GraphQlEditorErrorTypes {
+  SyntaxError = 'SyntaxError',
 }

@@ -11,10 +11,14 @@ import {
   PlaceHolder,
   SegmentIndex,
   BodyMode,
+  SchemaTabs,
+  SchemaTypes,
   StorageKey,
+  GraphQlEditorErrorTypes,
 } from '@/types/enum';
 import { HeadersAndVariablesEditorRowDataItem } from '@/types/headerAndVariablesEditors';
 import { GraphQlRequest } from './graphqlRequest';
+import { GraphQlSchemaTypesFields, GraphQlSchemaTypesFieldType, GraphQlSchemaTypesItem } from './graphQlSchema';
 import { RequestHistoryItem } from './RequestHistoryItem';
 
 export type {
@@ -27,6 +31,9 @@ export type {
   EditorOptions,
   HeadersAndVariablesEditorRowDataItem,
   GraphQlRequest,
+  GraphQlSchemaTypesItem,
+  GraphQlSchemaTypesFields,
+  GraphQlSchemaTypesFieldType,
   SignInFormData,
   SignUpFormData,
   RequestHistoryItem,
@@ -42,5 +49,8 @@ export {
   GraphQlMenuTabs,
   GraphQlHeadersEditor,
   GraphQlVariablesEditor,
+  SchemaTabs,
+  SchemaTypes,
   StorageKey,
+  GraphQlEditorErrorTypes,
 };
