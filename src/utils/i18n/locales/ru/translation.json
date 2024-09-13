@@ -62,6 +62,11 @@
   "empty_requests_history_message": "Вы не выполнили ни одного запроса. Попробуйте:",
   "endpoint_placeholder": "Введите конечный URL-адрес",
   "error_empty_endpoint": "Конечный URL адрес должен быть заполнен",
+  "error_page": {
+    "link": "На главную",
+    "text": "Пожалуйста, попробуйте позже.",
+    "title": "Ой! Что-то пошло не так."
+  },
   "footer": {
     "github": "GitHub профиль пользователя",
     "rss": "Логотип RSSchool"
