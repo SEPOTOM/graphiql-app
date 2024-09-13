@@ -11,7 +11,7 @@ window.history.replaceState = mockReplaceState;
 
 describe('EndpointInput component', () => {
   it('renders correctly with the initial endpoint selected based on the current URL', () => {
-    (usePathname as Mock).mockReturnValue('/restfullClient/en/PATCH/cXdlcnR5');
+    (usePathname as Mock).mockReturnValue('/en/PATCH/cXdlcnR5');
     render(
       <LanguageProvider lang="en">
         <EndpointInput />
@@ -21,7 +21,7 @@ describe('EndpointInput component', () => {
   });
 
   it('updates URL when a new endpoint is entered', async () => {
-    (usePathname as Mock).mockReturnValue('/restfullClient/en/GET');
+    (usePathname as Mock).mockReturnValue('/en/GET');
     (useSearchParams as Mock).mockReturnValue(new URLSearchParams());
     const user = userEvent.setup();
 
@@ -38,14 +38,14 @@ describe('EndpointInput component', () => {
 
     endpoint.split('').forEach((letter) => {
       const encodedEndpoint = encodeToBase64(letter);
-      const newPath = `/restfullClient/en/GET/${encodedEndpoint}?`;
+      const newPath = `/en/GET/${encodedEndpoint}?`;
       expect(mockReplaceState).toHaveBeenCalledWith(null, '', newPath);
     });
   });
 
   it('decodes base64 encoded endpoint and displays it', () => {
     const encodedSegment = btoa('encodedEndpoint');
-    (usePathname as Mock).mockReturnValue(`/restfullClient/en/GET/${encodedSegment}`);
+    (usePathname as Mock).mockReturnValue(`/en/GET/${encodedSegment}`);
     render(
       <LanguageProvider lang="en">
         <EndpointInput />
