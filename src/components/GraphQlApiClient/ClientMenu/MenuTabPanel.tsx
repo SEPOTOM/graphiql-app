@@ -26,6 +26,7 @@ export default function CustomTabPanel({ children, value, index, content, ...oth
   const pathname = usePathname();
   const params = Array.from(searchParams.entries());
   const [isClient, setIsClient] = useState(false);
+  const { setParamData } = useGraphQl();
 
   const initializedRowsData =
     params.length > 0 ?
@@ -38,7 +39,7 @@ export default function CustomTabPanel({ children, value, index, content, ...oth
     : basicHeadersRows;
 
   const [headerData, setHeaderData] = useState<HeadersAndVariablesEditorRowDataItem[]>(initializedRowsData);
-  const [paramData, setParamData] = useState<HeadersAndVariablesEditorRowDataItem[]>([]);
+  const [variableData, setVariableData] = useState<HeadersAndVariablesEditorRowDataItem[]>([]);
 
   const headerEditors = Object.values(GraphQlHeadersEditor) as string[];
   const variablesEditors = Object.values(GraphQlVariablesEditor) as string[];
@@ -55,15 +56,16 @@ export default function CustomTabPanel({ children, value, index, content, ...oth
 
   useEffect(() => {
     if (isClient) {
+      setVariableData(variables);
       setParamData(variables);
     }
-  }, [isClient, setParamData, variables]);
+  }, [isClient, setParamData, setVariableData, variables]);
 
   useEffect(() => {
-    if (paramData.length) {
-      setVariables(paramData);
+    if (variableData.length) {
+      setVariables(variableData);
     }
-  }, [paramData, setVariables]);
+  }, [variableData, setVariables]);
 
   useEffect(() => {
     const params = new URLSearchParams();
@@ -92,8 +94,8 @@ export default function CustomTabPanel({ children, value, index, content, ...oth
       {editors.includes(content) ?
         <EditorTable
           heading={content}
-          currentEditorData={variablesEditors.includes(content) ? paramData : headerData}
-          setCurrentEditorData={variablesEditors.includes(content) ? setParamData : setHeaderData}
+          currentEditorData={variablesEditors.includes(content) ? variableData : headerData}
+          setCurrentEditorData={variablesEditors.includes(content) ? setVariableData : setHeaderData}
         />
       : <SchemaGraphQL />}
     </Box>
