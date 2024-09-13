@@ -43,6 +43,7 @@
     "sign_up_btn": "Регистрация"
   },
   "http_response": "Статус",
+  "json_error": "Неверный json формат:",
   "method_label": "Метод",
   "pwd_field": {
     "hide": "Скрыть пароль",

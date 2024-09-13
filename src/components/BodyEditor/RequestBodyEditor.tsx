@@ -84,7 +84,7 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
       if (e instanceof Error) {
         const newSegments = `${pathSegments.slice(0, SegmentIndex.Body).join('/')}?${params}`;
         window.history.replaceState(null, '', newSegments);
-        setErrorMessage(`Invalid JSON: ${e.message}`);
+        setErrorMessage(`${t('json_error')}${e.message}`);
         setShowErrorsPopover(true);
       }
     }
@@ -96,7 +96,7 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
     if (showErrorsPopover) {
       timer = setTimeout(() => {
         setShowErrorsPopover(false);
-      }, 2500);
+      }, 3000);
     }
     return () => {
       clearTimeout(timer);
