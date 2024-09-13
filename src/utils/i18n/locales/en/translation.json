@@ -19,6 +19,11 @@
   "empty_requests_history_message": "You haven't executed any requests. Try:",
   "endpoint_placeholder": "Enter endpoint-URL",
   "error_empty_endpoint": "Endpoint URL must be filled in",
+  "error_page": {
+    "link": "Go to Home",
+    "text": "Please try again later.",
+    "title": "Oops! Something went wrong."
+  },
   "footer": {
     "github": "GitHub profile of",
     "rss": "RSSchool logo"

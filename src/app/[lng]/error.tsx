@@ -3,7 +3,12 @@
 import Link from 'next/link';
 import { Container, Typography, Button, Box } from '@mui/material';
 
+import { useLanguage, useTranslation } from '@/hooks';
+
 const ErrorPage = () => {
+  const { lng } = useLanguage();
+  const { t } = useTranslation(lng);
+
   return (
     <Container
       sx={{
@@ -17,14 +22,14 @@ const ErrorPage = () => {
     >
       <Box mb={4}>
         <Typography variant="h2" component="h1" gutterBottom>
-          Oops! Something went wrong.
+          {t('error_page.title')}
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          Please try again later.
+          {t('error_page.text')}
         </Typography>
       </Box>
       <Button variant="contained" color="primary" LinkComponent={Link} href="/">
-        Go to Home
+        {t('error_page.link')}
       </Button>
     </Container>
   );
