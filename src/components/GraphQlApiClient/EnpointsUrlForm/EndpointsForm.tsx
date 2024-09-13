@@ -1,10 +1,10 @@
 'use client';
 
 import { decodeFromBase64, encodeToBase64, getNewGraphQlURLPath, makeGraphQLRequest } from '@/services';
-import { Box, Button } from '@mui/material';
+import { Alert, Box, Button, Snackbar } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { ChangeEvent, useEffect } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { graphQLSchemaQuery, headersGraphQLSchema, variablesGraphQLSchema } from '@/utils';
 import { useLanguage, useTranslation } from '@/hooks';
 import { useGraphQl } from '@/contexts';
@@ -17,7 +17,6 @@ export default function EndpointsForm() {
     endpointSdlUrl,
     setEndpointSdlUrl,
     paramData,
-    headerData,
     queryText,
     setResponseText,
     setResponseStatus,
@@ -28,6 +27,8 @@ export default function EndpointsForm() {
   const searchParams = useSearchParams();
   const { lng } = useLanguage();
   const { t } = useTranslation(lng);
+  const [errorMessage, setErrorMessage] = useState('');
+  const showError = !!errorMessage;
 
   const handleEndpointChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const newUrlPath = event.target.value;
@@ -39,13 +40,19 @@ export default function EndpointsForm() {
   };
 
   const handleEndpointBlur = async () => {
-    const schema = (await makeGraphQLRequest(
-      graphQLSchemaQuery,
-      variablesGraphQLSchema,
-      endpointSdlUrl,
-      headersGraphQLSchema
-    )) as GraphQlRequest;
-    schema.code === 'OK' ? setSchemaGraphQL(schema.data) : setSchemaGraphQL('Schema not found');
+    try {
+      const schema = (await makeGraphQLRequest(
+        graphQLSchemaQuery,
+        variablesGraphQLSchema,
+        endpointSdlUrl,
+        headersGraphQLSchema
+      )) as GraphQlRequest;
+      schema.code === 'OK' ? setSchemaGraphQL(schema.data) : setSchemaGraphQL('Schema not found');
+    } catch (error) {
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+      }
+    }
   };
 
   const handleEndpointSdlChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -64,11 +71,17 @@ export default function EndpointsForm() {
         .filter((item) => item.check === true)
         .map((item) => [item.key, String(Number(item.value) ? Number(item.value) : item.value)])
     );
-    const res = (await makeGraphQLRequest(queryText, variables, endpointUrl, headers)) as GraphQlRequest;
-    const data = JSON.parse(res.data);
-    setResponseText(JSON.stringify(data, null, 2));
-    setResponseStatus(res.status);
-    setResponseStatusText(res.code);
+    try {
+      const res = (await makeGraphQLRequest(queryText, variables, endpointUrl, headers)) as GraphQlRequest;
+      const data = JSON.parse(res.data);
+      setResponseText(JSON.stringify(data, null, 2));
+      setResponseStatus(res.status);
+      setResponseStatusText(res.code);
+    } catch (error) {
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+      }
+    }
   };
 
   useEffect(() => {
@@ -109,6 +122,16 @@ export default function EndpointsForm() {
           fullWidth
         />
       </Box>
+      <Snackbar
+        open={showError}
+        autoHideDuration={4000}
+        onClose={() => setErrorMessage('')}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      >
+        <Alert onClose={() => setErrorMessage('')} severity="error">
+          {errorMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }
