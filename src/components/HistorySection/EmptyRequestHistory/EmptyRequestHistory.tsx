@@ -1,5 +1,6 @@
 import { useLanguage, useTranslation } from '@/hooks';
-import { Box, Link, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import Link from 'next/link';
 
 export default function EmptyRequestHistory() {
   const { lng } = useLanguage();

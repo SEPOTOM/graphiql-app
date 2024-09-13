@@ -21,7 +21,6 @@ describe('SignUpForm', () => {
     expect(getByLabelText(/confirm password/i)).toBeInTheDocument();
   });
 
-
   it('displays success alert after successful registration', async () => {
     const { user, getByRole, getByLabelText, findByRole } = renderWithUser(<SignUpForm lng="en" />);
 

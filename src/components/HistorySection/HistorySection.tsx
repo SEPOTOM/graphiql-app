@@ -6,6 +6,7 @@ import { Box, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import EmptyRequestHistory from './EmptyRequestHistory/EmptyRequestHistory';
 import { encodeToBase64 } from '@/services';
+import Link from 'next/link';
 
 export default function HistorySection() {
   const { lng } = useLanguage();
@@ -17,19 +18,21 @@ export default function HistorySection() {
       <List>
         {savedRequests.map((item) => {
           return (
-            <ListItem
+            <Link
+              style={{ textDecoration: 'none' }}
               key={item.id}
-              component="a"
               href={`${item.client}/${encodeToBase64(item.endpoint)}/${encodeToBase64(item.body)}?${item.headers}`}
             >
-              <ListItemIcon>
-                <OpenInNewIcon color="primary" />
-              </ListItemIcon>
-              <ListItemText
-                primary={`${item.client} ${item.endpoint}/${item.body}?${item.headers}`}
-                secondary={new Date(item.timestamp).toLocaleString()}
-              />
-            </ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  <OpenInNewIcon color="primary" />
+                </ListItemIcon>
+                <ListItemText
+                  primary={`${item.client} ${item.endpoint}/${item.body}?${item.headers}`}
+                  secondary={new Date(item.timestamp).toLocaleString()}
+                />
+              </ListItem>
+            </Link>
           );
         })}
       </List>

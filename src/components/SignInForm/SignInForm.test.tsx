@@ -28,7 +28,6 @@ describe('SignInForm', () => {
     expect(await findByRole('alert')).toHaveTextContent(/success/i);
   });
 
-
   it('disables form widgets while the form is submitting', async () => {
     const { user, findByRole, getByRole, getByLabelText, getAllByRole } = renderWithUser(<SignInForm lng="en" />);
     const emailInput = await findByRole('textbox', { name: /email/i });

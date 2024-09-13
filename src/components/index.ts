@@ -20,7 +20,6 @@ import HistorySection from './HistorySection/HistorySection';
 import PublicRoute from '@/components/PublicRoute/PublicRoute';
 import StateMessage from '@/components/StateMessage/StateMessage';
 
-
 export {
   BodyMenuTab,
   EditorTable,
