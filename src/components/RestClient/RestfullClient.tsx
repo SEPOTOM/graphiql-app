@@ -2,8 +2,8 @@
 
 import { Alert, Box, Button, Snackbar } from '@mui/material';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { Method, RequestHistoryItem, SegmentIndex, StorageKey } from '@/types';
-import { useEffect, useState } from 'react';
+import { RequestHistoryItem, SegmentIndex, StorageKey } from '@/types';
+import { useState } from 'react';
 import { BodyMenuTab, ResponseSection } from '@/components';
 import EndpointInput from './EndpointInput/EndpointInput';
 import RequestMethodSelector from './RequestMethodSelector/RequestMethodSelector';
@@ -15,7 +15,6 @@ export default function RestfullClient() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const segments = pathname.split('/');
-  const router = useRouter();
   const { lng } = useLanguage();
   const { t } = useTranslation(lng);
   const [status, setStatus] = useState(0);
