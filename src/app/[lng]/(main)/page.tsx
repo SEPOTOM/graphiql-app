@@ -1,60 +1,10 @@
-import { ReactNode } from 'react';
-import { Box, Card, CardContent, Container, Divider, Link, List, ListItem, Typography } from '@mui/material';
+import { Box, Container, Link, List, ListItem, Typography } from '@mui/material';
 
 import { AuthBanner } from '@/components';
 
+import ContentBlock from './ContentBlock';
+import TeamMemberCard from './TeamMemberCard';
 import { teamMembers } from './consts';
-import { TeamMember } from './types';
-
-const ContentBlock = ({ children }: { children: ReactNode }) => {
-  return (
-    <Box
-      sx={{
-        border: '1px solid',
-        borderColor: 'grey.300',
-        borderRadius: '8px',
-        padding: '16px',
-        marginTop: '24px',
-        textAlign: 'left',
-        flexGrow: 1,
-      }}
-    >
-      {children}
-    </Box>
-  );
-};
-
-const TeamMemberCard = ({ name, role, githubName, githubLink, description, contributions }: TeamMember) => {
-  return (
-    <Card sx={{ height: '100%' }}>
-      <CardContent>
-        <Typography variant="h5" component="div">
-          {name}
-        </Typography>
-        <Typography variant="subtitle1" color="text.secondary">
-          {role}
-        </Typography>
-        <Link href={githubLink} target="_blank" rel="noopener noreferrer">
-          @{githubName}
-        </Link>
-        <Typography variant="body2" mt={2}>
-          {description}
-        </Typography>
-        <Divider sx={{ my: 2 }} />
-        <Typography variant="body1" fontWeight="bold">
-          Contributions:
-        </Typography>
-        <List>
-          {contributions.map((contribution, index) => (
-            <ListItem key={index}>
-              <Typography variant="body2">{contribution}</Typography>
-            </ListItem>
-          ))}
-        </List>
-      </CardContent>
-    </Card>
-  );
-};
 
 const MainPage = () => {
   return (
