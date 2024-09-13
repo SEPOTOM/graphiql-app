@@ -22,4 +22,18 @@ describe('AuthBanner', () => {
     expect(getByRole('link', { name: /sign in/i })).toBeInTheDocument();
     expect(getByRole('link', { name: /sign up/i })).toBeInTheDocument();
   });
+
+  it('displays links to the private routes for authenticated users', () => {
+    (useAuth as Mock).mockImplementation(() => ({ user: {} }));
+
+    const { getByRole } = render(
+      <LanguageProvider lang="en">
+        <AuthBanner />
+      </LanguageProvider>
+    );
+
+    expect(getByRole('link', { name: /restfull/i })).toBeInTheDocument();
+    expect(getByRole('link', { name: /graphiql/i })).toBeInTheDocument();
+    expect(getByRole('link', { name: /history/i })).toBeInTheDocument();
+  });
 });
