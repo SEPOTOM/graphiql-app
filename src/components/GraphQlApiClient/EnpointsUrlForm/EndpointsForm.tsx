@@ -56,7 +56,7 @@ export default function EndpointsForm() {
   const handleOnclick = async () => {
     const headers: Record<string, string> = {};
     searchParams.forEach((value, key) => {
-      headers[key.replaceAll('%2F', '/')] = value.replaceAll('%2F', '/');
+      headers[decodeURIComponent(key)] = decodeURIComponent(value);
     });
 
     const variables: HeadersInit = Object.fromEntries(
