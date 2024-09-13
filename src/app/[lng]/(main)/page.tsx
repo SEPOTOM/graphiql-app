@@ -1,6 +1,7 @@
 import { Box, Container, Link, List, ListItem, Typography } from '@mui/material';
 
 import { AuthBanner } from '@/components';
+import { reactCourseUrl } from '@/utils';
 
 import ContentBlock from './ContentBlock';
 import TeamMemberCard from './TeamMemberCard';
@@ -26,14 +27,14 @@ const MainPage = () => {
             <Typography variant="h4" gutterBottom>
               Course Information
             </Typography>
-            <Typography variant="body1">
+            <Typography variant="body1" gutterBottom>
               The React Course is designed for students with strong JavaScript, TypeScript, and frontend skills. It
               includes free online education with publicly available materials. After successfully completing the course
-              and projects, students receive an electronic certificate.{' '}
-              <Link href="https://rs.school/react" target="_blank" rel="noopener noreferrer">
-                Learn more
-              </Link>
+              and projects, students receive an electronic certificate.
             </Typography>
+            <Link href={reactCourseUrl} target="_blank" rel="noopener noreferrer">
+              Learn more
+            </Link>
           </ContentBlock>
 
           <ContentBlock>
