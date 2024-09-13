@@ -3,7 +3,7 @@
 import { EditorTable, SchemaGraphQL } from '@/components';
 import { useGraphQl } from '@/contexts';
 import { basicHeadersRows } from '@/contexts/GraphQLContext/consts';
-import { useSavedVariables } from '@/hooks';
+import { useLocalStorage } from '@/hooks';
 import {
   GraphQlHeadersEditor,
   GraphQlVariablesEditor,
@@ -45,7 +45,7 @@ export default function CustomTabPanel({ children, value, index, content, ...oth
   const variablesEditors = Object.values(GraphQlVariablesEditor) as string[];
   const editors = headerEditors.concat(variablesEditors);
 
-  const [variables, setVariables] = useSavedVariables<HeadersAndVariablesEditorRowDataItem[]>(
+  const [variables, setVariables] = useLocalStorage<HeadersAndVariablesEditorRowDataItem[]>(
     StorageKey.GraphQLVariables,
     []
   );
