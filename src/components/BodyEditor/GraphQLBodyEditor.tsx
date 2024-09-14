@@ -5,7 +5,7 @@ import Editor from '@monaco-editor/react';
 import { useEffect, useRef, useCallback } from 'react';
 import * as monaco from 'monaco-editor';
 import { BodyType, PlaceHolder, SegmentIndex, EditorOptions } from '@/types';
-import { decodeFromBase64, encodeToBase64, getNewGraphQLBodyPath } from '@/services';
+import { decodeFromBase64, encodeToBase64, getNewBodyPath } from '@/services';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
 import { fallbackLng } from '@/utils';
@@ -38,7 +38,7 @@ export default function GraphQlRequestBodyEditor({ mode, options, initialValue }
   const onBlur = useCallback(() => {
     if (options.readOnly) return;
     try {
-      const newPath = getNewGraphQLBodyPath(pathname, encodeToBase64(queryText));
+      const newPath = getNewBodyPath(pathname, encodeToBase64(queryText));
       window.history.replaceState(null, '', newPath);
     } catch (e) {
       if (e instanceof Error) {

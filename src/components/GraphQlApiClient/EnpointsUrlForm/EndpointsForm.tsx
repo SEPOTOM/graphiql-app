@@ -1,6 +1,6 @@
 'use client';
 
-import { decodeFromBase64, encodeToBase64, getNewGraphQlURLPath, makeGraphQLRequest } from '@/services';
+import { decodeFromBase64, encodeToBase64, getNewURLPath, makeGraphQLRequest } from '@/services';
 import { Alert, Box, Button, Snackbar } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { usePathname, useSearchParams } from 'next/navigation';
@@ -34,7 +34,7 @@ export default function EndpointsForm() {
   const handleEndpointChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const newUrlPath = event.target.value;
     const encodedEndpoint = encodeToBase64(newUrlPath);
-    const newPath = getNewGraphQlURLPath(pathname, encodedEndpoint);
+    const newPath = getNewURLPath(pathname, encodedEndpoint);
     window.history.replaceState(null, '', newPath);
     setEndpointUrl(newUrlPath);
     setEndpointSdlUrl(newUrlPath);

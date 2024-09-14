@@ -34,7 +34,7 @@ describe('GraphQl endpoints form', () => {
     );
 
     await waitFor(async () => {
-      const mockGetNewGraphQlURLPath = vi.spyOn(services, 'getNewGraphQlURLPath');
+      const mockGetNewGraphQlURLPath = vi.spyOn(services, 'getNewURLPath');
       const inputUrl = screen.getByLabelText('Endpoint URL');
       const user = userEvent.setup();
       await user.type(inputUrl, 'h');
