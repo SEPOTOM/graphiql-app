@@ -1,6 +1,6 @@
 'use client';
 
-import { decodeFromBase64, encodeToBase64, getNewURLPath, makeGraphQLRequest } from '@/services';
+import { decodeFromBase64, encodeToBase64, getNewURLPath, jsonTabs, makeGraphQLRequest } from '@/services';
 import { Alert, Box, Button, Snackbar } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { usePathname, useSearchParams } from 'next/navigation';

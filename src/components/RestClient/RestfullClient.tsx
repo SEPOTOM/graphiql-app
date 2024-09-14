@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { BodyMenuTab, ResponseSection } from '@/components';
 import EndpointInput from './EndpointInput/EndpointInput';
 import RequestMethodSelector from './RequestMethodSelector/RequestMethodSelector';
-import { decodeFromBase64 } from '@/services';
+import { decodeFromBase64, jsonTabs } from '@/services';
 import { useLanguage, useLocalStorage, useTranslation } from '@/hooks';
 import { noContentStatus } from './consts';
 
