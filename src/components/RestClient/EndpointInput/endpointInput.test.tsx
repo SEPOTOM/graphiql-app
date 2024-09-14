@@ -33,14 +33,19 @@ describe('EndpointInput component', () => {
 
     const input = screen.getByLabelText('URL');
     const endpoint = 'newEndpoint';
+    const calls = mockReplaceState.mock.calls;
 
     await user.type(input, endpoint);
 
-    endpoint.split('').forEach((letter) => {
-      const encodedEndpoint = encodeToBase64(letter);
-      const newPath = `/en/GET/${encodedEndpoint}?`;
-      expect(mockReplaceState).toHaveBeenCalledWith(null, '', newPath);
+    endpoint.split('').forEach((_, index) => {
+      const partialEndpoint = endpoint.slice(0, index + 1);
+      const encodedEndpoint = encodeToBase64(partialEndpoint);
+      const expectedPath = `/en/GET/${encodedEndpoint}?`;
+
+      expect(calls[index]).toEqual([null, '', expectedPath]);
     });
+
+    expect(calls.length).toBe(endpoint.length);
   });
 
   it('decodes base64 encoded endpoint and displays it', () => {
