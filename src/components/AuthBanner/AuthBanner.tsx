@@ -22,7 +22,7 @@ const AuthBanner = () => {
           variant={variant ?? 'contained'}
           color="primary"
           component={Link}
-          href={href}
+          href={`/${lng}${href}`}
           size="large"
           fullWidth={Boolean(user)}
         >
