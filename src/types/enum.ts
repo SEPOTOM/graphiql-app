@@ -44,10 +44,10 @@ export enum PlaceHolder {
 
 export enum SegmentIndex {
   Language = 1,
-  Method = 3,
-  Endpoint = 4,
-  Body = 5,
-  LastElement = 6,
+  Method = 2,
+  Endpoint = 3,
+  Body = 4,
+  LastElement = 5,
 }
 
 export enum BodyMode {

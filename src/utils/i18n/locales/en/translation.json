@@ -91,6 +91,7 @@
     "sign_up_btn": "Sign Up"
   },
   "http_response": "Status",
+  "json_error": "Invalid JSON:",
   "method_label": "Method",
   "pwd_field": {
     "hide": "Hide password",

@@ -1,9 +1,9 @@
 'use client';
 
 import { Alert, Box, Button, Snackbar } from '@mui/material';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { Method, RequestHistoryItem, SegmentIndex, StorageKey } from '@/types';
-import { useEffect, useState } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { RequestHistoryItem, SegmentIndex, StorageKey } from '@/types';
+import { useState } from 'react';
 import { BodyMenuTab, ResponseSection } from '@/components';
 import EndpointInput from './EndpointInput/EndpointInput';
 import RequestMethodSelector from './RequestMethodSelector/RequestMethodSelector';
@@ -15,7 +15,6 @@ export default function RestfullClient() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const segments = pathname.split('/');
-  const router = useRouter();
   const { lng } = useLanguage();
   const { t } = useTranslation(lng);
   const [status, setStatus] = useState(0);
@@ -24,18 +23,6 @@ export default function RestfullClient() {
   const [errorMessage, setErrorMessage] = useState('');
   const [_, setSavedRequests] = useLocalStorage<RequestHistoryItem[]>(StorageKey.Requests, []);
   const showError = !!errorMessage;
-
-  useEffect(() => {
-    const method = segments[SegmentIndex.Method];
-    if (!method) {
-      const newPath = `${pathname}/${Method.Get}`;
-      router.replace(newPath);
-    } else if (!(Object.values(Method) as string[]).includes(method)) {
-      segments.splice(SegmentIndex.Method, 0, Method.Get);
-      const newPath = segments.join('/');
-      router.replace(newPath);
-    }
-  }, [pathname, router, segments]);
 
   const handleSubmit = async () => {
     try {
@@ -51,14 +38,14 @@ export default function RestfullClient() {
         throw new Error(t('error_empty_endpoint'));
       }
 
-      const response = await fetch(`/restfullClient/api`, {
+      const response = await fetch(`/method/api`, {
         method: 'POST',
         body: JSON.stringify({ method, endpoint, body, headers }),
       });
 
       const newRequest: RequestHistoryItem = {
         id: new Date().toISOString(),
-        client: `restfullClient/${method}`,
+        client: method,
         endpoint,
         body: body ? body : '',
         headers: `${searchParams}`,

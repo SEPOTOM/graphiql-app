@@ -20,7 +20,11 @@ describe('RestfullClientPage', () => {
 
     render(
       <LanguageProvider lang="en">
-        <RestfullClientPage />
+        <RestfullClientPage
+          params={{
+            method: 'GET',
+          }}
+        />
       </LanguageProvider>
     );
 
