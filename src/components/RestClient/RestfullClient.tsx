@@ -1,7 +1,7 @@
 'use client';
 
 import { Alert, Box, Button, Snackbar } from '@mui/material';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { RequestHistoryItem, SegmentIndex, StorageKey } from '@/types';
 import { useState } from 'react';
 import { BodyMenuTab, ResponseSection } from '@/components';

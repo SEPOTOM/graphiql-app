@@ -88,7 +88,7 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
         setShowErrorsPopover(true);
       }
     }
-  }, [mode, value, pathname, pathSegments, options.readOnly, insertVariablesIntoBody, searchParams]);
+  }, [mode, value, pathname, pathSegments, options.readOnly, insertVariablesIntoBody, searchParams, t]);
 
   useEffect(() => {
     if (options.readOnly) return;
