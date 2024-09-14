@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Mock } from 'vitest';
 import { RestfullClient } from '@/components';
@@ -62,7 +62,9 @@ describe('RestfullClient component', () => {
       </LanguageProvider>
     );
 
-    user.click(screen.getByText('Send'));
+    await act(async () => {
+      await user.click(screen.getByText('Send'));
+    });
 
     await waitFor(() => {
       expect(screen.getByText('Network error')).toBeInTheDocument();

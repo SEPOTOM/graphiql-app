@@ -10,7 +10,7 @@ vi.mock('@/contexts/AuthContext/AuthContext', () => ({
 
 describe('RestfullClientPage', () => {
   it('should render component correctly', async () => {
-    (usePathname as Mock).mockReturnValue('/restfullClient/ru');
+    (usePathname as Mock).mockReturnValue('/en');
     const replace = vi.fn();
     (useRouter as Mock).mockImplementation(() => ({
       replace,
