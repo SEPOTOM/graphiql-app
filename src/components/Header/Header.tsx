@@ -57,7 +57,7 @@ const Header = ({ lng }: HeaderProps) => {
     <AppBar position="sticky" sx={headerSx}>
       <Container>
         <Toolbar disableGutters>
-          <Typography variant={isMediumScreen ? 'h5' : 'h4'} sx={logoSx} component={Link} href="/">
+          <Typography variant={isMediumScreen ? 'h5' : 'h4'} sx={logoSx} component={Link} href={`/${lng}`}>
             GraphiQL
           </Typography>
 
