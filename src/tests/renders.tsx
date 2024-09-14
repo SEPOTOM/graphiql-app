@@ -26,3 +26,11 @@ export const renderWithLng = (ui: ReactNode, renderOptions?: RenderOptions & { l
     wrapper: Wrapper,
   });
 };
+
+export const renderWithUserAndLng = (
+  ui: ReactNode,
+  renderOptions?: RenderOptions & { lng: string }
+): RenderResult & { user: UserEvent } => {
+  const user = userEvent.setup();
+  return { user, ...renderWithLng(ui, renderOptions) };
+};

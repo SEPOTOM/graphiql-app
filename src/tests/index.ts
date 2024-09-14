@@ -1,3 +1,3 @@
-import { renderWithLng, renderWithUser } from '@/tests/renders';
+import { renderWithLng, renderWithUser, renderWithUserAndLng } from '@/tests/renders';
 
-export { renderWithUser, renderWithLng };
+export { renderWithUser, renderWithLng, renderWithUserAndLng };
