@@ -27,12 +27,12 @@ export default function GraphQlRequestBodyEditor({ mode, options, initialValue }
 
   useEffect(() => {
     setQueryText(initialValue || '');
-    const pathNameFromUrl = pathname.split('/').at(4);
-    let encodedPathNameFromUrl = t(`${PlaceHolder[mode as keyof typeof PlaceHolder]}`);
-    if (pathNameFromUrl) {
-      encodedPathNameFromUrl = decodeFromBase64(pathNameFromUrl);
+    const bodyFromUrl = pathname.split('/').at(SegmentIndex.Body);
+    let encodedBodyFromUrl = t(`${PlaceHolder[mode as keyof typeof PlaceHolder]}`);
+    if (bodyFromUrl) {
+      encodedBodyFromUrl = decodeFromBase64(bodyFromUrl);
     }
-    setQueryText(encodedPathNameFromUrl);
+    setQueryText(encodedBodyFromUrl);
   }, [initialValue, mode, pathname, setQueryText, t]);
 
   const onBlur = useCallback(() => {

@@ -8,7 +8,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { graphQLSchemaQuery, headersGraphQLSchema, variablesGraphQLSchema } from '@/utils';
 import { useLanguage, useLocalStorage, useTranslation } from '@/hooks';
 import { useGraphQl } from '@/contexts';
-import { GraphQlRequest, GraphQlEditorErrorTypes, RequestHistoryItem, StorageKey } from '@/types';
+import { GraphQlRequest, GraphQlEditorErrorTypes, RequestHistoryItem, StorageKey, SegmentIndex } from '@/types';
 
 export default function EndpointsForm() {
   const {
@@ -75,7 +75,7 @@ export default function EndpointsForm() {
     try {
       const res = (await makeGraphQLRequest(queryText, variables, endpointUrl, headers)) as GraphQlRequest;
       const data = JSON.parse(res.data);
-      setResponseText(JSON.stringify(data, null, 2));
+      setResponseText(JSON.stringify(data, null, jsonTabs));
       setResponseStatus(res.status);
       setResponseStatusText(res.code);
       const newRequest: RequestHistoryItem = {
@@ -97,7 +97,7 @@ export default function EndpointsForm() {
   };
 
   useEffect(() => {
-    const pathNameFromUrl = pathname.split('/').at(3);
+    const pathNameFromUrl = pathname.split('/').at(SegmentIndex.Endpoint);
     if (pathNameFromUrl) {
       const decodedPathNameFromUrl = decodeFromBase64(pathNameFromUrl);
       setEndpointUrl(decodedPathNameFromUrl);
