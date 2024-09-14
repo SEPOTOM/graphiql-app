@@ -24,6 +24,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       }
 
       if (!user && status === 'authenticated') {
+        setStatus('unauthenticated');
+
         router.push('/');
       }
     });
