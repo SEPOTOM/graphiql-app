@@ -1,11 +1,10 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { screen, waitFor } from '@testing-library/react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Mock } from 'vitest';
 import * as services from '@/services';
 import { Method } from '@/types';
 import RequestMethodSelector from './RequestMethodSelector';
-import { LanguageProvider } from '@/contexts';
+import { renderWithLng, renderWithUserAndLng } from '@/tests';
 
 const mockReplaceState = vi.fn();
 window.history.replaceState = mockReplaceState;
@@ -14,11 +13,7 @@ describe('RequestMethodSelector component', () => {
   it('renders correctly with the initial method selected based on the current URL', async () => {
     (usePathname as Mock).mockReturnValue('/en/PATCH');
 
-    render(
-      <LanguageProvider lang="en">
-        <RequestMethodSelector />
-      </LanguageProvider>
-    );
+    renderWithLng(<RequestMethodSelector />);
 
     await waitFor(() => expect(screen.getByText(Method.Patch)).toBeInTheDocument());
   });
@@ -28,13 +23,8 @@ describe('RequestMethodSelector component', () => {
     (useSearchParams as Mock).mockReturnValue(new URLSearchParams());
     const mockGetNewMethodPath = vi.spyOn(services, 'getNewMethodPath');
     const newMethod = Method.Post;
-    const user = userEvent.setup();
 
-    render(
-      <LanguageProvider lang="en">
-        <RequestMethodSelector />
-      </LanguageProvider>
-    );
+    const { user } = renderWithUserAndLng(<RequestMethodSelector />);
 
     await waitFor(() => {
       expect(screen.getByText(Method.Get)).toBeInTheDocument();

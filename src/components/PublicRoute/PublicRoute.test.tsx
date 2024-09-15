@@ -1,8 +1,8 @@
 import { Mock } from 'vitest';
-import { render } from '@testing-library/react';
 
-import { LanguageProvider, useAuth } from '@/contexts';
+import { useAuth } from '@/contexts';
 import { PublicRoute } from '@/components';
+import { renderWithLng } from '@/tests';
 
 vi.mock('@/contexts/AuthContext/AuthContext', () => ({
   useAuth: vi.fn(),
@@ -12,11 +12,7 @@ describe('PublicRoute', () => {
   it('shows a loading message during authentication', () => {
     (useAuth as Mock).mockImplementation(() => ({ status: 'init' }));
 
-    const { getByRole } = render(
-      <LanguageProvider lang="en">
-        <PublicRoute>Test message</PublicRoute>
-      </LanguageProvider>
-    );
+    const { getByRole } = renderWithLng(<PublicRoute>Test message</PublicRoute>);
 
     expect(getByRole('paragraph')).toHaveTextContent(/loading/i);
   });
@@ -24,11 +20,7 @@ describe('PublicRoute', () => {
   it('shows a message during redirect if the user in authenticated', () => {
     (useAuth as Mock).mockImplementation(() => ({ status: 'authenticated' }));
 
-    const { getByRole } = render(
-      <LanguageProvider lang="en">
-        <PublicRoute>Test message</PublicRoute>
-      </LanguageProvider>
-    );
+    const { getByRole } = renderWithLng(<PublicRoute>Test message</PublicRoute>);
 
     expect(getByRole('paragraph')).toHaveTextContent(/redirect/i);
   });
@@ -36,11 +28,7 @@ describe('PublicRoute', () => {
   it("shows the nested content is the user isn't authenticated", () => {
     (useAuth as Mock).mockImplementation(() => ({ status: 'unauthenticated' }));
 
-    const { getByText } = render(
-      <LanguageProvider lang="en">
-        <PublicRoute>Test message</PublicRoute>
-      </LanguageProvider>
-    );
+    const { getByText } = renderWithLng(<PublicRoute>Test message</PublicRoute>);
 
     expect(getByText('Test message')).toBeInTheDocument();
   });

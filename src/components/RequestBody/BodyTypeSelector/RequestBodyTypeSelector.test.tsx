@@ -1,9 +1,8 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { screen, waitFor } from '@testing-library/react';
 import RequestBodyTypeSelector, { RequestBodyTypeSelectorProps } from './RequestBodyTypeSelector';
 import { usePathname } from 'next/navigation';
 import { Mock } from 'vitest';
-import { LanguageProvider } from '@/contexts';
+import { renderWithUserAndLng } from '@/tests';
 
 describe('RequestBodyTypeSelector', () => {
   const setup = (props: Partial<RequestBodyTypeSelectorProps> = {}) => {
@@ -13,11 +12,7 @@ describe('RequestBodyTypeSelector', () => {
       ...props,
     };
 
-    return render(
-      <LanguageProvider lang="en">
-        <RequestBodyTypeSelector {...defaultProps} />
-      </LanguageProvider>
-    );
+    return renderWithUserAndLng(<RequestBodyTypeSelector {...defaultProps} />);
   };
 
   (usePathname as Mock).mockReturnValue('/restfullClient/en');
@@ -34,8 +29,7 @@ describe('RequestBodyTypeSelector', () => {
 
   it('calls handleChange when a new mode is selected', async () => {
     const handleChange = vi.fn();
-    const user = userEvent.setup();
-    setup({ handleChange });
+    const { user } = setup({ handleChange });
 
     const select = screen.getByLabelText('Request body mode');
 
