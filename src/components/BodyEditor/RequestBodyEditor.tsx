@@ -76,7 +76,7 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
         encodedValue = encodeToBase64(bodyWithVariables);
       }
 
-      encodedValue ? (newPath = `${getNewBodyPath(pathname, encodedValue)}?${params}`) : (newPath = pathWithoutBody);
+      newPath = encodedValue ? `${getNewBodyPath(pathname, encodedValue)}?${params}` : pathWithoutBody;
       window.history.replaceState(null, '', newPath);
     } catch (e) {
       if (e instanceof Error) {

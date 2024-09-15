@@ -1,6 +1,6 @@
 'use client';
 
-import { decodeFromBase64, encodeToBase64, getNewURLPath, jsonTabs, makeGraphQLRequest } from '@/services';
+import { decodeFromBase64, encodeToBase64, getNewURLPath, makeGraphQLRequest } from '@/services';
 import { Alert, Box, Button, Snackbar } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { usePathname, useSearchParams } from 'next/navigation';
@@ -9,6 +9,7 @@ import { graphQLSchemaQuery, headersGraphQLSchema, variablesGraphQLSchema } from
 import { useLanguage, useLocalStorage, useTranslation } from '@/hooks';
 import { useGraphQl } from '@/contexts';
 import { GraphQlRequest, GraphQlEditorErrorTypes, RequestHistoryItem, StorageKey, SegmentIndex } from '@/types';
+import { jsonTabs } from '@/utils/constants';
 
 export default function EndpointsForm() {
   const {
