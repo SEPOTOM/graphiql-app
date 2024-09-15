@@ -11,7 +11,7 @@ import {
   StorageKey,
 } from '@/types';
 import { Box } from '@mui/material';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 interface TabPanelProps {
