@@ -5,11 +5,10 @@ import { Alert, Box, Button, Snackbar } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { graphQLSchemaQuery, headersGraphQLSchema, variablesGraphQLSchema } from '@/utils';
+import { graphQLSchemaQuery, headersGraphQLSchema, variablesGraphQLSchema, jsonTabs } from '@/utils';
 import { useLanguage, useLocalStorage, useTranslation } from '@/hooks';
 import { useGraphQl } from '@/contexts';
 import { GraphQlRequest, GraphQlEditorErrorTypes, RequestHistoryItem, StorageKey, SegmentIndex } from '@/types';
-import { jsonTabs } from '@/utils/constants';
 
 export default function EndpointsForm() {
   const {
