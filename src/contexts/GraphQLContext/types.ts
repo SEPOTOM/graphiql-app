@@ -10,6 +10,8 @@ export interface GraphQLData {
   setQueryText: Dispatch<SetStateAction<string>>;
   paramData: HeadersAndVariablesEditorRowDataItem[];
   setParamData: Dispatch<SetStateAction<HeadersAndVariablesEditorRowDataItem[]>>;
+  headerData: HeadersAndVariablesEditorRowDataItem[];
+  setHeaderData: Dispatch<SetStateAction<HeadersAndVariablesEditorRowDataItem[]>>;
   responseText: string;
   setResponseText: Dispatch<SetStateAction<string>>;
   responseStatus: number;

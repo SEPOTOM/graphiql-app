@@ -25,6 +25,7 @@ export default function EndpointsForm() {
   } = useGraphQl();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const searchParamsUrl = searchParams.toString();
   const { lng } = useLanguage();
   const { t } = useTranslation(lng);
   const [errorMessage, setErrorMessage] = useState('');
@@ -35,7 +36,8 @@ export default function EndpointsForm() {
     const newUrlPath = event.target.value;
     const encodedEndpoint = encodeToBase64(newUrlPath);
     const newPath = getNewGraphQlURLPath(pathname, encodedEndpoint);
-    window.history.replaceState(null, '', newPath);
+    const newPathWithSearchParams = `${newPath}?${searchParamsUrl}`;
+    window.history.replaceState(null, '', newPathWithSearchParams);
     setEndpointUrl(newUrlPath);
     setEndpointSdlUrl(newUrlPath);
   };
