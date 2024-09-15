@@ -27,7 +27,6 @@ export default function GraphQlRequestBodyEditor({ mode, options, initialValue }
   const lng = pathSegments.at(SegmentIndex.Language) ?? fallbackLng;
   const { t } = useTranslation(lng);
   const { queryText, setQueryText } = useGraphQl();
-  const [newPathNameFromUrl, setNewPathNameFromUrl] = useState('');
 
   useEffect(() => {
     setQueryText(initialValue || '');
@@ -42,7 +41,8 @@ export default function GraphQlRequestBodyEditor({ mode, options, initialValue }
   const onBlur = useCallback(() => {
     if (options.readOnly) return;
     try {
-      const newPath = getNewBodyPath(pathname, encodeToBase64(queryText));
+      const params = new URLSearchParams(searchParams.toString());
+      const newPath = `${getNewBodyPath(pathname, encodeToBase64(queryText))}?${params}`;
       window.history.replaceState(null, '', newPath);
     } catch (e) {
       if (e instanceof Error) {
@@ -51,7 +51,7 @@ export default function GraphQlRequestBodyEditor({ mode, options, initialValue }
         window.history.replaceState(null, '', newPathWithSearchParams);
       }
     }
-  }, [options.readOnly, pathname, queryText, searchParamsUrl, pathSegments]);
+  }, [options.readOnly, searchParams, pathname, queryText, pathSegments, searchParamsUrl]);
 
   useEffect(() => {
     if (options.readOnly) return;
@@ -85,7 +85,6 @@ export default function GraphQlRequestBodyEditor({ mode, options, initialValue }
     if (queryText === '') {
       const pathNameFromUrl = pathname.split('/');
       pathNameFromUrl.splice(4, 1);
-      setNewPathNameFromUrl(pathNameFromUrl.join('/'));
     }
     if (queryText) {
       setQueryText(queryText);
