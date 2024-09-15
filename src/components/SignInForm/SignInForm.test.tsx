@@ -1,7 +1,4 @@
-import { render } from '@testing-library/react';
-
-import { renderWithUser } from '@/tests';
-import { LanguageProvider } from '@/contexts';
+import { renderWithLng, renderWithUserAndLng } from '@/tests';
 
 import SignInForm from './SignInForm';
 
@@ -13,22 +10,14 @@ vi.mock('@/contexts/AuthContext/AuthContext', () => ({
 
 describe('SignInForm', () => {
   it('renders all required fields and submit button', async () => {
-    const { findByRole, getByLabelText } = render(
-      <LanguageProvider lang="en">
-        <SignInForm lng="en" />
-      </LanguageProvider>
-    );
+    const { findByRole, getByLabelText } = renderWithLng(<SignInForm lng="en" />);
 
     expect(await findByRole('textbox', { name: /email/i })).toBeInTheDocument();
     expect(getByLabelText(/^password/i)).toBeInTheDocument();
   });
 
   it('displays success alert after successful login', async () => {
-    const { user, getByRole, getByLabelText, findByRole } = renderWithUser(
-      <LanguageProvider lang="en">
-        <SignInForm lng="en" />
-      </LanguageProvider>
-    );
+    const { user, getByRole, getByLabelText, findByRole } = renderWithUserAndLng(<SignInForm lng="en" />);
 
     await user.type(await findByRole('textbox', { name: /email/i }), 'mark@email.com');
     await user.type(getByLabelText(/^password/i), 'mark12345678!');
@@ -38,11 +27,7 @@ describe('SignInForm', () => {
   });
 
   it('disables form widgets while the form is submitting', async () => {
-    const { user, findByRole, getByRole, getByLabelText, getAllByRole } = renderWithUser(
-      <LanguageProvider lang="en">
-        <SignInForm lng="en" />
-      </LanguageProvider>
-    );
+    const { user, findByRole, getByRole, getByLabelText, getAllByRole } = renderWithUserAndLng(<SignInForm lng="en" />);
     const emailInput = await findByRole('textbox', { name: /email/i });
     const pwdInput = getByLabelText(/^password/i);
 
