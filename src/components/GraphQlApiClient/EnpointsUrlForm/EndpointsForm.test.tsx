@@ -1,5 +1,5 @@
 import { screen, waitFor } from '@testing-library/react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { Mock } from 'vitest';
 import * as services from '@/services';
 import EndpointsForm from './EndpointsForm';
@@ -22,6 +22,7 @@ describe('GraphQl endpoints form', () => {
 
   it('selecting another endpoint updates URL', async () => {
     (usePathname as Mock).mockReturnValue('en/GRAPHQL');
+    (useSearchParams as Mock).mockReturnValue(new URLSearchParams());
 
     const { user } = renderWithUserAndLng(<EndpointsForm />);
 
@@ -34,7 +35,7 @@ describe('GraphQl endpoints form', () => {
         expect(mockGetNewGraphQlURLPath).toHaveBeenCalledWith('en/GRAPHQL', encodedEndpoint);
       });
 
-      const newPath = `en/GRAPHQL/${encodedEndpoint}`;
+      const newPath = `en/GRAPHQL/${encodedEndpoint}?`;
       expect(mockReplaceState).toHaveBeenCalledWith(null, '', newPath);
     });
   });
