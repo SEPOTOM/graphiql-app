@@ -1,0 +1,142 @@
+{
+  "auth_banner": {
+    "title": "Добро пожаловать",
+    "auth_title": "С возвращением",
+    "sign_in_link": "Войти",
+    "sign_up_link": "Зарегистрироваться",
+    "rest_link": "Клиент RESTfull",
+    "graphql_link": "Клиент GraphiQL",
+    "history_link": "История"
+  },
+  "auth_errors": {
+    "default": "Произошла непредвиденная ошибка. Пожалуйста, попробуйте снова.",
+    "existing_email": "Этот адрес электронной почты уже используется.",
+    "invalid_credential": "Предоставленные учетные данные недействительны.",
+    "server_default": "Не удалось зарегистрироваться."
+  },
+  "body_mode_none": "Без данных",
+  "body_mode_none_text": "У этого запроса нет тела",
+  "body_mode_raw": "Необработанный",
+  "body_type_graphql_placeholder": "Введите GraphQL здесь...",
+  "body_type_json_placeholder": "Введите JSON здесь...",
+  "body_type_text": "Текст",
+  "body_type_text_placeholder": "Введите текст запроса здесь...",
+  "data_editor_key_heading": "КЛЮЧ",
+  "data_editor_value_heading": "ЗНАЧЕНИЕ",
+  "devs": {
+    "artyom": {
+      "contributions": {
+        "auth": "Аутентификация",
+        "forms": "Страницы регистрации/входа",
+        "main_page": "Главная страница",
+        "setup": "Настройка проекта"
+      },
+      "description": "Я уже изучаю frontend-разработку на протяжении 3 лет. Иногда успешно и плодотворно, иногда не очень. После получения реального рабочего опыта планирую также изучать backend-разработку. Я буду продолжать до тех пор, пока не достигну своих целей.",
+      "name": "Артём Пизин",
+      "role": "Руководитель команды"
+    },
+    "pavel": {
+      "contributions": {
+        "graphql_logic": "Логика клиента GraphiQL",
+        "graphql_page": "Страница клиента GraphiQL",
+        "not_found_page": "Страница \"Не найдено\""
+      },
+      "description": "Прежде всего, я хочу получить новые знания, навыки и опыт. Я уверен, что они пригодятся мне в будущем. Хорошим достижением будет успешное завершение обучения на всех этапах и получение новой работы. Я уверен, что у меня все получится.",
+      "name": "Павел Кувшинов",
+      "role": "Разработчик"
+    },
+    "svetlana": {
+      "contributions": {
+        "history_logic": "Логика истории",
+        "history_page": "Страница истории",
+        "rest_logic": "Логика клиента RESTfull",
+        "rest_page": "Страница клиента RESTfull"
+      },
+      "description": "Я изучаю frontend уже шесть месяцев. Но я поняла, что мне нужен более структурированный подход к обучению. Моя цель — получить как можно больше знаний о frontend-разработке. Я прошла несколько бесплатных курсов и хочу продолжать развиваться. Мне действительно нравится изучать новые вещи.",
+      "name": "Светлана Ильина",
+      "role": "Разработчик"
+    }
+  },
+  "editor_loading": "Загрузка...",
+  "empty_response": "Пустой ответ",
+  "empty_requests_history_message": "Вы не выполнили ни одного запроса. Попробуйте:",
+  "endpoint_placeholder": "Введите конечный URL-адрес",
+  "error_empty_endpoint": "Конечный URL адрес должен быть заполнен",
+  "error_page": {
+    "link": "На главную",
+    "text": "Пожалуйста, попробуйте позже.",
+    "title": "Ой! Что-то пошло не так."
+  },
+  "footer": {
+    "github": "GitHub профиль пользователя",
+    "rss": "Логотип RSSchool"
+  },
+  "format_button_text": "Форматировать документ",
+  "graphql_client": "GraphQL клиент",
+  "graphQl_SDL_input_label": "Конечный URL-адрес схемы",
+  "graphQl_SDL_input_placeholder": "Введите конечный URL-адрес схемы",
+  "graphQl_endpoint_input_label": "Конечный URL-адрес",
+  "graphQl_endpoint_input_placeholder": "Введите конечный URL-адрес",
+  "graphQl_menu_tab_empty_message": "Тут будет что-то еще",
+  "graphQl_menu_tab_headers": "Заголовки",
+  "graphQl_menu_tab_schema": "Схема",
+  "graphQl_menu_tab_variables": "Переменные",
+  "graphQl_send_button": "Отправить",
+  "graphQL_syntax_error_message": "Введеный URL не верный для graphQL запроса",
+  "graphQL_else_error_message": "Неизвестная ошибка",
+  "header": {
+    "lng_switcher_label": "Выберите язык",
+    "sign_in_btn": "Вход",
+    "sign_out_btn": "Выход",
+    "sign_up_btn": "Регистрация"
+  },
+  "http_response": "Статус",
+  "json_error": "Неверный json формат:",
+  "method_label": "Метод",
+  "pwd_field": {
+    "hide": "Скрыть пароль",
+    "show": "Показать пароль"
+  },
+  "response_header": "Ответ",
+  "request_header": "Запрос",
+  "response_placeholder": "Введите URL и нажмите кнопку 'Отправить', чтобы получить ответ",
+  "rest_client": "REST клиент",
+  "main_page": {
+    "contributions": "Вклад",
+    "course_info": "Курс React предназначен для студентов с хорошими знаниями JavaScript, TypeScript и frontend-разработки. Он включает в себя бесплатное онлайн-образование с доступными материалами. После успешного завершения курса и проектов студенты получают электронный сертификат.",
+    "course_link": "Узнать больше",
+    "course_title": "Информация о курсе",
+    "devs_title": "О разработчиках",
+    "project_info": "Этот проект представляет собой веб-инструмент, который объединяет функции Postman и GraphiQL. Он позволяет пользователям тестировать и исследовать RESTful API и GraphQL endpoints с легкостью. Безопасный доступ обеспечивается через опции аутентификации, а пользователи могут возвращаться к ранее выполненным запросам через страницу Истории.",
+    "project_title": "О проекте"
+  },
+  "restfull_client_menu_tab_body": "Тело запроса",
+  "restfull_client_menu_tab_headers": "Заголовки",
+  "restfull_client_menu_tab_variables": "Переменные",
+  "request_history_title": "История запросов",
+  "route_states": {
+    "authentication": "Выполняется аутентификация...",
+    "loading": "Загрузка...",
+    "redirect": "Перенаправление на главную страницу..."
+  },
+  "send_button_text": "Отправить",
+  "not_found_main_heading": "Простите, но страницу, которую ищите, не существует.",
+  "not_found_sub_heading": "Попробуйте начать с начала...",
+  "not_found_button": "Главная",
+  "sign_in": {
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "submit_button": "Войти",
+    "success_msg": "Успешный вход в систему",
+    "title": "Вход"
+  },
+  "sign_up": {
+    "confirm_password": "Подтвердите пароль",
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "submit_button": "Зарегистрироваться",
+    "success_msg": "Успешная регистрация",
+    "title": "Регистрация",
+    "username": "Имя пользователя"
+  }
+}

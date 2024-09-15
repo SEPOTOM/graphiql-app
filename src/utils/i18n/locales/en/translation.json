@@ -1,0 +1,144 @@
+{
+  "auth_banner": {
+    "title": "Welcome",
+    "auth_title": "Welcome back",
+    "sign_in_link": "Sign In",
+    "sign_up_link": "Sign Up",
+    "rest_link": "RESTfull Client",
+    "graphql_link": "GraphiQL Client",
+    "history_link": "History"
+  },
+  "auth_errors": {
+    "default": "An unexpected error occurred. Please try again.",
+    "existing_email": "Email is already in use.",
+    "invalid_credential": "The credential provided is invalid.",
+    "server_default": "Failed to sign up."
+  },
+  "body_mode_none": "None",
+  "body_mode_none_text": "This request does not have a body",
+  "body_mode_raw": "Raw",
+  "body_type_graphql_placeholder": "Enter GraphQL here...",
+  "body_type_json_placeholder": "Enter JSON here...",
+  "body_type_text": "Text",
+  "body_type_text_placeholder": "Enter the text here...",
+  "data_editor_key_heading": "KEY",
+  "data_editor_value_heading": "VALUE",
+  "devs": {
+    "artyom": {
+      "contributions": {
+        "auth": "Authentication",
+        "forms": "Sign Up/Sing In Pages",
+        "main_page": "Main Page",
+        "setup": "Project Setup"
+      },
+      "description": "I have been studying Frontend development for 3 years now. Sometimes I have been successful and productive, and other times, not so much. After gaining real work experience, I also plan to study Backend development. I will continue until I achieve my goals.",
+      "name": "Artyom Pizin",
+      "role": "Team Lead"
+    },
+    "pavel": {
+      "contributions": {
+        "graphql_logic": "GraphiQL client logic",
+        "graphql_page": "GraphiQL client Page",
+        "not_found_page": "Not Found Page"
+      },
+      "description": "First of all, I want to gain new knowledge, skills and experience. I am sure they will be useful to me in the future. A good achievement will be successful completion of training at all stages and getting a new job. I am sure that I will succeed.",
+      "name": "Pavel Kuvshinov",
+      "role": "Developer"
+    },
+    "svetlana": {
+      "contributions": {
+        "history_logic": "History logic",
+        "history_page": "History Page",
+        "rest_logic": "RESTfull client logic",
+        "rest_page": "RESTfull client Page"
+      },
+      "description": "I've been studying Frontend for six months. But I realized, that I needed a more structured approach to learning. My goal is to get as much knowledge about front-end development as possible. I have completed several free courses and I want to continue to develop myself. I really enjoy learning new things.",
+      "name": "Svetlana Ilina",
+      "role": "Developer"
+    }
+  },
+  "editor_loading": "Loading...",
+  "empty_response": "Empty response",
+  "empty_requests_history_message": "You haven't executed any requests. Try:",
+  "endpoint_placeholder": "Enter endpoint-URL",
+  "error_empty_endpoint": "Endpoint URL must be filled in",
+  "error_page": {
+    "link": "Go to Home",
+    "text": "Please try again later.",
+    "title": "Oops! Something went wrong."
+  },
+  "footer": {
+    "github": "GitHub profile of",
+    "rss": "RSSchool logo"
+  },
+  "format_button_text": "Format document",
+  "graphql_client": "GraphQL client",
+  "graphQl_SDL_input_label": "SDL URL",
+  "graphQl_SDL_input_placeholder": "Enter SDL URL",
+  "graphQl_endpoint_input_label": "Endpoint URL",
+  "graphQl_endpoint_input_placeholder": "Enter Endpoint URL",
+  "graphQl_menu_tab_empty_message": "Here will be something else",
+  "graphQl_menu_tab_headers": "Headers",
+  "graphQl_menu_tab_schema": "Schema",
+  "graphQl_menu_tab_variables": "Variables",
+  "graphQl_send_button": "Send",
+  "graphQL_syntax_error_message": "The entered URL is not correct for the graphQL query",
+  "graphQL_else_error_message": "Unknown error",
+  "header": {
+    "lng_switcher_label": "Select language",
+    "sign_in_btn": "Sign In",
+    "sign_out_btn": "Sign Out",
+    "sign_up_btn": "Sign Up"
+  },
+  "http_response": "Status",
+  "json_error": "Invalid JSON:",
+  "method_label": "Method",
+  "pwd_field": {
+    "hide": "Hide password",
+    "show": "Show password"
+  },
+  "request_header": "Request",
+  "response_header": "Response",
+  "response_placeholder": "Enter the URL and click Send to get a response",
+  "rest_client": "REST client",
+  "main_page": {
+    "contributions": "Contributions",
+    "course_info": "The React Course is designed for students with strong JavaScript, TypeScript, and frontend skills. It includes free online education with publicly available materials. After successfully completing the course and projects, students receive an electronic certificate.",
+    "course_link": "Learn more",
+    "course_title": "Course Information",
+    "devs_title": "About the developers",
+    "project_info": "This project is a web tool that combines functionalities of Postman and GraphiQL. It enables users to test and explore RESTful APIs and GraphQL endpoints with ease. Secure access is provided through authentication options, and users can revisit previously executed requests via the History page.",
+    "project_title": "About the Project"
+  },
+  "restfull_client_menu_tab_body": "Request Body",
+  "restfull_client_menu_tab_headers": "Headers",
+  "restfull_client_menu_tab_variables": "Variables",
+  "request_history_title": "Request History",
+  "route_states": {
+    "authentication": "Authentication in progress...",
+    "loading": "Loading...",
+    "redirect": "Redirecting to homepage..."
+  },
+  "send_button_text": "Send",
+  "not_found_main_heading": "Sorry, but the page you're looking for, doesn't exist.",
+  "not_found_sub_heading": "Try to start from the beginning...",
+  "not_found_button": "Main",
+  "basic_not_found_main_heading": "I'm sorry, but you're in the wrong place.",
+  "basic_not_found_sub_heading": " Try it here...",
+  "sign_in": {
+    "email": "Email",
+    "password": "Password",
+    "submit_button": "Sign In",
+    "success_msg": "Successfully signed in",
+    "title": "Sign In"
+  },
+  "sign_up": {
+    "confirm_password": "Confirm Password",
+    "email": "Email",
+    "password": "Password",
+    "submit_button": "Sign Up",
+    "success_msg": "Successfully signed up",
+    "title": "Sign Up",
+    "username": "Username"
+  }
+}
