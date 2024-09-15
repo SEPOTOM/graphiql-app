@@ -34,8 +34,9 @@ export default function EndpointsForm() {
   const handleEndpointChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const newUrlPath = event.target.value;
     const encodedEndpoint = encodeToBase64(newUrlPath);
-    const newPath = getNewURLPath(pathname, encodedEndpoint);
-    window.history.replaceState(null, '', newPath);
+    const params = new URLSearchParams(searchParams.toString());
+    const newPath = `${getNewURLPath(pathname, encodedEndpoint)}?${params}`;
+    window.history.replaceState(null, '', `${newPath}`);
     setEndpointUrl(newUrlPath);
     setEndpointSdlUrl(newUrlPath);
   };

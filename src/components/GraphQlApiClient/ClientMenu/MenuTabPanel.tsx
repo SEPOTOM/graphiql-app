@@ -11,7 +11,7 @@ import {
   StorageKey,
 } from '@/types';
 import { Box } from '@mui/material';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 interface TabPanelProps {
@@ -23,7 +23,6 @@ interface TabPanelProps {
 
 export default function CustomTabPanel({ children, value, index, content, ...other }: TabPanelProps) {
   const searchParams = useSearchParams();
-  const pathname = usePathname();
   const params = Array.from(searchParams.entries());
   const [isClient, setIsClient] = useState(false);
   const { setParamData } = useGraphQl();
@@ -77,10 +76,10 @@ export default function CustomTabPanel({ children, value, index, content, ...oth
       } else {
         params.delete(key);
       }
-      const newPath = `${pathname}?${params}`;
+      const newPath = `${window.location.pathname}?${params}`;
       window.history.replaceState(null, '', newPath);
     });
-  }, [headerData, pathname]);
+  }, [headerData]);
 
   return (
     <Box

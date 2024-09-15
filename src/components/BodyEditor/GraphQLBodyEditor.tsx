@@ -2,14 +2,15 @@
 
 import Paper from '@mui/material/Paper';
 import Editor from '@monaco-editor/react';
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, useState } from 'react';
 import * as monaco from 'monaco-editor';
+
 import { PlaceHolder, SegmentIndex, EditorOptions } from '@/types';
 import { decodeFromBase64, encodeToBase64, getNewBodyPath } from '@/services';
-import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks';
 import { fallbackLng } from '@/utils';
 import { useGraphQl } from '@/contexts';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 export interface RequestBodyEditorProps {
   mode: string;
@@ -19,11 +20,14 @@ export interface RequestBodyEditorProps {
 
 export default function GraphQlRequestBodyEditor({ mode, options, initialValue }: RequestBodyEditorProps) {
   const editorRef = useRef<Nullable<monaco.editor.IStandaloneCodeEditor>>(null);
+  const searchParams = useSearchParams();
+  const searchParamsUrl = searchParams.toString();
   const pathname = usePathname();
   const pathSegments = pathname.split('/');
   const lng = pathSegments.at(SegmentIndex.Language) ?? fallbackLng;
   const { t } = useTranslation(lng);
   const { queryText, setQueryText } = useGraphQl();
+  const [newPathNameFromUrl, setNewPathNameFromUrl] = useState('');
 
   useEffect(() => {
     setQueryText(initialValue || '');
@@ -38,15 +42,19 @@ export default function GraphQlRequestBodyEditor({ mode, options, initialValue }
   const onBlur = useCallback(() => {
     if (options.readOnly) return;
     try {
-      const newPath = getNewBodyPath(pathname, encodeToBase64(queryText));
-      window.history.replaceState(null, '', newPath);
+      const params = new URLSearchParams(searchParams.toString());
+      const newPath =
+        newPathNameFromUrl !== '' ? newPathNameFromUrl : getNewBodyPath(pathname, encodeToBase64(queryText));
+      const newPathWithSearchParams = `${newPath}?${params}`;
+      window.history.replaceState(null, '', newPathWithSearchParams);
     } catch (e) {
       if (e instanceof Error) {
         const newSegments = pathSegments.slice(0, SegmentIndex.Body);
-        window.history.replaceState(null, '', newSegments.join('/'));
+        const newPathWithSearchParams = `${newSegments}?${searchParamsUrl}`;
+        window.history.replaceState(null, '', newPathWithSearchParams);
       }
     }
-  }, [queryText, pathname, pathSegments, options.readOnly]);
+  }, [options.readOnly, searchParams, newPathNameFromUrl, pathname, queryText, pathSegments, searchParamsUrl]);
 
   useEffect(() => {
     if (options.readOnly) return;
@@ -77,8 +85,14 @@ export default function GraphQlRequestBodyEditor({ mode, options, initialValue }
   };
 
   const handleChange = (queryText?: string) => {
+    if (queryText === '') {
+      const pathNameFromUrl = pathname.split('/');
+      pathNameFromUrl.splice(4, 1);
+      setNewPathNameFromUrl(pathNameFromUrl.join('/'));
+    }
     if (queryText) {
       setQueryText(queryText);
+      setNewPathNameFromUrl('');
     }
   };
 
