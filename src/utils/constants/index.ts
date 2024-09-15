@@ -124,3 +124,5 @@ export const basicGraphQLQuery = `query {
 }`;
 
 export const reactCourseUrl = 'https://rs.school/courses/reactjs';
+
+export const jsonTabs = 2;
