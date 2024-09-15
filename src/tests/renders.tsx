@@ -4,18 +4,30 @@ import userEvent, { UserEvent } from '@testing-library/user-event';
 
 import { LanguageProvider } from '@/contexts';
 import { fallbackLng } from '@/utils';
+import { Languages } from '@/types';
 
-export const renderWithUser = (ui: ReactNode, renderOptions?: RenderOptions): RenderResult & { user: UserEvent } => {
+interface ExtendedRenderResult extends RenderResult {
+  user: UserEvent;
+}
+
+interface ExtendedRenderOptions extends RenderOptions {
+  lng?: Languages;
+}
+
+export const renderWithUser = (ui: ReactNode, renderOptions?: RenderOptions): ExtendedRenderResult => {
   const user = userEvent.setup();
   return { user, ...render(ui, renderOptions) };
 };
 
-export const renderWithLng = (ui: ReactNode, renderOptions?: RenderOptions & { lng: string }): RenderResult => {
+export const renderWithLng = (ui: ReactNode, renderOptions?: ExtendedRenderOptions): RenderResult => {
+  const CustomWrapper = renderOptions && renderOptions.wrapper;
+  const lng = renderOptions && renderOptions.lng;
+
   const Wrapper = ({ children }: { children: ReactNode }) => {
     return (
-      <LanguageProvider lang={renderOptions ? renderOptions.lng : fallbackLng}>
-        {renderOptions && renderOptions.wrapper ?
-          <renderOptions.wrapper>{children}</renderOptions.wrapper>
+      <LanguageProvider lang={lng ?? fallbackLng}>
+        {CustomWrapper ?
+          <CustomWrapper>{children}</CustomWrapper>
         : children}
       </LanguageProvider>
     );
@@ -27,10 +39,7 @@ export const renderWithLng = (ui: ReactNode, renderOptions?: RenderOptions & { l
   });
 };
 
-export const renderWithUserAndLng = (
-  ui: ReactNode,
-  renderOptions?: RenderOptions & { lng: string }
-): RenderResult & { user: UserEvent } => {
+export const renderWithUserAndLng = (ui: ReactNode, renderOptions?: ExtendedRenderOptions): ExtendedRenderResult => {
   const user = userEvent.setup();
   return { user, ...renderWithLng(ui, renderOptions) };
 };
