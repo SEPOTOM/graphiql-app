@@ -4,12 +4,13 @@ import Paper from '@mui/material/Paper';
 import Editor from '@monaco-editor/react';
 import { useEffect, useRef, useCallback, useState } from 'react';
 import * as monaco from 'monaco-editor';
-import { BodyType, PlaceHolder, SegmentIndex, EditorOptions } from '@/types';
-import { decodeFromBase64, encodeToBase64, getNewGraphQLBodyPath } from '@/services';
-import { usePathname, useSearchParams } from 'next/navigation';
+
+import { PlaceHolder, SegmentIndex, EditorOptions } from '@/types';
+import { decodeFromBase64, encodeToBase64, getNewBodyPath } from '@/services';
 import { useTranslation } from '@/hooks';
 import { fallbackLng } from '@/utils';
 import { useGraphQl } from '@/contexts';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 export interface RequestBodyEditorProps {
   mode: string;
@@ -30,21 +31,19 @@ export default function GraphQlRequestBodyEditor({ mode, options, initialValue }
 
   useEffect(() => {
     setQueryText(initialValue || '');
-    const pathNameFromUrl = pathname.split('/').at(4);
-    let encodedPathNameFromUrl = t(`${PlaceHolder[mode as keyof typeof PlaceHolder]}`);
-    if (pathNameFromUrl) {
-      encodedPathNameFromUrl = decodeFromBase64(pathNameFromUrl);
+    const bodyFromUrl = pathname.split('/').at(SegmentIndex.Body);
+    let encodedBodyFromUrl = t(`${PlaceHolder[mode as keyof typeof PlaceHolder]}`);
+    if (bodyFromUrl) {
+      encodedBodyFromUrl = decodeFromBase64(bodyFromUrl);
     }
-    setQueryText(encodedPathNameFromUrl);
+    setQueryText(encodedBodyFromUrl);
   }, [initialValue, mode, pathname, setQueryText, t]);
 
   const onBlur = useCallback(() => {
     if (options.readOnly) return;
     try {
-      const newPath =
-        newPathNameFromUrl !== '' ? newPathNameFromUrl : getNewGraphQLBodyPath(pathname, encodeToBase64(queryText));
-      const newPathWithSearchParams = `${newPath}?${searchParamsUrl}`;
-      window.history.replaceState(null, '', newPathWithSearchParams);
+      const newPath = getNewBodyPath(pathname, encodeToBase64(queryText));
+      window.history.replaceState(null, '', newPath);
     } catch (e) {
       if (e instanceof Error) {
         const newSegments = pathSegments.slice(0, SegmentIndex.Body);
@@ -52,7 +51,7 @@ export default function GraphQlRequestBodyEditor({ mode, options, initialValue }
         window.history.replaceState(null, '', newPathWithSearchParams);
       }
     }
-  }, [options.readOnly, newPathNameFromUrl, pathname, queryText, searchParamsUrl, pathSegments]);
+  }, [options.readOnly, pathname, queryText, searchParamsUrl, pathSegments]);
 
   useEffect(() => {
     if (options.readOnly) return;

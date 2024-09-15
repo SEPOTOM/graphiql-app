@@ -25,7 +25,7 @@ const FormLayout = ({ children, onSubmit, title, lng }: FormLayoutProps) => {
 
       await onSubmit(e);
 
-      router.replace(`/${lng}/GET`);
+      router.replace(`/${lng}`);
     } catch (err) {
       setShouldRedirect(true);
 

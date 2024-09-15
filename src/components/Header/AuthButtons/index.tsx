@@ -24,10 +24,10 @@ const AuthButtons = ({ lng }: AuthButtonsProps) => {
           {t('header.sign_out_btn')}
         </Button>
       : <>
-          <Button component={Link} href="/sign-in" disabled={isLoading} variant="outlined" sx={{ mr: 1 }}>
+          <Button component={Link} href={`/${lng}/sign-in`} disabled={isLoading} variant="outlined" sx={{ mr: 1 }}>
             {t('header.sign_in_btn')}
           </Button>
-          <Button component={Link} href="/sign-up" disabled={isLoading} variant="contained">
+          <Button component={Link} href={`/${lng}/sign-up`} disabled={isLoading} variant="contained">
             {t('header.sign_up_btn')}
           </Button>
         </>

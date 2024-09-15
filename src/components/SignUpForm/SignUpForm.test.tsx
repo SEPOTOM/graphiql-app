@@ -1,7 +1,4 @@
-import { render } from '@testing-library/react';
-
-import { renderWithUser } from '@/tests';
-import { LanguageProvider } from '@/contexts';
+import { renderWithLng, renderWithUserAndLng } from '@/tests';
 
 import SignUpForm from './SignUpForm';
 
@@ -13,11 +10,7 @@ vi.mock('@/contexts/AuthContext/AuthContext', () => ({
 
 describe('SignUpForm', () => {
   it('renders all required fields and submit button', async () => {
-    const { findByRole, getByRole, getByLabelText } = render(
-      <LanguageProvider lang="en">
-        <SignUpForm lng="en" />
-      </LanguageProvider>
-    );
+    const { findByRole, getByRole, getByLabelText } = renderWithLng(<SignUpForm lng="en" />);
 
     expect(await findByRole('textbox', { name: /username/i })).toBeInTheDocument();
     expect(getByRole('textbox', { name: /email/i })).toBeInTheDocument();
@@ -27,11 +20,7 @@ describe('SignUpForm', () => {
   });
 
   it('displays success alert after successful registration', async () => {
-    const { user, getByRole, getByLabelText, findByRole } = renderWithUser(
-      <LanguageProvider lang="en">
-        <SignUpForm lng="en" />
-      </LanguageProvider>
-    );
+    const { user, getByRole, getByLabelText, findByRole } = renderWithUserAndLng(<SignUpForm lng="en" />);
 
     await user.type(await findByRole('textbox', { name: /username/i }), 'Mark');
     await user.type(getByRole('textbox', { name: /email/i }), 'mark@email.com');
@@ -43,10 +32,8 @@ describe('SignUpForm', () => {
   });
 
   it('disables form widgets while the form is submitting', async () => {
-    const { user, findByLabelText, getByRole, getByLabelText, getAllByRole } = renderWithUser(
-      <LanguageProvider lang="en">
-        <SignUpForm lng="en" />
-      </LanguageProvider>
+    const { user, findByLabelText, getByRole, getByLabelText, getAllByRole } = renderWithUserAndLng(
+      <SignUpForm lng="en" />
     );
     const pwdInput = await findByLabelText(/^password/i);
     const confirmPwdInput = getByLabelText(/confirm password/i);

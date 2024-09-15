@@ -50,10 +50,6 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
     [variables]
   );
 
-  useEffect(() => {
-    setValue(insertVariablesIntoBody(initialValue || ''));
-  }, [initialValue, variables, insertVariablesIntoBody]);
-
   const formatDocument = () => {
     if (options.readOnly) return;
     const editor = editorRef.current;
@@ -68,7 +64,8 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
   const onBlur = useCallback(() => {
     const params = new URLSearchParams(searchParams.toString());
     if (options.readOnly) return;
-
+    const pathWithoutBody = `${pathSegments.slice(0, SegmentIndex.Body).join('/')}?${params}`;
+    let newPath: string = '';
     try {
       let bodyWithVariables = insertVariablesIntoBody(value);
       let encodedValue: string;
@@ -78,17 +75,21 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
       } else {
         encodedValue = encodeToBase64(bodyWithVariables);
       }
-      const newPath = `${getNewBodyPath(pathname, encodedValue)}?${params}`;
+
+      newPath = encodedValue ? `${getNewBodyPath(pathname, encodedValue)}?${params}` : pathWithoutBody;
       window.history.replaceState(null, '', newPath);
     } catch (e) {
       if (e instanceof Error) {
-        const newSegments = `${pathSegments.slice(0, SegmentIndex.Body).join('/')}?${params}`;
-        window.history.replaceState(null, '', newSegments);
+        window.history.replaceState(null, '', pathWithoutBody);
         setErrorMessage(`${t('json_error')}${e.message}`);
         setShowErrorsPopover(true);
       }
     }
   }, [mode, value, pathname, pathSegments, options.readOnly, insertVariablesIntoBody, searchParams, t]);
+
+  useEffect(() => {
+    setValue(insertVariablesIntoBody(initialValue || ''));
+  }, [initialValue, variables, insertVariablesIntoBody]);
 
   useEffect(() => {
     if (options.readOnly) return;
@@ -140,8 +141,8 @@ export default function RequestBodyEditor({ mode, options, initialValue }: Reque
   const handleChange = (value?: string) => {
     if (value) {
       setShowErrorsPopover(false);
-      setValue(value);
     }
+    setValue(value ?? '');
   };
 
   return (

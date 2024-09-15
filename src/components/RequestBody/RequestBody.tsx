@@ -8,7 +8,7 @@ import { BodyMode, BodyType, SegmentIndex } from '@/types';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useLanguage, useTranslation } from '@/hooks';
 import RequestBodyTypeSelector from './BodyTypeSelector/RequestBodyTypeSelector';
-import { decodeFromBase64, encodeToBase64, getNewBodyPath } from '@/services';
+import { decodeFromBase64 } from '@/services';
 
 export default function RequestBody() {
   const [bodyMode, setBodyMode] = useState<string>(BodyMode.None);
@@ -50,12 +50,8 @@ export default function RequestBody() {
     if (bodyMode === BodyMode.None && segmentsCount >= SegmentIndex.LastElement) {
       const newSegments = `${pathSegments.slice(0, SegmentIndex.Body).join('/')}?${params}`;
       window.history.replaceState(null, '', newSegments);
-    } else if (bodyMode === BodyMode.Raw && decodedBody) {
-      const encodedBody = encodeToBase64(decodedBody);
-      const newPath = `${getNewBodyPath(pathname, encodedBody)}?${params}`;
-      window.history.replaceState(null, '', newPath);
     }
-  }, [bodyMode, pathSegments, decodedBody, pathname, searchParams]);
+  }, [bodyMode, pathSegments, searchParams]);
 
   return (
     <Box display={'flex'} flexDirection={'column'} gap={3}>

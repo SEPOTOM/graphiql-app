@@ -9,7 +9,8 @@ import EndpointInput from './EndpointInput/EndpointInput';
 import RequestMethodSelector from './RequestMethodSelector/RequestMethodSelector';
 import { decodeFromBase64 } from '@/services';
 import { useLanguage, useLocalStorage, useTranslation } from '@/hooks';
-import { jsonTabs, noContentStatus } from './consts';
+import { noContentStatus } from './consts';
+import { jsonTabs } from '@/utils';
 
 export default function RestfullClient() {
   const pathname = usePathname();
